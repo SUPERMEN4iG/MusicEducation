@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 15.25" name="Application">
+  <DataContextMoniker Name="/ApplicationDataContext" />
+  <nestedChildShapes>
+    <classShape Id="2e1a8548-aaea-4955-96e9-985e287e56ca" absoluteBounds="0.75, 0.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ApplicationDataContext/Answer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e91768f5-dca1-4161-95c2-83d2791c4909" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="290007f6-6999-4311-9b1b-2631eb835875" absoluteBounds="6.5, 5.5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ApplicationDataContext/User_Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="daad741a-e124-4672-87bb-f4157e738a84" absoluteBounds="6.515, 5.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="71b0ff27-b89c-468c-81de-376c2555ef7d" absoluteBounds="0.75, 3.75, 2, 2.155499674479167">
+      <DataClassMoniker Name="/ApplicationDataContext/Question" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b5ba1785-44d4-4a67-962c-e56bdae31217" absoluteBounds="0.765, 4.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c81c5c24-d11f-499d-bf30-6840c02be529" absoluteBounds="3.5, 3.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ApplicationDataContext/Question_Answer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7ac56547-3ab9-4df5-ae3e-615c46984349" absoluteBounds="3.515, 4.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e95ef15f-3640-4a33-9880-3add7f5a71c5" absoluteBounds="3.75, 8.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/ApplicationDataContext/Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="97e72479-9af8-49f1-a103-86a9478c9685" absoluteBounds="3.765, 9.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3c60d766-8a8f-425e-84c6-718a6ff1c148" absoluteBounds="6.5, 8.75, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/ApplicationDataContext/RoleProperty" />
+      <nestedChildShapes>
+        <elementListCompartment Id="994f0743-44d5-4bc7-86a7-0fff283a4169" absoluteBounds="6.515, 9.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="204fd93e-f4a6-49aa-8f41-12effe4d9e52" absoluteBounds="0.75, 7.5, 2, 1.9631982421874996">
+      <DataClassMoniker Name="/ApplicationDataContext/Test" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a5e16669-f9c0-4829-8252-2643d73a95b7" absoluteBounds="0.765, 7.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="479b20a3-666e-439b-9141-d469d1aa06fe" absoluteBounds="3.5, 0.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ApplicationDataContext/Test_Question" />
+      <nestedChildShapes>
+        <elementListCompartment Id="091f2246-235d-4a39-89cf-8dfe7ce62de9" absoluteBounds="3.515, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="34b793fa-5b2c-42cb-9476-147a2ff9b7b3" absoluteBounds="3.75, 12.25, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/ApplicationDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="604f0b8c-9535-4a8c-9fae-293540464697" absoluteBounds="3.765, 12.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.90549967447917); (3.125 : 3.28049967447917); (3.125 : 4.82774983723958); (3.5 : 4.82774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/Answer/Answer_Question_Answer" />
+      <nodes>
+        <classShapeMoniker Id="2e1a8548-aaea-4955-96e9-985e287e56ca" />
+        <classShapeMoniker Id="c81c5c24-d11f-499d-bf30-6840c02be529" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.22637491861979); (3.10416666666667 : 4.22637491861979 : JumpStart); (3.27083333333333 : 4.22637491861979 : JumpEnd); (3.5 : 4.22637491861979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/Question/Question_Question_Answer" />
+      <nodes>
+        <classShapeMoniker Id="71b0ff27-b89c-468c-81de-376c2555ef7d" />
+        <classShapeMoniker Id="c81c5c24-d11f-499d-bf30-6840c02be529" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.65625 : 8.875); (5.65625 : 6.81174967447917); (6.04166666666667 : 6.81174967447917 : JumpStart); (6.20833333333333 : 6.81174967447917 : JumpEnd); (6.5 : 6.81174967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/Role/Role_User_Role" />
+      <nodes>
+        <classShapeMoniker Id="e95ef15f-3640-4a33-9880-3add7f5a71c5" />
+        <classShapeMoniker Id="290007f6-6999-4311-9b1b-2631eb835875" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 9.66429768880208); (6.04166666666667 : 9.66429768880208 : JumpStart); (6.20833333333333 : 9.66429768880208 : JumpEnd); (6.5 : 9.66429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/Role/Role_RoleProperty" />
+      <nodes>
+        <classShapeMoniker Id="e95ef15f-3640-4a33-9880-3add7f5a71c5" />
+        <classShapeMoniker Id="3c60d766-8a8f-425e-84c6-718a6ff1c148" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 3.81153746153846); (3.12857443490112 : 3.43296302663734 : JumpStart); (3.24642556509888 : 3.31511189643958 : JumpEnd); (3.3125 : 3.24903746153846); (3.3125 : 1.82774983723958); (3.5 : 1.82774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/Question/Question_Test_Question" />
+      <nodes>
+        <classShapeMoniker Id="71b0ff27-b89c-468c-81de-376c2555ef7d" />
+        <classShapeMoniker Id="479b20a3-666e-439b-9141-d469d1aa06fe" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.5634254047476); (3.1875 : 7.12592540474759); (3.1875 : 2.39787675585937); (3.5 : 2.39787675585937)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/Test/Test_Test_Question" />
+      <nodes>
+        <classShapeMoniker Id="204fd93e-f4a6-49aa-8f41-12effe4d9e52" />
+        <classShapeMoniker Id="479b20a3-666e-439b-9141-d469d1aa06fe" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 12.25); (6.125 : 11.875); (6.125 : 6.12462283723958); (6.5 : 6.12462283723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ApplicationDataContext/User/User_User_Role" />
+      <nodes>
+        <classShapeMoniker Id="34b793fa-5b2c-42cb-9476-147a2ff9b7b3" />
+        <classShapeMoniker Id="290007f6-6999-4311-9b1b-2631eb835875" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

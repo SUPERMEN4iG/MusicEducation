@@ -1,0 +1,76 @@
+﻿<div class="ui container">
+	<div class="ui centered stackable grid">
+		<div class="six wide column">
+			<div class="ui segments" align="center" ng-if="vm.state == 'login'">
+				<div class="ui inverted blue padded segment">
+					<span class="ui header">{{ pageName }}</span>
+				</div>
+				<div class="ui segment">
+					<form class="ui form">
+						<div class="field">
+							<div class="ui left icon input">
+								<input ng-model="vm.username" type="text" name="" placeholder="Логин">
+								<i class="user icon"></i>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui left icon input">
+								<input ng-model="vm.password" type="password" name="" placeholder="Пароль">
+								<i class="lock icon"></i>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui checkbox">
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>Запомнить</label>
+							</div>
+						</div>
+						<button class="ui big fluid blue icon button" ng-click="vm.login()">Вход <i class="sign in icon"></i></button>
+					</form>
+				</div>
+				<div class="ui secondary segment">
+					<!--<a href="">Забыли пароль?</a>-->
+					<a ng-href="#" ng-click="vm.setSate('register')">Регистрация</a>
+				</div>
+			</div>
+
+			<div class="ui segments" align="center" ng-if="vm.state == 'register'">
+				<div class="ui inverted blue padded segment">
+					<span class="ui header">{{ pageName }}</span>
+				</div>
+				<div class="ui segment">
+					<form class="ui form">
+						<div class="field">
+							<div class="ui left icon input">
+								<input ng-model="vm.username" type="text" name="" placeholder="Логин">
+								<i class="user icon"></i>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui left icon input">
+								<input ng-model="vm.password" type="password" name="" placeholder="Пароль">
+								<i class="lock icon"></i>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui left icon input">
+								<input ng-model="vm.confirmPassword" type="password" name="" placeholder="Подтвердите пароль">
+								<i class="lock icon"></i>
+							</div>
+						</div>
+						<!--<div class="field">
+							<div class="ui checkbox">
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>Запомнить</label>
+							</div>
+						</div>-->
+						<button class="ui big fluid blue icon button" ng-click="vm.register()">Регистрация <i class="sign in icon"></i></button>
+					</form>
+				</div>
+				<div class="ui secondary segment">
+					<a ng-href="#" ng-click="vm.setSate('login')">Вход </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

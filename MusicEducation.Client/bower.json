@@ -1,0 +1,17 @@
+{
+  "name": "MusicEducation.Client",
+  "authors": [
+    "supermen4ig <supermen4ig988@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
