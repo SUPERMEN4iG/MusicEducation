@@ -6,7 +6,7 @@ define(['app'], function (app) {
 
     var StudentController = function ($location, $routeParams, $rootScope, $route, studentService) {
         var vm = this,
-            path = '/student/',
+            path = '/student/   ',
             id = ($routeParams.id) ? $routeParams.id : '';
 
         vm.id = id;
