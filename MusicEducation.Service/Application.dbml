@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_9FC383_musiceducation" Class="ApplicationDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;Persist Security Info=True;User ID=DB_9FC383_musiceducation_admin" SettingsObjectName="MusicEducation.Service.Properties.Settings" SettingsPropertyName="DB_9FC383_musiceducationConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=KUZMA-PC;Initial Catalog=DB_9FC383_musiceducation;Integrated Security=True" SettingsObjectName="MusicEducation.Service.Properties.Settings" SettingsPropertyName="DB_9FC383_musiceducationConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Answer" Member="Answers">
     <Type Name="Answer">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -199,22 +199,6 @@
       <Column Name="UserAnswerValidPercent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GetUser" Method="GetUser">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="login" Type="System.String" DbType="NVarChar(64)" />
-    <ElementType Name="GetUserResult">
-      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="Password" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
-      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Id_Role" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.InsertUser_Question_Answer" Method="InsertUser_Question_Answer">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
@@ -233,6 +217,61 @@
       <Column Name="CountAnswerValid" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CountUserAnswerValid" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UserAnswerValidPercent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUser" Method="GetUser">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="login" Type="System.String" DbType="NVarChar(64)" />
+    <ElementType Name="GetUserResult">
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Id_Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAvalibleTests" Method="GetAvalibleTests">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAvalibleTestsResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetStudents" Method="GetStudents">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetStudentsResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUserById" Method="GetUserById">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetUserByIdResult">
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Id_Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

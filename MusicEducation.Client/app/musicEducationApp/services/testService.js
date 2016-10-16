@@ -53,6 +53,21 @@ define(['app'], function (app) {
                 });
 		};
 
+		service.getAvalibleTests = function () {
+		    var deferred = $q.defer();
+
+		    $http.get(serviceBase + 'GetAvalibleTests/')
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+		    return deferred.promise;
+		};
+
 		service.getTests = function () {
 			var deferred = $q.defer();
 

@@ -70,6 +70,7 @@ namespace MusicEducation.Web.App_Start
         {
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
 			kernel.Bind<ITestRepository>().To<TestRepository>().InRequestScope();
+            kernel.Bind<IStudentRepository>().To<StudentRepository>().InRequestScope();
         }        
     }
 }

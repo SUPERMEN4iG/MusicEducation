@@ -22,6 +22,7 @@ define(['app'], function (app) {
 			vm.currentUser = response.data;
 			$rootScope.globals.currentUser.source = {};
 			$rootScope.globals.currentUser.source = response.data;
+			$rootScope.$broadcast('ON_FINISH_LOADING', 1);
 		});
 
 		vm.loginOrOut = function () {

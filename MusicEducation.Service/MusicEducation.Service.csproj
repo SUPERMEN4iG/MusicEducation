@@ -46,6 +46,7 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="Interfaces\IStudentRepository.cs" />
     <Compile Include="Interfaces\ITestRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -54,6 +55,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="StudentRepository.cs" />
     <Compile Include="TestRepository.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

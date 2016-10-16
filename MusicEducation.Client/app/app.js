@@ -14,7 +14,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
         'toastr'
 	]);
 
-	app.constant('baseApiUrl', 'http://supermen4ig-001-site1.itempurl.com/api/');
+	app.constant('baseApiUrl', 'http://localhost:59744/api/');
 	app.constant('DebugConfig', {
 		isDebug: true,
 		version: '1.0'
@@ -57,6 +57,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
 				.when('/main', route.resolve('Main', '', 'vm'))
 				.when('/piano', route.resolve('Piano', '', 'vm'))
 				.when('/test/:id*?', route.resolve('Test', '', 'vm', true))
+                .when('/student/:id*?', route.resolve('Student', '', 'vm', true))
 				.when('/login/:redirect*?', route.resolve('Login', '', 'vm'))
 				.otherwise({ redirectTo: '/main' });
             //    //.when('/users', route.resolve('Users', '', 'vm'))

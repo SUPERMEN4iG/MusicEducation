@@ -185,6 +185,7 @@
     <Compile Include="API\AccountController.cs" />
     <Compile Include="API\AuthController.cs" />
     <Compile Include="API\BaseApiController.cs" />
+    <Compile Include="API\StudentController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectResolver.cs" />

@@ -10,6 +10,7 @@ define(['app'], function (app) {
 			id = ($routeParams.id) ? $routeParams.id : '';
 
 		vm.testList = [];
+		vm.avalibleTestList = [];
 		vm.id = id;
 		vm.currentTest = [];
 		vm.currentQuestion = 0;
@@ -26,11 +27,16 @@ define(['app'], function (app) {
 		vm.testResult = {};
 
 		vm.goToTest = function (test) {
-			if (test.UserAnswerValidPercent == 0) {
-				$location.path(path + test.Id);
-			} else {
-				toastr.error('Вы уже проходили этот тест!');
-			}
+		    if ($rootScope.globals.currentUser.source.RoleName == 'Учитель')
+		    {
+                $location.path(path + test.Id);
+		    } else {
+		        if (test.UserAnswerValidPercent == 0) {
+		            $location.path(path + test.Id);
+		        } else {
+		            toastr.error('Вы уже проходили этот тест!');
+		        }
+		    }
 		};
 
 		vm.getClassNameValidPercent = function (percent) {
@@ -89,19 +95,38 @@ define(['app'], function (app) {
 
 		function init() {
 
-			if (id == '') {
-				testService.getTests().then(function (data) {
-					vm.testList = data;
-				});
-			} else {
-				testService.getTest(id).then(function (data) {
-					vm.currentTest = data;
-					console.log(data);
-				});
-			}
+		    if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
+		        if (id == '') {
+		            testService.getAvalibleTests().then(function (data) {
+		                vm.avalibleTestList = data;
+		            });
+		        } else {
+		            testService.getTest(id).then(function (data) {
+		                vm.currentTest = data;
+		                console.log(data);
+		            });
+		        }
+		    } else {
+		        if (id == '') {
+		            testService.getTests().then(function (data) {
+		                vm.testList = data;
+		            });
+		        } else {
+		            testService.getTest(id).then(function (data) {
+		                vm.currentTest = data;
+		                console.log(data);
+		            });
+		        }
+		    }
 		};
 
-		init();
+		if ($rootScope.globals.currentUser.source === undefined) {
+		    $rootScope.$on('ON_FINISH_LOADING', function (event, data) {
+		        init();
+		    });
+		} else {
+		    init();
+		}
 	};
 
 	TestController.$inject = injectParams;

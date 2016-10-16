@@ -10,6 +10,7 @@ namespace MusicEducation.Service.Interfaces
     {
 		InsertUserResult InsertUser(string login, string password, string lastName, string firstName, string middleName);
 		GetUserResult GetUser(int? idUser, string login);
+        GetUserByIdResult GetUser(int? idUser, int id);
 		IList<GetUserRolesResult> GetUserRoles(int? idUser, string login);
 
 

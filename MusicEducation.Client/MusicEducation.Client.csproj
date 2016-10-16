@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MusicEducation.Client</RootNamespace>
     <AssemblyName>MusicEducation.Client</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,10 +83,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -99,14 +96,17 @@
     <Content Include="app\musicEducationApp\controllers\mainController.js" />
     <Content Include="app\musicEducationApp\controllers\navbarController.js" />
     <Content Include="app\musicEducationApp\controllers\pianoController.js" />
+    <Content Include="app\musicEducationApp\controllers\studentController.js" />
     <Content Include="app\musicEducationApp\controllers\testController.js" />
     <Content Include="app\musicEducationApp\services\authService.js" />
     <Content Include="app\musicEducationApp\services\pianoPlayerService.js" />
     <Content Include="app\musicEducationApp\services\routeResolver.js" />
+    <Content Include="app\musicEducationApp\services\studentService.js" />
     <Content Include="app\musicEducationApp\services\testService.js" />
     <Content Include="app\musicEducationApp\views\login.html" />
     <Content Include="app\musicEducationApp\views\main.html" />
     <Content Include="app\musicEducationApp\views\piano.html" />
+    <Content Include="app\musicEducationApp\views\student.html" />
     <Content Include="app\musicEducationApp\views\test.html" />
     <Content Include="bower_components\angular-animate\angular-animate.js" />
     <Content Include="bower_components\angular-animate\angular-animate.min.js" />
@@ -1557,7 +1557,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Index.html" />
+    <Content Include="index.html" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="scripts\main.js" />

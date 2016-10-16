@@ -12,5 +12,6 @@ namespace MusicEducation.Service.Interfaces
 		IList<GetTestsResult> GetTests(int? idUser);
 		TestViewModel GetTest(int? idUser, int idTest);
 		InsertUser_Question_AnswerResult InsertTestResult(int? idUser, int idTest, int idQuestion, int idAnswer);
+        List<GetAvalibleTestsResult> GetAvalibleTests(int? idUser);
 	}
 }

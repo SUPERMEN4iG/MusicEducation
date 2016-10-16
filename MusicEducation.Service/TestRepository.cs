@@ -48,6 +48,12 @@ namespace MusicEducation.Service
 			return test;
 		}
 
+        public List<GetAvalibleTestsResult> GetAvalibleTests(int? idUser)
+        {
+            var result = _DBContext.GetAvalibleTests(idUser).ToList();
+            return result;
+        }
+
 		public InsertUser_Question_AnswerResult InsertTestResult(int? idUser, int idTest, int idQuestion, int idAnswer)
 		{
 			var result = _DBContext.InsertUser_Question_Answer(idUser, idTest, idQuestion, idAnswer).FirstOrDefault();

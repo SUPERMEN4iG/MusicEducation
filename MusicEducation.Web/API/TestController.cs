@@ -40,6 +40,11 @@ namespace MusicEducation.Web.Controllers.Api
 			return _testRepository.GetTest(_User.Id_User, idTest);
 		}
 
+        public object GetAvalibleTests()
+        {
+            return _testRepository.GetAvalibleTests(_User.Id_User);
+        }
+
 		[ActionName("InsertTestResult")]
 		public object InsertTestResult(TestViewModel model)
 		{

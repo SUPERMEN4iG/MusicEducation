@@ -14,6 +14,7 @@ require(
         'musicEducationApp/services/authService',
 		'musicEducationApp/services/testService',
 		'musicEducationApp/services/pianoPlayerService',
+        'musicEducationApp/services/studentService',
         //'hookahCRMapp/services/usersService',
         //'hookahCRMapp/services/tobaccoService',
         //'hookahCRMapp/services/salesService',

@@ -33,7 +33,7 @@ namespace MusicEducation.Web.API
 				FirstName = d_user.FirstName,
 				MiddleName = d_user.MiddleName,
 				Login = d_user.Login,
-				Id_Role = d_user.Id_Role,
+				Id_Role = d_user.Id_Role.GetValueOrDefault(),
 				RoleName = d_user.Name
 			};
 
