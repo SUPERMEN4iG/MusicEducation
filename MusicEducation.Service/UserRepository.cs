@@ -19,9 +19,9 @@ namespace MusicEducation.Service
 			return _DBContext.InsertUser(null, DateTime.Now, lastName, firstName, middleName, login, password).FirstOrDefault();
 		}
 
-		public User GetUser(string login)
+		public GetUserResult GetUser(int? idUser, string login)
 		{
-			return _DBContext.Users.Where(x => x.Login == login).FirstOrDefault();
+			return _DBContext.GetUser(idUser, login).FirstOrDefault();
 		}
 
 		public IList<GetUserRolesResult> GetUserRoles(int? idUser, string login)

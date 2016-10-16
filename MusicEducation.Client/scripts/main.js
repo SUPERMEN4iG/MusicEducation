@@ -11,7 +11,9 @@ require(
         //'hookahCRMapp/directives/semantic-ui/modalDirective',
         //'hookahCRMapp/directives/semantic-ui/accordionDirective',
         'musicEducationApp/services/routeResolver',
-        'musicEducationApp/services/authService'
+        'musicEducationApp/services/authService',
+		'musicEducationApp/services/testService',
+		'musicEducationApp/services/pianoPlayerService',
         //'hookahCRMapp/services/usersService',
         //'hookahCRMapp/services/tobaccoService',
         //'hookahCRMapp/services/salesService',
@@ -20,7 +22,7 @@ require(
         //'hookahCRMapp/services/expendableService',
         //'hookahCRMapp/services/additionService',
         //'hookahCRMapp/services/rolesService',
-        //'hookahCRMapp/controllers/navbarController',
+        'musicEducationApp/controllers/navbarController',
         //'hookahCRMapp/controllers/reportBlankController'
     ],
     function () {

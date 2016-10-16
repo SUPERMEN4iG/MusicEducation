@@ -31,7 +31,7 @@ namespace MusicEducation.Web.Lib.Filters
 			{
 				using (UserRepository _userRepository = new UserRepository())
 				{
-					Service.User d_user = _userRepository.GetUser(baseController.User.Identity.Name);
+					GetUserResult d_user = _userRepository.GetUser(null, baseController.User.Identity.Name);
 
 					if (d_user == null)
 						throw new Exception("User is not valid");

@@ -69,6 +69,7 @@ namespace MusicEducation.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
+			kernel.Bind<ITestRepository>().To<TestRepository>().InRequestScope();
         }        
     }
 }

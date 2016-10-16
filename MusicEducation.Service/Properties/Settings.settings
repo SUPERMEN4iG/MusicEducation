@@ -5,10 +5,18 @@
     <Setting Name="db_music_educationConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=hana\SQLEXPRESS;Initial Catalog=db_music_education;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;User Id=DB_9FC383_musiceducation_admin;Password=6Kb20OmIIPKtZZQe;&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=hana\SQLEXPRESS;Initial Catalog=db_music_education;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;User Id=DB_9FC383_musiceducation_admin;Password=6Kb20OmIIPKtZZQe;</Value>
+    </Setting>
+    <Setting Name="DB_9FC383_musiceducationConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;Persist Security Info=True;User ID=DB_9FC383_musiceducation_admin;Password=6Kb20OmIIPKtZZQe&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;Persist Security Info=True;User ID=DB_9FC383_musiceducation_admin;Password=6Kb20OmIIPKtZZQe</Value>
     </Setting>
   </Settings>
 </SettingsFile>

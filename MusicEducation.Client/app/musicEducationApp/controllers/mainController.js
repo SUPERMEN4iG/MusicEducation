@@ -10,6 +10,7 @@ define(['app'], function (app) {
 
 		$rootScope.pageName = 'Main';
 		vm.controllerName = 'Главная';
+		vm.headerName = 'Музычкалка';
 	};
 
 	MainController.$inject = injectParams;

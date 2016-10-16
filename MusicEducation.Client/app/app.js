@@ -8,13 +8,13 @@ define(['musicEducationApp/services/routeResolver'], function () {
         'ngCookies',
         'routeResolverServices',
         'ui.bootstrap',
-        //'angularify.semantic.modal',
+        'angularify.semantic.modal',
         'angularify.semantic.dropdown',
         //'chart.js',
         'toastr'
 	]);
 
-	app.constant('baseApiUrl', 'http://localhost:59744/api/');
+	app.constant('baseApiUrl', 'http://supermen4ig-001-site1.itempurl.com/api/');
 	app.constant('DebugConfig', {
 		isDebug: true,
 		version: '1.0'
@@ -51,11 +51,12 @@ define(['musicEducationApp/services/routeResolver'], function () {
             	service: $provide.service
             };
 
-        	//Define routes - controllers will be loaded dynamically
         	var route = routeResolverProvider.route;
 
         	$routeProvider
 				.when('/main', route.resolve('Main', '', 'vm'))
+				.when('/piano', route.resolve('Piano', '', 'vm'))
+				.when('/test/:id*?', route.resolve('Test', '', 'vm', true))
 				.when('/login/:redirect*?', route.resolve('Login', '', 'vm'))
 				.otherwise({ redirectTo: '/main' });
             //    //.when('/users', route.resolve('Users', '', 'vm'))

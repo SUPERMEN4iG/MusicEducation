@@ -182,6 +182,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\AccountController.cs" />
     <Compile Include="API\AuthController.cs" />
     <Compile Include="API\BaseApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -191,14 +192,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="API\TestServiceController.cs" />
+    <Compile Include="API\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Lib\Constants\UserRoles.cs" />
     <Compile Include="Lib\Filters\BasicAuthorizeAttribute.cs" />
+    <Compile Include="Lib\Modules\AuthHttpModule.cs" />
     <Compile Include="Models\ViewModel\UserLoginViewModel.cs" />
     <Compile Include="Models\ViewModel\UserRegistrationViewModel.cs" />
+    <Compile Include="Models\ViewModel\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -211,6 +214,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\MusicEducation.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

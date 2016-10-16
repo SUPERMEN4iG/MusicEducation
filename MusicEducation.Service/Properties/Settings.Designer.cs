@@ -26,11 +26,23 @@ namespace MusicEducation.Service.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=hana\\SQLEXPRESS;Initial Catalog=db_music_education;Integrated Securit" +
-            "y=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;User Id=DB" +
+            "_9FC383_musiceducation_admin;Password=6Kb20OmIIPKtZZQe;")]
         public string db_music_educationConnectionString {
             get {
                 return ((string)(this["db_music_educationConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;Persist Se" +
+            "curity Info=True;User ID=DB_9FC383_musiceducation_admin;Password=6Kb20OmIIPKtZZQ" +
+            "e")]
+        public string DB_9FC383_musiceducationConnectionString {
+            get {
+                return ((string)(this["DB_9FC383_musiceducationConnectionString"]));
             }
         }
     }

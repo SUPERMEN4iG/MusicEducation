@@ -18,6 +18,12 @@ namespace MusicEducation.Web.API
 			_testService = testService;
 		}
 
+		[ActionName("GetSimple")]
+		public object GetSimple()
+		{
+			return new { Result = 1, Date = DateTime.Now };
+		}
+
 		[ActionName("Register")]
 		public InsertUserResult Register(UserRegisterViewModel data)
 		{
@@ -27,13 +33,13 @@ namespace MusicEducation.Web.API
 		[ActionName("Login")]
 		public InsertUserResult Login(UserLoginViewModel data)
 		{
-			Service.User d_user = _testService.GetUser(data.Username);
+			GetUserResult d_user = _testService.GetUser(null, data.Username);
 			InsertUserResult result = new InsertUserResult();
 
 			if (d_user != null)
 			{
 				result.DateCreate = DateTime.Now;
-				result.Id = d_user.Id;
+				result.Id = d_user.Id_User;
 
 				if (System.Web.Helpers.Crypto.VerifyHashedPassword(d_user.Password, data.Password))
 				{

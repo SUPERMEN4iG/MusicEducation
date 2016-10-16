@@ -9,7 +9,7 @@ namespace MusicEducation.Service.Interfaces
     public interface IUserRepository
     {
 		InsertUserResult InsertUser(string login, string password, string lastName, string firstName, string middleName);
-		User GetUser(string login);
+		GetUserResult GetUser(int? idUser, string login);
 		IList<GetUserRolesResult> GetUserRoles(int? idUser, string login);
 
 
