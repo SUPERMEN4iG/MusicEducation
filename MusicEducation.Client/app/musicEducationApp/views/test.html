@@ -12,7 +12,7 @@
 					<a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
 					<a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
 					<a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
-                    <a href="#/student" class="item"><i class="student icon"></i> <span>Студенты</span></a>
+					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Студенты</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -22,7 +22,7 @@
 				</div>
 			</div>
 
-            <div class="sixteen wide column" id="content" ng-if="vm.id == '' && globals.currentUser.source.Id_Role === 3">
+            <div class="sixteen wide column" id="content" ng-if="vm.id == '' && globals.currentUser.source.Id_Role !== 2">
                 <h2><i class="book icon"></i> Тесты</h2>
                 <div class="ui divider"></div>
                 <table class="ui selectable celled table">
@@ -50,11 +50,10 @@
                 </div>
             </div>
 
-            <div class="sixteen wide column" id="content" ng-if="vm.id != '' && globals.currentUser.source.Id_Role === 3">
+            <div class="sixteen wide column" id="content" ng-if="vm.id != '' && globals.currentUser.source.Id_Role !== 2">
                 <h2><i class="book icon"></i> Тест {{ vm.currentTest.Name }}</h2>
                 <div class="ui divider"></div>
-
-                <div class="ui form">
+                <div class="ui form" ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 1">
                     <div class="grouped fields">
                         <label for="fruit">{{vm.currentTest.Questions[vm.currentQuestion].Name}} </label>
                         <div>
@@ -72,6 +71,84 @@
                 </div>-->
                     </div>
                 </div>
+
+				<div class="ui form" ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2">
+					<div class="ui segment" style="min-height: 8rem;">
+						<div ng-if="vm.taskState == 1">
+							<a class="ui green ribbon label" ng-click="vm.setTaskState(2)">Прослушивание задания</a>
+							<div class="ui right aligned grid">
+								<div class="row">
+									<div class="eleven wide column"></div>
+									<div class="five wide column">
+										<button class="ui button green" ng-click="vm.playNotes(vm.currentTest.Questions[vm.currentQuestion].Content.content)">
+											<i class="play icon"></i>
+											Проиграть
+										</button>
+										<button class="ui button" disabled>
+											<i class="record icon"></i>
+											Запись
+										</button>
+										<button class="ui button" disabled>
+											<i class="stop icon"></i>
+											Остановить
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div ng-if="vm.taskState == 2">
+							<a class="ui green ribbon label" ng-click="vm.setTaskState(1)">Выполнение задания</a>
+							<div class="ui right aligned grid">
+								<div class="row">
+									<div class="eleven wide column"></div>
+									<div class="five wide column">
+										<button class="ui button green" 
+												ng-click="vm.playNotes(vm.currentTask.localUserNotes)"
+												ng-disabled="vm.currentTask.localUserNotes.length === 0">
+											<i class="play icon"></i>
+											Проиграть
+										</button>
+										<button class="ui button" 
+												ng-disabled="vm.isRecording == true"
+												ng-click="vm.setRecording(true)"
+												ng-class="vm.isRecording == true ? 'red' : ''">
+											<i class="record icon"></i>
+											Запись
+										</button>
+										<button class="ui button" 
+												ng-disabled="vm.isRecording == false"
+												ng-click="vm.setRecording(false)">
+											<i class="stop icon"></i>
+											Остановить
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<h5 class="ui horizontal header divider">
+							<i class="bar table icon"></i>
+							Виртуальная клавиатура
+						</h5>
+						<piano octaves="vm.currentTest.Questions[vm.currentQuestion].Content.octaves" keyboardid="0"></piano>
+						<div class="ui right aligned grid">
+							<div class="row">
+								<div class="fourteen wide column"></div>
+								<div class="two wide column">
+									<button class="ui button"
+											ng-repeat="answer in vm.currentTest.Questions[vm.currentQuestion].Answers" 
+											ng-click="vm.setChoiceForQuestion(vm.currentTest.Questions[vm.currentQuestion], answer)"
+											ng-if="vm.taskState == 2"
+											ng-disabled="vm.isRecording == true || vm.currentTask.localUserNotes.length === 0">
+										<i class="send icon"></i>
+										Отправить
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
                 <div class="ui divider"></div>
                 <div align="center">

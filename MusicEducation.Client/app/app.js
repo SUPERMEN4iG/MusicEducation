@@ -10,6 +10,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
         'ui.bootstrap',
         'angularify.semantic.modal',
         'angularify.semantic.dropdown',
+		'angularify.semantic.dropdown',
         //'chart.js',
         'toastr'
 	]);

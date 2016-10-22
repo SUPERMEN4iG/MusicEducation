@@ -33,6 +33,7 @@ namespace MusicEducation.Service
 					Id = question.Question_Id,
 					Name = question.Question_Name,
 					Content = question.Question_Content,
+					QuestionType = question.Question_QuestionType_Id,
 					Answers = answers.Select(x => {
 						return new TestViewModel.AnswerModel()
 						{
@@ -54,9 +55,26 @@ namespace MusicEducation.Service
             return result;
         }
 
-		public InsertUser_Question_AnswerResult InsertTestResult(int? idUser, int idTest, int idQuestion, int idAnswer)
+		public List<GetTestsForStudentResult> GetTestsForStudent(int? idUser)
 		{
-			var result = _DBContext.InsertUser_Question_Answer(idUser, idTest, idQuestion, idAnswer).FirstOrDefault();
+			var result = _DBContext.GetTestsForStudent(idUser).ToList();
+			return result;
+		}
+
+		public int InsertTestWithContent(int? idUser, int? idUser_test, string test_name, int test_complexity, string question_name, string question_content)
+		{
+			return _DBContext.InsertTestWithContent(idUser, idUser_test, test_name, test_complexity, question_name, question_content);
+		}
+
+		public InsertUser_Question_AnswerResult InsertTestResult(int? idUser, int idTest, int idQuestion, int idAnswer, string answer_content)
+		{
+			var result = _DBContext.InsertUser_Question_Answer(idUser, idTest, idQuestion, idAnswer, answer_content).FirstOrDefault();
+			return result;
+		}
+
+		public int UpdateUser_Test(int? idUser, int? idTest, int? validAnswers, int? validPercent)
+		{
+			var result = _DBContext.UpdateUser_Test(idUser, idTest, validAnswers, validPercent);
 			return result;
 		}
 	}

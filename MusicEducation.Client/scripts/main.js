@@ -10,6 +10,7 @@ require(
         //'hookahCRMapp/directives/autoActiveMenuDirective',
         //'hookahCRMapp/directives/semantic-ui/modalDirective',
         //'hookahCRMapp/directives/semantic-ui/accordionDirective',
+		'musicEducationApp/directives/pianoDirective',
         'musicEducationApp/services/routeResolver',
         'musicEducationApp/services/authService',
 		'musicEducationApp/services/testService',

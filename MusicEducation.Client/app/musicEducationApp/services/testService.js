@@ -68,24 +68,17 @@ define(['app'], function (app) {
 		    return deferred.promise;
 		};
 
-		service.getTests = function () {
+		service.getTests = function (id) {
 			var deferred = $q.defer();
 
-			if (list.length == 0) {
-				$http.get(serviceBase + 'GetTests/')
+			$http.get(serviceBase + 'GetTests/', { params: { idUser: id } })
 					.then(
 						function (response) {
 							deferred.resolve(response.data);
-							list.push(response.data);
 						},
 						function (response) {
 							deferred.reject(response.data);
 						});
-			} else {
-				angular.forEach(list, function (val) {
-					deferred.resolve(val);
-				});
-			}
 
 			return deferred.promise;
 		};
@@ -103,6 +96,22 @@ define(['app'], function (app) {
                         	deferred.reject(response.data);
                         });
 
+			return deferred.promise;
+		};
+
+		service.insertTestWithContent = function (test) {
+			var deferred = $q.defer();
+			$http({
+				method: 'POST',
+				url: serviceBase + 'InsertTestWithContent/',
+				data: test
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
 			return deferred.promise;
 		};
 

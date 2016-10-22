@@ -2,13 +2,14 @@
 
 define(['app'], function (app) {
 
-	var injectParams = ['$scope', '$location', 'authService', '$rootScope', 'toastr'];
+	var injectParams = ['$scope', '$location', 'authService', '$rootScope', 'toastr', '$window'];
 
-	var NavbarController = function ($scope, $location, authService, $rootScope, toastr) {
+	var NavbarController = function ($scope, $location, authService, $rootScope, toastr, $window) {
 		var vm = this;
 		$rootScope.globals.app = {};
-		$rootScope.globals.app.title = 'Музычалка';
+		$rootScope.globals.app.title = 'Сольфеджио онлайн';
 		$rootScope.globals.app.subtitle = '';
+		$rootScope.visualKeyboards = [];
 
 		//$rootScope.pageName = '';
 		vm.appTitle = 'Музычалка';
@@ -40,6 +41,9 @@ define(['app'], function (app) {
 			var path = '/login' + $location.$$path;
 			$location.replace();
 			$location.path(path);
+			setTimeout(function () {
+				$window.location.reload();
+			}, 1000);
 		}
 
 		$scope.$on('loginStatusChanged', function (loggedIn) {

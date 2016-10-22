@@ -7,6 +7,12 @@ using System.Web;
 
 namespace MusicEducation.Web.API
 {
+	public class AppnedTestToUserViewModel
+	{
+		public int idUser { get; set; }
+		public int idTest { get; set; }
+	}
+
     public class StudentController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
@@ -30,5 +36,10 @@ namespace MusicEducation.Web.API
         {
             return _userRepository.GetUser(_User.Id_User, id);
         }
-    }
+
+		public object AppnedTestToUser(AppnedTestToUserViewModel data)
+		{
+			return _studentRepository.AppnedTestToUser(_User.Id_User, data.idUser, data.idTest);
+		}
+	}
 }

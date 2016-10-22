@@ -15,5 +15,12 @@ namespace MusicEducation.Service
 
             return result;
         }
-    }
+
+		public InsertUser_TestResult AppnedTestToUser(int? idMainUser, int? idUser, int? idTest)
+		{
+			var result = _DBContext.InsertUser_Test(idMainUser, idUser, idTest).FirstOrDefault();
+
+			return result;
+		}
+	}
 }

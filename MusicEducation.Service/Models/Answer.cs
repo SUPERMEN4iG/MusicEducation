@@ -13,6 +13,7 @@ namespace MusicEducation.Service.Models
 			public int Id { get; set; }
 			public string Name { get; set; }
 			public string Content { get; set; }
+			public object ContentUserAnswer { get; set; }
 			public bool isUserAnswer { get; set; }
 		}
 		public class QuestionModel
@@ -21,6 +22,7 @@ namespace MusicEducation.Service.Models
 			public string Name { get; set; }
 			public string Content { get; set; }
 			public IList<AnswerModel> Answers { get; set; }
+			public int? QuestionType { get; set; }
 		}
 
 		public int Id { get; set; }

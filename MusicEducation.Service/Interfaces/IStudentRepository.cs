@@ -9,5 +9,7 @@ namespace MusicEducation.Service.Interfaces
     public interface IStudentRepository
     {
         List<GetStudentsResult> GetStudents(int? idUser);
-    }
+		InsertUser_TestResult AppnedTestToUser(int? idMainUser, int? idUser, int? idTest);
+
+	}
 }

@@ -105,6 +105,23 @@ define(['app'], function (app) {
             return deferred.promise;
         };
 
+        service.appnedTestToUser = function (idUser, idTest) {
+        	var obj = { idUser: idUser, idTest: idTest };
+        	var deferred = $q.defer();
+        	$http({
+        		method: 'POST',
+        		url: serviceBase + 'AppnedTestToUser/',
+        		data: obj
+        	}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+        	return deferred.promise;
+        };
+
         service.getTest = function (id) {
             var deferred = $q.defer();
 

@@ -12,7 +12,7 @@
 					<a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
 					<a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
 					<a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
-                    <a href="#/student" class="item"><i class="student icon"></i> <span>Студенты</span></a>
+                    <a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Студенты</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>

@@ -12,7 +12,7 @@
                     <a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
                     <a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
                     <a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
-                    <a href="#/student" class="item"><i class="student icon"></i> <span>Студенты</span></a>
+					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Студенты</span></a>
                     <!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
                     <a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
                     <a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -37,7 +37,7 @@
                                 {{ student.Login }}
                             </div>
                             <div class="description">
-                                10 лет, нету опыта
+                                10 лет, нет опыта
                             </div>
                         </div>
                         <div class="extra content">
@@ -77,39 +77,120 @@
                 <h2><i class="book icon"></i> Студент {{ vm.student.Login }}</h2>
                 <div class="ui divider"></div>
 
+				<div class="ui relaxed grid">
+					<div class="ui center aligned three column row">
+						<div class="ui column">
+							<div class="ui statistic">
+								<div class="value">
+									<i class="ticket icon"></i> {{ vm.student.AllCount }}
+								</div>
+								<div class="label">
+									Пройденные тестов
+								</div>
+							</div>
+						</div>
+						<div class="ui column">
+							<div class="ui statistic">
+								<div class="value">
+									<i class="trophy icon"></i> 0
+								</div>
+								<div class="label">
+									Достижения
+								</div>
+							</div>
+						</div>
+						<div class="ui column">
+							<div class="ui statistic">
+								<div class="value">
+									{{ vm.student.AvgValidPercent }}
+								</div>
+								<div class="label">
+									Процент прохождения
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ui divider"></div>
 
+				<h3 class="ui header">Информация</h3>
                 <div class="ui two column stackable grid">
                     <div class="column">
                         <div class="ui divided very relaxed list">
                             <div class="item">
                                 <i class="star icon"></i>
                                 <div class="content">
-                                    <div class="header">Header</div>
-                                    Description
+                                    <div class="header">ФИО</div>
+                                    {{vm.student.LastName}} {{vm.student.FirstName}} {{vm.student.MiddleName}}
                                 </div>
                             </div>
                             <div class="item">
                                 <i class="star icon"></i>
                                 <div class="content">
-                                    <div class="header">Header</div>
-                                    Description
-                                </div>
-                            </div>
-                            <div class="item">
-                                <i class="star icon"></i>
-                                <div class="content">
-                                    <div class="header">Header</div>
-                                    Description
+                                    <div class="header">Возраст</div>
+                                    10 лет
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="ui divider"></div>
-                <div align="center">
-                    sss
-                </div>
+				<div class="ui two column stackable grid">
+					<div class="column">
+						<h3 class="ui header">Тесты</h3>
+						<!--<div class="ui right floated small green labeled icon button">
+							<i class="add icon"></i> Добавить
+						</div>-->
+						<div class="ui relaxed divided items">
+							<div class="item" ng-repeat="test in vm.student.testList | filter:{TestType_Id: '1'}">
+								<div class="ui tiny image">
+									<img src="/content/img/incognito.png">
+								</div>
+								<div class="content">
+									<a class="header">{{test.Name}}</a>
+									<div class="description">
+										A description which may flow for several lines and give context to the content.
+									</div>
+									<div class="extra">
+										<div class="ui right floated primary button"
+											 ng-if="globals.currentUser.source.RoleName != 'Ученик'"
+											 ng-class="test.UserAnswerValidPercent != 0 || test.Id_User_Test != null ? 'disabled' : ''"
+											 ng-click="vm.appnedTestToUser(test)">
+											Назначить
+											<i class="right chevron icon"></i>
+										</div>
+										<div style="margin-top:5px" class="ui label green">
+											<span ng-if="test.allCount !== null">Пройден на {{test.UserAnswerValidPercent}}%</span>
+											<span ng-if="test.allCount === null">Не пройден </span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="column">
+						<h3 class="ui header">Задания</h3>
+						<div class="ui right floated small green labeled icon button" ng-click="vm.showModalPiano()">
+							<i class="add icon"></i> Добавить
+						</div>
+						<div class="ui relaxed divided items">
+							<div class="item" ng-repeat="test in vm.student.testList | filter:{TestType_Id: '2'}">
+								<div class="content">
+									<div class="ui large star rating" data-rating="2" data-max-rating="4"></div>
+									<div class="header">
+										<img src="/content/img/incognito.png" class="ui avatar image">
+										<a ng-click="vm.showModalPiano(test.Id)">{{ test.Name }}</a>
+										<br />
+										<div style="margin-top:5px" class="ui label green">
+											<span ng-if="test.allCount !== null">Пройден на {{test.UserAnswerValidPercent}}%</span>
+											<span ng-if="test.allCount === null">Не пройден </span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
             </div>
 
             <!--<div class="sixteen wide column" id="content">
@@ -147,9 +228,183 @@
                 <div align="center">
                     Тестовая версия
                 </div>
-            </div>-->
+            </div>
         </div>
     </div>
 </div>
+
+<modal class="fullscreen" ng-model="vm.isShowModalPiano">
+	<i class="close icon" ng-click="vm.hideModalPiano()"></i>
+	<div class="header">
+		Наберите ноты
+	</div>
+	<div class="content" ng-if="vm.taskId === undefined || vm.taskId === null">
+		<div class="description">
+			<div class="ui form">
+				<div class="field">
+					<label>Октавы</label>
+					<div class="ui dropdown selection multiple" tabindex="0">
+						<select multiple="" ng-model="vm.newTask.question_octaves">
+							<option value="">Выбор октав</option>
+							<option value="1">1 октава</option>
+							<option value="2">2 октава</option>
+							<option value="3">3 октава</option>
+							<option value="4">4 октава</option>
+						</select>
+						<i class="dropdown icon"></i><div class="default text">Выбор октав</div>
+						<div class="menu transition hidden" tabindex="-1">
+							<div class="item" data-value="1">1 октава</div>
+							<div class="item" data-value="2">2 октава</div>
+							<div class="item" data-value="3">3 октава</div>
+							<div class="item" data-value="4">4 октава</div>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<label>Название</label>
+					<input type="text" name="name" placeholder="Введите название теста" ng-model="vm.newTask.test_name">
+				</div>
+			</div>
+			<div class="ui segment" style="min-height: 8rem;">
+					<a class="ui green ribbon label">Конструктор задания</a>
+					<div class="ui right aligned grid">
+						<div class="row">
+							<div class="eleven wide column"></div>
+							<div class="five wide column">
+								<button class="ui button green"
+										ng-click="vm.playPiano(vm.newTask.question_content)"
+										ng-disabled="vm.newTask.question_content.length === 0">
+									<i class="play icon"></i>
+									Проиграть
+								</button>
+								<button class="ui button"
+										ng-disabled="vm.isRecording == true"
+										ng-click="vm.setRecording(true)"
+										ng-class="vm.isRecording == true ? 'red' : ''">
+									<i class="record icon"></i>
+									Запись
+								</button>
+								<button class="ui button"
+										ng-disabled="vm.isRecording == false"
+										ng-click="vm.setRecording(false)">
+									<i class="stop icon"></i>
+									Остановить
+								</button>
+							</div>
+						</div>
+					</div>
+				<h5 class="ui horizontal header divider">
+					<i class="bar table icon"></i>
+					Виртуальная клавиатура
+				</h5>
+				<piano octaves="vm.newTask.octaves" keyboardid="0"></piano>
+				<!--<div class="ui right aligned grid">
+					<div class="row">
+						<div class="fourteen wide column"></div>
+						<div class="two wide column">
+							<button class="ui button"
+									ng-repeat="answer in vm.currentTest.Questions[vm.currentQuestion].Answers"
+									ng-click="vm.setChoiceForQuestion(vm.currentTest.Questions[vm.currentQuestion], answer)"
+									ng-if="vm.taskState == 2"
+									ng-disabled="vm.isRecording == true || vm.currentTask.localUserNotes.length === 0">
+								<i class="send icon"></i>
+								Отправить
+							</button>
+						</div>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</div>
+
+	<div class="content" ng-if="vm.taskId !== undefined && vm.taskId !== null">
+		<div class="description">
+			<div class="ui form">
+				<div class="field">
+					<label>Октавы</label>
+					<div class="ui dropdown selection multiple" tabindex="0">
+						<select multiple="" ng-model="vm.currentTest.Questions[0].Content.octaves">
+							<option value="">Выбор октав</option>
+							<option value="1">1 октава</option>
+							<option value="2">2 октава</option>
+							<option value="3">3 октава</option>
+							<option value="4">4 октава</option>
+						</select>
+						<i class="dropdown icon"></i><div class="default text">Выбор октав</div>
+						<div class="menu transition hidden" tabindex="-1">
+							<div class="item" data-value="1">1 октава</div>
+							<div class="item" data-value="2">2 октава</div>
+							<div class="item" data-value="3">3 октава</div>
+							<div class="item" data-value="4">4 октава</div>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<label>Название</label>
+					<input type="text" name="name" placeholder="Введите название теста" ng-model="vm.currentTest.Name" disabled>
+				</div>
+			</div>
+			<div class="ui segment" style="min-height: 8rem;">
+				<a class="ui green ribbon label">Конструктор задания</a>
+				<div class="ui right aligned grid">
+					<div class="row">
+						<div class="eleven wide column"></div>
+						<div class="five wide column">
+							<button class="ui button green"
+									ng-click="vm.playPiano(vm.currentTest.Questions[0].Content.content)"
+									ng-disabled="vm.currentTest.Questions[0].Content.content.length === 0">
+								<i class="play icon"></i>
+								Проиграть
+							</button>
+							<button class="ui button"
+									ng-disabled="vm.isRecording == true || (vm.taskId !== undefined && vm.taskId !== null)"
+									ng-click="vm.setRecording(true)"
+									ng-class="vm.isRecording == true ? 'red' : ''">
+								<i class="record icon"></i>
+								Запись
+							</button>
+							<button class="ui button"
+									ng-disabled="vm.isRecording == false"
+									ng-click="vm.setRecording(false)">
+								<i class="stop icon"></i>
+								Остановить
+							</button>
+						</div>
+					</div>
+				</div>
+				<h5 class="ui horizontal header divider">
+					<i class="bar table icon"></i>
+					Виртуальная клавиатура
+				</h5>
+				<piano octaves="vm.currentTest.Questions[0].Content.octaves" keyboardid="0"></piano>
+				<!--<div class="ui right aligned grid">
+					<div class="row">
+						<div class="fourteen wide column"></div>
+						<div class="two wide column">
+							<button class="ui button"
+									ng-repeat="answer in vm.currentTest.Questions[vm.currentQuestion].Answers"
+									ng-click="vm.setChoiceForQuestion(vm.currentTest.Questions[vm.currentQuestion], answer)"
+									ng-if="vm.taskState == 2"
+									ng-disabled="vm.isRecording == true || vm.currentTask.localUserNotes.length === 0">
+								<i class="send icon"></i>
+								Отправить
+							</button>
+						</div>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</div>
+
+	<div class="actions">
+		<div class="two fluid ui inverted buttons">
+			<button class="ui ok green inverted button" ng-click="vm.insertTestWithContent()" ng-disabled="vm.taskId !== undefined && vm.taskId !== null">
+				<i class="checkmark icon"></i>
+				Добавить и отослать
+			</button>
+		</div>
+	</div>
+</modal>
+
 
 <script type="text/javascript" src="content/js/main.js"></script>

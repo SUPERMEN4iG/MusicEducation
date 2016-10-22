@@ -30,43 +30,10 @@ namespace MusicEducation.Service
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertAnswer(Answer instance);
-    partial void UpdateAnswer(Answer instance);
-    partial void DeleteAnswer(Answer instance);
-    partial void InsertUser_Role(User_Role instance);
-    partial void UpdateUser_Role(User_Role instance);
-    partial void DeleteUser_Role(User_Role instance);
-    partial void InsertQuestion(Question instance);
-    partial void UpdateQuestion(Question instance);
-    partial void DeleteQuestion(Question instance);
-    partial void InsertQuestion_Answer(Question_Answer instance);
-    partial void UpdateQuestion_Answer(Question_Answer instance);
-    partial void DeleteQuestion_Answer(Question_Answer instance);
-    partial void InsertRole(Role instance);
-    partial void UpdateRole(Role instance);
-    partial void DeleteRole(Role instance);
-    partial void InsertRole_RoleProperty(Role_RoleProperty instance);
-    partial void UpdateRole_RoleProperty(Role_RoleProperty instance);
-    partial void DeleteRole_RoleProperty(Role_RoleProperty instance);
-    partial void InsertRoleProperty(RoleProperty instance);
-    partial void UpdateRoleProperty(RoleProperty instance);
-    partial void DeleteRoleProperty(RoleProperty instance);
-    partial void InsertTest(Test instance);
-    partial void UpdateTest(Test instance);
-    partial void DeleteTest(Test instance);
-    partial void InsertTest_Question(Test_Question instance);
-    partial void UpdateTest_Question(Test_Question instance);
-    partial void DeleteTest_Question(Test_Question instance);
-    partial void InsertUser(User instance);
-    partial void UpdateUser(User instance);
-    partial void DeleteUser(User instance);
-    partial void InsertUser_Question_Answer(User_Question_Answer instance);
-    partial void UpdateUser_Question_Answer(User_Question_Answer instance);
-    partial void DeleteUser_Question_Answer(User_Question_Answer instance);
     #endregion
 		
 		public ApplicationDataContext() : 
-				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString1, mappingSource)
+				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString3, mappingSource)
 		{
 			OnCreated();
 		}
@@ -95,94 +62,6 @@ namespace MusicEducation.Service
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Answer> Answers
-		{
-			get
-			{
-				return this.GetTable<Answer>();
-			}
-		}
-		
-		public System.Data.Linq.Table<User_Role> User_Roles
-		{
-			get
-			{
-				return this.GetTable<User_Role>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Question> Questions
-		{
-			get
-			{
-				return this.GetTable<Question>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Question_Answer> Question_Answers
-		{
-			get
-			{
-				return this.GetTable<Question_Answer>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Role> Roles
-		{
-			get
-			{
-				return this.GetTable<Role>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Role_RoleProperty> Role_RoleProperties
-		{
-			get
-			{
-				return this.GetTable<Role_RoleProperty>();
-			}
-		}
-		
-		public System.Data.Linq.Table<RoleProperty> RoleProperties
-		{
-			get
-			{
-				return this.GetTable<RoleProperty>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Test> Tests
-		{
-			get
-			{
-				return this.GetTable<Test>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Test_Question> Test_Questions
-		{
-			get
-			{
-				return this.GetTable<Test_Question>();
-			}
-		}
-		
-		public System.Data.Linq.Table<User> Users
-		{
-			get
-			{
-				return this.GetTable<User>();
-			}
-		}
-		
-		public System.Data.Linq.Table<User_Question_Answer> User_Question_Answers
-		{
-			get
-			{
-				return this.GetTable<User_Question_Answer>();
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertUser")]
 		public ISingleResult<InsertUserResult> InsertUser([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> dateCreate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string lastName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string firstName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string middleName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(64)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(512)")] string password)
 		{
@@ -195,34 +74,6 @@ namespace MusicEducation.Service
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, login);
 			return ((ISingleResult<GetUserRolesResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTest")]
-		public ISingleResult<GetTestResult> GetTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest);
-			return ((ISingleResult<GetTestResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTests")]
-		public ISingleResult<GetTestsResult> GetTests([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser);
-			return ((ISingleResult<GetTestsResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertUser_Question_Answer")]
-		public ISingleResult<InsertUser_Question_AnswerResult> InsertUser_Question_Answer([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idAnswer)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion, idAnswer);
-			return ((ISingleResult<InsertUser_Question_AnswerResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUser")]
-		public ISingleResult<GetUserResult> GetUser([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(64)")] string login)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, login);
-			return ((ISingleResult<GetUserResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetAvalibleTests")]
@@ -239,3060 +90,67 @@ namespace MusicEducation.Service
 			return ((ISingleResult<GetStudentsResult>)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertUser_Test")]
+		public ISingleResult<InsertUser_TestResult> InsertUser_Test([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idMainUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idMainUser, idUser, idTest);
+			return ((ISingleResult<InsertUser_TestResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertTestWithContent")]
+		public int InsertTestWithContent([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser_test, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string test_name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> test_complexity, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string question_name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Text")] string question_content)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idUser_test, test_name, test_complexity, question_name, question_content);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTest")]
+		public ISingleResult<GetTestResult> GetTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest);
+			return ((ISingleResult<GetTestResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertUser_Question_Answer")]
+		public ISingleResult<InsertUser_Question_AnswerResult> InsertUser_Question_Answer([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idAnswer, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Text")] string answer_content)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion, idAnswer, answer_content);
+			return ((ISingleResult<InsertUser_Question_AnswerResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTestsForStudent")]
+		public ISingleResult<GetTestsForStudentResult> GetTestsForStudent([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser);
+			return ((ISingleResult<GetTestsForStudentResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateUser_Test")]
+		public int UpdateUser_Test([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> validAnswers, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> validPercent)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, validAnswers, validPercent);
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUserById")]
 		public ISingleResult<GetUserByIdResult> GetUserById([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, id);
 			return ((ISingleResult<GetUserByIdResult>)(result.ReturnValue));
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Answer")]
-	public partial class Answer : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private string _Content;
-		
-		private System.Nullable<bool> _IsValid;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private EntitySet<Question_Answer> _Question_Answers;
-		
-		private EntitySet<User_Question_Answer> _User_Question_Answers;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnContentChanging(string value);
-    partial void OnContentChanged();
-    partial void OnIsValidChanging(System.Nullable<bool> value);
-    partial void OnIsValidChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    #endregion
-		
-		public Answer()
-		{
-			this._Question_Answers = new EntitySet<Question_Answer>(new Action<Question_Answer>(this.attach_Question_Answers), new Action<Question_Answer>(this.detach_Question_Answers));
-			this._User_Question_Answers = new EntitySet<User_Question_Answer>(new Action<User_Question_Answer>(this.attach_User_Question_Answers), new Action<User_Question_Answer>(this.detach_User_Question_Answers));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string Content
-		{
-			get
-			{
-				return this._Content;
-			}
-			set
-			{
-				if ((this._Content != value))
-				{
-					this.OnContentChanging(value);
-					this.SendPropertyChanging();
-					this._Content = value;
-					this.SendPropertyChanged("Content");
-					this.OnContentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsValid", DbType="Bit")]
-		public System.Nullable<bool> IsValid
-		{
-			get
-			{
-				return this._IsValid;
-			}
-			set
-			{
-				if ((this._IsValid != value))
-				{
-					this.OnIsValidChanging(value);
-					this.SendPropertyChanging();
-					this._IsValid = value;
-					this.SendPropertyChanged("IsValid");
-					this.OnIsValidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Answer_Question_Answer", Storage="_Question_Answers", ThisKey="Id", OtherKey="Id_Answer")]
-		public EntitySet<Question_Answer> Question_Answers
-		{
-			get
-			{
-				return this._Question_Answers;
-			}
-			set
-			{
-				this._Question_Answers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Answer_User_Question_Answer", Storage="_User_Question_Answers", ThisKey="Id", OtherKey="Id_Answer")]
-		public EntitySet<User_Question_Answer> User_Question_Answers
-		{
-			get
-			{
-				return this._User_Question_Answers;
-			}
-			set
-			{
-				this._User_Question_Answers.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Question_Answers(Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Answer = this;
-		}
-		
-		private void detach_Question_Answers(Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Answer = null;
-		}
-		
-		private void attach_User_Question_Answers(User_Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Answer = this;
-		}
-		
-		private void detach_User_Question_Answers(User_Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Answer = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.User_Role")]
-	public partial class User_Role : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.Nullable<int> _Id_User;
-		
-		private System.Nullable<int> _Id_Role;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnId_UserChanging(System.Nullable<int> value);
-    partial void OnId_UserChanged();
-    partial void OnId_RoleChanging(System.Nullable<int> value);
-    partial void OnId_RoleChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    #endregion
-		
-		public User_Role()
-		{
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int")]
-		public System.Nullable<int> Id_User
-		{
-			get
-			{
-				return this._Id_User;
-			}
-			set
-			{
-				if ((this._Id_User != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_UserChanging(value);
-					this.SendPropertyChanging();
-					this._Id_User = value;
-					this.SendPropertyChanged("Id_User");
-					this.OnId_UserChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Role", DbType="Int")]
-		public System.Nullable<int> Id_Role
-		{
-			get
-			{
-				return this._Id_Role;
-			}
-			set
-			{
-				if ((this._Id_Role != value))
-				{
-					this.OnId_RoleChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Role = value;
-					this.SendPropertyChanged("Id_Role");
-					this.OnId_RoleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_User_Role", Storage="_User", ThisKey="Id_User", OtherKey="Id", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.User_Roles.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.User_Roles.Add(this);
-						this._Id_User = value.Id;
-					}
-					else
-					{
-						this._Id_User = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Question")]
-	public partial class Question : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private string _Content;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private EntitySet<Question_Answer> _Question_Answers;
-		
-		private EntitySet<Test_Question> _Test_Questions;
-		
-		private EntitySet<User_Question_Answer> _User_Question_Answers;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnContentChanging(string value);
-    partial void OnContentChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    #endregion
-		
-		public Question()
-		{
-			this._Question_Answers = new EntitySet<Question_Answer>(new Action<Question_Answer>(this.attach_Question_Answers), new Action<Question_Answer>(this.detach_Question_Answers));
-			this._Test_Questions = new EntitySet<Test_Question>(new Action<Test_Question>(this.attach_Test_Questions), new Action<Test_Question>(this.detach_Test_Questions));
-			this._User_Question_Answers = new EntitySet<User_Question_Answer>(new Action<User_Question_Answer>(this.attach_User_Question_Answers), new Action<User_Question_Answer>(this.detach_User_Question_Answers));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string Content
-		{
-			get
-			{
-				return this._Content;
-			}
-			set
-			{
-				if ((this._Content != value))
-				{
-					this.OnContentChanging(value);
-					this.SendPropertyChanging();
-					this._Content = value;
-					this.SendPropertyChanged("Content");
-					this.OnContentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_Question_Answer", Storage="_Question_Answers", ThisKey="Id", OtherKey="Id_Question")]
-		public EntitySet<Question_Answer> Question_Answers
-		{
-			get
-			{
-				return this._Question_Answers;
-			}
-			set
-			{
-				this._Question_Answers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_Test_Question", Storage="_Test_Questions", ThisKey="Id", OtherKey="Id_Question")]
-		public EntitySet<Test_Question> Test_Questions
-		{
-			get
-			{
-				return this._Test_Questions;
-			}
-			set
-			{
-				this._Test_Questions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_User_Question_Answer", Storage="_User_Question_Answers", ThisKey="Id", OtherKey="Id_Question")]
-		public EntitySet<User_Question_Answer> User_Question_Answers
-		{
-			get
-			{
-				return this._User_Question_Answers;
-			}
-			set
-			{
-				this._User_Question_Answers.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Question_Answers(Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = this;
-		}
-		
-		private void detach_Question_Answers(Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = null;
-		}
-		
-		private void attach_Test_Questions(Test_Question entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = this;
-		}
-		
-		private void detach_Test_Questions(Test_Question entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = null;
-		}
-		
-		private void attach_User_Question_Answers(User_Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = this;
-		}
-		
-		private void detach_User_Question_Answers(User_Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Question = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Question_Answer")]
-	public partial class Question_Answer : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.Nullable<int> _Id_Question;
-		
-		private System.Nullable<int> _Id_Answer;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private EntityRef<Answer> _Answer;
-		
-		private EntityRef<Question> _Question;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnId_QuestionChanging(System.Nullable<int> value);
-    partial void OnId_QuestionChanged();
-    partial void OnId_AnswerChanging(System.Nullable<int> value);
-    partial void OnId_AnswerChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    #endregion
-		
-		public Question_Answer()
-		{
-			this._Answer = default(EntityRef<Answer>);
-			this._Question = default(EntityRef<Question>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Question", DbType="Int")]
-		public System.Nullable<int> Id_Question
-		{
-			get
-			{
-				return this._Id_Question;
-			}
-			set
-			{
-				if ((this._Id_Question != value))
-				{
-					if (this._Question.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_QuestionChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Question = value;
-					this.SendPropertyChanged("Id_Question");
-					this.OnId_QuestionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Answer", DbType="Int")]
-		public System.Nullable<int> Id_Answer
-		{
-			get
-			{
-				return this._Id_Answer;
-			}
-			set
-			{
-				if ((this._Id_Answer != value))
-				{
-					if (this._Answer.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_AnswerChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Answer = value;
-					this.SendPropertyChanged("Id_Answer");
-					this.OnId_AnswerChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Answer_Question_Answer", Storage="_Answer", ThisKey="Id_Answer", OtherKey="Id", IsForeignKey=true)]
-		public Answer Answer
-		{
-			get
-			{
-				return this._Answer.Entity;
-			}
-			set
-			{
-				Answer previousValue = this._Answer.Entity;
-				if (((previousValue != value) 
-							|| (this._Answer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Answer.Entity = null;
-						previousValue.Question_Answers.Remove(this);
-					}
-					this._Answer.Entity = value;
-					if ((value != null))
-					{
-						value.Question_Answers.Add(this);
-						this._Id_Answer = value.Id;
-					}
-					else
-					{
-						this._Id_Answer = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Answer");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_Question_Answer", Storage="_Question", ThisKey="Id_Question", OtherKey="Id", IsForeignKey=true)]
-		public Question Question
-		{
-			get
-			{
-				return this._Question.Entity;
-			}
-			set
-			{
-				Question previousValue = this._Question.Entity;
-				if (((previousValue != value) 
-							|| (this._Question.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Question.Entity = null;
-						previousValue.Question_Answers.Remove(this);
-					}
-					this._Question.Entity = value;
-					if ((value != null))
-					{
-						value.Question_Answers.Add(this);
-						this._Id_Question = value.Id;
-					}
-					else
-					{
-						this._Id_Question = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Question");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Role")]
-	public partial class Role : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private EntitySet<Role_RoleProperty> _Role_RoleProperties;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    #endregion
-		
-		public Role()
-		{
-			this._Role_RoleProperties = new EntitySet<Role_RoleProperty>(new Action<Role_RoleProperty>(this.attach_Role_RoleProperties), new Action<Role_RoleProperty>(this.detach_Role_RoleProperties));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_Role_RoleProperty", Storage="_Role_RoleProperties", ThisKey="Id", OtherKey="Id_Role")]
-		public EntitySet<Role_RoleProperty> Role_RoleProperties
-		{
-			get
-			{
-				return this._Role_RoleProperties;
-			}
-			set
-			{
-				this._Role_RoleProperties.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Role_RoleProperties(Role_RoleProperty entity)
-		{
-			this.SendPropertyChanging();
-			entity.Role = this;
-		}
-		
-		private void detach_Role_RoleProperties(Role_RoleProperty entity)
-		{
-			this.SendPropertyChanging();
-			entity.Role = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Role_RoleProperty")]
-	public partial class Role_RoleProperty : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.Nullable<int> _Id_Role;
-		
-		private System.Nullable<int> _Id_RoleProperty;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private EntityRef<Role> _Role;
-		
-		private EntityRef<RoleProperty> _RoleProperty;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnId_RoleChanging(System.Nullable<int> value);
-    partial void OnId_RoleChanged();
-    partial void OnId_RolePropertyChanging(System.Nullable<int> value);
-    partial void OnId_RolePropertyChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    #endregion
-		
-		public Role_RoleProperty()
-		{
-			this._Role = default(EntityRef<Role>);
-			this._RoleProperty = default(EntityRef<RoleProperty>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Role", DbType="Int")]
-		public System.Nullable<int> Id_Role
-		{
-			get
-			{
-				return this._Id_Role;
-			}
-			set
-			{
-				if ((this._Id_Role != value))
-				{
-					if (this._Role.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_RoleChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Role = value;
-					this.SendPropertyChanged("Id_Role");
-					this.OnId_RoleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_RoleProperty", DbType="Int")]
-		public System.Nullable<int> Id_RoleProperty
-		{
-			get
-			{
-				return this._Id_RoleProperty;
-			}
-			set
-			{
-				if ((this._Id_RoleProperty != value))
-				{
-					if (this._RoleProperty.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_RolePropertyChanging(value);
-					this.SendPropertyChanging();
-					this._Id_RoleProperty = value;
-					this.SendPropertyChanged("Id_RoleProperty");
-					this.OnId_RolePropertyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_Role_RoleProperty", Storage="_Role", ThisKey="Id_Role", OtherKey="Id", IsForeignKey=true)]
-		public Role Role
-		{
-			get
-			{
-				return this._Role.Entity;
-			}
-			set
-			{
-				Role previousValue = this._Role.Entity;
-				if (((previousValue != value) 
-							|| (this._Role.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Role.Entity = null;
-						previousValue.Role_RoleProperties.Remove(this);
-					}
-					this._Role.Entity = value;
-					if ((value != null))
-					{
-						value.Role_RoleProperties.Add(this);
-						this._Id_Role = value.Id;
-					}
-					else
-					{
-						this._Id_Role = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Role");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoleProperty_Role_RoleProperty", Storage="_RoleProperty", ThisKey="Id_RoleProperty", OtherKey="Id", IsForeignKey=true)]
-		public RoleProperty RoleProperty
-		{
-			get
-			{
-				return this._RoleProperty.Entity;
-			}
-			set
-			{
-				RoleProperty previousValue = this._RoleProperty.Entity;
-				if (((previousValue != value) 
-							|| (this._RoleProperty.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RoleProperty.Entity = null;
-						previousValue.Role_RoleProperties.Remove(this);
-					}
-					this._RoleProperty.Entity = value;
-					if ((value != null))
-					{
-						value.Role_RoleProperties.Add(this);
-						this._Id_RoleProperty = value.Id;
-					}
-					else
-					{
-						this._Id_RoleProperty = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("RoleProperty");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RoleProperty")]
-	public partial class RoleProperty : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private EntitySet<Role_RoleProperty> _Role_RoleProperties;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    #endregion
-		
-		public RoleProperty()
-		{
-			this._Role_RoleProperties = new EntitySet<Role_RoleProperty>(new Action<Role_RoleProperty>(this.attach_Role_RoleProperties), new Action<Role_RoleProperty>(this.detach_Role_RoleProperties));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RoleProperty_Role_RoleProperty", Storage="_Role_RoleProperties", ThisKey="Id", OtherKey="Id_RoleProperty")]
-		public EntitySet<Role_RoleProperty> Role_RoleProperties
-		{
-			get
-			{
-				return this._Role_RoleProperties;
-			}
-			set
-			{
-				this._Role_RoleProperties.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Role_RoleProperties(Role_RoleProperty entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleProperty = this;
-		}
-		
-		private void detach_Role_RoleProperties(Role_RoleProperty entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleProperty = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Test")]
-	public partial class Test : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private System.Nullable<int> _Complexity;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private EntitySet<Test_Question> _Test_Questions;
-		
-		private EntitySet<User_Question_Answer> _User_Question_Answers;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnComplexityChanging(System.Nullable<int> value);
-    partial void OnComplexityChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    #endregion
-		
-		public Test()
-		{
-			this._Test_Questions = new EntitySet<Test_Question>(new Action<Test_Question>(this.attach_Test_Questions), new Action<Test_Question>(this.detach_Test_Questions));
-			this._User_Question_Answers = new EntitySet<User_Question_Answer>(new Action<User_Question_Answer>(this.attach_User_Question_Answers), new Action<User_Question_Answer>(this.detach_User_Question_Answers));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Complexity", DbType="Int")]
-		public System.Nullable<int> Complexity
-		{
-			get
-			{
-				return this._Complexity;
-			}
-			set
-			{
-				if ((this._Complexity != value))
-				{
-					this.OnComplexityChanging(value);
-					this.SendPropertyChanging();
-					this._Complexity = value;
-					this.SendPropertyChanged("Complexity");
-					this.OnComplexityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Test_Test_Question", Storage="_Test_Questions", ThisKey="Id", OtherKey="Id_Test")]
-		public EntitySet<Test_Question> Test_Questions
-		{
-			get
-			{
-				return this._Test_Questions;
-			}
-			set
-			{
-				this._Test_Questions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Test_User_Question_Answer", Storage="_User_Question_Answers", ThisKey="Id", OtherKey="Id_Test")]
-		public EntitySet<User_Question_Answer> User_Question_Answers
-		{
-			get
-			{
-				return this._User_Question_Answers;
-			}
-			set
-			{
-				this._User_Question_Answers.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Test_Questions(Test_Question entity)
-		{
-			this.SendPropertyChanging();
-			entity.Test = this;
-		}
-		
-		private void detach_Test_Questions(Test_Question entity)
-		{
-			this.SendPropertyChanging();
-			entity.Test = null;
-		}
-		
-		private void attach_User_Question_Answers(User_Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Test = this;
-		}
-		
-		private void detach_User_Question_Answers(User_Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Test = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Test_Question")]
-	public partial class Test_Question : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.Nullable<int> _Id_Test;
-		
-		private System.Nullable<int> _Id_Question;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private EntityRef<Question> _Question;
-		
-		private EntityRef<Test> _Test;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnId_TestChanging(System.Nullable<int> value);
-    partial void OnId_TestChanged();
-    partial void OnId_QuestionChanging(System.Nullable<int> value);
-    partial void OnId_QuestionChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    #endregion
-		
-		public Test_Question()
-		{
-			this._Question = default(EntityRef<Question>);
-			this._Test = default(EntityRef<Test>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Test", DbType="Int")]
-		public System.Nullable<int> Id_Test
-		{
-			get
-			{
-				return this._Id_Test;
-			}
-			set
-			{
-				if ((this._Id_Test != value))
-				{
-					if (this._Test.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_TestChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Test = value;
-					this.SendPropertyChanged("Id_Test");
-					this.OnId_TestChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Question", DbType="Int")]
-		public System.Nullable<int> Id_Question
-		{
-			get
-			{
-				return this._Id_Question;
-			}
-			set
-			{
-				if ((this._Id_Question != value))
-				{
-					if (this._Question.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_QuestionChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Question = value;
-					this.SendPropertyChanged("Id_Question");
-					this.OnId_QuestionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_Test_Question", Storage="_Question", ThisKey="Id_Question", OtherKey="Id", IsForeignKey=true)]
-		public Question Question
-		{
-			get
-			{
-				return this._Question.Entity;
-			}
-			set
-			{
-				Question previousValue = this._Question.Entity;
-				if (((previousValue != value) 
-							|| (this._Question.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Question.Entity = null;
-						previousValue.Test_Questions.Remove(this);
-					}
-					this._Question.Entity = value;
-					if ((value != null))
-					{
-						value.Test_Questions.Add(this);
-						this._Id_Question = value.Id;
-					}
-					else
-					{
-						this._Id_Question = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Question");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Test_Test_Question", Storage="_Test", ThisKey="Id_Test", OtherKey="Id", IsForeignKey=true)]
-		public Test Test
-		{
-			get
-			{
-				return this._Test.Entity;
-			}
-			set
-			{
-				Test previousValue = this._Test.Entity;
-				if (((previousValue != value) 
-							|| (this._Test.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Test.Entity = null;
-						previousValue.Test_Questions.Remove(this);
-					}
-					this._Test.Entity = value;
-					if ((value != null))
-					{
-						value.Test_Questions.Add(this);
-						this._Id_Test = value.Id;
-					}
-					else
-					{
-						this._Id_Test = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Test");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[User]")]
-	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _LastName;
-		
-		private string _FirstName;
-		
-		private string _MiddleName;
-		
-		private string _Login;
-		
-		private string _Password;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private EntitySet<User_Role> _User_Roles;
-		
-		private EntitySet<User_Question_Answer> _User_Question_Answers;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnLastNameChanging(string value);
-    partial void OnLastNameChanged();
-    partial void OnFirstNameChanging(string value);
-    partial void OnFirstNameChanged();
-    partial void OnMiddleNameChanging(string value);
-    partial void OnMiddleNameChanged();
-    partial void OnLoginChanging(string value);
-    partial void OnLoginChanged();
-    partial void OnPasswordChanging(string value);
-    partial void OnPasswordChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    #endregion
-		
-		public User()
-		{
-			this._User_Roles = new EntitySet<User_Role>(new Action<User_Role>(this.attach_User_Roles), new Action<User_Role>(this.detach_User_Roles));
-			this._User_Question_Answers = new EntitySet<User_Question_Answer>(new Action<User_Question_Answer>(this.attach_User_Question_Answers), new Action<User_Question_Answer>(this.detach_User_Question_Answers));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this.OnLastNameChanging(value);
-					this.SendPropertyChanging();
-					this._LastName = value;
-					this.SendPropertyChanged("LastName");
-					this.OnLastNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this.OnFirstNameChanging(value);
-					this.SendPropertyChanging();
-					this._FirstName = value;
-					this.SendPropertyChanged("FirstName");
-					this.OnFirstNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
-		public string MiddleName
-		{
-			get
-			{
-				return this._MiddleName;
-			}
-			set
-			{
-				if ((this._MiddleName != value))
-				{
-					this.OnMiddleNameChanging(value);
-					this.SendPropertyChanging();
-					this._MiddleName = value;
-					this.SendPropertyChanged("MiddleName");
-					this.OnMiddleNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
-		public string Login
-		{
-			get
-			{
-				return this._Login;
-			}
-			set
-			{
-				if ((this._Login != value))
-				{
-					this.OnLoginChanging(value);
-					this.SendPropertyChanging();
-					this._Login = value;
-					this.SendPropertyChanged("Login");
-					this.OnLoginChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(512)")]
-		public string Password
-		{
-			get
-			{
-				return this._Password;
-			}
-			set
-			{
-				if ((this._Password != value))
-				{
-					this.OnPasswordChanging(value);
-					this.SendPropertyChanging();
-					this._Password = value;
-					this.SendPropertyChanged("Password");
-					this.OnPasswordChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_User_Role", Storage="_User_Roles", ThisKey="Id", OtherKey="Id_User")]
-		public EntitySet<User_Role> User_Roles
-		{
-			get
-			{
-				return this._User_Roles;
-			}
-			set
-			{
-				this._User_Roles.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_User_Question_Answer", Storage="_User_Question_Answers", ThisKey="Id", OtherKey="Id_User")]
-		public EntitySet<User_Question_Answer> User_Question_Answers
-		{
-			get
-			{
-				return this._User_Question_Answers;
-			}
-			set
-			{
-				this._User_Question_Answers.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_User_Roles(User_Role entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_User_Roles(User_Role entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-		
-		private void attach_User_Question_Answers(User_Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_User_Question_Answers(User_Question_Answer entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.User_Question_Answer")]
-	public partial class User_Question_Answer : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.Nullable<int> _Id_User;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_UserDelete;
-		
-		private System.Nullable<System.DateTime> _DateDelete;
-		
-		private System.Nullable<int> _Id_Test;
-		
-		private System.Nullable<int> _Id_Question;
-		
-		private System.Nullable<int> _Id_Answer;
-		
-		private System.Nullable<bool> _Result;
-		
-		private EntityRef<Answer> _Answer;
-		
-		private EntityRef<Question> _Question;
-		
-		private EntityRef<Test> _Test;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnId_UserChanging(System.Nullable<int> value);
-    partial void OnId_UserChanged();
-    partial void OnId_UserCreateChanging(System.Nullable<int> value);
-    partial void OnId_UserCreateChanged();
-    partial void OnDateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateCreateChanged();
-    partial void OnId_UserDeleteChanging(System.Nullable<int> value);
-    partial void OnId_UserDeleteChanged();
-    partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateDeleteChanged();
-    partial void OnId_TestChanging(System.Nullable<int> value);
-    partial void OnId_TestChanged();
-    partial void OnId_QuestionChanging(System.Nullable<int> value);
-    partial void OnId_QuestionChanged();
-    partial void OnId_AnswerChanging(System.Nullable<int> value);
-    partial void OnId_AnswerChanged();
-    partial void OnResultChanging(System.Nullable<bool> value);
-    partial void OnResultChanged();
-    #endregion
-		
-		public User_Question_Answer()
-		{
-			this._Answer = default(EntityRef<Answer>);
-			this._Question = default(EntityRef<Question>);
-			this._Test = default(EntityRef<Test>);
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int")]
-		public System.Nullable<int> Id_User
-		{
-			get
-			{
-				return this._Id_User;
-			}
-			set
-			{
-				if ((this._Id_User != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_UserChanging(value);
-					this.SendPropertyChanging();
-					this._Id_User = value;
-					this.SendPropertyChanged("Id_User");
-					this.OnId_UserChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this.OnId_UserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserCreate = value;
-					this.SendPropertyChanged("Id_UserCreate");
-					this.OnId_UserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this.OnDateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._DateCreate = value;
-					this.SendPropertyChanged("DateCreate");
-					this.OnDateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserDelete", DbType="Int")]
-		public System.Nullable<int> Id_UserDelete
-		{
-			get
-			{
-				return this._Id_UserDelete;
-			}
-			set
-			{
-				if ((this._Id_UserDelete != value))
-				{
-					this.OnId_UserDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._Id_UserDelete = value;
-					this.SendPropertyChanged("Id_UserDelete");
-					this.OnId_UserDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelete", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateDelete
-		{
-			get
-			{
-				return this._DateDelete;
-			}
-			set
-			{
-				if ((this._DateDelete != value))
-				{
-					this.OnDateDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._DateDelete = value;
-					this.SendPropertyChanged("DateDelete");
-					this.OnDateDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Test", DbType="Int")]
-		public System.Nullable<int> Id_Test
-		{
-			get
-			{
-				return this._Id_Test;
-			}
-			set
-			{
-				if ((this._Id_Test != value))
-				{
-					if (this._Test.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_TestChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Test = value;
-					this.SendPropertyChanged("Id_Test");
-					this.OnId_TestChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Question", DbType="Int")]
-		public System.Nullable<int> Id_Question
-		{
-			get
-			{
-				return this._Id_Question;
-			}
-			set
-			{
-				if ((this._Id_Question != value))
-				{
-					if (this._Question.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_QuestionChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Question = value;
-					this.SendPropertyChanged("Id_Question");
-					this.OnId_QuestionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Answer", DbType="Int")]
-		public System.Nullable<int> Id_Answer
-		{
-			get
-			{
-				return this._Id_Answer;
-			}
-			set
-			{
-				if ((this._Id_Answer != value))
-				{
-					if (this._Answer.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_AnswerChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Answer = value;
-					this.SendPropertyChanged("Id_Answer");
-					this.OnId_AnswerChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Result", DbType="Bit")]
-		public System.Nullable<bool> Result
-		{
-			get
-			{
-				return this._Result;
-			}
-			set
-			{
-				if ((this._Result != value))
-				{
-					this.OnResultChanging(value);
-					this.SendPropertyChanging();
-					this._Result = value;
-					this.SendPropertyChanged("Result");
-					this.OnResultChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Answer_User_Question_Answer", Storage="_Answer", ThisKey="Id_Answer", OtherKey="Id", IsForeignKey=true)]
-		public Answer Answer
-		{
-			get
-			{
-				return this._Answer.Entity;
-			}
-			set
-			{
-				Answer previousValue = this._Answer.Entity;
-				if (((previousValue != value) 
-							|| (this._Answer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Answer.Entity = null;
-						previousValue.User_Question_Answers.Remove(this);
-					}
-					this._Answer.Entity = value;
-					if ((value != null))
-					{
-						value.User_Question_Answers.Add(this);
-						this._Id_Answer = value.Id;
-					}
-					else
-					{
-						this._Id_Answer = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Answer");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Question_User_Question_Answer", Storage="_Question", ThisKey="Id_Question", OtherKey="Id", IsForeignKey=true)]
-		public Question Question
-		{
-			get
-			{
-				return this._Question.Entity;
-			}
-			set
-			{
-				Question previousValue = this._Question.Entity;
-				if (((previousValue != value) 
-							|| (this._Question.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Question.Entity = null;
-						previousValue.User_Question_Answers.Remove(this);
-					}
-					this._Question.Entity = value;
-					if ((value != null))
-					{
-						value.User_Question_Answers.Add(this);
-						this._Id_Question = value.Id;
-					}
-					else
-					{
-						this._Id_Question = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Question");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Test_User_Question_Answer", Storage="_Test", ThisKey="Id_Test", OtherKey="Id", IsForeignKey=true)]
-		public Test Test
-		{
-			get
-			{
-				return this._Test.Entity;
-			}
-			set
-			{
-				Test previousValue = this._Test.Entity;
-				if (((previousValue != value) 
-							|| (this._Test.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Test.Entity = null;
-						previousValue.User_Question_Answers.Remove(this);
-					}
-					this._Test.Entity = value;
-					if ((value != null))
-					{
-						value.User_Question_Answers.Add(this);
-						this._Id_Test = value.Id;
-					}
-					else
-					{
-						this._Id_Test = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Test");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_User_Question_Answer", Storage="_User", ThisKey="Id_User", OtherKey="Id", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.User_Question_Answers.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.User_Question_Answers.Add(this);
-						this._Id_User = value.Id;
-					}
-					else
-					{
-						this._Id_User = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTests")]
+		public ISingleResult<GetTestsResult> GetTests([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser)
 		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser);
+			return ((ISingleResult<GetTestsResult>)(result.ReturnValue));
 		}
 		
-		protected virtual void SendPropertyChanged(String propertyName)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUser")]
+		public ISingleResult<GetUserResult> GetUser([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(64)")] string login)
 		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, login);
+			return ((ISingleResult<GetUserResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -3433,794 +291,6 @@ namespace MusicEducation.Service
 				if ((this._RoleName != value))
 				{
 					this._RoleName = value;
-				}
-			}
-		}
-	}
-	
-	public partial class GetTestResult
-	{
-		
-		private int _Id_Test;
-		
-		private string _Test_Name;
-		
-		private int _Question_Id;
-		
-		private string _Question_Name;
-		
-		private string _Question_Content;
-		
-		private int _Answer_Id;
-		
-		private string _Answer_Name;
-		
-		private string _Answer_Content;
-		
-		public GetTestResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Test", DbType="Int NOT NULL")]
-		public int Id_Test
-		{
-			get
-			{
-				return this._Id_Test;
-			}
-			set
-			{
-				if ((this._Id_Test != value))
-				{
-					this._Id_Test = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Test_Name", DbType="NVarChar(128)")]
-		public string Test_Name
-		{
-			get
-			{
-				return this._Test_Name;
-			}
-			set
-			{
-				if ((this._Test_Name != value))
-				{
-					this._Test_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Id", DbType="Int NOT NULL")]
-		public int Question_Id
-		{
-			get
-			{
-				return this._Question_Id;
-			}
-			set
-			{
-				if ((this._Question_Id != value))
-				{
-					this._Question_Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Name", DbType="NVarChar(128)")]
-		public string Question_Name
-		{
-			get
-			{
-				return this._Question_Name;
-			}
-			set
-			{
-				if ((this._Question_Name != value))
-				{
-					this._Question_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string Question_Content
-		{
-			get
-			{
-				return this._Question_Content;
-			}
-			set
-			{
-				if ((this._Question_Content != value))
-				{
-					this._Question_Content = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Id", DbType="Int NOT NULL")]
-		public int Answer_Id
-		{
-			get
-			{
-				return this._Answer_Id;
-			}
-			set
-			{
-				if ((this._Answer_Id != value))
-				{
-					this._Answer_Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Name", DbType="NVarChar(128)")]
-		public string Answer_Name
-		{
-			get
-			{
-				return this._Answer_Name;
-			}
-			set
-			{
-				if ((this._Answer_Name != value))
-				{
-					this._Answer_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string Answer_Content
-		{
-			get
-			{
-				return this._Answer_Content;
-			}
-			set
-			{
-				if ((this._Answer_Content != value))
-				{
-					this._Answer_Content = value;
-				}
-			}
-		}
-	}
-	
-	public partial class GetTestsResult
-	{
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private System.Nullable<int> _Complexity;
-		
-		private string _LastName;
-		
-		private string _FirstName;
-		
-		private string _MiddleName;
-		
-		private int _Id_User;
-		
-		private string _Login;
-		
-		private bool _Result;
-		
-		private decimal _CountAnswerValid;
-		
-		private decimal _CountUserAnswerValid;
-		
-		private int _UserAnswerValidPercent;
-		
-		public GetTestsResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this._Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Complexity", DbType="Int")]
-		public System.Nullable<int> Complexity
-		{
-			get
-			{
-				return this._Complexity;
-			}
-			set
-			{
-				if ((this._Complexity != value))
-				{
-					this._Complexity = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this._LastName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this._FirstName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
-		public string MiddleName
-		{
-			get
-			{
-				return this._MiddleName;
-			}
-			set
-			{
-				if ((this._MiddleName != value))
-				{
-					this._MiddleName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int NOT NULL")]
-		public int Id_User
-		{
-			get
-			{
-				return this._Id_User;
-			}
-			set
-			{
-				if ((this._Id_User != value))
-				{
-					this._Id_User = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
-		public string Login
-		{
-			get
-			{
-				return this._Login;
-			}
-			set
-			{
-				if ((this._Login != value))
-				{
-					this._Login = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Result", DbType="Bit NOT NULL")]
-		public bool Result
-		{
-			get
-			{
-				return this._Result;
-			}
-			set
-			{
-				if ((this._Result != value))
-				{
-					this._Result = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountAnswerValid", DbType="Decimal(18,3) NOT NULL")]
-		public decimal CountAnswerValid
-		{
-			get
-			{
-				return this._CountAnswerValid;
-			}
-			set
-			{
-				if ((this._CountAnswerValid != value))
-				{
-					this._CountAnswerValid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountUserAnswerValid", DbType="Decimal(18,3) NOT NULL")]
-		public decimal CountUserAnswerValid
-		{
-			get
-			{
-				return this._CountUserAnswerValid;
-			}
-			set
-			{
-				if ((this._CountUserAnswerValid != value))
-				{
-					this._CountUserAnswerValid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserAnswerValidPercent", DbType="Int NOT NULL")]
-		public int UserAnswerValidPercent
-		{
-			get
-			{
-				return this._UserAnswerValidPercent;
-			}
-			set
-			{
-				if ((this._UserAnswerValidPercent != value))
-				{
-					this._UserAnswerValidPercent = value;
-				}
-			}
-		}
-	}
-	
-	public partial class InsertUser_Question_AnswerResult
-	{
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private System.Nullable<int> _Complexity;
-		
-		private string _LastName;
-		
-		private string _FirstName;
-		
-		private string _MiddleName;
-		
-		private int _Id_User;
-		
-		private string _Login;
-		
-		private bool _Result;
-		
-		private System.Nullable<int> _CountAnswerValid;
-		
-		private System.Nullable<int> _CountUserAnswerValid;
-		
-		private int _UserAnswerValidPercent;
-		
-		public InsertUser_Question_AnswerResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this._Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Complexity", DbType="Int")]
-		public System.Nullable<int> Complexity
-		{
-			get
-			{
-				return this._Complexity;
-			}
-			set
-			{
-				if ((this._Complexity != value))
-				{
-					this._Complexity = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this._LastName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this._FirstName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
-		public string MiddleName
-		{
-			get
-			{
-				return this._MiddleName;
-			}
-			set
-			{
-				if ((this._MiddleName != value))
-				{
-					this._MiddleName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int NOT NULL")]
-		public int Id_User
-		{
-			get
-			{
-				return this._Id_User;
-			}
-			set
-			{
-				if ((this._Id_User != value))
-				{
-					this._Id_User = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
-		public string Login
-		{
-			get
-			{
-				return this._Login;
-			}
-			set
-			{
-				if ((this._Login != value))
-				{
-					this._Login = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Result", DbType="Bit NOT NULL")]
-		public bool Result
-		{
-			get
-			{
-				return this._Result;
-			}
-			set
-			{
-				if ((this._Result != value))
-				{
-					this._Result = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountAnswerValid", DbType="Int")]
-		public System.Nullable<int> CountAnswerValid
-		{
-			get
-			{
-				return this._CountAnswerValid;
-			}
-			set
-			{
-				if ((this._CountAnswerValid != value))
-				{
-					this._CountAnswerValid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountUserAnswerValid", DbType="Int")]
-		public System.Nullable<int> CountUserAnswerValid
-		{
-			get
-			{
-				return this._CountUserAnswerValid;
-			}
-			set
-			{
-				if ((this._CountUserAnswerValid != value))
-				{
-					this._CountUserAnswerValid = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserAnswerValidPercent", DbType="Int NOT NULL")]
-		public int UserAnswerValidPercent
-		{
-			get
-			{
-				return this._UserAnswerValidPercent;
-			}
-			set
-			{
-				if ((this._UserAnswerValidPercent != value))
-				{
-					this._UserAnswerValidPercent = value;
-				}
-			}
-		}
-	}
-	
-	public partial class GetUserResult
-	{
-		
-		private int _Id_User;
-		
-		private string _LastName;
-		
-		private string _FirstName;
-		
-		private string _MiddleName;
-		
-		private string _Login;
-		
-		private string _Password;
-		
-		private System.Nullable<int> _Id_UserCreate;
-		
-		private System.Nullable<System.DateTime> _DateCreate;
-		
-		private System.Nullable<int> _Id_Role;
-		
-		private string _Name;
-		
-		public GetUserResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int NOT NULL")]
-		public int Id_User
-		{
-			get
-			{
-				return this._Id_User;
-			}
-			set
-			{
-				if ((this._Id_User != value))
-				{
-					this._Id_User = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this._LastName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this._FirstName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
-		public string MiddleName
-		{
-			get
-			{
-				return this._MiddleName;
-			}
-			set
-			{
-				if ((this._MiddleName != value))
-				{
-					this._MiddleName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
-		public string Login
-		{
-			get
-			{
-				return this._Login;
-			}
-			set
-			{
-				if ((this._Login != value))
-				{
-					this._Login = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(512)")]
-		public string Password
-		{
-			get
-			{
-				return this._Password;
-			}
-			set
-			{
-				if ((this._Password != value))
-				{
-					this._Password = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
-		public System.Nullable<int> Id_UserCreate
-		{
-			get
-			{
-				return this._Id_UserCreate;
-			}
-			set
-			{
-				if ((this._Id_UserCreate != value))
-				{
-					this._Id_UserCreate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateCreate
-		{
-			get
-			{
-				return this._DateCreate;
-			}
-			set
-			{
-				if ((this._DateCreate != value))
-				{
-					this._DateCreate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Role", DbType="Int")]
-		public System.Nullable<int> Id_Role
-		{
-			get
-			{
-				return this._Id_Role;
-			}
-			set
-			{
-				if ((this._Id_Role != value))
-				{
-					this._Id_Role = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
 				}
 			}
 		}
@@ -4476,6 +546,740 @@ namespace MusicEducation.Service
 		}
 	}
 	
+	public partial class InsertUser_TestResult
+	{
+		
+		private int _Id;
+		
+		private System.Nullable<System.DateTime> _DateCreate;
+		
+		private System.Nullable<int> _Status;
+		
+		private string _Message;
+		
+		public InsertUser_TestResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreate
+		{
+			get
+			{
+				return this._DateCreate;
+			}
+			set
+			{
+				if ((this._DateCreate != value))
+				{
+					this._DateCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int")]
+		public System.Nullable<int> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this._Status = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(255)")]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this._Message = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetTestResult
+	{
+		
+		private int _Id_Test;
+		
+		private string _Test_Name;
+		
+		private int _Question_Id;
+		
+		private string _Question_Name;
+		
+		private string _Question_Content;
+		
+		private System.Nullable<int> _Question_QuestionType_Id;
+		
+		private int _Answer_Id;
+		
+		private string _Answer_Name;
+		
+		private string _Answer_Content;
+		
+		public GetTestResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Test", DbType="Int NOT NULL")]
+		public int Id_Test
+		{
+			get
+			{
+				return this._Id_Test;
+			}
+			set
+			{
+				if ((this._Id_Test != value))
+				{
+					this._Id_Test = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Test_Name", DbType="NVarChar(128)")]
+		public string Test_Name
+		{
+			get
+			{
+				return this._Test_Name;
+			}
+			set
+			{
+				if ((this._Test_Name != value))
+				{
+					this._Test_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Id", DbType="Int NOT NULL")]
+		public int Question_Id
+		{
+			get
+			{
+				return this._Question_Id;
+			}
+			set
+			{
+				if ((this._Question_Id != value))
+				{
+					this._Question_Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Name", DbType="NVarChar(128)")]
+		public string Question_Name
+		{
+			get
+			{
+				return this._Question_Name;
+			}
+			set
+			{
+				if ((this._Question_Name != value))
+				{
+					this._Question_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string Question_Content
+		{
+			get
+			{
+				return this._Question_Content;
+			}
+			set
+			{
+				if ((this._Question_Content != value))
+				{
+					this._Question_Content = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_QuestionType_Id", DbType="Int")]
+		public System.Nullable<int> Question_QuestionType_Id
+		{
+			get
+			{
+				return this._Question_QuestionType_Id;
+			}
+			set
+			{
+				if ((this._Question_QuestionType_Id != value))
+				{
+					this._Question_QuestionType_Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Id", DbType="Int NOT NULL")]
+		public int Answer_Id
+		{
+			get
+			{
+				return this._Answer_Id;
+			}
+			set
+			{
+				if ((this._Answer_Id != value))
+				{
+					this._Answer_Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Name", DbType="NVarChar(128)")]
+		public string Answer_Name
+		{
+			get
+			{
+				return this._Answer_Name;
+			}
+			set
+			{
+				if ((this._Answer_Name != value))
+				{
+					this._Answer_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string Answer_Content
+		{
+			get
+			{
+				return this._Answer_Content;
+			}
+			set
+			{
+				if ((this._Answer_Content != value))
+				{
+					this._Answer_Content = value;
+				}
+			}
+		}
+	}
+	
+	public partial class InsertUser_Question_AnswerResult
+	{
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private System.Nullable<int> _Complexity;
+		
+		private string _LastName;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		private int _Id_User;
+		
+		private string _Login;
+		
+		private bool _Result;
+		
+		private System.Nullable<int> _CountAnswerValid;
+		
+		private System.Nullable<int> _CountUserAnswerValid;
+		
+		private int _UserAnswerValidPercent;
+		
+		public InsertUser_Question_AnswerResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Complexity", DbType="Int")]
+		public System.Nullable<int> Complexity
+		{
+			get
+			{
+				return this._Complexity;
+			}
+			set
+			{
+				if ((this._Complexity != value))
+				{
+					this._Complexity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this._LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this._FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this._MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int NOT NULL")]
+		public int Id_User
+		{
+			get
+			{
+				return this._Id_User;
+			}
+			set
+			{
+				if ((this._Id_User != value))
+				{
+					this._Id_User = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
+		public string Login
+		{
+			get
+			{
+				return this._Login;
+			}
+			set
+			{
+				if ((this._Login != value))
+				{
+					this._Login = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Result", DbType="Bit NOT NULL")]
+		public bool Result
+		{
+			get
+			{
+				return this._Result;
+			}
+			set
+			{
+				if ((this._Result != value))
+				{
+					this._Result = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountAnswerValid", DbType="Int")]
+		public System.Nullable<int> CountAnswerValid
+		{
+			get
+			{
+				return this._CountAnswerValid;
+			}
+			set
+			{
+				if ((this._CountAnswerValid != value))
+				{
+					this._CountAnswerValid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountUserAnswerValid", DbType="Int")]
+		public System.Nullable<int> CountUserAnswerValid
+		{
+			get
+			{
+				return this._CountUserAnswerValid;
+			}
+			set
+			{
+				if ((this._CountUserAnswerValid != value))
+				{
+					this._CountUserAnswerValid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserAnswerValidPercent", DbType="Int NOT NULL")]
+		public int UserAnswerValidPercent
+		{
+			get
+			{
+				return this._UserAnswerValidPercent;
+			}
+			set
+			{
+				if ((this._UserAnswerValidPercent != value))
+				{
+					this._UserAnswerValidPercent = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetTestsForStudentResult
+	{
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private System.Nullable<int> _Complexity;
+		
+		private System.Nullable<int> _TestType_Id;
+		
+		private string _TestType_Name;
+		
+		private string _LastName;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		private int _Id_User;
+		
+		private string _Login;
+		
+		private decimal _CountAnswerValid;
+		
+		private decimal _CountUserAnswerValid;
+		
+		private int _UserAnswerValidPercent;
+		
+		private System.Nullable<int> _allCount;
+		
+		public GetTestsForStudentResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Complexity", DbType="Int")]
+		public System.Nullable<int> Complexity
+		{
+			get
+			{
+				return this._Complexity;
+			}
+			set
+			{
+				if ((this._Complexity != value))
+				{
+					this._Complexity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestType_Id", DbType="Int")]
+		public System.Nullable<int> TestType_Id
+		{
+			get
+			{
+				return this._TestType_Id;
+			}
+			set
+			{
+				if ((this._TestType_Id != value))
+				{
+					this._TestType_Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestType_Name", DbType="NVarChar(128)")]
+		public string TestType_Name
+		{
+			get
+			{
+				return this._TestType_Name;
+			}
+			set
+			{
+				if ((this._TestType_Name != value))
+				{
+					this._TestType_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this._LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this._FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this._MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int NOT NULL")]
+		public int Id_User
+		{
+			get
+			{
+				return this._Id_User;
+			}
+			set
+			{
+				if ((this._Id_User != value))
+				{
+					this._Id_User = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
+		public string Login
+		{
+			get
+			{
+				return this._Login;
+			}
+			set
+			{
+				if ((this._Login != value))
+				{
+					this._Login = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountAnswerValid", DbType="Decimal(18,3) NOT NULL")]
+		public decimal CountAnswerValid
+		{
+			get
+			{
+				return this._CountAnswerValid;
+			}
+			set
+			{
+				if ((this._CountAnswerValid != value))
+				{
+					this._CountAnswerValid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountUserAnswerValid", DbType="Decimal(18,3) NOT NULL")]
+		public decimal CountUserAnswerValid
+		{
+			get
+			{
+				return this._CountUserAnswerValid;
+			}
+			set
+			{
+				if ((this._CountUserAnswerValid != value))
+				{
+					this._CountUserAnswerValid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserAnswerValidPercent", DbType="Int NOT NULL")]
+		public int UserAnswerValidPercent
+		{
+			get
+			{
+				return this._UserAnswerValidPercent;
+			}
+			set
+			{
+				if ((this._UserAnswerValidPercent != value))
+				{
+					this._UserAnswerValidPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allCount", DbType="Int")]
+		public System.Nullable<int> allCount
+		{
+			get
+			{
+				return this._allCount;
+			}
+			set
+			{
+				if ((this._allCount != value))
+				{
+					this._allCount = value;
+				}
+			}
+		}
+	}
+	
 	public partial class GetUserByIdResult
 	{
 		
@@ -4498,6 +1302,12 @@ namespace MusicEducation.Service
 		private System.Nullable<int> _Id_Role;
 		
 		private string _Name;
+		
+		private System.Nullable<int> _AllCount;
+		
+		private System.Nullable<int> _AvgValidAnswers;
+		
+		private System.Nullable<int> _AvgValidPercent;
 		
 		public GetUserByIdResult()
 		{
@@ -4659,6 +1469,592 @@ namespace MusicEducation.Service
 				if ((this._Name != value))
 				{
 					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllCount", DbType="Int")]
+		public System.Nullable<int> AllCount
+		{
+			get
+			{
+				return this._AllCount;
+			}
+			set
+			{
+				if ((this._AllCount != value))
+				{
+					this._AllCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AvgValidAnswers", DbType="Int")]
+		public System.Nullable<int> AvgValidAnswers
+		{
+			get
+			{
+				return this._AvgValidAnswers;
+			}
+			set
+			{
+				if ((this._AvgValidAnswers != value))
+				{
+					this._AvgValidAnswers = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AvgValidPercent", DbType="Int")]
+		public System.Nullable<int> AvgValidPercent
+		{
+			get
+			{
+				return this._AvgValidPercent;
+			}
+			set
+			{
+				if ((this._AvgValidPercent != value))
+				{
+					this._AvgValidPercent = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetTestsResult
+	{
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private System.Nullable<int> _Complexity;
+		
+		private System.Nullable<int> _TestType_Id;
+		
+		private string _TestType_Name;
+		
+		private string _LastName;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		private int _Id_User;
+		
+		private string _Login;
+		
+		private bool _Result;
+		
+		private decimal _CountAnswerValid;
+		
+		private decimal _CountUserAnswerValid;
+		
+		private int _UserAnswerValidPercent;
+		
+		private System.Nullable<int> _Id_User_Test;
+		
+		private System.Nullable<int> _allCount;
+		
+		public GetTestsResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Complexity", DbType="Int")]
+		public System.Nullable<int> Complexity
+		{
+			get
+			{
+				return this._Complexity;
+			}
+			set
+			{
+				if ((this._Complexity != value))
+				{
+					this._Complexity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestType_Id", DbType="Int")]
+		public System.Nullable<int> TestType_Id
+		{
+			get
+			{
+				return this._TestType_Id;
+			}
+			set
+			{
+				if ((this._TestType_Id != value))
+				{
+					this._TestType_Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestType_Name", DbType="NVarChar(128)")]
+		public string TestType_Name
+		{
+			get
+			{
+				return this._TestType_Name;
+			}
+			set
+			{
+				if ((this._TestType_Name != value))
+				{
+					this._TestType_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this._LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this._FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this._MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int NOT NULL")]
+		public int Id_User
+		{
+			get
+			{
+				return this._Id_User;
+			}
+			set
+			{
+				if ((this._Id_User != value))
+				{
+					this._Id_User = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
+		public string Login
+		{
+			get
+			{
+				return this._Login;
+			}
+			set
+			{
+				if ((this._Login != value))
+				{
+					this._Login = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Result", DbType="Bit NOT NULL")]
+		public bool Result
+		{
+			get
+			{
+				return this._Result;
+			}
+			set
+			{
+				if ((this._Result != value))
+				{
+					this._Result = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountAnswerValid", DbType="Decimal(18,3) NOT NULL")]
+		public decimal CountAnswerValid
+		{
+			get
+			{
+				return this._CountAnswerValid;
+			}
+			set
+			{
+				if ((this._CountAnswerValid != value))
+				{
+					this._CountAnswerValid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountUserAnswerValid", DbType="Decimal(18,3) NOT NULL")]
+		public decimal CountUserAnswerValid
+		{
+			get
+			{
+				return this._CountUserAnswerValid;
+			}
+			set
+			{
+				if ((this._CountUserAnswerValid != value))
+				{
+					this._CountUserAnswerValid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserAnswerValidPercent", DbType="Int NOT NULL")]
+		public int UserAnswerValidPercent
+		{
+			get
+			{
+				return this._UserAnswerValidPercent;
+			}
+			set
+			{
+				if ((this._UserAnswerValidPercent != value))
+				{
+					this._UserAnswerValidPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User_Test", DbType="Int")]
+		public System.Nullable<int> Id_User_Test
+		{
+			get
+			{
+				return this._Id_User_Test;
+			}
+			set
+			{
+				if ((this._Id_User_Test != value))
+				{
+					this._Id_User_Test = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allCount", DbType="Int")]
+		public System.Nullable<int> allCount
+		{
+			get
+			{
+				return this._allCount;
+			}
+			set
+			{
+				if ((this._allCount != value))
+				{
+					this._allCount = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetUserResult
+	{
+		
+		private int _Id_User;
+		
+		private string _LastName;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		private string _Login;
+		
+		private string _Password;
+		
+		private System.Nullable<int> _Id_UserCreate;
+		
+		private System.Nullable<System.DateTime> _DateCreate;
+		
+		private System.Nullable<int> _Id_Role;
+		
+		private string _Name;
+		
+		private System.Nullable<int> _AllCount;
+		
+		private System.Nullable<int> _AvgValidAnswers;
+		
+		private System.Nullable<int> _AvgValidPercent;
+		
+		public GetUserResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int NOT NULL")]
+		public int Id_User
+		{
+			get
+			{
+				return this._Id_User;
+			}
+			set
+			{
+				if ((this._Id_User != value))
+				{
+					this._Id_User = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this._LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this._FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this._MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
+		public string Login
+		{
+			get
+			{
+				return this._Login;
+			}
+			set
+			{
+				if ((this._Login != value))
+				{
+					this._Login = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(512)")]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this._Password = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
+		public System.Nullable<int> Id_UserCreate
+		{
+			get
+			{
+				return this._Id_UserCreate;
+			}
+			set
+			{
+				if ((this._Id_UserCreate != value))
+				{
+					this._Id_UserCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreate
+		{
+			get
+			{
+				return this._DateCreate;
+			}
+			set
+			{
+				if ((this._DateCreate != value))
+				{
+					this._DateCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Role", DbType="Int")]
+		public System.Nullable<int> Id_Role
+		{
+			get
+			{
+				return this._Id_Role;
+			}
+			set
+			{
+				if ((this._Id_Role != value))
+				{
+					this._Id_Role = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllCount", DbType="Int")]
+		public System.Nullable<int> AllCount
+		{
+			get
+			{
+				return this._AllCount;
+			}
+			set
+			{
+				if ((this._AllCount != value))
+				{
+					this._AllCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AvgValidAnswers", DbType="Int")]
+		public System.Nullable<int> AvgValidAnswers
+		{
+			get
+			{
+				return this._AvgValidAnswers;
+			}
+			set
+			{
+				if ((this._AvgValidAnswers != value))
+				{
+					this._AvgValidAnswers = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AvgValidPercent", DbType="Int")]
+		public System.Nullable<int> AvgValidPercent
+		{
+			get
+			{
+				return this._AvgValidPercent;
+			}
+			set
+			{
+				if ((this._AvgValidPercent != value))
+				{
+					this._AvgValidPercent = value;
 				}
 			}
 		}

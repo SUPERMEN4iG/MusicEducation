@@ -98,6 +98,7 @@
     <Content Include="app\musicEducationApp\controllers\pianoController.js" />
     <Content Include="app\musicEducationApp\controllers\studentController.js" />
     <Content Include="app\musicEducationApp\controllers\testController.js" />
+    <Content Include="app\musicEducationApp\directives\pianoDirective.js" />
     <Content Include="app\musicEducationApp\services\authService.js" />
     <Content Include="app\musicEducationApp\services\pianoPlayerService.js" />
     <Content Include="app\musicEducationApp\services\routeResolver.js" />
@@ -1566,9 +1567,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="app\musicEducationApp\directives\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

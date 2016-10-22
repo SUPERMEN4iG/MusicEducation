@@ -12,7 +12,7 @@ namespace MusicEducation.Service.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -43,6 +43,39 @@ namespace MusicEducation.Service.Properties {
         public string DB_9FC383_musiceducationConnectionString1 {
             get {
                 return ((string)(this["DB_9FC383_musiceducationConnectionString1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=hana\\SQLEXPRESS;Initial Catalog=DB_9FC383_musiceducation;Integrated S" +
+            "ecurity=True")]
+        public string DB_9FC383_musiceducationConnectionString2 {
+            get {
+                return ((string)(this["DB_9FC383_musiceducationConnectionString2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;User ID=DB" +
+            "_9FC383_musiceducation_admin;Password=6Kb20OmIIPKtZZQe")]
+        public string DB_9FC383_musiceducationConnectionString3 {
+            get {
+                return ((string)(this["DB_9FC383_musiceducationConnectionString3"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL5031.myASP.NET;Initial Catalog=DB_9FC383_musiceducation;User ID=DB" +
+            "_9FC383_musiceducation_admin")]
+        public string DB_9FC383_musiceducationConnectionString4 {
+            get {
+                return ((string)(this["DB_9FC383_musiceducationConnectionString4"]));
             }
         }
     }

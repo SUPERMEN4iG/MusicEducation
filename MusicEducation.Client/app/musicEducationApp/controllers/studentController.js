@@ -2,11 +2,11 @@
 
 define(['app'], function (app) {
 
-    var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'studentService'];
+	var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'studentService', 'testService', 'toastr', 'pianoPlayerService', '$scope', '$window'];
 
-    var StudentController = function ($location, $routeParams, $rootScope, $route, studentService) {
+	var StudentController = function ($location, $routeParams, $rootScope, $route, studentService, testService, toastr, pianoPlayerService, $scope, $window) {
         var vm = this,
-            path = '/student/   ',
+            path = '/student/',
             id = ($routeParams.id) ? $routeParams.id : '';
 
         vm.id = id;
@@ -14,11 +14,192 @@ define(['app'], function (app) {
         vm.studentList = [];
         vm.student = {};
 
+        vm.taskId;
+        vm.currentTest = {};
+        vm.newTask = {
+        	idUser: $rootScope.globals.currentUser.source.Id,
+        	idUser_test: id,
+        	question_name: '',
+        	question_octaves: [],
+        	question_content: [],
+        	test_name: '',
+        	test_complexity: 1
+        };
+
+        vm.isListening = false;
+        vm.isRecording = false;
+        vm.taskState = 1;
+
+        vm.setRecording = function (rec) {
+        	if (rec) {
+        		vm.newTask.question_content = [];
+        		pianoPlayerService.clearTimeline();
+        	}
+
+        	vm.isRecording = rec;
+        };
+
+        $scope.$watch('vm.newTask.question_octaves', function () {
+        	$rootScope.$emit('ON_PIANO_INIT', vm.newTask.question_octaves);
+        });
+
+        $scope.$watch('vm.currentTest.Questions[0].Content.octaves', function () {
+        	if (vm.currentTest != null)
+        	{
+        		console.log('ON_PIANO_INIT');
+        		$rootScope.$emit('ON_PIANO_INIT', vm.currentTest.Questions[0].Content.octaves);
+        	}
+        });
+
+        vm.isShowModalPiano = false;
+
         $rootScope.pageName = 'Студенты';
+
+        vm.setTaskState = function (state) {
+        	vm.taskState = state;
+        	$rootScope.$emit('ON_PIANO_INIT', vm.newTask.question_octaves);
+        };
 
         vm.goToStudent = function (id) {
             $location.path(path + id);
         };
+
+        vm.appnedTestToUser = function (test) {
+        	studentService.appnedTestToUser(id, test.Id)
+				.then(
+					function (data) {
+						if (data.Status == 1) {
+							toastr.success("Тест отправлен!");
+							init();
+						} else {
+							toastr.error("Тест не отправлен!");
+						}
+					}
+				);
+        };
+
+        vm.showModalPiano = function (idTask) {
+        	$('#hideToggle').hide();
+        	$('#showToggle').show();
+        	$('#sideMenu').addClass('hide');
+        	vm.isShowModalPiano = true;
+        	vm.taskId = idTask;
+        };
+
+        vm.hideModalPiano = function () {
+        	$('#showToggle').hide();
+        	$('#hideToggle').show();
+        	$('#sideMenu').removeClass('hide');
+        	vm.isShowModalPiano = false;
+        	console.log(vm.newTask);
+        };
+
+        vm.insertTestWithContent = function () {
+        	testService.insertTestWithContent(vm.newTask).then(function () {
+        		vm.hideModalPiano();
+        		toastr.success('Успешное добавление задания');
+        	});
+        };
+
+        vm.playPiano = function (notes) {
+        	pianoPlayerService.clearTimeline();
+        	pianoPlayerService.playNotesArray(notes);
+        };
+
+        vm.keyDownTime = {};
+        vm.keyUpTime = {};
+        vm.nowTime;
+        vm.lastTime;
+        vm.tt;
+        var lastEvent;
+        var heldKeys = {};
+
+        function keyDownListener(e) {
+        	console.log('keydown');
+        	if (lastEvent && lastEvent.keyCode == e.keyCode) {
+        		return;
+        	}
+        	lastEvent = e;
+        	heldKeys[e.keyCode] = true;
+
+        	if (vm.lastTime === undefined)
+        		vm.lastTime = new Date();
+
+        	vm.keyDownTime = new Date();
+        	var evtobj = window.event ? event : e;
+        	var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
+        	console.log(new Date().getTime() - vm.lastTime.getTime());
+        	vm.lastTime = new Date();
+
+        	pianoPlayerService.play(keyboradLayout[e.keyCode], 0, true);
+
+        	for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
+        		if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
+        			$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '#ff0000';
+        			$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '5px';
+        			$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = 'none';
+        		}
+        	}
+        	pianoPlayerService.clearTimeline();
+        };
+
+        function keyUpListener(e) {
+        	lastEvent = null;
+        	delete heldKeys[e.keyCode];
+
+        	console.log('keyup');
+
+        	vm.keyUpTime = new Date();
+        	vm.nowTime = new Date();
+        	var evtobj = window.event ? event : e;
+        	var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
+        	var timePress = ((vm.nowTime.getTime() - vm.lastTime.getTime()) / 1000);
+        	if (vm.isRecording)
+        		vm.newTask.question_content[vm.newTask.question_content.length] = { note: keyboradLayout[e.keyCode], duration: timePress, isMove: true };
+
+        	for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
+        		if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
+        			$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '';
+        			$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '';
+        			$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = '';
+        		}
+        	}
+        	pianoPlayerService.clearTimeline();
+        }
+
+        $scope.$watch('vm.isShowModalPiano', function () {
+        	if (vm.isShowModalPiano) {
+        		pianoPlayerService.initialize(function () {
+        			setTimeout(function () {
+        				pianoPlayerService.setVolume(100);
+        				console.log('INITIALIZE');
+        				console.log($window);
+
+        				$window.addEventListener('keydown', keyDownListener, false);
+        				$window.addEventListener('keyup', keyUpListener, false);
+
+        				pianoPlayerService.clearTimeline();
+
+        				if (vm.taskId !== undefined && vm.taskId !== null)
+        				{
+        					testService.getTest(vm.taskId).then(function (data) {
+        						vm.currentTest = data;
+        						console.log(vm.currentTest);
+        					});
+        				}
+        				
+        			}, 100);
+        		});
+        	} else {
+        		console.log('DEINITIALIZE');
+        		pianoPlayerService.clearTimeline();
+        		vm.taskId = null;
+        		vm.currentTest = null;
+        		$window.removeEventListener('keydown', keyDownListener, false);
+        		$window.removeEventListener('keyup', keyUpListener, false);
+        		init();
+        	}
+        });
 
         function init() {
             if (id == '') {
@@ -28,10 +209,15 @@ define(['app'], function (app) {
                         console.log(data);
                     });
             } else {
-                studentService.getStudent(id).then(
+            		studentService.getStudent(id).then(
                     function (data) {
-                        vm.student = data;
-                        console.log(data);
+                    	vm.student = data;
+                    	vm.isListening = true;
+                    	vm.taskState = 1;
+                    	console.info(vm.student);
+                    	testService.getTests(id).then(function (data) {
+                    		vm.student.testList = data;
+                    	});
                     });
             }
         };

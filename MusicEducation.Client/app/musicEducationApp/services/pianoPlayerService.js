@@ -5,23 +5,63 @@ define(['app'], function (app) {
 	var injectParams = ['$http', '$rootScope', 'baseApiUrl', '$filter', '$q'];
 
 	var pianoPlayerService = function ($http, $rootScope, baseApiUrl, $filter, $q) {
+		String.prototype.replaceAt = function (index, character) {
+			return this.substr(0, index) + character + this.substr(index + character.length);
+		}
+
+		var keys = {
+			4: {
+				C: 1,
+				D: 1,
+				F: 1,
+				G: 1
+			}
+		};
+
 		var service = {},
             serviceBase = baseApiUrl + 'piano/',
-			barDuration = 8,
+			barDuration = 4,
 			timeline = 0,
 			velocity = 127,
 			key = keys[4],
 			tempAlts = {},
-			isInitialized = false;
+			isInitialized = false,
+			isPlaying = false;
 
-		service.play = function(noteString, duration, moveTime) {
+		service.isPlaying = isPlaying;
+
+		service.play = function(noteString, duration, moveTime, isRepeat) {
 			var noteInt = calcNote(noteString);
 
 			MIDI.noteOn(0, noteInt, velocity, timeline);
 			MIDI.noteOff(0, noteInt, velocity, timeline + barDuration * duration);
 
+			if (isRepeat !== undefined && isRepeat) {
+				if ($rootScope.visualKeyboards[0][noteString] !== undefined && $rootScope.visualKeyboards[0][noteString] !== null) {
+					setTimeout(function () {
+						$rootScope.visualKeyboards[0][noteString].style.backgroundColor = '#ff0000';
+						$rootScope.visualKeyboards[0][noteString].style.marginTop = '5px';
+						$rootScope.visualKeyboards[0][noteString].style.boxShadow = 'none';
+						isPlaying = true;
+					}, timeline * 1000);
+					setTimeout(function () {
+						$rootScope.visualKeyboards[0][noteString].style.backgroundColor = '';
+						$rootScope.visualKeyboards[0][noteString].style.marginTop = '';
+						$rootScope.visualKeyboards[0][noteString].style.boxShadow = '';
+						isPlaying = false;
+					}, (timeline + barDuration * duration) * 1000);
+				}
+			}
+
 			if (typeof moveTime !== 'undefined' && moveTime === true) {
 				move(duration);
+			}
+		};
+
+		service.playNotesArray = function (notesArray) {
+			for (var i = 0; i < notesArray.length; i++) {
+				var current = notesArray[i];
+				service.play(current.note, current.duration, current.isMove, true);
 			}
 		};
 
@@ -34,8 +74,9 @@ define(['app'], function (app) {
 		};
 
 		service.initialize = function (onSuccess) {
-			if (!isInitialized)
-			{
+			console.log(isInitialized);
+			//if (!isInitialized)
+			//{
 				MIDI.loadPlugin({
 					soundfontUrl: "./soundfont/",
 					instrument: "acoustic_grand_piano",
@@ -47,7 +88,7 @@ define(['app'], function (app) {
 						isInitialized = !isInitialized;
 					}
 				});
-			}
+			//}
 		};
 
 		var move = function(duration) {
