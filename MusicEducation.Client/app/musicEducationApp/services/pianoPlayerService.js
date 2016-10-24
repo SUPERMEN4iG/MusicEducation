@@ -58,10 +58,16 @@ define(['app'], function (app) {
 			}
 		};
 
-		service.playNotesArray = function (notesArray) {
+		service.playNotesArray = function (notesArray, isRepeat) {
+
+		    if (isRepeat === undefined && isRepeat == null)
+		    {
+		        isRepeat = true;
+		    }
+
 			for (var i = 0; i < notesArray.length; i++) {
 				var current = notesArray[i];
-				service.play(current.note, current.duration, current.isMove, true);
+				service.play(current.note, current.duration, current.isMove, isRepeat);
 			}
 		};
 

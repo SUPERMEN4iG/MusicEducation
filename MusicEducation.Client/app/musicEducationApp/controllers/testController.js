@@ -36,8 +36,12 @@ define(['app'], function (app) {
 		};
 
 		vm.playNotes = function (obj) {
-			pianoPlayerService.clearTimeline();
-			pianoPlayerService.playNotesArray(obj);
+		    pianoPlayerService.clearTimeline();
+
+		    var isRepeat = (vm.taskState == 2);
+		    console.info('isRepeat = ', isRepeat);
+		    pianoPlayerService.playNotesArray(obj, isRepeat);
+
 			pianoPlayerService.clearTimeline();
 		};
 
