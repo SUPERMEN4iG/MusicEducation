@@ -39,7 +39,7 @@ define(['app'], function (app) {
 			if (isRepeat !== undefined && isRepeat) {
 				if ($rootScope.visualKeyboards[0][noteString] !== undefined && $rootScope.visualKeyboards[0][noteString] !== null) {
 					setTimeout(function () {
-						$rootScope.visualKeyboards[0][noteString].style.backgroundColor = '#ff0000';
+						$rootScope.visualKeyboards[0][noteString].style.backgroundColor = '#666cff';
 						$rootScope.visualKeyboards[0][noteString].style.marginTop = '5px';
 						$rootScope.visualKeyboards[0][noteString].style.boxShadow = 'none';
 						isPlaying = true;

@@ -47,7 +47,13 @@ define(['app'], function (app) {
 		};
 
 		service.getCurrentUser = function () {
-			return $http.get(baseApiUrl + 'account/user', { cache: userCache });
+			return $http({
+				url: baseApiUrl + 'account/user',
+				method: "GET",
+				headers: {
+					'Content-Type': 'text/plain'
+				}
+			});
 		};
 
 		service.ClearCredentials = function () {

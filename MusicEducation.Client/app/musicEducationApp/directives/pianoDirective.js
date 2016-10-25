@@ -65,7 +65,7 @@ define(['app'], function (app) {
 								function (_temp, _key) {
 									return function () {
 										console.info('onkeydown');
-										_key.style.backgroundColor = '#ff0000';
+										_key.style.backgroundColor = '#666cff';
 										_key.style.marginTop = '5px';
 										_key.style.boxShadow = 'none';
 										pianoPlayerService.play(_temp, 0, true);

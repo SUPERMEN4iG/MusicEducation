@@ -67,7 +67,7 @@ define(['app'], function (app) {
 
 			for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
 				if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
-					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '#ff0000';
+					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '#666cff';
 					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '5px';
 					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = 'none';
 				}
