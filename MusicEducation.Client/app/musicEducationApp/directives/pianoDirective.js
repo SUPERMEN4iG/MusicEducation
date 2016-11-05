@@ -8,8 +8,9 @@ define(['app'], function (app) {
 		return {
 			restrict: 'E',
 			scope: {
-				octaves: '=',
-				keyboardid: '='
+				octaves: '@',
+				keyboardid: '=',
+				isshowhint: '@'
 			},
 			template: '<div class="keyboard-options">'+
 						'<div id="keyboard-{{keyboardid}}" class="keyboard-holder"></div>' +
@@ -20,7 +21,8 @@ define(['app'], function (app) {
 				$rootScope.$on('ON_PIANO_INIT', function (event, data) {
 					console.info('PIANO INIT');
 					//scope.visualKeyboards[scope.keyboardid] = angular.element(element.children()[0][0]);
-					scope.octaves = data;
+					scope.octaves = data.octaves;
+					scope.isshowhint = data.isshowhint;
 					//if (scope.octaves === undefined || scope.octaves === null) {
 					//	scope.octaves = ['1', '2', '3'];
 					//}
@@ -55,6 +57,13 @@ define(['app'], function (app) {
 								key = scope.getKey(n);
 								console.log(n);
 							}
+							console.log(scope.isshowhint);
+							if (!scope.isshowhint) {
+								key = '';
+							} else {
+								
+							}
+
 							var label = document.createElement('div');
 							label.className = 'label';
 							label.innerHTML = '<b>' + '' + '</b>' + '<br /><br />' + key +
@@ -96,6 +105,7 @@ define(['app'], function (app) {
 			},
 			controller: (['$scope', '$rootScope',
 			function ($scope, $rootScope) {
+				$scope.isshowhint = false;
 				$scope.visualKeyboards = [];
 				$scope.simpleOctave = {
 					'A1': 1,
@@ -139,37 +149,29 @@ define(['app'], function (app) {
 						57: 'G2#',
 						48: 'A2#',
 
-						90: 'C1',
-						88: 'D1',
-						67: 'E1',
-						86: 'F1',
-						66: 'G1',
-						78: 'A2',
-						77: 'B2',
-						188: 'C2',
-						190: 'D2',
-						191: 'E2',
+						81: 'A2',
+						87: 'B2',
+						69: 'C2',
+						82: 'D2',
+						84: 'E2',
+						89: 'F2',
+						85: 'G2',
 
-						65: 'F2',
-						83: 'G2',
-						68: 'A3',
-						70: 'B3',
-						71: 'C3',
-						72: 'D3',
-						74: 'E3',
-						75: 'F3',
-						76: 'G3',
+						65: 'A3',
+						83: 'B3',
+						68: 'C3',
+						70: 'D3',
+						71: 'E3',
+						72: 'F3',
+						74: 'G3',
 
-						81: 'A4',
-						87: 'B4',
-						69: 'C4',
-						82: 'D4',
-						84: 'E4',
-						89: 'F4',
-						85: 'G4',
-						73: 'A5',
-						79: 'B5',
-						80: 'C5',
+						90: 'A4',
+						88: 'B4',
+						67: 'C4',
+						86: 'D4',
+						66: 'E4',
+						78: 'F4',
+						77: 'G4',
 					}
 				};
 

@@ -4,19 +4,19 @@ define(['app'], function (app) {
 
 	var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'testService', 'toastr', 'pianoPlayerService', '$window', '$scope'];
 
-	var PianoController = function ($location, $routeParams, $rootScope, $route, testService, toastr, pianoPlayerService, $window, $scope) {
+	var ConstructorController = function ($location, $routeParams, $rootScope, $route, testService, toastr, pianoPlayerService, $window, $scope) {
 		var vm = this,
-            path = '/piano/',
+            path = '/constructor/',
 			id = ($routeParams.id) ? $routeParams.id : '';
 
 		vm.octaves = [];
 		vm.notes = [];
 
-		$scope.$watch('vm.octaves', function () {
+		$scope.$watch('vm.newTask.question_octaves', function () {
 
 			console.log('ON_PIANO_INIT');
 			$rootScope.$emit('ON_PIANO_INIT', {
-				octaves: vm.octaves,
+				octaves: vm.newTask.question_octaves,
 				isshowhint: vm.pianoSettings.isShowHints
 			});
 
@@ -25,7 +25,7 @@ define(['app'], function (app) {
 		$scope.$watch('vm.pianoSettings.isShowHints', function () {
 			console.log('ON_PIANO_INIT');
 			$rootScope.$emit('ON_PIANO_INIT', {
-				octaves: vm.octaves,
+				octaves: vm.newTask.question_octaves,
 				isshowhint: vm.pianoSettings.isShowHints
 			});
 		});
@@ -50,7 +50,7 @@ define(['app'], function (app) {
 
 		vm.setRecording = function (rec) {
 			if (rec) {
-				vm.notes = [];
+				vm.newTask.question_content = [];
 				pianoPlayerService.clearTimeline();
 			}
 
@@ -58,7 +58,34 @@ define(['app'], function (app) {
 		};
 
 		vm.pianoSettings = {
-			isShowHints : true
+			isShowHints: true
+		};
+
+		vm.newTask = {
+			idUser: $rootScope.globals.currentUser.source.Id,
+			idUser_test: null,
+			question_name: '',
+			question_octaves: [],
+			question_content: [],
+			test_name: '',
+			test_complexity: 1
+		};
+
+		vm.insertTestWithContent = function () {
+			testService.insertTestWithContent(vm.newTask).then(function () {
+				vm.hideModalPiano();
+				toastr.success('Успешное добавление задания');
+
+				vm.newTask = {
+					idUser: $rootScope.globals.currentUser.source.Id,
+					idUser_test: null,
+					question_name: '',
+					question_octaves: [],
+					question_content: [],
+					test_name: '',
+					test_complexity: 1
+				};
+			});
 		};
 
 		function keyDownListener(e) {
@@ -104,7 +131,7 @@ define(['app'], function (app) {
 			var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
 			var timePress = ((vm.nowTime.getTime() - vm.lastTime.getTime()) / 1000);
 			if (vm.isRecording)
-				vm.notes[vm.notes.length] = { note: keyboradLayout[e.keyCode], duration: timePress, isMove: true };
+				vm.newTask.question_content[vm.newTask.question_content.length] = { note: keyboradLayout[e.keyCode], duration: timePress, isMove: true };
 
 			for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
 				if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
@@ -165,8 +192,8 @@ define(['app'], function (app) {
 		}
 	};
 
-	PianoController.$inject = injectParams;
+	ConstructorController.$inject = injectParams;
 
-	app.register.controller('PianoController', PianoController);
+	app.register.controller('ConstructorController', ConstructorController);
 
 });

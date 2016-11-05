@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\musicEducationApp\controllers\constructorController.js" />
     <Content Include="app\musicEducationApp\controllers\loginController.js" />
     <Content Include="app\musicEducationApp\controllers\mainController.js" />
     <Content Include="app\musicEducationApp\controllers\navbarController.js" />
@@ -101,11 +102,13 @@
     <Content Include="app\musicEducationApp\controllers\studentController.js" />
     <Content Include="app\musicEducationApp\controllers\testController.js" />
     <Content Include="app\musicEducationApp\directives\pianoDirective.js" />
+    <Content Include="app\musicEducationApp\directives\semantic-ui\modalDirective.js" />
     <Content Include="app\musicEducationApp\services\authService.js" />
     <Content Include="app\musicEducationApp\services\pianoPlayerService.js" />
     <Content Include="app\musicEducationApp\services\routeResolver.js" />
     <Content Include="app\musicEducationApp\services\studentService.js" />
     <Content Include="app\musicEducationApp\services\testService.js" />
+    <Content Include="app\musicEducationApp\views\constructor.html" />
     <Content Include="app\musicEducationApp\views\login.html" />
     <Content Include="app\musicEducationApp\views\main.html" />
     <Content Include="app\musicEducationApp\views\piano.html" />
@@ -348,6 +351,11 @@
     <Content Include="bower_components\angular-ui-bootstrap\template\tooltip\tooltip-template-popup.html" />
     <Content Include="bower_components\angular-ui-bootstrap\template\typeahead\typeahead-match.html" />
     <Content Include="bower_components\angular-ui-bootstrap\template\typeahead\typeahead-popup.html" />
+    <Content Include="bower_components\angular-xeditable\CHANGELOG.txt" />
+    <Content Include="bower_components\angular-xeditable\dist\css\xeditable.css" />
+    <Content Include="bower_components\angular-xeditable\dist\css\xeditable.min.css" />
+    <Content Include="bower_components\angular-xeditable\dist\js\xeditable.js" />
+    <Content Include="bower_components\angular-xeditable\dist\js\xeditable.min.js" />
     <Content Include="bower_components\angular\angular-csp.css" />
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
@@ -1552,6 +1560,10 @@
     <Content Include="bower_components\angular-toastr\README.md" />
     <Content Include="content\inc\jasmid\LICENSE" />
     <Content Include="content\inc\tuna\README.md" />
+    <Content Include="bower_components\angular-xeditable\.bower.json" />
+    <Content Include="bower_components\angular-xeditable\bower.json" />
+    <Content Include="bower_components\angular-xeditable\LICENSE" />
+    <Content Include="bower_components\angular-xeditable\readme.md" />
     <None Include="Properties\PublishProfiles\MusicEducation.Client.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

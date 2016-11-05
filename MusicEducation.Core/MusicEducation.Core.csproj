@@ -163,7 +163,7 @@
     <Content Include="Content\Templates\ReportTemplate.xlsx" />
     <Content Include="Content\GeneratedDocuments\GeneratedDocument_26.05.2016_28efb869-9788-4173-8e4a-60c40b0a550a.xlsx" />
     <Content Include="Content\GeneratedDocuments\GeneratedDocument_26.05.2016_3e7e9c0f-f4a1-4ebf-a157-e358ab292bc5.xlsx" />
-    <None Include="Properties\PublishProfiles\myASPnet.pubxml" />
+    <None Include="Properties\PublishProfiles\MusicEducation.Core.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

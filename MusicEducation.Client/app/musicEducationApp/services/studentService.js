@@ -122,6 +122,22 @@ define(['app'], function (app) {
         	return deferred.promise;
         };
 
+        service.appnedTestToUserWithContent = function (obj) {
+        	var deferred = $q.defer();
+        	$http({
+        		method: 'POST',
+        		url: serviceBase + 'AppnedTestToUserWithContent/',
+        		data: obj
+        	}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+        	return deferred.promise;
+        };
+
         service.getTest = function (id) {
             var deferred = $q.defer();
 

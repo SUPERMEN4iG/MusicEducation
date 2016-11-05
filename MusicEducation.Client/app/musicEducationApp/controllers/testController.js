@@ -35,10 +35,23 @@ define(['app'], function (app) {
 			localUserNotes: []
 		};
 
-		vm.playNotes = function (obj) {
-		    pianoPlayerService.clearTimeline();
+		vm.testState = 1;
 
-		    var isRepeat = (vm.taskState == 2);
+		vm.currentQuestionEditable = 0;
+
+		vm.playNotes = function (obj) {
+			pianoPlayerService.clearTimeline();
+
+			var isRepeat = false;
+
+			if (vm.taskState == 2)
+			{
+				isRepeat = true;
+			} else if (vm.currentTest.Id_User_TestType == 1 && vm.currentTest.IsShowHints) {
+				isRepeat = true;
+			} else if (vm.currentTest.IsShowHints) {
+				isRepeat = true;
+			}
 		    console.info('isRepeat = ', isRepeat);
 		    pianoPlayerService.playNotesArray(obj, isRepeat);
 
@@ -47,7 +60,10 @@ define(['app'], function (app) {
 
 		vm.setTaskState = function (state) {
 			vm.taskState = state;
-			$rootScope.$emit('ON_PIANO_INIT', vm.currentTest.Questions[vm.currentQuestion].Content.octaves);
+			$rootScope.$emit('ON_PIANO_INIT', {
+				octaves: vm.currentTest.Questions[vm.currentQuestion].Content.octaves,
+				isshowhint: vm.currentTest.IsShowHints
+			});
 		};
 
 		vm.setRecording = function (rec) {
@@ -64,11 +80,16 @@ define(['app'], function (app) {
 		    {
                 $location.path(path + test.Id);
 		    } else {
-		        if (test.allCount == null) {
-		            $location.path(path + test.Id);
-		        } else {
-		            toastr.error('Вы уже проходили этот тест!');
-		        }
+		    	console.log(test);
+		    	if (test.UserAnswerValidPercent == 100) {
+		    		toastr.info('Вы уже прошли этот тест на 100%');
+		    	} else if (test.CountAttempts > 0) {
+		    		$location.path(path + test.Id);
+		    		toastr.info('Осталось ' + test.CountAttempts + ' попытки');
+		    		//test.allCount == null
+		    	} else {
+		    		toastr.info('Попытки кончились!');
+		    	}
 		    }
 		};
 
@@ -137,6 +158,55 @@ define(['app'], function (app) {
 			c.isUserAnswer = true;
 			vm.nextQuestion();
 			console.log(vm.currentTest);
+		};
+
+		vm.setChoice = function (qAnswers, c) {
+			angular.forEach(qAnswers, function (c) {
+				c.IsValid = false;
+			});
+			console.log(c);
+			c.IsValid = true;
+		};
+
+		vm.moveToEditableQuestion = function (index) {
+			if (vm.currentTest.Questions[index] === undefined)
+			{
+				vm.currentTest.Questions[index] = {
+					Content: null,
+					Id: null,
+					Name: "",
+					QuestionType: 1,
+					Answers: []
+				}
+			}
+
+			vm.currentQuestionEditable = index;
+		};
+
+		vm.removeAnswerInQuestion = function (answerIndex) {
+			vm.currentTest.Questions[vm.currentQuestionEditable].Answers.splice(answerIndex, 1);
+		};
+
+		vm.updateEditableTest = function (obj) {
+			testService.updateTest(obj).then(function (response) {
+				toastr.info('Тест сохранён!');
+			});
+		};
+
+		vm.appnedAnswer = function (qAnswers, answer) {
+			if (answer === undefined)
+			{
+				answer = {
+					Content: null,
+					ContentUserAnswer: null,
+					Id: null,
+					Name: "Ответ",
+					isUserAnswer: false,
+					IsValid: false
+				};
+			}
+
+			qAnswers.push(answer);
 		};
 
 		console.log(id);
@@ -242,7 +312,10 @@ define(['app'], function (app) {
 		                if (vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2) {
 		                	setTimeout(function () {
 		                		vm.isListening = true;
-		                		$rootScope.$emit('ON_PIANO_INIT', vm.currentTest.Questions[vm.currentQuestion].Content.octaves);
+		                		$rootScope.$emit('ON_PIANO_INIT', {
+		                			octaves: vm.currentTest.Questions[vm.currentQuestion].Content.octaves,
+		                			isshowhint: vm.currentTest.IsShowHints
+		                		});
 		                		vm.taskState = 1;
 		                	}, 100);
 		                	//$scope.$watch('vm.currentTest.Questions[vm.currentQuestion].Content.octaves', function () {

@@ -115,6 +115,22 @@ define(['app'], function (app) {
 			return deferred.promise;
 		};
 
+		service.updateTest = function (test) {
+			var deferred = $q.defer();
+			$http({
+				method: 'POST',
+				url: serviceBase + 'UpdateTest/',
+				data: test
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+			return deferred.promise;
+		};
+
 		service.insertTestResult = function (test) {
 			var deferred = $q.defer();
 			$http({

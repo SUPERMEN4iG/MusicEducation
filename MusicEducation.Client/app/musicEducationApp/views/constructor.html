@@ -23,15 +23,19 @@
 				</div>
 			</div>
 			<div class="sixteen wide column" id="content">
-				<h2><i class="book icon"></i> Пианино</h2>
+				<h2><i class="book icon"></i> Конструктор заданий</h2>
 				<div class="ui divider"></div>
 
 				<div class="ui form">
 					<div class="ui form">
 						<div class="field">
+							<label>Название</label>
+							<input type="text" name="name" placeholder="Введите название теста" ng-model="vm.newTask.test_name">
+						</div>
+						<div class="field">
 							<label>Октавы</label>
 							<div class="ui dropdown selection multiple" tabindex="0">
-								<select multiple="" ng-model="vm.octaves">
+								<select multiple="" ng-model="vm.newTask.question_octaves">
 									<option value="">Выбор октав</option>
 									<option value="2">2 октава</option>
 									<option value="3">3 октава</option>
@@ -56,8 +60,8 @@
 									<div class="eleven wide column"></div>
 									<div class="five wide column">
 										<button class="ui button green"
-												ng-click="vm.playPiano(vm.notes)"
-												ng-disabled="vm.notes.length === 0">
+												ng-click="vm.playPiano(vm.newTask.question_content)"
+												ng-disabled="vm.newTask.question_content.length === 0">
 											<i class="play icon"></i>
 											Проиграть
 										</button>
@@ -94,9 +98,24 @@
 								</div>
 							</div>
 						</div>
-						<piano octaves="vm.octaves" 
+						<piano octaves="vm.octaves"
 							   keyboardid="0"
 							   isshowhint="vm.pianoSettings.isShowHints" />
+						<div class="ui right aligned grid">
+							<div class="row">
+								<div class="fourteen wide column"></div>
+								<div class="two wide column">
+									<button class="ui button"
+											ng-if="vm.taskState == 1"
+											ng-disabled="vm.isRecording == true || vm.newTask.question_content.length === 0"
+											ng-class="vm.isRecording == false && vm.newTask.question_content.length !== 0 ? 'green' : ''"
+											ng-click="vm.insertTestWithContent()">
+										<i class="plus icon"></i>
+										Создать
+									</button>
+								</div>
+							</div>
+						</div>
 						<!--<div class="ui right aligned grid">
 							<div class="row">
 								<div class="fourteen wide column"></div>
@@ -115,11 +134,11 @@
 					</div>
 				</div>
 
-					<div class="ui divider"></div>
-					<div align="center">
-						Для игры на пианино можно использовать клавиши [A-z], также цифры [1-9]
-					</div>
+				<div class="ui divider"></div>
+				<div align="center">
+					Для игры на пианино можно использовать клавиши [A-z], также цифры [1-9]
 				</div>
+			</div>
 		</div>
 	</div>
 </div>

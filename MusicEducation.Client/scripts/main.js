@@ -8,7 +8,7 @@ require(
         'app',
         //'MusicEducation.Coreapp/directives/loadingDirective',
         //'MusicEducation.Coreapp/directives/autoActiveMenuDirective',
-        //'MusicEducation.Coreapp/directives/semantic-ui/modalDirective',
+        'musicEducationApp/directives/semantic-ui/modalDirective',
         //'MusicEducation.Coreapp/directives/semantic-ui/accordionDirective',
 		'musicEducationApp/directives/pianoDirective',
         'musicEducationApp/services/routeResolver',

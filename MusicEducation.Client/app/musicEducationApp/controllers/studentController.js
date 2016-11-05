@@ -2,14 +2,24 @@
 
 define(['app'], function (app) {
 
-	var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'studentService', 'testService', 'toastr', 'pianoPlayerService', '$scope', '$window'];
+	var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'studentService', 'testService', 'toastr', 'pianoPlayerService', '$scope', '$window', '$filter'];
 
-	var StudentController = function ($location, $routeParams, $rootScope, $route, studentService, testService, toastr, pianoPlayerService, $scope, $window) {
+	var StudentController = function ($location, $routeParams, $rootScope, $route, studentService, testService, toastr, pianoPlayerService, $scope, $window, $filter) {
         var vm = this,
             path = '/student/',
             id = ($routeParams.id) ? $routeParams.id : '';
 
         vm.id = id;
+
+        vm.testTypeDictionary = [
+			{ Id: 1, Name: 'Обучающиее задание' },
+			{ Id: 2, Name: 'Контрольное задание' }
+        ];
+
+        vm.isShowHintsDictionary = [
+			{ Id: 1, Name: 'Показывать' },
+			{ Id: 0, Name: 'Не показывать' }
+        ];
 
         vm.studentList = [];
         vm.student = {};
@@ -26,6 +36,10 @@ define(['app'], function (app) {
         	test_complexity: 1
         };
 
+        vm.pianoSettings = {
+        	isShowHints: false
+        };
+
         vm.isListening = false;
         vm.isRecording = false;
         vm.taskState = 1;
@@ -40,14 +54,20 @@ define(['app'], function (app) {
         };
 
         $scope.$watch('vm.newTask.question_octaves', function () {
-        	$rootScope.$emit('ON_PIANO_INIT', vm.newTask.question_octaves);
+        	$rootScope.$emit('ON_PIANO_INIT', {
+        		octaves: vm.newTask.question_octaves,
+        		isshowhint: vm.pianoSettings.isShowHints
+        	});
         });
 
         $scope.$watch('vm.currentTest.Questions[0].Content.octaves', function () {
         	if (vm.currentTest != null)
         	{
         		console.log('ON_PIANO_INIT');
-        		$rootScope.$emit('ON_PIANO_INIT', vm.currentTest.Questions[0].Content.octaves);
+        		$rootScope.$emit('ON_PIANO_INIT', {
+        			octaves: vm.currentTest.Questions[0].Content.octaves,
+        			isshowhint: vm.pianoSettings.isShowHints
+        		});
         	}
         });
 
@@ -57,15 +77,49 @@ define(['app'], function (app) {
 
         vm.setTaskState = function (state) {
         	vm.taskState = state;
-        	$rootScope.$emit('ON_PIANO_INIT', vm.newTask.question_octaves);
+        	$rootScope.$emit('ON_PIANO_INIT', {
+        		octaves: vm.newTask.question_octaves,
+        		isshowhint: vm.pianoSettings.isShowHints
+        	});
         };
 
         vm.goToStudent = function (id) {
             $location.path(path + id);
         };
 
+        var findInDictionaryByName = function (obj, key) {
+        	var found = $filter('filter')(obj, { Name: key }, true);
+        	return found[0];
+        }
+
         vm.appnedTestToUser = function (test) {
         	studentService.appnedTestToUser(id, test.Id)
+				.then(
+					function (data) {
+						if (data.Status == 1) {
+							toastr.success("Тест отправлен!");
+							init();
+						} else {
+							toastr.error("Тест не отправлен!");
+						}
+					}
+				);
+        };
+
+        vm.appnedTestToUserWithContent = function (test) {
+
+        	test.idUser_TestType = findInDictionaryByName(vm.testTypeDictionary, test.idUser_TestType).Id;
+        	test.isShowHints = findInDictionaryByName(vm.isShowHintsDictionary, test.isShowHints).Id;
+
+        	var sendedTest = {
+        		idUser: vm.newTask.idUser_test,
+        		idTest: test.Id,
+        		idUserTestType: test.idUser_TestType,
+        		countAttempts: test.countAttempts,
+        		isShowHints: test.isShowHints
+        	};
+        	
+        	studentService.appnedTestToUserWithContent(sendedTest)
 				.then(
 					function (data) {
 						if (data.Status == 1) {

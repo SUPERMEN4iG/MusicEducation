@@ -20,8 +20,17 @@ namespace MusicEducation.Service
 			TestViewModel test = new TestViewModel();
 			var listTest = base._DBContext.GetTest(idUser, idTest).ToList();
 
+            if (listTest == null)
+            {
+                return null;
+            }
+
 			test.Id = listTest.FirstOrDefault().Id_Test;
 			test.Name = listTest.FirstOrDefault().Test_Name;
+			test.IsCompleted = listTest.FirstOrDefault().IsCompleted;
+			test.IsShowHints = Convert.ToBoolean(listTest.FirstOrDefault().IsShowHints);
+			test.CountAttempts = listTest.FirstOrDefault().CountAttempts;
+			test.Id_User_TestType = listTest.FirstOrDefault().Id_User_TestType;
 			test.Questions = new List<TestViewModel.QuestionModel>();
 
 			foreach (var item in listTest.GroupBy(g => g.Question_Id))
@@ -40,7 +49,8 @@ namespace MusicEducation.Service
 							Id = x.Answer_Id,
 							Name = x.Answer_Name,
 							Content = x.Answer_Content,
-							isUserAnswer = false
+							isUserAnswer = false,
+							IsValid = x.IsValid
 						};
 					}).ToList()
 				});
@@ -61,9 +71,9 @@ namespace MusicEducation.Service
 			return result;
 		}
 
-		public int InsertTestWithContent(int? idUser, int? idUser_test, string test_name, int test_complexity, string question_name, string question_content)
+		public int InsertTestWithContent(int? idUser, string test_name, int test_complexity, string question_name, string question_content)
 		{
-			return _DBContext.InsertTestWithContent(idUser, idUser_test, test_name, test_complexity, question_name, question_content);
+			return _DBContext.InsertTestWithContent(idUser, test_name, test_complexity, question_name, question_content);
 		}
 
 		public InsertUser_Question_AnswerResult InsertTestResult(int? idUser, int idTest, int idQuestion, int idAnswer, string answer_content)
@@ -75,6 +85,48 @@ namespace MusicEducation.Service
 		public int UpdateUser_Test(int? idUser, int? idTest, int? validAnswers, int? validPercent)
 		{
 			var result = _DBContext.UpdateUser_Test(idUser, idTest, validAnswers, validPercent);
+			return result;
+		}
+
+		public int InsertQuestion_Answer(int? idUser, int? idQuestion, string answer_name, string answer_content, int? answer_isValid)
+		{
+			var result = _DBContext.InsertQuestion_Answer(idUser, idQuestion, answer_name, answer_content, answer_isValid);
+
+			return result;
+		}
+
+		public int UpdateQuestion_Answer(int? idUser, int? idQuestion, int? idAnswer, string answer_name, string answer_content, int? answer_isValid)
+		{
+			var result = _DBContext.UpdateQuestion_Answer(idUser, idQuestion, idAnswer, answer_name, answer_content, answer_isValid);
+
+			return result;
+		}
+
+		public int UpdateTest_Question(int? idUser, int? idQuestion, string question_name, string question_content, int? question_type)
+		{
+			var result = _DBContext.UpdateTest_Question(idUser, idQuestion, question_name, question_content, question_type);
+
+			return result;
+		}
+
+		public int InsertTest_Question(int? idUser, int? idTest, string question_name, string question_content, int? question_type)
+		{
+			var result = _DBContext.InsertTest_Question(idUser, idTest, question_name, question_content, question_type);
+
+			return result;
+		}
+
+		public int InsertUser_Test_Custom(int? idUser, int? idTest, string test_name, int? test_complexity, int? test_id_TestType)
+		{
+			var result = _DBContext.InsertUser_Test_Custom(idUser, idTest, test_name, test_complexity, test_id_TestType);
+
+			return result;
+		}
+
+		public int UpdateUser_Test_Custom(int? idUser, int? idTest, string test_name, int? test_complexity, int? test_id_TestType)
+		{
+			var result = _DBContext.UpdateUser_Test_Custom(idUser, idTest, test_name, test_complexity, test_id_TestType);
+
 			return result;
 		}
 	}

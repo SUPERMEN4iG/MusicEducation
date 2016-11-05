@@ -4,7 +4,7 @@
             <div class="side menu" id="sideMenu">
                 <div align="center" class="profile">
                     <br>
-                    <a href=""><img src="content/img/incognito.png" alt="Marry Doe" class="ui circular image" width="150px"></a>
+                    <a href=""><img src="content/img/piano-min.png" alt="Marry Doe" class="ui circular image" width="150px"></a>
                     <div class="ui white header">{{globals.currentUser.source.LastName}} {{globals.currentUser.source.FirstName[0]}}. {{globals.currentUser.source.MiddleName[0]}}</div>
                     <div class="ui divider"></div>
                 </div>
@@ -13,6 +13,7 @@
                     <a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
                     <a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Студенты</span></a>
+					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
                     <!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
                     <a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
                     <a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -22,6 +23,7 @@
                 </div>
             </div>
 
+
             <div class="sixteen wide column" id="content" ng-if="vm.id == ''">
                 <h2><i class="book icon"></i> Студенты</h2>
                 <div class="ui divider"></div>
@@ -29,7 +31,7 @@
                 <div class="ui cards">
                     <div class="card" ng-repeat="student in vm.studentList">
                         <div class="content">
-                            <img class="right floated mini ui image" src="/content/img/incognito.png">
+                            <img class="right floated mini ui image" src="/content/img/piano-min.png">
                             <div class="header">
                                 {{ student.LastName }} {{ student.FirstName }}
                             </div>
@@ -144,7 +146,7 @@
 						<div class="ui relaxed divided items">
 							<div class="item" ng-repeat="test in vm.student.testList | filter:{TestType_Id: '1'}">
 								<div class="ui tiny image">
-									<img src="/content/img/incognito.png">
+									<img src="/content/img/piano-min.png">
 								</div>
 								<div class="content">
 									<a class="header">{{test.Name}}</a>
@@ -171,20 +173,28 @@
 
 					<div class="column">
 						<h3 class="ui header">Задания</h3>
-						<div class="ui right floated small green labeled icon button" ng-click="vm.showModalPiano()">
+						<!--<div class="ui right floated small green labeled icon button" ng-click="vm.showModalPiano()">
 							<i class="add icon"></i> Добавить
-						</div>
+						</div>-->
 						<div class="ui relaxed divided items">
 							<div class="item" ng-repeat="test in vm.student.testList | filter:{TestType_Id: '2'}">
 								<div class="content">
 									<div class="ui large star rating" data-rating="2" data-max-rating="4"></div>
 									<div class="header">
-										<img src="/content/img/incognito.png" class="ui avatar image">
+										<img src="/content/img/piano-min.png" class="ui avatar image">
 										<a ng-click="vm.showModalPiano(test.Id)">{{ test.Name }}</a>
-										<br />
+									</div>
+									<div class="extra">
+										<div class="ui right floated primary button"
+											 ng-if="globals.currentUser.source.RoleName != 'Ученик'"
+											 ng-class="test.UserAnswerValidPercent != 0 || test.Id_User_Test != null ? 'disabled' : ''"
+											 ng-click="vm.showModalPiano(test.Id)">
+											Назначить
+											<i class="right chevron icon"></i>
+										</div>
 										<div style="margin-top:5px" class="ui label green">
-											<span ng-if="test.allCount !== null">Пройден на {{test.UserAnswerValidPercent}}%</span>
-											<span ng-if="test.allCount === null">Не пройден </span>
+											<span ng-if="test.allCount !== null || test.UserAnswerValidPercent == 100">Пройден на {{test.UserAnswerValidPercent}}%</span>
+											<span ng-if="test.allCount === null && test.UserAnswerValidPercent == 0">Не пройден </span>
 										</div>
 									</div>
 								</div>
@@ -246,14 +256,12 @@
 					<div class="ui dropdown selection multiple" tabindex="0">
 						<select multiple="" ng-model="vm.newTask.question_octaves">
 							<option value="">Выбор октав</option>
-							<option value="1">1 октава</option>
 							<option value="2">2 октава</option>
 							<option value="3">3 октава</option>
 							<option value="4">4 октава</option>
 						</select>
 						<i class="dropdown icon"></i><div class="default text">Выбор октав</div>
 						<div class="menu transition hidden" tabindex="-1">
-							<div class="item" data-value="1">1 октава</div>
 							<div class="item" data-value="2">2 октава</div>
 							<div class="item" data-value="3">3 октава</div>
 							<div class="item" data-value="4">4 октава</div>
@@ -321,9 +329,30 @@
 		<div class="description">
 			<div class="ui form">
 				<div class="field">
+					<label>Тип задания</label>
+					<dropdown name="idUser_TestType" open="false"
+							  ng-model="vm.currentTest.idUser_TestType"
+							  title="Выберете тип задания" >
+						<dropdown-group value="model.Id" title="model.Name" ng-repeat="model in vm.testTypeDictionary track by model.Id">{{model.Name}}</dropdown-group>
+					</dropdown>
+				</div>
+				<div class="field">
+					<label>Подсказки</label>
+					<dropdown title="Наличие подсказок" 
+							  name="isShowHints"
+							  ng-model="vm.currentTest.isShowHints" 
+							  open="false">
+						<dropdown-group value="model.Id" title="model.Name" ng-repeat="model in vm.isShowHintsDictionary track by model.Id">{{model.Name}}</dropdown-group>
+					</dropdown>
+				</div>
+				<div class="field">
+					<label>Колличество попыток</label>
+					<input type="text" name="name" placeholder="Введите колличество попыток" ng-model="vm.currentTest.countAttempts">
+				</div>
+				<div class="field">
 					<label>Октавы</label>
-					<div class="ui dropdown selection multiple" tabindex="0">
-						<select multiple="" ng-model="vm.currentTest.Questions[0].Content.octaves">
+					<div class="ui dropdown selection multiple disabled" tabindex="0">
+						<select multiple="" ng-model="vm.currentTest.Questions[0].Content.octaves" disabled>
 							<option value="">Выбор октав</option>
 							<option value="1">1 октава</option>
 							<option value="2">2 октава</option>
@@ -332,7 +361,6 @@
 						</select>
 						<i class="dropdown icon"></i><div class="default text">Выбор октав</div>
 						<div class="menu transition hidden" tabindex="-1">
-							<div class="item" data-value="1">1 октава</div>
 							<div class="item" data-value="2">2 октава</div>
 							<div class="item" data-value="3">3 октава</div>
 							<div class="item" data-value="4">4 октава</div>
@@ -398,9 +426,9 @@
 
 	<div class="actions">
 		<div class="two fluid ui inverted buttons">
-			<button class="ui ok green inverted button" ng-click="vm.insertTestWithContent()" ng-disabled="vm.taskId !== undefined && vm.taskId !== null">
+			<button class="ui ok green inverted button" ng-click="vm.appnedTestToUserWithContent(vm.currentTest)">
 				<i class="checkmark icon"></i>
-				Добавить и отослать
+				Отправить
 			</button>
 		</div>
 	</div>

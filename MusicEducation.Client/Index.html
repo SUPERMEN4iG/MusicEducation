@@ -229,7 +229,7 @@
 				<div class="ui divider"></div>
 				<a href="" class="ui right floated tiny button">Все уведомления</a>
 			</div>
-			<a class="icon item pointer" data-toggle="popup" data-content="#user" data-position="bottom right"><img src="content/img/incognito.png" class="ui avatar image" alt=""></a>
+			<a class="icon item pointer" data-toggle="popup" data-content="#user" data-position="bottom right"><img src="content/img/piano-min.png" class="ui avatar image" alt=""></a>
 			<div id="user" class="ui popup">
 				<div class="ui secondary vertical menu">
 					<div class="header item">Меню пользователя</div>
@@ -276,6 +276,9 @@
 	<script src="content/js/util/dom_request_xhr.js" type="text/javascript"></script>
 	<script src="content/js/util/dom_request_script.js" type="text/javascript"></script>
 
+	<link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+	<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+
 	<script src="bower_components/requirejs/require.js" data-main="scripts/main"></script>
 
 
@@ -316,73 +319,30 @@ var keyboardTest = {
 		57: 'G2#',
 		48: 'A2#',
 
-		90: 'C1',
-		88: 'D1',
-		67: 'E1',
-		86: 'F1',
-		66: 'G1',
-		78: 'A2',
-		77: 'B2',
-		188: 'C2',
-		190: 'D2',
-		191: 'E2',
+		81: 'A2',
+		87: 'B2',
+		69: 'C2',
+		82: 'D2',
+		84: 'E2',
+		89: 'F2',
+		85: 'G2',
 
-		65: 'F2',
-		83: 'G2',
-		68: 'A3',
-		70: 'B3',
-		71: 'C3',
-		72: 'D3',
-		74: 'E3',
-		75: 'F3',
-		76: 'G3',
+		65: 'A3',
+		83: 'B3',
+		68: 'C3',
+		70: 'D3',
+		71: 'E3',
+		72: 'F3',
+		74: 'G3',
 
-		81: 'A4',
-		87: 'B4',
-		69: 'C4',
-		82: 'D4',
-		84: 'E4',
-		89: 'F4',
-		85: 'G4',
-		73: 'A5',
-		79: 'B5',
-		80: 'C5',
+		90: 'A4',
+		88: 'B4',
+		67: 'C4',
+		86: 'D4',
+		66: 'E4',
+		78: 'F4',
+		77: 'G4',
 	}
-};
-
-
-var keyboard = {
-	81: 'A2',
-	87: 'B2',
-	69: 'C2',
-	82: 'D2',
-	84: 'E2',
-	89: 'F2',
-	85: 'G2',
-
-	65: 'A3',
-	49: 'A3#',
-	83: 'B3',
-	50: 'B3#',
-	68: 'C3',
-	51: 'C3#',
-	70: 'D3',
-	52: 'D3#',
-	71: 'E3',
-	53: 'E3#',
-	72: 'F3',
-	54: 'F3#',
-	74: 'G3',
-	55: 'G3#',
-
-	90: 'A4',
-	88: 'B4',
-	67: 'C4',
-	86: 'D4',
-	66: 'E4',
-	78: 'F4',
-	77: 'G4',
-
 };
 
 String.prototype.replaceAt = function (index, character) {

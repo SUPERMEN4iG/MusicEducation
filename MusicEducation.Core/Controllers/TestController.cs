@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using MusicEducation.Core.API;
 using MusicEducation.Core.Lib.Filters;
 using MusicEducation.Core.Lib.Constants;
+using System.Diagnostics;
 
 namespace MusicEducation.Core.Controllers.Api
 {
@@ -66,7 +67,7 @@ namespace MusicEducation.Core.Controllers.Api
 				content = model.question_content
 			};
 			string completedTaskToString = JsonConvert.SerializeObject(completedTask);
-			var result = _testRepository.InsertTestWithContent(model.idUser, model.idUser_test, model.test_name, model.test_complexity, model.question_name, completedTaskToString);
+			var result = _testRepository.InsertTestWithContent(model.idUser, model.test_name, model.test_complexity, model.question_name, completedTaskToString);
 			return result;
 		}
 
@@ -77,6 +78,10 @@ namespace MusicEducation.Core.Controllers.Api
 			object simpleObjectResult = new {
 				Id = result.Id,
 				Name = result.Name,
+				IsCompleted = result.IsCompleted,
+				CountAttempts = result.CountAttempts,
+				IsShowHints = result.IsShowHints,
+				Id_User_TestType = result.Id_User_TestType,
 				Questions = result.Questions.Select(x => {
 					object contentQuestion = null;
 					if (x.Content != null)
@@ -95,6 +100,85 @@ namespace MusicEducation.Core.Controllers.Api
 			return simpleObjectResult;
 		}
 
+		[ActionName("UpdateTest")]
+		public object UpdateTest(TestViewModel changes)
+		{
+            TestViewModel source = new TestViewModel();
+
+            if (changes.Id != null)
+            {
+                source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+            }
+
+			if (source.Id == null)
+			{
+				Debug.WriteLine("[NEW TEST] " + changes.Name);
+				_testRepository.InsertUser_Test_Custom(_User.Id_User, null, changes.Name, 5, changes.Id_User_TestType);
+                source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+			}
+
+			if (source.Id != null)
+			{
+				if (changes.Name != source.Name)
+				{
+					Debug.WriteLine("[UPDATE TEST] " + changes.Name);
+					_testRepository.UpdateUser_Test_Custom(_User.Id_User, source.Id, changes.Name, 5, changes.Id_User_TestType);
+				}
+			}
+
+			foreach (var item in changes.Questions)
+			{
+				TestViewModel.QuestionModel currentQuestion = new TestViewModel.QuestionModel();
+
+                if (source.Questions != null)
+                {
+                    currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+                }
+
+				if (item.Id == null)
+				{
+					Debug.WriteLine("[NEW QUESTION] " + item.Name);
+					_testRepository.InsertTest_Question(_User.Id_User, changes.Id, item.Name, item.Content, item.QuestionType);
+				}
+
+				if (currentQuestion.Id != null)
+				{
+					if (item.Name != currentQuestion.Name)
+					{
+						Debug.WriteLine("[CHANGES QUESTION] " + item.Name);
+						_testRepository.UpdateTest_Question(_User.Id_User, item.Id, item.Name, item.Content, item.QuestionType);
+					}
+				}
+
+				foreach (var answer in item.Answers)
+				{
+					TestViewModel.AnswerModel currentAnswer = new TestViewModel.AnswerModel();
+
+                    if (currentQuestion != null && currentQuestion.Answers != null)
+                    {
+                        currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
+                    }
+
+					if (answer.Id == null)
+					{
+						Debug.WriteLine("[NEW ANSWER] " + answer.Name);
+						_testRepository.InsertQuestion_Answer(_User.Id_User, item.Id, answer.Name, answer.Content, (answer.IsValid.Value ? 1 : 0));
+					}
+
+					if (currentAnswer.Id != null)
+					{
+						if (answer.Name != currentAnswer.Name || answer.IsValid != currentAnswer.IsValid)
+						{
+							Debug.WriteLine("[CHANGES ANSWER] " + answer.Name);
+							_testRepository.UpdateQuestion_Answer(_User.Id_User, item.Id, answer.Id, answer.Name, answer.Content, (answer.IsValid.Value ? 1 : 0));
+						}
+					}
+				}
+			}
+
+			return changes;
+		}
+
         public object GetAvalibleTests()
         {
             return _testRepository.GetAvalibleTests(_User.Id_User);
@@ -111,7 +195,11 @@ namespace MusicEducation.Core.Controllers.Api
 				{
 					if (answer.isUserAnswer)
 					{
-						result = _testRepository.InsertTestResult(_User.Id_User, model.Id, question.Id, answer.Id, JsonConvert.SerializeObject(answer.ContentUserAnswer));
+						result = _testRepository.InsertTestResult(
+							_User.Id_User, 
+							model.Id.Value, 
+							question.Id.Value, 
+							answer.Id.Value, JsonConvert.SerializeObject(answer.ContentUserAnswer));
 					}
 				}
 			}

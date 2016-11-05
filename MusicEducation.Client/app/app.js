@@ -8,14 +8,15 @@ define(['musicEducationApp/services/routeResolver'], function () {
         'ngCookies',
         'routeResolverServices',
         'ui.bootstrap',
-        'angularify.semantic.modal',
+        //'angularify.semantic.modal',
         'angularify.semantic.dropdown',
-		'angularify.semantic.dropdown',
+		'angularify.semantic.checkbox',
+		'xeditable',
         //'chart.js',
         'toastr'
 	]);
 
-	app.constant('baseApiUrl', 'http://localhost:59744/api/');
+	app.constant('baseApiUrl', 'http://93.157.208.110:4676/api/');
 	app.constant('DebugConfig', {
 		isDebug: true,
 		version: '1.0'
@@ -57,6 +58,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
         	$routeProvider
 				.when('/main', route.resolve('Main', '', 'vm'))
 				.when('/piano', route.resolve('Piano', '', 'vm'))
+				.when('/constructor', route.resolve('Constructor', '', 'vm'))
 				.when('/test/:id*?', route.resolve('Test', '', 'vm', true))
                 .when('/student/:id*?', route.resolve('Student', '', 'vm', true))
 				.when('/login/:redirect*?', route.resolve('Login', '', 'vm'))
@@ -103,8 +105,8 @@ define(['musicEducationApp/services/routeResolver'], function () {
 
 	//    }]);
 
-	app.run(['$rootScope', '$location', '$cookieStore', '$http', 'DevelopConstants',
-        function ($rootScope, $location, $cookieStore, $http, DevelopConstants) {
+	app.run(['$rootScope', '$location', '$cookieStore', '$http', 'DevelopConstants', 'editableOptions', 'editableThemes',
+        function ($rootScope, $location, $cookieStore, $http, DevelopConstants, editableOptions, editableThemes) {
 
         	$rootScope.developConstants = DevelopConstants;
 
@@ -131,6 +133,12 @@ define(['musicEducationApp/services/routeResolver'], function () {
         		}
         	});
 
+        	
+        	console.log(editableThemes['default']);
+        	editableThemes['default'].submitTpl = '<button type="submit" class="circular ui mini icon green button" style="position: absolute;margin-left: 3px;"><i class="icon checkmark"></i></button>';
+        	editableThemes['default'].cancelTpl = '<button type="button" class="circular ui mini icon red button" style="position: absolute;margin-left: 32px;" ng-click="$form.$cancel()"><i class="icon remove"></i></button>';
+        	editableThemes['default'].inputTpl = '<div class="ui input"><input type="text" ng-model="$parent.$data" style=""></div>';
+        	editableOptions.theme = 'default';
         	//delete $httpProvider.defaults.headers.common['X-Requested-With'];
         	//$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
 

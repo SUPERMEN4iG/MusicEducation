@@ -4,7 +4,7 @@
 			<div class="side menu" id="sideMenu">
 				<div align="center" class="profile">
 					<br>
-					<a href=""><img src="content/img/incognito.png" alt="Marry Doe" class="ui circular image" width="150px"></a>
+					<a href=""><img src="content/img/piano-min.png" alt="Marry Doe" class="ui circular image" width="150px"></a>
 					<div class="ui white header">{{globals.currentUser.source.LastName}} {{globals.currentUser.source.FirstName[0]}}. {{globals.currentUser.source.MiddleName[0]}}</div>
 					<div class="ui divider"></div>
 				</div>
@@ -13,6 +13,7 @@
 					<a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
 					<a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Студенты</span></a>
+					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -53,6 +54,17 @@
             <div class="sixteen wide column" id="content" ng-if="vm.id != '' && globals.currentUser.source.Id_Role !== 2">
                 <h2><i class="book icon"></i> Тест {{ vm.currentTest.Name }}</h2>
                 <div class="ui divider"></div>
+				<div class="ui info ignored icon message">
+					<i class="info letter icon"></i>
+					<div class="content">
+						<div class="header">Это задание является {{ (vm.currentTest.Id_User_TestType == 1) ? 'Обучающим' : 'Контрольным' }}</div>
+						<ul class="list">
+							<li ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2">Подсветка клавиш: {{ (vm.currentTest.Id_User_TestType == 1) ? 'включено' : 'отключено' }}</li>
+							<li ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2">Подсказки: {{ (vm.currentTest.IsShowHints) ? 'включено' : 'отключено' }}</li>
+							<li>Количество попыток: {{ vm.currentTest.CountAttempts }}</li>
+						</ul>
+					</div>
+				</div>
                 <div class="ui form" ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 1">
                     <div class="grouped fields">
                         <label for="fruit">{{vm.currentTest.Questions[vm.currentQuestion].Name}} </label>
@@ -184,14 +196,86 @@
             </div>
 
             <div class="sixteen wide column" id="content" ng-if="vm.id != '' && globals.currentUser.source.Id_Role === 2">
-                <h2><i class="book icon"></i> Редактирование теста {{ vm.currentTest.Name }}</h2>
+                <h2><i class="book icon"></i> Редактирование теста  {{ vm.currentTest.Name }}</h2>
                 <div class="ui divider"></div>
 
+				<form class="ui form">
+					<div class="field">
+						<label>Название теста</label>
+						<input type="text" name="first-name" placeholder="Введите название теста" ng-model="vm.currentTest.Name">
+					</div>
+					<div class="field">
+						<label>Вопрос</label>
+						<input type="text" name="first-name" placeholder="Введите вопрос" ng-model="vm.currentTest.Questions[vm.currentQuestionEditable].Name">
+					</div>
+				</form>
 
+				<div class="ui grid" style="margin-top:5px">
+					<div class="row">
+						<div class="floated aligned six wide column"></div>
+						<div class="right floated right aligned six wide column">
+							<div class="ui primary button"
+								 ng-click="vm.appnedAnswer(vm.currentTest.Questions[vm.currentQuestionEditable].Answers)">
+								<i class="add icon"></i> Добавить ответ
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui relaxed divided items">
+					<div class="item" ng-repeat="answer in vm.currentTest.Questions[vm.currentQuestionEditable].Answers track by $index">
+						<div class="content">
+							<div class="ui grid">
+								<div class="floated aligned six wide column">
+									<a href="#" editable-text="answer.Name">{{ answer.Name || 'empty' }}</a>
+								</div>
+								<div class="right floated right aligned six wide column">
+									<i class="ui checkmark big link icon" 
+									   ng-class="answer.IsValid == true ? 'green' : ''"
+									   ng-click="vm.setChoice(vm.currentTest.Questions[vm.currentQuestionEditable].Answers, answer)"></i>
+									<i class="ui delete big red link icon"
+									   ng-click="vm.removeAnswerInQuestion($index)"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui grid" style="margin-top:5px">
+					<div class="row">
+						<div class="left floated aligned six wide column">
+							<button class="ui labeled icon primary button"
+									ng-disabled="vm.currentTest.Questions[vm.currentQuestionEditable - 1] === undefined"
+									ng-click="vm.moveToEditableQuestion(vm.currentQuestionEditable - 1)">
+								<i class="left chevron icon"></i>
+								Предыдущий
+							</button>
+						</div>
+						<div class="right floated right aligned six wide column">
+							<button class="ui right labeled icon primary button"
+									ng-click="vm.moveToEditableQuestion(vm.currentQuestionEditable + 1)">
+								Следующий
+								<i class="right chevron icon"></i>
+							</button>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="left floated aligned six wide column">
+						</div>
+						<div class="right floated right aligned six wide column">
+							<button class="ui right labeled icon green button"
+									ng-click="vm.updateEditableTest(vm.currentTest)">
+								 Сохранить
+								<i class="checkmark chevron icon"></i>
+							</button>
+						</div>
+					</div>
+				</div>
 
                 <div class="ui divider"></div>
                 <div align="center">
-                    Нажмите на строку из таблицы, чтобы начать тестирование
+                    ---
                 </div>
             </div>
 		</div>

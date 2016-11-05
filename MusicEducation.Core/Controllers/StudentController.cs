@@ -13,6 +13,13 @@ namespace MusicEducation.Core.API
 		public int idTest { get; set; }
 	}
 
+	public class AppnedTestToUserWithContentViewModel : AppnedTestToUserViewModel
+	{
+		public int? idUserTestType { get; set; }
+		public int? countAttempts { get; set; }
+		public bool? isShowHints { get; set; }
+	}
+
     public class StudentController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
@@ -40,6 +47,11 @@ namespace MusicEducation.Core.API
 		public object AppnedTestToUser(AppnedTestToUserViewModel data)
 		{
 			return _studentRepository.AppnedTestToUser(_User.Id_User, data.idUser, data.idTest);
+		}
+
+		public object AppnedTestToUserWithContent(AppnedTestToUserWithContentViewModel data)
+		{
+			return _studentRepository.AppnedTestToUserWithContent(_User.Id_User, data.idUser, data.idTest, data.idUserTestType, data.countAttempts, data.isShowHints);
 		}
 	}
 }

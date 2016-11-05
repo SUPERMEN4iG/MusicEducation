@@ -36,4 +36,9 @@ $(document).ready(function() {
         $('#hideToggle').show();
         $('#sideMenu').removeClass('hide');
     });
+    $('.ui.rating').rating();
+    $('.ui.rating').rating(
+	{
+		clearable: true
+	});
 });

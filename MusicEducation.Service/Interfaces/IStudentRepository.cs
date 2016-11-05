@@ -10,6 +10,7 @@ namespace MusicEducation.Service.Interfaces
     {
         List<GetStudentsResult> GetStudents(int? idUser);
 		InsertUser_TestResult AppnedTestToUser(int? idMainUser, int? idUser, int? idTest);
+		InsertUser_TestResult AppnedTestToUserWithContent(int? idMainUser, int? idUser, int? idTest, int? idUserTestType, int? countAttempts, bool? isShowHints);
 
 	}
 }
