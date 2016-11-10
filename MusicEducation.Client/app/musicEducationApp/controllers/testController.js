@@ -209,6 +209,10 @@ define(['app'], function (app) {
 			qAnswers.push(answer);
 		};
 
+		vm.addTest = function () {
+			$location.path(path + 'new');
+		};
+
 		console.log(id);
 
 		vm.keyDownTime = {};
@@ -294,10 +298,32 @@ define(['app'], function (app) {
 		                vm.avalibleTestList = data;
 		            });
 		        } else {
-		            testService.getTest(id).then(function (data) {
-		                vm.currentTest = data;
-		                console.log(data);
-		            });
+		        	if (id == 'new') {
+		        		vm.currentTest = {
+		        			CountAttempts: null,
+		        			Id: null,
+		        			Id_User_TestType: 1,
+		        			IsCompleted: null,
+		        			IsShowHints: true,
+		        			Name: 'Название',
+							Questions: []
+		        		};
+		        		vm.currentQuestionEditable = 0;
+
+		        		vm.currentTest.Questions[vm.currentQuestionEditable] = {
+		        			Answers: [],
+		        			Content: null,
+		        			Id: null,
+		        			Name: "Вопрос",
+		        			QuestionType: 1
+		        		};
+		        	}
+		        	else {
+		        		testService.getTest(id).then(function (data) {
+		        			vm.currentTest = data;
+		        			console.log(data);
+		        		});
+		        	}
 		        }
 		    } else {
 		        if (id == '') {

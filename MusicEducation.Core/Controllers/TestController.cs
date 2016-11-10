@@ -113,7 +113,7 @@ namespace MusicEducation.Core.Controllers.Api
 			if (source.Id == null)
 			{
 				Debug.WriteLine("[NEW TEST] " + changes.Name);
-				_testRepository.InsertUser_Test_Custom(_User.Id_User, null, changes.Name, 5, changes.Id_User_TestType);
+				changes.Id = _testRepository.InsertUser_Test_Custom(_User.Id_User, null, changes.Name, 5, changes.Id_User_TestType);
                 source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
 			}
 

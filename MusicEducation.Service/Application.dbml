@@ -247,30 +247,6 @@
       <Association Name="User_User_Test" Member="User" ThisKey="Id_User" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Function Name="dbo.InsertUser" Method="InsertUser">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="dateCreate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="lastName" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="firstName" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="middleName" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="login" Type="System.String" DbType="NVarChar(64)" />
-    <Parameter Name="password" Type="System.String" DbType="NVarChar(512)" />
-    <ElementType Name="InsertUserResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Message" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetUserRoles" Method="GetUserRoles">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="login" Type="System.String" DbType="NVarChar(64)" />
-    <ElementType Name="GetUserRolesResult">
-      <Column Name="Id_User" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Id_Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RoleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.GetAvalibleTests" Method="GetAvalibleTests">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetAvalibleTestsResult">
@@ -284,6 +260,13 @@
       <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.UpdateUser_Test" Method="UpdateUser_Test">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <Parameter Name="validAnswers" Type="System.Int32" DbType="Int" />
+    <Parameter Name="validPercent" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.GetStudents" Method="GetStudents">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetStudentsResult">
@@ -294,39 +277,131 @@
       <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.InsertUser_Test" Method="InsertUser_Test">
-    <Parameter Name="idMainUser" Type="System.Int32" DbType="Int" />
+  <Function Name="dbo.GetTests" Method="GetTests">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetTestsResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestType_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CountAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
+      <Column Name="CountUserAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
+      <Column Name="UserAnswerValidPercent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Id_User_Test" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="allCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetTestsForStudent" Method="GetTestsForStudent">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetTestsForStudentResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestType_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CountAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
+      <Column Name="CountUserAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
+      <Column Name="UserAnswerValidPercent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="allCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUser" Method="GetUser">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="login" Type="System.String" DbType="NVarChar(64)" />
+    <ElementType Name="GetUserResult">
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Id_Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="AllCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AvgValidAnswers" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AvgValidPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUserById" Method="GetUserById">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetUserByIdResult">
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Id_Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="AllCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AvgValidAnswers" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AvgValidPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUserRoles" Method="GetUserRoles">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="login" Type="System.String" DbType="NVarChar(64)" />
+    <ElementType Name="GetUserRolesResult">
+      <Column Name="Id_User" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertQuestion_Answer" Method="InsertQuestion_Answer">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idQuestion" Type="System.Int32" DbType="Int" />
+    <Parameter Name="answer_name" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="answer_content" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="answer_isValid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertTest_Question" Method="InsertTest_Question">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
-    <ElementType Name="InsertUser_TestResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Message" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-    </ElementType>
+    <Parameter Name="question_name" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="question_content" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="question_type" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.InsertTestWithContent" Method="InsertTestWithContent">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idUser_test" Type="System.Int32" DbType="Int" />
     <Parameter Name="test_name" Type="System.String" DbType="NVarChar(128)" />
     <Parameter Name="test_complexity" Type="System.Int32" DbType="Int" />
     <Parameter Name="question_name" Type="System.String" DbType="NVarChar(128)" />
     <Parameter Name="question_content" Type="System.String" DbType="Text" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.GetTest" Method="GetTest">
+  <Function Name="dbo.InsertUser" Method="InsertUser">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetTestResult">
-      <Column Name="Id_Test" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Test_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Question_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Question_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Question_Content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Question_QuestionType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Answer_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Answer_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Answer_Content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    <Parameter Name="dateCreate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="lastName" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="firstName" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="middleName" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="login" Type="System.String" DbType="NVarChar(64)" />
+    <Parameter Name="password" Type="System.String" DbType="NVarChar(512)" />
+    <ElementType Name="InsertUserResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.InsertUser_Question_Answer" Method="InsertUser_Question_Answer">
@@ -350,89 +425,98 @@
       <Column Name="UserAnswerValidPercent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GetTestsForStudent" Method="GetTestsForStudent">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetTestsForStudentResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TestType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TestType_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="CountAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
-      <Column Name="CountUserAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
-      <Column Name="UserAnswerValidPercent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="allCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.UpdateUser_Test" Method="UpdateUser_Test">
+  <Function Name="dbo.InsertUser_Test" Method="InsertUser_Test">
+    <Parameter Name="idMainUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
-    <Parameter Name="validAnswers" Type="System.Int32" DbType="Int" />
-    <Parameter Name="validPercent" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idUserTestType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="countAttempts" Type="System.Int32" DbType="Int" />
+    <Parameter Name="isShowHints" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="InsertUser_TestResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateQuestion_Answer" Method="UpdateQuestion_Answer">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idQuestion" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idAnswer" Type="System.Int32" DbType="Int" />
+    <Parameter Name="answer_name" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="answer_content" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="answer_isValid" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.GetUserById" Method="GetUserById">
+  <Function Name="dbo.UpdateTest_Question" Method="UpdateTest_Question">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="id" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetUserByIdResult">
-      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    <Parameter Name="idQuestion" Type="System.Int32" DbType="Int" />
+    <Parameter Name="question_name" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="question_content" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="question_type" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateUser_Test_Custom" Method="UpdateUser_Test_Custom">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <Parameter Name="test_name" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="test_complexity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="test_id_TestType" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertUser_Test_Custom" Method="InsertUser_Test_Custom">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <Parameter Name="test_name" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="test_complexity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="test_id_TestType" Type="System.Int32" DbType="Int" />
+    <ElementType Name="InsertUser_Test_CustomResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetTest" Method="GetTest">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetTestResult">
+      <Column Name="Id_Test" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Test_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Question_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Question_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Question_Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Question_QuestionType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answer_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answer_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Answer_Content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IsCompleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CountAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsShowHints" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_User_TestType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsValid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUsers" Method="GetUsers">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetUsersResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="Password" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
-      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Creator_LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Creator_FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Creator_MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DateBirth" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Id_Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="AllCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AvgValidAnswers" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AvgValidPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GetTests" Method="GetTests">
+  <Function Name="dbo.GetRoles" Method="GetRoles">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetTestsResult">
+    <ElementType Name="GetRolesResult">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TestType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TestType_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="Result" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CountAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
-      <Column Name="CountUserAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
-      <Column Name="UserAnswerValidPercent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Id_User_Test" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="allCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetUser" Method="GetUser">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="login" Type="System.String" DbType="NVarChar(64)" />
-    <ElementType Name="GetUserResult">
-      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="Password" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
       <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Id_Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="AllCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AvgValidAnswers" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AvgValidPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

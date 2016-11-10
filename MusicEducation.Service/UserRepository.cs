@@ -29,6 +29,18 @@ namespace MusicEducation.Service
             return _DBContext.GetUserById(idUser, id).FirstOrDefault();
         }
 
+		public List<GetUsersResult> GetUsers(int? idUser)
+		{
+			var obj = _DBContext.GetUsers(idUser).ToList();
+			return obj;
+		}
+
+		public List<GetRolesResult> GetRoles(int? idUser)
+		{
+			var obj = _DBContext.GetRoles(idUser).ToList();
+			return obj;
+		}
+
 		public IList<GetUserRolesResult> GetUserRoles(int? idUser, string login)
 		{
 			return _DBContext.GetUserRoles(idUser, login).ToList();

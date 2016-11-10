@@ -118,9 +118,9 @@ namespace MusicEducation.Service
 
 		public int InsertUser_Test_Custom(int? idUser, int? idTest, string test_name, int? test_complexity, int? test_id_TestType)
 		{
-			var result = _DBContext.InsertUser_Test_Custom(idUser, idTest, test_name, test_complexity, test_id_TestType);
+			var result = _DBContext.InsertUser_Test_Custom(idUser, idTest, test_name, test_complexity, test_id_TestType).FirstOrDefault().Column1;
 
-			return result;
+			return result.Value;
 		}
 
 		public int UpdateUser_Test_Custom(int? idUser, int? idTest, string test_name, int? test_complexity, int? test_id_TestType)

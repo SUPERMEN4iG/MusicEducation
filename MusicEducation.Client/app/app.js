@@ -16,7 +16,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
         'toastr'
 	]);
 
-	app.constant('baseApiUrl', 'http://93.157.208.110:4676/api/');
+	app.constant('baseApiUrl', 'http://localhost:59744/api/');
 	app.constant('DebugConfig', {
 		isDebug: true,
 		version: '1.0'
@@ -60,6 +60,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
 				.when('/piano', route.resolve('Piano', '', 'vm'))
 				.when('/constructor', route.resolve('Constructor', '', 'vm'))
 				.when('/test/:id*?', route.resolve('Test', '', 'vm', true))
+				.when('/user/:id*?', route.resolve('User', '', 'vm', true))
                 .when('/student/:id*?', route.resolve('Student', '', 'vm', true))
 				.when('/login/:redirect*?', route.resolve('Login', '', 'vm'))
 				.otherwise({ redirectTo: '/main' });
