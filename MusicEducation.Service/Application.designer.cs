@@ -87,7 +87,7 @@ namespace MusicEducation.Service
     #endregion
 		
 		public ApplicationDataContext() : 
-				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString1, mappingSource)
+				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -288,13 +288,6 @@ namespace MusicEducation.Service
 			return ((ISingleResult<GetStudentsResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTest")]
-		public ISingleResult<GetTestResult> GetTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest);
-			return ((ISingleResult<GetTestResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTests")]
 		public ISingleResult<GetTestsResult> GetTests([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser)
 		{
@@ -338,17 +331,17 @@ namespace MusicEducation.Service
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertQuestion_Answer")]
-		public int InsertQuestion_Answer([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string answer_name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string answer_content, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> answer_isValid)
+		public ISingleResult<InsertQuestion_AnswerResult> InsertQuestion_Answer([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string answer_name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string answer_content, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> answer_isValid)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idQuestion, answer_name, answer_content, answer_isValid);
-			return ((int)(result.ReturnValue));
+			return ((ISingleResult<InsertQuestion_AnswerResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertTest_Question")]
-		public int InsertTest_Question([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string question_name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string question_content, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> question_type)
+		public ISingleResult<InsertTest_QuestionResult> InsertTest_Question([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string question_name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string question_content, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> question_type)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, question_name, question_content, question_type);
-			return ((int)(result.ReturnValue));
+			return ((ISingleResult<InsertTest_QuestionResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertTestWithContent")]
@@ -400,6 +393,13 @@ namespace MusicEducation.Service
 			return ((int)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateUser")]
+		public ISingleResult<UpdateUserResult> UpdateUser([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> dateCreate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUserCore, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string lastName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string firstName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string middleName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(64)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(512)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(256)")] string roleName)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, dateCreate, idUserCore, lastName, firstName, middleName, login, password, roleName);
+			return ((ISingleResult<UpdateUserResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateUser_Test")]
 		public int UpdateUser_Test([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> validAnswers, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> validPercent)
 		{
@@ -407,11 +407,11 @@ namespace MusicEducation.Service
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateUser")]
-		public ISingleResult<UpdateUserResult> UpdateUser([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> dateCreate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUserCore, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string lastName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string firstName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string middleName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(64)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(512)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(256)")] string roleName)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTest")]
+		public ISingleResult<GetTestResult> GetTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, dateCreate, idUserCore, lastName, firstName, middleName, login, password, roleName);
-			return ((ISingleResult<UpdateUserResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest);
+			return ((ISingleResult<GetTestResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -6154,266 +6154,6 @@ namespace MusicEducation.Service
 		}
 	}
 	
-	public partial class GetTestResult
-	{
-		
-		private int _Id_Test;
-		
-		private string _Test_Name;
-		
-		private System.Nullable<int> _Question_Id;
-		
-		private string _Question_Name;
-		
-		private string _Question_Content;
-		
-		private System.Nullable<int> _Question_QuestionType_Id;
-		
-		private System.Nullable<int> _Answer_Id;
-		
-		private string _Answer_Name;
-		
-		private string _Answer_Content;
-		
-		private System.Nullable<bool> _IsCompleted;
-		
-		private System.Nullable<int> _CountAttempts;
-		
-		private System.Nullable<int> _IsShowHints;
-		
-		private System.Nullable<int> _Id_User_TestType;
-		
-		private System.Nullable<bool> _IsValid;
-		
-		public GetTestResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Test", DbType="Int NOT NULL")]
-		public int Id_Test
-		{
-			get
-			{
-				return this._Id_Test;
-			}
-			set
-			{
-				if ((this._Id_Test != value))
-				{
-					this._Id_Test = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Test_Name", DbType="NVarChar(128)")]
-		public string Test_Name
-		{
-			get
-			{
-				return this._Test_Name;
-			}
-			set
-			{
-				if ((this._Test_Name != value))
-				{
-					this._Test_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Id", DbType="Int")]
-		public System.Nullable<int> Question_Id
-		{
-			get
-			{
-				return this._Question_Id;
-			}
-			set
-			{
-				if ((this._Question_Id != value))
-				{
-					this._Question_Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Name", DbType="NVarChar(128)")]
-		public string Question_Name
-		{
-			get
-			{
-				return this._Question_Name;
-			}
-			set
-			{
-				if ((this._Question_Name != value))
-				{
-					this._Question_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Content", DbType="NVarChar(MAX)")]
-		public string Question_Content
-		{
-			get
-			{
-				return this._Question_Content;
-			}
-			set
-			{
-				if ((this._Question_Content != value))
-				{
-					this._Question_Content = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_QuestionType_Id", DbType="Int")]
-		public System.Nullable<int> Question_QuestionType_Id
-		{
-			get
-			{
-				return this._Question_QuestionType_Id;
-			}
-			set
-			{
-				if ((this._Question_QuestionType_Id != value))
-				{
-					this._Question_QuestionType_Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Id", DbType="Int")]
-		public System.Nullable<int> Answer_Id
-		{
-			get
-			{
-				return this._Answer_Id;
-			}
-			set
-			{
-				if ((this._Answer_Id != value))
-				{
-					this._Answer_Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Name", DbType="NVarChar(128)")]
-		public string Answer_Name
-		{
-			get
-			{
-				return this._Answer_Name;
-			}
-			set
-			{
-				if ((this._Answer_Name != value))
-				{
-					this._Answer_Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string Answer_Content
-		{
-			get
-			{
-				return this._Answer_Content;
-			}
-			set
-			{
-				if ((this._Answer_Content != value))
-				{
-					this._Answer_Content = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCompleted", DbType="Bit")]
-		public System.Nullable<bool> IsCompleted
-		{
-			get
-			{
-				return this._IsCompleted;
-			}
-			set
-			{
-				if ((this._IsCompleted != value))
-				{
-					this._IsCompleted = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountAttempts", DbType="Int")]
-		public System.Nullable<int> CountAttempts
-		{
-			get
-			{
-				return this._CountAttempts;
-			}
-			set
-			{
-				if ((this._CountAttempts != value))
-				{
-					this._CountAttempts = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsShowHints", DbType="Int")]
-		public System.Nullable<int> IsShowHints
-		{
-			get
-			{
-				return this._IsShowHints;
-			}
-			set
-			{
-				if ((this._IsShowHints != value))
-				{
-					this._IsShowHints = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User_TestType", DbType="Int")]
-		public System.Nullable<int> Id_User_TestType
-		{
-			get
-			{
-				return this._Id_User_TestType;
-			}
-			set
-			{
-				if ((this._Id_User_TestType != value))
-				{
-					this._Id_User_TestType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsValid", DbType="Bit")]
-		public System.Nullable<bool> IsValid
-		{
-			get
-			{
-				return this._IsValid;
-			}
-			set
-			{
-				if ((this._IsValid != value))
-				{
-					this._IsValid = value;
-				}
-			}
-		}
-	}
-	
 	public partial class GetTestsResult
 	{
 		
@@ -7758,6 +7498,58 @@ namespace MusicEducation.Service
 		}
 	}
 	
+	public partial class InsertQuestion_AnswerResult
+	{
+		
+		private System.Nullable<int> _Column1;
+		
+		public InsertQuestion_AnswerResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="", Storage="_Column1", DbType="Int")]
+		public System.Nullable<int> Column1
+		{
+			get
+			{
+				return this._Column1;
+			}
+			set
+			{
+				if ((this._Column1 != value))
+				{
+					this._Column1 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class InsertTest_QuestionResult
+	{
+		
+		private System.Nullable<int> _Column1;
+		
+		public InsertTest_QuestionResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="", Storage="_Column1", DbType="Int")]
+		public System.Nullable<int> Column1
+		{
+			get
+			{
+				return this._Column1;
+			}
+			set
+			{
+				if ((this._Column1 != value))
+				{
+					this._Column1 = value;
+				}
+			}
+		}
+	}
+	
 	public partial class InsertUserResult
 	{
 		
@@ -8243,6 +8035,266 @@ namespace MusicEducation.Service
 				if ((this._Message != value))
 				{
 					this._Message = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetTestResult
+	{
+		
+		private int _Id_Test;
+		
+		private string _Test_Name;
+		
+		private System.Nullable<int> _Question_Id;
+		
+		private string _Question_Name;
+		
+		private string _Question_Content;
+		
+		private System.Nullable<int> _Question_QuestionType_Id;
+		
+		private System.Nullable<int> _Answer_Id;
+		
+		private string _Answer_Name;
+		
+		private string _Answer_Content;
+		
+		private System.Nullable<bool> _IsCompleted;
+		
+		private System.Nullable<int> _CountAttempts;
+		
+		private System.Nullable<int> _IsShowHints;
+		
+		private System.Nullable<int> _Id_User_TestType;
+		
+		private System.Nullable<bool> _IsValid;
+		
+		public GetTestResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Test", DbType="Int NOT NULL")]
+		public int Id_Test
+		{
+			get
+			{
+				return this._Id_Test;
+			}
+			set
+			{
+				if ((this._Id_Test != value))
+				{
+					this._Id_Test = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Test_Name", DbType="NVarChar(128)")]
+		public string Test_Name
+		{
+			get
+			{
+				return this._Test_Name;
+			}
+			set
+			{
+				if ((this._Test_Name != value))
+				{
+					this._Test_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Id", DbType="Int")]
+		public System.Nullable<int> Question_Id
+		{
+			get
+			{
+				return this._Question_Id;
+			}
+			set
+			{
+				if ((this._Question_Id != value))
+				{
+					this._Question_Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Name", DbType="NVarChar(128)")]
+		public string Question_Name
+		{
+			get
+			{
+				return this._Question_Name;
+			}
+			set
+			{
+				if ((this._Question_Name != value))
+				{
+					this._Question_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_Content", DbType="NVarChar(MAX)")]
+		public string Question_Content
+		{
+			get
+			{
+				return this._Question_Content;
+			}
+			set
+			{
+				if ((this._Question_Content != value))
+				{
+					this._Question_Content = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question_QuestionType_Id", DbType="Int")]
+		public System.Nullable<int> Question_QuestionType_Id
+		{
+			get
+			{
+				return this._Question_QuestionType_Id;
+			}
+			set
+			{
+				if ((this._Question_QuestionType_Id != value))
+				{
+					this._Question_QuestionType_Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Id", DbType="Int")]
+		public System.Nullable<int> Answer_Id
+		{
+			get
+			{
+				return this._Answer_Id;
+			}
+			set
+			{
+				if ((this._Answer_Id != value))
+				{
+					this._Answer_Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Name", DbType="NVarChar(128)")]
+		public string Answer_Name
+		{
+			get
+			{
+				return this._Answer_Name;
+			}
+			set
+			{
+				if ((this._Answer_Name != value))
+				{
+					this._Answer_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Answer_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string Answer_Content
+		{
+			get
+			{
+				return this._Answer_Content;
+			}
+			set
+			{
+				if ((this._Answer_Content != value))
+				{
+					this._Answer_Content = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCompleted", DbType="Bit")]
+		public System.Nullable<bool> IsCompleted
+		{
+			get
+			{
+				return this._IsCompleted;
+			}
+			set
+			{
+				if ((this._IsCompleted != value))
+				{
+					this._IsCompleted = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountAttempts", DbType="Int")]
+		public System.Nullable<int> CountAttempts
+		{
+			get
+			{
+				return this._CountAttempts;
+			}
+			set
+			{
+				if ((this._CountAttempts != value))
+				{
+					this._CountAttempts = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsShowHints", DbType="Int")]
+		public System.Nullable<int> IsShowHints
+		{
+			get
+			{
+				return this._IsShowHints;
+			}
+			set
+			{
+				if ((this._IsShowHints != value))
+				{
+					this._IsShowHints = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User_TestType", DbType="Int")]
+		public System.Nullable<int> Id_User_TestType
+		{
+			get
+			{
+				return this._Id_User_TestType;
+			}
+			set
+			{
+				if ((this._Id_User_TestType != value))
+				{
+					this._Id_User_TestType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsValid", DbType="Bit")]
+		public System.Nullable<bool> IsValid
+		{
+			get
+			{
+				return this._IsValid;
+			}
+			set
+			{
+				if ((this._IsValid != value))
+				{
+					this._IsValid = value;
 				}
 			}
 		}

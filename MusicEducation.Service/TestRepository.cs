@@ -90,7 +90,7 @@ namespace MusicEducation.Service
 
 		public int InsertQuestion_Answer(int? idUser, int? idQuestion, string answer_name, string answer_content, int? answer_isValid)
 		{
-			var result = _DBContext.InsertQuestion_Answer(idUser, idQuestion, answer_name, answer_content, answer_isValid);
+			var result = _DBContext.InsertQuestion_Answer(idUser, idQuestion, answer_name, answer_content, answer_isValid).FirstOrDefault().Column1.Value;
 
 			return result;
 		}
@@ -111,9 +111,9 @@ namespace MusicEducation.Service
 
 		public int InsertTest_Question(int? idUser, int? idTest, string question_name, string question_content, int? question_type)
 		{
-			var result = _DBContext.InsertTest_Question(idUser, idTest, question_name, question_content, question_type);
+			var result = _DBContext.InsertTest_Question(idUser, idTest, question_name, question_content, question_type).FirstOrDefault().Column1;
 
-			return result;
+			return result.Value;
 		}
 
 		public int InsertUser_Test_Custom(int? idUser, int? idTest, string test_name, int? test_complexity, int? test_id_TestType)

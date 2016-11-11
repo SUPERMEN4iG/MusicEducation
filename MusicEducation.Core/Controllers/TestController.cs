@@ -123,6 +123,7 @@ namespace MusicEducation.Core.Controllers.Api
 				{
 					Debug.WriteLine("[UPDATE TEST] " + changes.Name);
 					_testRepository.UpdateUser_Test_Custom(_User.Id_User, source.Id, changes.Name, 5, changes.Id_User_TestType);
+					source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
 				}
 			}
 
@@ -137,14 +138,17 @@ namespace MusicEducation.Core.Controllers.Api
 
 				if (item.Id == null)
 				{
+					source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+					currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
 					Debug.WriteLine("[NEW QUESTION] " + item.Name);
-					_testRepository.InsertTest_Question(_User.Id_User, changes.Id, item.Name, item.Content, item.QuestionType);
+					item.Id = _testRepository.InsertTest_Question(_User.Id_User, changes.Id, item.Name, item.Content, item.QuestionType);
 				}
-
-				if (currentQuestion.Id != null)
+				else if (currentQuestion.Id != null)
 				{
 					if (item.Name != currentQuestion.Name)
 					{
+						source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+						currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
 						Debug.WriteLine("[CHANGES QUESTION] " + item.Name);
 						_testRepository.UpdateTest_Question(_User.Id_User, item.Id, item.Name, item.Content, item.QuestionType);
 					}
@@ -156,21 +160,28 @@ namespace MusicEducation.Core.Controllers.Api
 
                     if (currentQuestion != null && currentQuestion.Answers != null)
                     {
-                        currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
+						source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+						currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+						currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
                     }
 
 					if (answer.Id == null)
 					{
+						source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+						currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+						currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
 						Debug.WriteLine("[NEW ANSWER] " + answer.Name);
-						_testRepository.InsertQuestion_Answer(_User.Id_User, item.Id, answer.Name, answer.Content, (answer.IsValid.Value ? 1 : 0));
+						answer.Id = _testRepository.InsertQuestion_Answer(_User.Id_User, currentQuestion.Id, answer.Name, answer.Content, (answer.IsValid.GetValueOrDefault() ? 1 : 0));
 					}
-
-					if (currentAnswer.Id != null)
+					else if (currentAnswer.Id != null)
 					{
 						if (answer.Name != currentAnswer.Name || answer.IsValid != currentAnswer.IsValid)
 						{
+							source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+							currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+							currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
 							Debug.WriteLine("[CHANGES ANSWER] " + answer.Name);
-							_testRepository.UpdateQuestion_Answer(_User.Id_User, item.Id, answer.Id, answer.Name, answer.Content, (answer.IsValid.Value ? 1 : 0));
+							_testRepository.UpdateQuestion_Answer(_User.Id_User, currentQuestion.Id, answer.Id, answer.Name, answer.Content, (answer.IsValid.GetValueOrDefault() ? 1 : 0));
 						}
 					}
 				}

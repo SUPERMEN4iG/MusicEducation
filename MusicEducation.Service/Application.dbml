@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_9FC383_musiceducation" Class="ApplicationDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=KUZMA-PC;Initial Catalog=DB_9FC383_musiceducation;Integrated Security=True" SettingsObjectName="MusicEducation.Service.Properties.Settings" SettingsPropertyName="DB_9FC383_musiceducationConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=hana\SQLEXPRESS;Initial Catalog=DB_9FC383_musiceducation;Integrated Security=True" SettingsObjectName="MusicEducation.Service.Properties.Settings" SettingsPropertyName="DB_9FC383_musiceducationConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Answer" Member="Answers">
     <Type Name="Answer">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -287,26 +287,6 @@
       <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GetTest" Method="GetTest">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetTestResult">
-      <Column Name="Id_Test" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Test_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Question_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Question_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Question_Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Question_QuestionType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Answer_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Answer_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Answer_Content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="IsCompleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CountAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IsShowHints" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Id_User_TestType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IsValid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.GetTests" Method="GetTests">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetTestsResult">
@@ -418,7 +398,9 @@
     <Parameter Name="answer_name" Type="System.String" DbType="NVarChar(128)" />
     <Parameter Name="answer_content" Type="System.String" DbType="NVarChar(MAX)" />
     <Parameter Name="answer_isValid" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
+    <ElementType Name="InsertQuestion_AnswerResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
   </Function>
   <Function Name="dbo.InsertTest_Question" Method="InsertTest_Question">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
@@ -426,7 +408,9 @@
     <Parameter Name="question_name" Type="System.String" DbType="NVarChar(128)" />
     <Parameter Name="question_content" Type="System.String" DbType="NVarChar(MAX)" />
     <Parameter Name="question_type" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
+    <ElementType Name="InsertTest_QuestionResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
   </Function>
   <Function Name="dbo.InsertTestWithContent" Method="InsertTestWithContent">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
@@ -514,13 +498,6 @@
     <Parameter Name="question_type" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.UpdateUser_Test" Method="UpdateUser_Test">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
-    <Parameter Name="validAnswers" Type="System.Int32" DbType="Int" />
-    <Parameter Name="validPercent" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.UpdateUser" Method="UpdateUser">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="dateCreate" Type="System.DateTime" DbType="DateTime" />
@@ -536,6 +513,33 @@
       <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Message" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateUser_Test" Method="UpdateUser_Test">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <Parameter Name="validAnswers" Type="System.Int32" DbType="Int" />
+    <Parameter Name="validPercent" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetTest" Method="GetTest">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetTestResult">
+      <Column Name="Id_Test" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Test_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Question_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Question_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Question_Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Question_QuestionType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answer_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answer_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Answer_Content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IsCompleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CountAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsShowHints" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_User_TestType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsValid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>
