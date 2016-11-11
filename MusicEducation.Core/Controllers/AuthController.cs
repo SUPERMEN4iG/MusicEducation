@@ -27,7 +27,7 @@ namespace MusicEducation.Core.API
 		[ActionName("Register")]
 		public InsertUserResult Register(UserRegisterViewModel data)
 		{
-			return _testService.InsertUser(data.Username, System.Web.Helpers.Crypto.HashPassword(data.Password), null, null, null);
+			return _testService.InsertUser(data.Username, System.Web.Helpers.Crypto.HashPassword(data.Password), null, null, null, null);
 		}
 
 		[ActionName("Login")]

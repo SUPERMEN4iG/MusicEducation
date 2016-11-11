@@ -51,6 +51,22 @@ define(['app'], function (app) {
                 });
         };
 
+        service.insertUser = function (obj) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: serviceBase + 'InsertUser/',
+                data: obj
+            }).then(
+				function (response) {
+				    deferred.resolve(response.data);
+				},
+				function (response) {
+				    deferred.reject(response.data);
+				});
+            return deferred.promise;
+        };
+
         service.getUsers = function () {
             var deferred = $q.defer();
 

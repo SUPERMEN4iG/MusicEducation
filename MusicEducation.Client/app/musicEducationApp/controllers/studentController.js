@@ -73,7 +73,7 @@ define(['app'], function (app) {
 
         vm.isShowModalPiano = false;
 
-        $rootScope.pageName = 'Студенты';
+        $rootScope.pageName = 'Ученики';
 
         vm.setTaskState = function (state) {
         	vm.taskState = state;

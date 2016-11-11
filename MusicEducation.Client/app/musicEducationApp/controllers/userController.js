@@ -8,10 +8,30 @@ define(['app'], function (app) {
 		var vm = this,
             path = '/user/',
 			id = ($routeParams.id) ? $routeParams.id : '';
-
+		vm.currentUser = {};
 		vm.users = [];
 		vm.roles = [];
 		vm.id = id;
+
+		vm.goToUser = function (id) {
+		    $location.path(path + id);
+		};
+
+		vm.addUser = function () {
+		    $location.path(path + 'new');
+		};
+
+		vm.updateUser = function () {
+		    console.log(vm.currentUser);
+		    userService.insertUser(vm.currentUser).then(function (data) {
+		        console.log(data);
+
+		        $location.path(path)
+		        setTimeout(function () {
+		            $window.location.reload();
+		        }, 1000);
+		    });
+		};
 
 		function init() {
 			userService.getRoles().then(function (roles) {
@@ -27,7 +47,7 @@ define(['app'], function (app) {
 				if (id == 'new') {
 					vm.currentUser = {
 						FirstName: "",
-						Id_Role: null,
+						RoleName: "Ученик",
 						Id_User: null,
 						Id_UserCreate: 1,
 						LastName: "",

@@ -12,7 +12,7 @@
 					<a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
 					<a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
 					<a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
-                    <a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Студенты</span></a>
+                    <a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
@@ -50,12 +50,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="user in vm.users">
-							<td>{{user.LastName}} {{user.FirstName[0]}}. {{user.MiddleName[0]}}.</td>
-							<td>{{user.Login}}</td>
-							<td>{{user.Name}}</td>
-							<td>{{user.Creator_LastName}} {{user.Creator_FirstName[0]}}. {{user.Creator_MiddleName[0]}}.</td>
-						</tr>
+                        <tr ng-repeat="user in vm.users"
+                            ng-click="vm.goToUser(user.Id)">
+                            <td>{{user.LastName}} {{user.FirstName[0]}}. {{user.MiddleName[0]}}.</td>
+                            <td>{{user.Login}}</td>
+                            <td>{{user.Name}}</td>
+                            <td>{{user.Creator_LastName}} {{user.Creator_FirstName[0]}}. {{user.Creator_MiddleName[0]}}.</td>
+                        </tr>
 					</tbody>
 				</table>
 
@@ -78,14 +79,14 @@
 							   ng-model="vm.currentUser.LastName">
 					</div>
 					<div class="field">
-						<label>Фамилия</label>
+						<label>Имя</label>
 						<input type="text"
 							   name="first-name"
 							   placeholder="Введите имя"
 							   ng-model="vm.currentUser.FirstName">
 					</div>
 					<div class="field">
-						<label>Фамилия</label>
+						<label>Отчество</label>
 						<input type="text"
 							   name="first-name"
 							   placeholder="Введите отчество"
@@ -108,15 +109,29 @@
 					</div>
 
 					<div class="field" ng-if="vm.roles.length > 1 && vm.currentUser !== null">
-						<label>Тип задания</label>
+						<label>Роль</label>
 
-						<dropdown name="currentUser_Id_Role" open="false"
-								  ng-model="vm.currentUser.Id_Role"
-								  title="Выберете роль">
-							<dropdown-group value="c.Id" title="c.Name" ng-repeat="c in vm.roles">{{c.Name}}</dropdown-group>
-						</dropdown>
+                        <dropdown name="currentUser_RoleName" open="false"
+                                  ng-model="vm.currentUser.RoleName"
+                                  title="Выберете роль">
+                            <dropdown-group value="c.Name" title="c.Name" ng-repeat="c in vm.roles">{{c.Name}}</dropdown-group>
+                        </dropdown>
 					</div>
 				</form>
+
+                <div class="ui right aligned grid">
+                    <div class="row"></div>
+                    <div class="row">
+                        <div class="fourteen wide column"></div>
+                        <div class="two wide column">
+                            <button class="ui button blue"
+                                    ng-click="vm.updateUser()">
+                                <i class="plus icon"></i>
+                                Обновить
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
 				<div class="ui divider"></div>
 				<div align="center">

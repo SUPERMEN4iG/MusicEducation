@@ -14,10 +14,15 @@ namespace MusicEducation.Service
 			throw new NotImplementedException();
 		}
 
-		public InsertUserResult InsertUser(string login, string password, string lastName, string firstName, string middleName)
+		public InsertUserResult InsertUser(string login, string password, string lastName, string firstName, string middleName, string roleName)
 		{
-			return _DBContext.InsertUser(null, DateTime.Now, lastName, firstName, middleName, login, password).FirstOrDefault();
+			return _DBContext.InsertUser(null, DateTime.Now, lastName, firstName, middleName, login, password, roleName).FirstOrDefault();
 		}
+
+        public UpdateUserResult UpdateUser(int? idUser, int? idUserCore, string lastName, string firstName, string middleName, string login, string password, string roleName)
+        {
+            return _DBContext.UpdateUser(idUser, DateTime.Now, idUserCore, lastName, firstName, middleName, login, password, roleName).FirstOrDefault();
+        }
 
 		public GetUserResult GetUser(int? idUser, string login)
 		{
