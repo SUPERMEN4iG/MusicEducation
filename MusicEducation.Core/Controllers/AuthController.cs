@@ -11,7 +11,7 @@ namespace MusicEducation.Core.API
 {
 	public class AuthController : BaseApiController
 	{
-		private readonly IUserRepository _testService;
+		private readonly UserRepository _testService;
 
 		public AuthController()
 		{
@@ -24,11 +24,11 @@ namespace MusicEducation.Core.API
 			return new { Result = 1, Date = DateTime.Now };
 		}
 
-		[ActionName("Register")]
-		public InsertUserResult Register(UserRegisterViewModel data)
-		{
-			return _testService.InsertUser(data.Username, System.Web.Helpers.Crypto.HashPassword(data.Password), null, null, null, null);
-		}
+        //[ActionName("Register")]
+        //public InsertUserResult Register(UserRegisterViewModel data)
+        //{
+        //    return _testService.InsertUser(data.Username, System.Web.Helpers.Crypto.HashPassword(data.Password), null, null, null, null);
+        //}
 
 		[ActionName("Login")]
 		public InsertUserResult Login(UserLoginViewModel data)

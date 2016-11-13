@@ -51,6 +51,21 @@ define(['app'], function (app) {
                 });
         };
 
+        service.deleteUser = function (idUser) {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'RemoveUser/', { params: { idUser: idUser } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
         service.insertUser = function (obj) {
             var deferred = $q.defer();
             $http({
@@ -71,6 +86,51 @@ define(['app'], function (app) {
             var deferred = $q.defer();
 
             $http.get(serviceBase + 'GetUsers/')
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getNotifications = function () {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetNotifications/')
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getTeachers = function () {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetTeachers/')
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getGroups = function () {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetGroups/')
                 .then(
 					function (response) {
 					    deferred.resolve(response.data);

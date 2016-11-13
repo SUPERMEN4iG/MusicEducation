@@ -14,7 +14,7 @@ namespace MusicEducation.Core.API
 	[BasicAuthorize(UserRoles.ADMIN, UserRoles.TEACHER, UserRoles.STUDENT)]
 	public class AccountController : BaseApiController
 	{
-		private readonly IUserRepository _userService;
+		private readonly UserRepository _userService;
 
 		public AccountController()
 		{

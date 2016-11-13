@@ -29,8 +29,8 @@ namespace MusicEducation.Core.Controllers.Api
 	[BasicAuthorize(UserRoles.ADMIN, UserRoles.TEACHER, UserRoles.STUDENT)]
     public class TestController : BaseApiController
 	{
-        private readonly ITestRepository _testRepository;
-		private readonly IUserRepository _userRepository;
+        private readonly TestRepository _testRepository;
+		private readonly UserRepository _userRepository;
 
 		private readonly GetUserResult _User;
 

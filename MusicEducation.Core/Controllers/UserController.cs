@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 
 namespace MusicEducation.Core.Controllers
 {
@@ -15,7 +16,9 @@ namespace MusicEducation.Core.Controllers
         public string MiddleName { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public string RoleName { get; set; }
+        public string Name { get; set; }
+        public string Group_Name { get; set; }
+        public string Teacher_Login { get; set; }
     }
 
 	public class UserController : BaseApiController
@@ -40,6 +43,12 @@ namespace MusicEducation.Core.Controllers
 			return _userRepository.GetRoles(_User.Id_User);
 		}
 
+        [HttpGet]
+        public object RemoveUser(int idUser)
+        {
+            return _userRepository.DeleteUser(_User.Id_User, idUser);
+        }
+
         public object InsertUser(InsertUserViewModel model)
         {
             dynamic result = new object();
@@ -47,16 +56,21 @@ namespace MusicEducation.Core.Controllers
             if (model.Id_User == null)
             {
                 result = _userRepository.InsertUser(
+                    _User.Id_User,
                     model.Login,
                     System.Web.Helpers.Crypto.HashPassword(model.Password),
                     model.LastName,
                     model.FirstName,
                     model.MiddleName,
-                    model.RoleName
+                    model.Name,
+                    model.Group_Name,
+                    model.Teacher_Login
                 );
             }
             else 
             {
+                var user = _userRepository.GetUser(_User.Id_User, model.Id_User.Value);
+
                 result = _userRepository.UpdateUser(
                         _User.Id_User,
                         model.Id_User,
@@ -64,12 +78,29 @@ namespace MusicEducation.Core.Controllers
                         model.FirstName,
                         model.MiddleName,
                         model.Login,
-                        model.Password,
-                        model.RoleName
+                        (String.IsNullOrEmpty(model.Password) ? user.Password : System.Web.Helpers.Crypto.HashPassword(model.Password)),
+                        model.Name,
+                        model.Group_Name,
+                        model.Teacher_Login
                     );
             }
 
             return result;
+        }
+
+        public object GetNotifications()
+        {
+            return _userRepository.GetUser_Notifications(_User.Id_User);
+        }
+
+        public object GetGroups()
+        {
+            return _userRepository.GetGroups(_User.Id_User);
+        }
+
+        public object GetTeachers()
+        {
+            return _userRepository.GetUsers(_User.Id_User).Where(x => x.Id_Role == 2).ToList();
         }
 	}
 }

@@ -7,21 +7,26 @@ using System.Threading.Tasks;
 
 namespace MusicEducation.Service
 {
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserRepository : BaseRepository
 	{
 		public string GetGeneralUrl()
 		{
 			throw new NotImplementedException();
 		}
 
-		public InsertUserResult InsertUser(string login, string password, string lastName, string firstName, string middleName, string roleName)
+		public InsertUserResult InsertUser(int? idUser, string login, string password, string lastName, string firstName, string middleName, string roleName, string groupName, string teacherLogin)
 		{
-			return _DBContext.InsertUser(null, DateTime.Now, lastName, firstName, middleName, login, password, roleName).FirstOrDefault();
+            return _DBContext.InsertUser(idUser, DateTime.Now, lastName, firstName, middleName, login, password, roleName, groupName, teacherLogin).FirstOrDefault();
 		}
 
-        public UpdateUserResult UpdateUser(int? idUser, int? idUserCore, string lastName, string firstName, string middleName, string login, string password, string roleName)
+        public UpdateUserResult UpdateUser(int? idUser, int? idUserCore, string lastName, string firstName, string middleName, string login, string password, string roleName, string groupName, string teacherLogin)
         {
-            return _DBContext.UpdateUser(idUser, DateTime.Now, idUserCore, lastName, firstName, middleName, login, password, roleName).FirstOrDefault();
+            return _DBContext.UpdateUser(idUser, DateTime.Now, idUserCore, lastName, firstName, middleName, login, password, roleName, groupName, teacherLogin).FirstOrDefault();
+        }
+
+        public int DeleteUser(int? idUser, int? idUserMain)
+        {
+            return _DBContext.DeleteUser(idUser, idUserMain);
         }
 
 		public GetUserResult GetUser(int? idUser, string login)
@@ -50,5 +55,20 @@ namespace MusicEducation.Service
 		{
 			return _DBContext.GetUserRoles(idUser, login).ToList();
 		}
+
+        public List<GetUser_NotificationsResult> GetUser_Notifications(int? idUser)
+        {
+            return _DBContext.GetUser_Notifications(idUser).ToList();
+        }
+
+        public int InsertUser_Notification(int? idUser, int? toIdUser, string notification_name, string notification_content, int? notification_priorityLevel)
+        {
+            return _DBContext.InsertUser_Notification(idUser, toIdUser, notification_name, notification_content, notification_priorityLevel);
+        }
+
+        public List<GetGroupsResult> GetGroups(int? idUser)
+        {
+            return _DBContext.GetGroups(idUser).ToList();
+        }
 	}
 }

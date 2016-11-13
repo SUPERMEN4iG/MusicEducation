@@ -93,12 +93,17 @@ define(['app'], function (app) {
         }
 
         vm.appnedTestToUser = function (test) {
-        	studentService.appnedTestToUser(id, test.Id)
+            var countAttempts = prompt('Введите количество попыток', 1);
+
+            studentService.appnedTestToUser(id, test.Id, countAttempts)
 				.then(
 					function (data) {
-						if (data.Status == 1) {
-							toastr.success("Тест отправлен!");
-							init();
+					    if (data.Status == 1) {
+					        studentService.getStudent(id).then(function (user) {
+					            toastr.success("Тест отправлен!");
+					            $rootScope.notificationService.sendNotification($rootScope.globals.currentUser.source.Id, user.Login, "Тест", "Получен новый тест!", 1);
+					            init();
+					        });
 						} else {
 							toastr.error("Тест не отправлен!");
 						}
@@ -122,11 +127,14 @@ define(['app'], function (app) {
         	studentService.appnedTestToUserWithContent(sendedTest)
 				.then(
 					function (data) {
-						if (data.Status == 1) {
-							toastr.success("Тест отправлен!");
-							init();
+					    if (data.Status == 1) {
+					        studentService.getStudent(id).then(function (user) {
+					            $rootScope.notificationService.sendNotification($rootScope.globals.currentUser.source.Id, user.Login, "Тест", "Получено новое задание!", 1);
+					            toastr.success("Задание отправлено!");
+					            init();
+					        });
 						} else {
-							toastr.error("Тест не отправлен!");
+							toastr.error("Задание не отправлено!");
 						}
 					}
 				);

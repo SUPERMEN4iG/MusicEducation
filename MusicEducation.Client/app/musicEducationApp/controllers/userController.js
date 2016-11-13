@@ -11,6 +11,8 @@ define(['app'], function (app) {
 		vm.currentUser = {};
 		vm.users = [];
 		vm.roles = [];
+		vm.teachers = [];
+		vm.groups = [];
 		vm.id = id;
 
 		vm.goToUser = function (id) {
@@ -19,6 +21,18 @@ define(['app'], function (app) {
 
 		vm.addUser = function () {
 		    $location.path(path + 'new');
+		};
+
+		vm.deleteUser = function () {
+		    console.log(vm.currentUser);
+		    userService.deleteUser(vm.currentUser.Id_User).then(function (data) {
+		        console.log(data);
+
+		        $location.path(path)
+		        setTimeout(function () {
+		            $window.location.reload();
+		        }, 1000);
+		    });
 		};
 
 		vm.updateUser = function () {
@@ -36,6 +50,14 @@ define(['app'], function (app) {
 		function init() {
 			userService.getRoles().then(function (roles) {
 				vm.roles = roles;
+			});
+
+			userService.getTeachers().then(function (teachers) {
+			    vm.teachers = teachers;
+			});
+
+			userService.getGroups().then(function (groups) {
+			    vm.groups = groups;
 			});
 
 			if (id == '') {
@@ -57,7 +79,8 @@ define(['app'], function (app) {
 					};
 				} else {
 					studentService.getStudent(id).then(function (data) {
-						vm.currentUser = data;
+					    vm.currentUser = data;
+					    vm.currentUser.Password = '';
 						console.log(vm.currentUser);
 					});
 				}

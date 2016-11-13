@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MusicEducation.Service
 {
-    public class StudentRepository : BaseRepository, IStudentRepository
+    public class StudentRepository : BaseRepository
     {
         public List<GetStudentsResult> GetStudents(int? idUser)
         {
@@ -16,9 +16,12 @@ namespace MusicEducation.Service
             return result;
         }
 
-		public InsertUser_TestResult AppnedTestToUser(int? idMainUser, int? idUser, int? idTest)
+		public InsertUser_TestResult AppnedTestToUser(int? idMainUser, int? idUser, int? idTest, int? countAttempts)
 		{
-			var result = _DBContext.InsertUser_Test(idMainUser, idUser, idTest, 1, 1, true).FirstOrDefault();
+            if (!countAttempts.HasValue)
+                countAttempts = 1;
+
+            var result = _DBContext.InsertUser_Test(idMainUser, idUser, idTest, 1, countAttempts, true).FirstOrDefault();
 
 			return result;
 		}

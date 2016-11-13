@@ -107,6 +107,7 @@
     <Content Include="app\musicEducationApp\services\authService.js" />
     <Content Include="app\musicEducationApp\services\pianoPlayerService.js" />
     <Content Include="app\musicEducationApp\services\routeResolver.js" />
+    <Content Include="app\musicEducationApp\services\notifyService.js" />
     <Content Include="app\musicEducationApp\services\userService.js" />
     <Content Include="app\musicEducationApp\services\studentService.js" />
     <Content Include="app\musicEducationApp\services\testService.js" />
@@ -730,6 +731,8 @@
     <Content Include="bower_components\semantic\tasks\rtl\watch.js" />
     <Content Include="bower_components\semantic\tasks\version.js" />
     <Content Include="bower_components\semantic\tasks\watch.js" />
+    <Content Include="bower_components\signalr\jquery.signalR.js" />
+    <Content Include="bower_components\signalr\jquery.signalR.min.js" />
     <Content Include="content\css\animate.css" />
     <Content Include="content\css\flexslider.css" />
     <Content Include="content\css\fonts\flexslider-icon.svg" />
@@ -1567,6 +1570,10 @@
     <Content Include="bower_components\angular-xeditable\bower.json" />
     <Content Include="bower_components\angular-xeditable\LICENSE" />
     <Content Include="bower_components\angular-xeditable\readme.md" />
+    <Content Include="bower_components\signalr\.bower.json" />
+    <Content Include="bower_components\signalr\bower.json" />
+    <Content Include="bower_components\signalr\LICENSE.md" />
+    <Content Include="bower_components\signalr\README.md" />
     <None Include="Properties\PublishProfiles\MusicEducation.Client.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1579,6 +1586,8 @@
     <Content Include="index.html" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="scripts\jquery.signalR-2.1.2.js" />
+    <Content Include="scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="scripts\main.js" />
     <Content Include="Web.config" />
   </ItemGroup>

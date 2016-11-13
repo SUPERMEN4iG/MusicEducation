@@ -17,6 +17,7 @@ require(
 		'musicEducationApp/services/pianoPlayerService',
         'musicEducationApp/services/studentService',
 		'musicEducationApp/services/userService',
+        'musicEducationApp/services/notifyService',
         //'MusicEducation.Coreapp/services/usersService',
         //'MusicEducation.Coreapp/services/tobaccoService',
         //'MusicEducation.Coreapp/services/salesService',

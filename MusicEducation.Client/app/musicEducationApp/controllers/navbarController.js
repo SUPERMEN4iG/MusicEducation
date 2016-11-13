@@ -2,9 +2,9 @@
 
 define(['app'], function (app) {
 
-	var injectParams = ['$scope', '$location', 'authService', '$rootScope', 'toastr', '$window'];
+    var injectParams = ['$scope', '$location', 'authService', '$rootScope', 'toastr', '$window', 'notifyService', 'userService'];
 
-	var NavbarController = function ($scope, $location, authService, $rootScope, toastr, $window) {
+    var NavbarController = function ($scope, $location, authService, $rootScope, toastr, $window, notifyService, userService) {
 		var vm = this;
 		$rootScope.globals.app = {};
 		$rootScope.globals.app.title = 'Сольфеджио онлайн';
@@ -17,6 +17,9 @@ define(['app'], function (app) {
 		vm.isCollapsed = false;
 		vm.currentUser = {};
 		vm.currentBranch = {};
+		vm.currentNotifications = [];
+
+		$rootScope.notificationService = notifyService('http://localhost:59744', 'notificationHub');
 		//vm.showSelectStorageModal = false;
 
 		authService.getCurrentUser().then(function (response) {
@@ -25,6 +28,22 @@ define(['app'], function (app) {
 			$rootScope.globals.currentUser.source = response.data;
 			$rootScope.$broadcast('ON_FINISH_LOADING', 1);
 		});
+
+		$rootScope.$on('ON_FINISH_LOADING', function (data) {
+		    $rootScope.notificationService.on('broadcastMessage', function (data) {
+		        vm.currentNotifications.push(data);
+		        toastr.info(data.Content);
+		    });
+
+		    userService.getNotifications().then(function (notifications) {
+		        console.log(notifications);
+		        vm.currentNotifications = notifications;
+		    });
+		});
+
+		vm.sendToUser = function (username, data) {
+		    $rootScope.notificationService.sendNotification(vm.currentUser.Id, username, "Тест", data, 1);
+		};
 
 		vm.loginOrOut = function () {
 			setLoginLogoutState();
