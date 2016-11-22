@@ -10,7 +10,10 @@
                 </div>
                 <div class="ui fluid vertical menu">
                     <a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
+					<a href="#/profile" class="item"><i class="user icon"></i> <span>Профиль</span></a>
+					<a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
                     <a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
+					<a href="#/task" class="item"><i class="book icon"></i> <span>Задания</span></a>
                     <a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
@@ -85,10 +88,10 @@
 						<div class="ui column">
 							<div class="ui statistic">
 								<div class="value">
-									<i class="ticket icon"></i> {{ vm.student.AllCount }}
+									<i class="ticket icon"></i> {{ vm.student.AllCountTest }}
 								</div>
 								<div class="label">
-									Пройденные тестов
+									Количество назначенных тестов
 								</div>
 							</div>
 						</div>
@@ -105,10 +108,42 @@
 						<div class="ui column">
 							<div class="ui statistic">
 								<div class="value">
-									{{ vm.student.AvgValidPercent }}
+									<i class="ticket icon"></i> {{ vm.student.AllCountCompletedTest }}
 								</div>
 								<div class="label">
-									Процент прохождения
+									Количество выполненных тестов
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ui center aligned three column row">
+						<div class="ui column">
+							<div class="ui statistic">
+								<div class="value">
+									<i class="ticket icon"></i> {{ vm.student.AllCountTask }}
+								</div>
+								<div class="label">
+									Количество назначенных заданий
+								</div>
+							</div>
+						</div>
+						<div class="ui column">
+							<div class="ui statistic">
+								<div class="value">
+									<i class="trophy icon"></i> 0
+								</div>
+								<div class="label">
+									Достижения
+								</div>
+							</div>
+						</div>
+						<div class="ui column">
+							<div class="ui statistic">
+								<div class="value">
+									<i class="ticket icon"></i> {{ vm.student.AllCountCompletedTask }}
+								</div>
+								<div class="label">
+									Количество выполненных тестов
 								</div>
 							</div>
 						</div>
@@ -155,13 +190,13 @@
 										A description which may flow for several lines and give context to the content.
 									</div>
 									<div class="extra">
-										<div class="ui right floated primary button"
+										<!--<div class="ui right floated primary button"
 											 ng-if="globals.currentUser.source.RoleName != 'Ученик'"
 											 ng-class="test.UserAnswerValidPercent != 0 || test.Id_User_Test != null ? 'disabled' : ''"
 											 ng-click="vm.appnedTestToUser(test)">
 											Назначить
 											<i class="right chevron icon"></i>
-										</div>
+										</div>-->
 										<div style="margin-top:5px" class="ui label green">
 											<span ng-if="test.allCount !== null">Пройден на {{test.UserAnswerValidPercent}}%</span>
 											<span ng-if="test.allCount === null">Не пройден </span>
@@ -178,7 +213,7 @@
 							<i class="add icon"></i> Добавить
 						</div>-->
 						<div class="ui relaxed divided items">
-							<div class="item" ng-repeat="test in vm.student.testList | filter:{TestType_Id: '2'}">
+							<div class="item" ng-repeat="test in vm.student.taskList | filter:{TestType_Id: '2'}">
 								<div class="content">
 									<div class="ui large star rating" data-rating="2" data-max-rating="4"></div>
 									<div class="header">
@@ -186,13 +221,13 @@
 										<a ng-click="vm.showModalPiano(test.Id)">{{ test.Name }}</a>
 									</div>
 									<div class="extra">
-										<div class="ui right floated primary button"
+										<!--<div class="ui right floated primary button"
 											 ng-if="globals.currentUser.source.RoleName != 'Ученик'"
 											 ng-class="test.UserAnswerValidPercent != 0 || test.Id_User_Test != null ? 'disabled' : ''"
 											 ng-click="vm.showModalPiano(test.Id)">
 											Назначить
 											<i class="right chevron icon"></i>
-										</div>
+										</div>-->
 										<div style="margin-top:5px" class="ui label green">
 											<span ng-if="test.allCount !== null || test.UserAnswerValidPercent == 100">Пройден на {{test.UserAnswerValidPercent}}%</span>
 											<span ng-if="test.allCount === null && test.UserAnswerValidPercent == 0">Не пройден </span>

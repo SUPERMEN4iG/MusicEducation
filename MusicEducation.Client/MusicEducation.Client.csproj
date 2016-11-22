@@ -94,14 +94,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\musicEducationApp\controllers\bankTestController.js" />
     <Content Include="app\musicEducationApp\controllers\constructorController.js" />
     <Content Include="app\musicEducationApp\controllers\loginController.js" />
     <Content Include="app\musicEducationApp\controllers\mainController.js" />
     <Content Include="app\musicEducationApp\controllers\navbarController.js" />
     <Content Include="app\musicEducationApp\controllers\pianoController.js" />
+    <Content Include="app\musicEducationApp\controllers\profileController.js" />
     <Content Include="app\musicEducationApp\controllers\studentController.js" />
+    <Content Include="app\musicEducationApp\controllers\taskController.js" />
     <Content Include="app\musicEducationApp\controllers\testController.js" />
     <Content Include="app\musicEducationApp\controllers\userController.js" />
+    <Content Include="app\musicEducationApp\directives\filereadDirective.js" />
     <Content Include="app\musicEducationApp\directives\pianoDirective.js" />
     <Content Include="app\musicEducationApp\directives\semantic-ui\modalDirective.js" />
     <Content Include="app\musicEducationApp\services\authService.js" />
@@ -111,8 +115,11 @@
     <Content Include="app\musicEducationApp\services\userService.js" />
     <Content Include="app\musicEducationApp\services\studentService.js" />
     <Content Include="app\musicEducationApp\services\testService.js" />
+    <Content Include="app\musicEducationApp\views\bankTest.html" />
     <Content Include="app\musicEducationApp\views\constructor.html" />
     <Content Include="app\musicEducationApp\views\login.html" />
+    <Content Include="app\musicEducationApp\views\task.html" />
+    <Content Include="app\musicEducationApp\views\profile.html" />
     <Content Include="app\musicEducationApp\views\user.html" />
     <Content Include="app\musicEducationApp\views\main.html" />
     <Content Include="app\musicEducationApp\views\piano.html" />

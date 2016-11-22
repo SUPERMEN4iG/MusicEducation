@@ -13,6 +13,7 @@ define(['app'], function (app) {
 		vm.roles = [];
 		vm.teachers = [];
 		vm.groups = [];
+		vm.deletable = [];
 		vm.id = id;
 
 		vm.goToUser = function (id) {
@@ -23,22 +24,49 @@ define(['app'], function (app) {
 		    $location.path(path + 'new');
 		};
 
-		vm.deleteUser = function () {
-		    console.log(vm.currentUser);
-		    userService.deleteUser(vm.currentUser.Id_User).then(function (data) {
-		        console.log(data);
+		vm.deleteUser = function (idSelected) {
+			var deletedObjects = 0;
 
-		        $location.path(path)
-		        setTimeout(function () {
-		            $window.location.reload();
-		        }, 1000);
-		    });
+			userService.deleteUser(idSelected).then(function (data) {
+				angular.forEach(vm.users, function (v, k) {
+					if (v.Id == idSelected) {
+						vm.users.splice(k, 1);
+						deletedObjects++;
+						//delete vm.users[k];
+					}
+				});
+			});
+
+			toastr.success('Удалено объектов: ' + deletedObjects);
 		};
+
+		vm.deleteUsers = function () {
+			var deletedObjects = 0;
+			angular.forEach(vm.deletable, function (value, key) {
+				if (value)
+				{
+					userService.deleteUser(key).then(function (data) {
+						angular.forEach(vm.users, function (v, k) {
+							if (v.Id == key) {
+								vm.users.splice(k, 1);
+								deletedObjects++;
+								//delete vm.users[k];
+							}
+						});
+					});
+				}
+			});
+			toastr.success('Удалено объектов: ' + deletedObjects);
+			vm.deletable = [];
+		};
+
+		vm.isUpdateUserClicked = false;
 
 		vm.updateUser = function () {
 		    console.log(vm.currentUser);
 		    userService.insertUser(vm.currentUser).then(function (data) {
-		        console.log(data);
+		    	console.log(data);
+		    	vm.isUpdateUserClicked = true;
 
 		        $location.path(path)
 		        setTimeout(function () {
@@ -94,6 +122,16 @@ define(['app'], function (app) {
 		} else {
 			init();
 		}
+
+		//$scope.userForm = {};
+
+		$scope.$on("$locationChangeStart", function (event) {
+			if (!vm.isUpdateUserClicked)
+			{
+				if (vm.userForm.$dirty && !confirm('У вас есть несохранённые изменения, всё равно перейти?'))
+					event.preventDefault();
+			}
+		});
 	};
 
 	UserController.$inject = injectParams;

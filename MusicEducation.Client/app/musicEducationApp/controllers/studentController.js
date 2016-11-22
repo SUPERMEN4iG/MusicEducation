@@ -280,6 +280,9 @@ define(['app'], function (app) {
                     	testService.getTests(id).then(function (data) {
                     		vm.student.testList = data;
                     	});
+                    	testService.getTasks(id).then(function (data) {
+                    		vm.student.taskList = data;
+                    	});
                     });
             }
         };

@@ -26,80 +26,8 @@
 					<a href="dashboard.html" class="item"><i class="file icon"></i> <span>Sample</span></a>-->
 				</div>
 			</div>
-			<div class="sixteen wide column" id="content" ng-if="vm.id == ''">
-				<h2><i class="book icon"></i> Пользователи</h2>
-				<div class="ui divider"></div>
-
-				<!--<div class="ui right aligned grid">
-					<div class="row">
-						<div class="fourteen wide column"></div>
-						<div class="two wide column">
-							<button class="ui button blue"
-									ng-click="vm.addUser()">
-								<i class="plus icon"></i>
-								Добавить
-							</button>
-						</div>
-					</div>
-				</div>-->
-
-				<table class="ui called padded very compactable celled table">
-					<thead>
-						<tr>
-							<th></th>
-							<th class="sorted descending">ФИО</th>
-							<th>Логин</th>
-							<th>Роль</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-                        <tr ng-repeat="user in vm.users">
-							<td class="collapsing">
-								<checkbox checked="false" ng-model="vm.deletable[user.Id]"></checkbox>
-							</td>
-                            <td>{{user.LastName}} {{user.FirstName[0]}}. {{user.MiddleName[0]}}.</td>
-                            <td>{{user.Login}}</td>
-                            <td>{{user.Name}}</td>
-                            <td class="collapsing">
-								<div class="ui icon buttons">
-									<button class="ui button"
-											ng-click="vm.goToUser(user.Id)">
-										<i class="edit icon"></i>
-									</button>
-									<button class="ui button"
-											ng-click="vm.deleteUser(user.Id)">
-										<i class="delete icon"></i>
-									</button>
-								</div>
-							</td>
-                        </tr>
-					</tbody>
-					<tfoot class="full-width">
-						<tr>
-							<th></th>
-							<th colspan="4">
-								<div class="ui right floated small primary labeled icon button"
-									 ng-click="vm.addUser()">
-									<i class="user icon"></i> Добавить пользователя
-								</div>
-								<div class="ui small  button"
-									 ng-click="vm.deleteUsers()">
-									Удалить выделенных
-								</div>
-							</th>
-						</tr>
-					</tfoot>
-				</table>
-
-				<div class="ui divider"></div>
-				<div align="center">
-					Тестовая версия
-				</div>
-			</div>
-
-			<div class="sixteen wide column" id="content" ng-if="vm.id != ''">
-				<h2><i class="book icon"></i> Редактирование пользователя  {{ vm.currentTest.Name }}</h2>
+			<div class="sixteen wide column" id="content">
+				<h2><i class="book icon"></i> Редактирование профиля  {{ vm.currentUser.Login }}</h2>
 				<div class="ui divider"></div>
 
 				<form class="ui form" name="userForm">
@@ -120,33 +48,26 @@
 
 					<div class="field" ng-if="vm.roles.length >= 1 && vm.currentUser !== null">
 						<label>Роль</label>
-						<div ng-show="userForm.$submitted || userForm.uRole.$touched">
-							<div ng-show="userForm.uRole.$error.required">Необходимо выбрать роль.</div>
-						</div>
-						<select name="uRole"
-								ng-model="vm.currentUser.Name"
-								ng-options="service.Name as service.Name for service in vm.roles"
-								required>
-							<option value="">Выбрать роль</option>
-						</select> 
+						<input type="text"
+							   name="Teacher_Name"
+							   ng-model="vm.currentUser.Name"
+							   disabled=""> 
 					</div>
 
                     <div class="field" ng-if="vm.groups.length >= 1 && vm.currentUser !== null">
                         <label>Группа</label>
-                        <dropdown name="currentUser_Group" open="false"
-                                  ng-model="vm.currentUser.Group_Name"
-                                  title="Выберете группу">
-                            <dropdown-group value="c.Name" title="c.Name" ng-repeat="c in vm.groups">{{c.Name}}</dropdown-group>
-                        </dropdown>
+						<input type="text"
+							   name="Group_Name"
+							   ng-model="vm.currentUser.Group_Name"
+							   disabled="">
                     </div>
 
                     <div class="field" ng-if="vm.teachers.length >= 1 && vm.currentUser !== null">
                         <label>Преподаватель</label>
-                        <dropdown name="currentUser_Teacher" open="false"
-                                  ng-model="vm.currentUser.Teacher_Login"
-                                  title="Выберете преподавателя">
-                            <dropdown-group value="c.Login" title="c.Login" ng-repeat="c in vm.teachers">{{c.LastName + ' ' + c.FirstName[0] + '. ' + c.MiddleName[0]}}</dropdown-group>
-                        </dropdown>
+						<input type="text"
+							   name="Teacher_Login"
+							   ng-model="vm.currentUser.Teacher_Login"
+							   disabled="">
                     </div>
 
 					<div class="field">
@@ -203,6 +124,15 @@
 							   placeholder="Введите номер телефона"
 							   ng-model="vm.currentUser.Phone">
 					</div>
+					<div class="field">
+						<label>Фотография</label>
+						<div class="ui action input">
+							<input type="file" 
+								   id="file" 
+								   name="file" 
+								   fileread="vm.currentUser.Photo" />
+						</div>
+					</div> 
 				</form>
 
                 <div class="ui right aligned grid">
@@ -210,11 +140,6 @@
                     <div class="row">
                         <div class="twelve wide column"></div>
                         <div class="two wide column">
-                            <button class="ui button red"
-                                    ng-click="vm.deleteUser()">
-                                <i class="delete icon"></i>
-                                Удалить
-                            </button>
                         </div>
                         <div class="two wide column">
                             <button class="ui button blue"

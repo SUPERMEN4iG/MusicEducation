@@ -35,7 +35,8 @@ namespace MusicEducation.Core.API
 				MiddleName = d_user.MiddleName,
 				Login = d_user.Login,
 				Id_Role = d_user.Id_Role.GetValueOrDefault(),
-				RoleName = d_user.Name
+				RoleName = d_user.Name,
+				Photo = d_user.Photo
 			};
 
 			return user;

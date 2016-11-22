@@ -28,14 +28,14 @@
 			</div>
 
             <div class="sixteen wide column" id="content" ng-if="vm.id == '' && globals.currentUser.source.Id_Role !== 2">
-                <h2><i class="book icon"></i> Тесты</h2>
+                <h2><i class="book icon"></i> Задания</h2>
                 <div class="ui divider"></div>
                 <table class="ui selectable celled table">
                     <thead>
                         <tr>
                             <th>Название</th>
                             <th>Сложность</th>
-                            <th>Разработчик</th>
+                            <th>Создатель</th>
                             <th>Процент правильных ответов</th>
                         </tr>
                     </thead>
@@ -69,16 +69,9 @@
 						</ul>
 					</div>
 				</div>
-
-				<h5>Осталось времени</h5>
-				<div class="ui progress active" >
-					<div class="bar" style="transition-duration: 300ms; width: {{ (vm.currentTest.TimingLeft / vm.currentTest.Timing) * 100 }}%;"></div>
-					<div class="label">Осталось: {{ vm.parsedTimeLeft }}</div>
-				</div>
-
                 <div class="ui form" ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 1">
                     <div class="grouped fields">
-                        <h4 for="fruit">{{vm.currentTest.Questions[vm.currentQuestion].Name}} </h4>
+                        <label for="fruit">{{vm.currentTest.Questions[vm.currentQuestion].Name}} </label>
                         <div>
                             <div class="ui blue vertical buttons">
                                 <button ng-repeat="answer in vm.currentTest.Questions[vm.currentQuestion].Answers" ng-click="vm.setChoiceForQuestion(vm.currentTest.Questions[vm.currentQuestion], answer)" class="ui button">
@@ -95,6 +88,84 @@
                     </div>
                 </div>
 
+				<div class="ui form" ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2">
+					<div class="ui segment" style="min-height: 8rem;">
+						<div ng-if="vm.taskState == 1">
+							<a class="ui green ribbon label" ng-click="vm.setTaskState(2)">Прослушивание задания</a>
+							<div class="ui right aligned grid">
+								<div class="row">
+									<div class="eleven wide column"></div>
+									<div class="five wide column">
+										<button class="ui button green" ng-click="vm.playNotes(vm.currentTest.Questions[vm.currentQuestion].Content.content)">
+											<i class="play icon"></i>
+											Проиграть
+										</button>
+										<button class="ui button" disabled>
+											<i class="record icon"></i>
+											Запись
+										</button>
+										<button class="ui button" disabled>
+											<i class="stop icon"></i>
+											Остановить
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div ng-if="vm.taskState == 2">
+							<a class="ui green ribbon label" ng-click="vm.setTaskState(1)">Выполнение задания</a>
+							<div class="ui right aligned grid">
+								<div class="row">
+									<div class="eleven wide column"></div>
+									<div class="five wide column">
+										<button class="ui button green" 
+												ng-click="vm.playNotes(vm.currentTask.localUserNotes)"
+												ng-disabled="vm.currentTask.localUserNotes.length === 0">
+											<i class="play icon"></i>
+											Проиграть
+										</button>
+										<button class="ui button" 
+												ng-disabled="vm.isRecording == true"
+												ng-click="vm.setRecording(true)"
+												ng-class="vm.isRecording == true ? 'red' : ''">
+											<i class="record icon"></i>
+											Запись
+										</button>
+										<button class="ui button" 
+												ng-disabled="vm.isRecording == false"
+												ng-click="vm.setRecording(false)">
+											<i class="stop icon"></i>
+											Остановить
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<h5 class="ui horizontal header divider">
+							<i class="bar table icon"></i>
+							Виртуальная клавиатура
+						</h5>
+						<piano octaves="vm.currentTest.Questions[vm.currentQuestion].Content.octaves" keyboardid="0"></piano>
+						<div class="ui right aligned grid">
+							<div class="row">
+								<div class="fourteen wide column"></div>
+								<div class="two wide column">
+									<button class="ui button"
+											ng-repeat="answer in vm.currentTest.Questions[vm.currentQuestion].Answers" 
+											ng-click="vm.setChoiceForQuestion(vm.currentTest.Questions[vm.currentQuestion], answer)"
+											ng-if="vm.taskState == 2"
+											ng-disabled="vm.isRecording == true || vm.currentTask.localUserNotes.length === 0">
+										<i class="send icon"></i>
+										Отправить
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
                 <div class="ui divider"></div>
                 <div align="center">
 
@@ -105,7 +176,7 @@
                 <h2><i class="book icon"></i> Тесты</h2>
                 <div class="ui divider"></div>
 				
-				<!--<div class="ui right aligned grid">
+				<div class="ui right aligned grid">
 					<div class="row">
 						<div class="fourteen wide column"></div>
 						<div class="two wide column">
@@ -116,7 +187,7 @@
 							</button>
 						</div>
 					</div>
-				</div>-->
+				</div>
 
                 <table class="ui selectable celled table">
                     <thead>
@@ -124,24 +195,22 @@
 							<th></th>
                             <th>Название</th>
                             <th>Сложность</th>
-                            <th>Разработчик</th>
-							<th>Количество вопросов</th>
+                            <th>Создатель</th>
 							<th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="test in vm.avalibleTestList">
+                        <tr ng-repeat="task in vm.avalibleTestList">
 							<td class="collapsing">
-								<checkbox checked="false" ng-model="vm.selectedTests[test.Id]"></checkbox>
+								<checkbox checked="false" ng-model="vm.selectedTasks[task.Id]"></checkbox>
 							</td>
-                            <td>{{test.Name}}</td>
-                            <td>{{test.Complexity}}</td>
-                            <td>{{test.LastName}} {{test.FirstName[0]}}. {{test.MiddleName[0]}}.</td>
-							<td>{{test.CountQuestions}}</td>
+                            <td>{{task.Name}}</td>
+                            <td>{{task.Complexity}}</td>
+                            <td>{{task.LastName}} {{task.FirstName[0]}}. {{task.MiddleName[0]}}.</td>
 							<td class="collapsing">
 								<div class="ui icon buttons">
 									<button class="ui button"
-											ng-click="vm.goToTest(test)">
+											ng-click="vm.goToTest(task)">
 										<i class="edit icon"></i>
 									</button>
 									<button class="ui button"
@@ -157,17 +226,17 @@
 							<th></th>
 							<th colspan="4">
 								<button class="ui right floated small red labeled icon button"
-									 ng-click="vm.deleteTests()">
+										ng-click="vm.deleteTests()">
 									<i class="delete icon"></i> Удалить
 								</button>
 								<button class="ui small  button"
-									 ng-click="vm.isShowGroupWindow = true"
-									 ng-disabled="vm.selectedTests.length === 0">
+										ng-click="vm.isShowGroupWindow = true"
+										ng-disabled="vm.selectedTasks.length === 0">
 									Назначить группе
 								</button>
 								<button class="ui small  button"
-									 ng-click="vm.isShowUserWindow = true"
-									 ng-disabled="vm.selectedTests.length === 0">
+										ng-click="vm.isShowUserWindow = true"
+										ng-disabled="vm.selectedTasks.length === 0">
 									Назначить учащемуся
 								</button>
 							</th>
@@ -275,8 +344,7 @@
 	</div>
 	<div class="image content">
 		<div class="image">
-			<i class="icon"
-			   ng-class="(vm.testResult.UserAnswerValidPercent < 50) ? 'frown' : 'child'"></i>
+			<i class="child icon"></i>
 		</div>
 		<div class="description">
 			<p>Поздравляем!</p>
@@ -331,6 +399,23 @@
 					</dropdown>
 				</div>
 				<div class="field">
+					<label>Тип задания</label>
+					<dropdown name="idUser_TestType" open="false"
+							  ng-model="vm.currentInputGroup.User_TestType"
+							  title="Выберете тип задания">
+						<dropdown-group value="model.Id" title="model.Name" ng-repeat="model in vm.testTypeDictionary track by model.Id">{{model.Name}}</dropdown-group>
+					</dropdown>
+				</div>
+				<div class="field">
+					<label>Подсказки</label>
+					<dropdown title="Наличие подсказок"
+							  name="isShowHints"
+							  ng-model="vm.currentInputGroup.IsShowHints"
+							  open="false">
+						<dropdown-group value="model.Id" title="model.Name" ng-repeat="model in vm.isShowHintsDictionary track by model.Id">{{model.Name}}</dropdown-group>
+					</dropdown>
+				</div>
+				<div class="field">
 					<label>Попытки</label>
 					<input type="text"
 						   name="countAttempts"
@@ -349,7 +434,7 @@
 	</div>
 	<div class="actions">
 		<div class="two fluid ui inverted buttons">
-			<div class="ui ok green button" ng-click="vm.appendTestToGroup()">
+			<div class="ui ok green button" ng-click="vm.appendTaskToGroup()">
 				<i class="checkmark icon"></i>
 				Назначить
 			</div>
@@ -394,6 +479,23 @@
 					</dropdown>
 				</div>
 				<div class="field">
+					<label>Тип задания</label>
+					<dropdown name="idUser_TestType" open="false"
+							  ng-model="vm.currentInputGroup.User_TestType"
+							  title="Выберете тип задания">
+						<dropdown-group value="model.Id" title="model.Name" ng-repeat="model in vm.testTypeDictionary track by model.Id">{{model.Name}}</dropdown-group>
+					</dropdown>
+				</div>
+				<div class="field">
+					<label>Подсказки</label>
+					<dropdown title="Наличие подсказок"
+							  name="isShowHints"
+							  ng-model="vm.currentInputGroup.IsShowHints"
+							  open="false">
+						<dropdown-group value="model.Id" title="model.Name" ng-repeat="model in vm.isShowHintsDictionary track by model.Id">{{model.Name}}</dropdown-group>
+					</dropdown>
+				</div>
+				<div class="field">
 					<label>Попытки</label>
 					<input type="text"
 						   name="countAttempts"
@@ -412,7 +514,7 @@
 	</div>
 	<div class="actions">
 		<div class="two fluid ui inverted buttons">
-			<div class="ui ok green button" ng-click="vm.appendTestToUser()">
+			<div class="ui ok green button" ng-click="vm.appendTaskToUser()">
 				<i class="checkmark icon"></i>
 				Назначить
 			</div>

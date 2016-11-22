@@ -2,9 +2,9 @@
 
 define(['app'], function (app) {
 
-	var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'testService', 'toastr', '$window', '$scope', 'pianoPlayerService'];
+	var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'testService', 'toastr', '$window', '$scope', 'userService', 'studentService'];
 
-	var TestController = function ($location, $routeParams, $rootScope, $route, testService, toastr, $window, $scope, pianoPlayerService) {
+	var TestController = function ($location, $routeParams, $rootScope, $route, testService, toastr, $window, $scope, userService, studentService) {
 		var vm = this,
             path = '/test/',
 			id = ($routeParams.id) ? $routeParams.id : '';
@@ -31,6 +31,10 @@ define(['app'], function (app) {
 		vm.isRecording = false;
 		vm.taskState = 1;
 
+		vm.currentInputGroup = {};
+		vm.isShowGroupWindow = false;
+		vm.isShowUserWindow = false;
+
 		vm.currentTask = {
 			localUserNotes: []
 		};
@@ -39,41 +43,13 @@ define(['app'], function (app) {
 
 		vm.currentQuestionEditable = 0;
 
-		vm.playNotes = function (obj) {
-			pianoPlayerService.clearTimeline();
+		vm.avalibleGroups = [];
+		vm.avalibleStudents = [];
+		vm.selectedStudents = [];
+		vm.selectedGroups = [];
+		vm.selectedTests = [];
 
-			var isRepeat = false;
-
-			if (vm.taskState == 2)
-			{
-				isRepeat = true;
-			} else if (vm.currentTest.Id_User_TestType == 1 && vm.currentTest.IsShowHints) {
-				isRepeat = true;
-			} else if (vm.currentTest.IsShowHints) {
-				isRepeat = true;
-			}
-		    console.info('isRepeat = ', isRepeat);
-		    pianoPlayerService.playNotesArray(obj, isRepeat);
-
-			pianoPlayerService.clearTimeline();
-		};
-
-		vm.setTaskState = function (state) {
-			vm.taskState = state;
-			$rootScope.$emit('ON_PIANO_INIT', {
-				octaves: vm.currentTest.Questions[vm.currentQuestion].Content.octaves,
-				isshowhint: vm.currentTest.IsShowHints
-			});
-		};
-
-		vm.setRecording = function (rec) {
-			if (rec)
-			{
-				vm.currentTask.localUserNotes = [];
-			}
-
-			vm.isRecording = rec;
-		};
+		vm.parsedTimeLeft = '';
 
 		vm.goToTest = function (test) {
 		    if ($rootScope.globals.currentUser.source.RoleName == 'Учитель')
@@ -130,8 +106,43 @@ define(['app'], function (app) {
 					vm.testResult.CountUserAnswerValid = responseData.CountUserAnswerValid; // Правельных
 					vm.testResult.UserAnswerValidPercent = responseData.UserAnswerValidPercent; // Процент правельных
 					vm.isTestComplete = true;
+
+					testService.updateUserTestTiming($rootScope.globals.currentUser.source.Id, id, vm.currentTest.Timing, true).then(function (result) {
+					});
 				});
 			}
+		};
+
+		vm.appendTestToGroup = function () {
+			var counter = 0;
+			angular.forEach(vm.selectedGroups, function (vGroup, kGroup) {
+				angular.forEach(vm.selectedTests, function (vTest, kTest) {
+					counter++;
+					testService.appendTestToGroup(kGroup, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity).then(function (data) {
+						console.info("INSERTED!");
+					});
+				});
+			});
+		};
+
+		vm.appendTestToUser = function () {
+			var counter = 0;
+			angular.forEach(vm.selectedStudents, function (vUser, kUser) {
+				angular.forEach(vm.selectedTests, function (vTest, kTest) {
+					counter++;
+					testService.appendTestToUser(kUser, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity).then(function (data) {
+						console.info("INSERTED!");
+					});
+				});
+			});
+		};
+
+		vm.deleteTest = function (test) {
+			toastr.error('Функционал не реализован...');
+		};
+
+		vm.deleteTests = function () {
+			toastr.error('Функционал не реализован...');
 		};
 
 		vm.closeTestResultModel = function () {
@@ -213,90 +224,23 @@ define(['app'], function (app) {
 			$location.path(path + 'new');
 		};
 
-		console.log(id);
-
-		vm.keyDownTime = {};
-		vm.keyUpTime = {};
-		vm.nowTime;
-		vm.lastTime;
-		vm.tt;
-		var lastEvent;
-		var heldKeys = {};
-
-		$scope.$watch('vm.isShowPiano', function () {
-			if (vm.isShowPiano) {
-				pianoPlayerService.initialize(function () {
-					setTimeout(function () {
-						pianoPlayerService.setVolume(100);
-						console.log('INITIALIZE');
-						console.log($window);
-						$window.addEventListener('keydown', function (e) {
-							console.log('keydown');
-							if (lastEvent && lastEvent.keyCode == e.keyCode) {
-								return;
-							}
-							lastEvent = e;
-							heldKeys[e.keyCode] = true;
-
-							if (vm.lastTime === undefined)
-								vm.lastTime = new Date();
-
-							vm.keyDownTime = new Date();
-							var evtobj = window.event ? event : e;
-							var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
-							console.log(new Date().getTime() - vm.lastTime.getTime());
-							vm.lastTime = new Date();
-
-							pianoPlayerService.play(keyboradLayout[e.keyCode], 0, true);
-
-							for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
-								if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '#666cff';
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '5px';
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = 'none';
-								}
-							}
-							pianoPlayerService.clearTimeline();
-						});
-
-						$window.addEventListener('keyup', function (e) {
-							lastEvent = null;
-							delete heldKeys[e.keyCode];
-
-							console.log('keyup');
-
-							vm.keyUpTime = new Date();
-							vm.nowTime = new Date();
-							var evtobj = window.event ? event : e;
-							var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
-							var timePress = ((vm.nowTime.getTime() - vm.lastTime.getTime()) / 1000);
-
-							if (vm.isRecording)
-								vm.currentTask.localUserNotes[vm.currentTask.localUserNotes.length] = { note: keyboradLayout[e.keyCode], duration: timePress, isMove: true };
-
-							for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
-								if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '';
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '';
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = '';
-								}
-							}
-							pianoPlayerService.clearTimeline();
-						});
-
-						pianoPlayerService.clearTimeline();
-					}, 100);
-				});
-			}
-		});
+		vm.stateTest = 0;
+		vm.intervalTiming = null;
 
 		function init() {
 
 		    if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
-		        if (id == '') {
-		            testService.getAvalibleTests().then(function (data) {
-		                vm.avalibleTestList = data;
-		            });
+		    	if (id == '') {
+		    		userService.getGroups().then(function (groups) {
+		    			vm.avalibleGroups = groups;
+
+		    			studentService.getStudents().then(function (students) {
+		    				vm.avalibleStudents = students;
+		    				testService.getAvalibleTests().then(function (data) {
+		    					vm.avalibleTestList = data;
+		    				});
+		    			});
+		    		});
 		        } else {
 		        	if (id == 'new') {
 		        		vm.currentTest = {
@@ -326,7 +270,8 @@ define(['app'], function (app) {
 		        	}
 		        }
 		    } else {
-		        if (id == '') {
+		    	if (id == '') {
+		    		vm.stateTest = 0;
 		        	testService.getTests($rootScope.globals.currentUser.source.Id).then(function (data) {
 		                vm.testList = data;
 		            });
@@ -334,7 +279,58 @@ define(['app'], function (app) {
 		            testService.getTest(id).then(function (data) {
 		            	vm.currentTest = data;
 		            	console.log(vm.currentTest);
-		                vm.nextQuestion();
+		            	vm.nextQuestion();
+		            	vm.stateTest = 1;
+
+		            	vm.intervalTiming = setInterval(function () {
+		            		if (vm.stateTest == 1)
+		            		{
+		            			if (vm.currentTest.TimingLeft > 0) {
+		            				vm.currentTest.TimingLeft--;
+
+		            				vm.currentTest.TimingLeft = Number(vm.currentTest.TimingLeft);
+		            				var h = Math.floor(vm.currentTest.TimingLeft / 3600);
+		            				var m = Math.floor(vm.currentTest.TimingLeft % 3600 / 60);
+		            				var s = Math.floor(vm.currentTest.TimingLeft % 3600 % 60);
+		            				vm.parsedTimeLeft = ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
+
+		            				$scope.$apply();
+		            			}
+
+		            			if (vm.currentTest.TimingLeft == 0) {
+		            				testService.updateUserTestTiming($rootScope.globals.currentUser.source.Id, id, vm.currentTest.TimingLeft, true).then(function (result) {
+		            					vm.stateTest = 0;
+		            					$location.path(path)
+		            					setTimeout(function () {
+		            						$window.location.reload();
+		            					}, 1000);
+		            				});
+		            			}
+		            		}
+		            	}, 1000);
+
+		            	$scope.$on("$locationChangeStart", function (event) {
+		            		if (vm.stateTest == 1 && vm.testResult.UserAnswerValidPercent === undefined) {
+		            			if (!confirm('Вы потеряете время и результаты аннулируются, перейти?'))
+		            				event.preventDefault();
+		            			else {
+		            				testService.updateUserTestTiming($rootScope.globals.currentUser.source.Id, id, vm.currentTest.TimingLeft, true).then(function (result) {
+		            					$location.path(path)
+		            					setTimeout(function () {
+		            						$window.location.reload();
+		            					}, 1000);
+		            				});
+		            			}
+		            		}
+		            		else if (vm.stateTest == 0)
+		            		{
+		            			if (vm.intervalTiming)
+		            			{
+		            				clearInterval(vm.intervalTiming);
+		            			}
+		            		}
+		            	});
+
 		                if (vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2) {
 		                	setTimeout(function () {
 		                		vm.isListening = true;

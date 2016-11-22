@@ -32,6 +32,9 @@ namespace MusicEducation.Service.Models
 		public int? CountAttempts { get; set; }
 		public bool? IsShowHints { get; set; }
 		public int? Id_User_TestType { get; set; }
+		public int? Timing { get; set; }
+		public int? TimingLeft { get; set; }
+		public int? Complexity { get; set; }
 		public IList<QuestionModel> Questions { get; set; }
 	}
 }

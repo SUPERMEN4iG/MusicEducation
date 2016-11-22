@@ -26,37 +26,101 @@ namespace MusicEducation.Core.Controllers.Api
 		public object question_octaves { get; set; }
 	}
 
-	[BasicAuthorize(UserRoles.ADMIN, UserRoles.TEACHER, UserRoles.STUDENT)]
-    public class TestController : BaseApiController
+	public class AppendTestToGroupViewModel
 	{
-        private readonly TestRepository _testRepository;
+		public int? idGroup { get; set; }
+		public int? idTest { get; set; }
+		public int? attempts { get; set; }
+		public int? timing { get; set; }
+		public string complexity { get; set; }
+	}
+
+	public class AppendTestToUserViewModel
+	{
+		public int? idUser { get; set; }
+		public int? idTest { get; set; }
+		public int? attempts { get; set; }
+		public int? timing { get; set; }
+		public string complexity { get; set; }
+	}
+
+	public class AppendTaskToGroupViewModel : AppendTestToGroupViewModel
+	{
+		public int? userTestType { get; set; }
+		public int? isShowHints { get; set; }
+	}
+
+	public class AppendTaskToUserViewModel : AppendTestToUserViewModel
+	{
+		public int? userTestType { get; set; }
+		public int? isShowHints { get; set; }
+	}
+
+	public class UpdateUserTestTimingViewModel
+	{
+		public int? idUser { get; set; }
+		public int? idTest { get; set; }
+		public int? timing { get; set; }
+		public bool? isAttemptDown { get; set; }
+	}
+
+	public class CreateTestViewModel
+	{
+		public string Name { get; set; }
+		public string Complexity { get; set; }
+		public int[] Questions { get; set; }
+	}
+
+	[BasicAuthorize(UserRoles.ADMIN, UserRoles.TEACHER, UserRoles.STUDENT)]
+	public class TestController : BaseApiController
+	{
+		private readonly TestRepository _testRepository;
 		private readonly UserRepository _userRepository;
+		private readonly StudentRepository _studentRepository;
 
 		private readonly GetUserResult _User;
 
 		public TestController()
-        {
+		{
 			_testRepository = new TestRepository();
 			_userRepository = new UserRepository();
+			_studentRepository = new StudentRepository();
 			_User = _userRepository.GetUser(null, User.Identity.Name);
 		}
 
 		[ActionName("GetTests")]
-        public object GetTests(int? idUser)
-        {
+		public object GetTests(int? idUser)
+		{
 			object result;
 			var userId = idUser.HasValue ? idUser.Value : _User.Id_User;
-
-			if (_User.Id_Role == 3)
-			{
-				result = _testRepository.GetTestsForStudent(userId);
-			}
-			else
-			{
-				result = _testRepository.GetTests(userId);
-			}
+			result = _testRepository.GetTestsForStudent(userId).Where(x => x.TestType_Id == 1);
+			//if (_User.Id_Role == 3)
+			//{
+			//	result = _testRepository.GetTestsForStudent(userId).Where(x => x.TestType_Id == 1);
+			//}
+			//else
+			//{
+			//	result = _testRepository.GetTests(userId).Where(x => x.TestType_Id == 1);
+			//}
 			return result;
-        }
+		}
+
+		[ActionName("GetTasks")]
+		public object GetTasks(int? idUser)
+		{
+			object result;
+			var userId = idUser.HasValue ? idUser.Value : _User.Id_User;
+			result = _testRepository.GetTestsForStudent(userId).Where(x => x.TestType_Id == 2);
+			//if (_User.Id_Role == 3)
+			//{
+			//	result = _testRepository.GetTestsForStudent(userId).Where(x => x.TestType_Id == 2);
+			//}
+			//else
+			//{
+			//	result = _testRepository.GetTests(userId).Where(x => x.TestType_Id == 2);
+			//}
+			return result;
+		}
 
 		[ActionName("InsertTestWithContent")]
 		public object InsertTestWithContent(InsertTestWithContentViewModel model)
@@ -82,6 +146,9 @@ namespace MusicEducation.Core.Controllers.Api
 				CountAttempts = result.CountAttempts,
 				IsShowHints = result.IsShowHints,
 				Id_User_TestType = result.Id_User_TestType,
+				Timing = result.Timing,
+				TimingLeft = result.TimingLeft,
+				Complexity = result.Complexity,
 				Questions = result.Questions.Select(x => {
 					object contentQuestion = null;
 					if (x.Content != null)
@@ -103,18 +170,18 @@ namespace MusicEducation.Core.Controllers.Api
 		[ActionName("UpdateTest")]
 		public object UpdateTest(TestViewModel changes)
 		{
-            TestViewModel source = new TestViewModel();
+			TestViewModel source = new TestViewModel();
 
-            if (changes.Id != null)
-            {
-                source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
-            }
+			if (changes.Id != null)
+			{
+				source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+			}
 
 			if (source.Id == null)
 			{
 				Debug.WriteLine("[NEW TEST] " + changes.Name);
 				changes.Id = _testRepository.InsertUser_Test_Custom(_User.Id_User, null, changes.Name, 5, changes.Id_User_TestType);
-                source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+				source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
 			}
 
 			if (source.Id != null)
@@ -131,10 +198,10 @@ namespace MusicEducation.Core.Controllers.Api
 			{
 				TestViewModel.QuestionModel currentQuestion = new TestViewModel.QuestionModel();
 
-                if (source.Questions != null)
-                {
-                    currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
-                }
+				if (source.Questions != null)
+				{
+					currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+				}
 
 				if (item.Id == null)
 				{
@@ -158,12 +225,12 @@ namespace MusicEducation.Core.Controllers.Api
 				{
 					TestViewModel.AnswerModel currentAnswer = new TestViewModel.AnswerModel();
 
-                    if (currentQuestion != null && currentQuestion.Answers != null)
-                    {
+					if (currentQuestion != null && currentQuestion.Answers != null)
+					{
 						source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
 						currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
 						currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
-                    }
+					}
 
 					if (answer.Id == null)
 					{
@@ -190,16 +257,21 @@ namespace MusicEducation.Core.Controllers.Api
 			return changes;
 		}
 
-        public object GetAvalibleTests()
-        {
-            return _testRepository.GetAvalibleTests(_User.Id_User);
-        }
+		public object GetAvalibleTests()
+		{
+			return _testRepository.GetAvalibleTests(_User.Id_User);
+		}
+
+		public object GetAvalibleTasks()
+		{
+			return _testRepository.GetAvalibleTasks(_User.Id_User);
+		}
 
 		[ActionName("InsertTestResult")]
 		public object InsertTestResult(TestViewModel model)
 		{
 			InsertUser_Question_AnswerResult result = null;
-			
+
 			foreach (var question in model.Questions)
 			{
 				foreach (var answer in question.Answers)
@@ -207,22 +279,192 @@ namespace MusicEducation.Core.Controllers.Api
 					if (answer.isUserAnswer)
 					{
 						result = _testRepository.InsertTestResult(
-							_User.Id_User, 
-							model.Id.Value, 
-							question.Id.Value, 
+							_User.Id_User,
+							model.Id.Value,
+							question.Id.Value,
 							answer.Id.Value, JsonConvert.SerializeObject(answer.ContentUserAnswer));
 					}
 				}
 			}
 
 			_testRepository.UpdateUser_Test(
-				_User.Id_User, 
-				model.Id, 
+				_User.Id_User,
+				model.Id,
 				result.CountUserAnswerValid,
 				result.UserAnswerValidPercent);
 
 			return result;
 		}
 
+		public object AppendTestToGroup(AppendTestToGroupViewModel model)
+		{
+			int complexity = 0;
+
+			switch (model.complexity)
+			{
+				case "Очень сложно":
+					complexity = 5;
+					break;
+				case "Сложно":
+					complexity = 4;
+					break;
+				case "Не очень сложно":
+					complexity = 3;
+					break;
+				case "Средне":
+					complexity = 2;
+					break;
+				case "Легко":
+					complexity = 1;
+					break;
+				default:
+					complexity = 0;
+					break;
+			}
+
+			return _testRepository.AppendTestToGroup(_User.Id_User, model.idGroup, model.idTest, model.attempts, model.timing, complexity, 1, 1);
+		}
+
+		public object AppendTestToUser(AppendTaskToUserViewModel model)
+		{
+			int complexity = 0;
+
+			switch (model.complexity)
+			{
+				case "Очень сложно":
+					complexity = 5;
+					break;
+				case "Сложно":
+					complexity = 4;
+					break;
+				case "Не очень сложно":
+					complexity = 3;
+					break;
+				case "Средне":
+					complexity = 2;
+					break;
+				case "Легко":
+					complexity = 1;
+					break;
+				default:
+					complexity = 0;
+					break;
+			}
+
+			return _studentRepository.AppnedTestToUser(_User.Id_User, model.idUser, model.idTest, model.attempts, model.timing, complexity, 1, 1);
+		}
+
+		public object AppendTaskToGroup(AppendTaskToGroupViewModel model)
+		{
+			int complexity = 0;
+
+			switch (model.complexity)
+			{
+				case "Очень сложно":
+					complexity = 5;
+					break;
+				case "Сложно":
+					complexity = 4;
+					break;
+				case "Не очень сложно":
+					complexity = 3;
+					break;
+				case "Средне":
+					complexity = 5;
+					break;
+				case "Легко":
+					complexity = 1;
+					break;
+				default:
+					complexity = 0;
+					break;
+			}
+
+			return _testRepository.AppendTestToGroup(_User.Id_User, model.idGroup, model.idTest, model.attempts, model.timing, complexity, model.userTestType, model.isShowHints);
+		}
+
+		public object AppendTaskToUser(AppendTaskToUserViewModel model)
+		{
+			int complexity = 0;
+
+			switch (model.complexity)
+			{
+				case "Очень сложно":
+					complexity = 5;
+					break;
+				case "Сложно":
+					complexity = 4;
+					break;
+				case "Не очень сложно":
+					complexity = 3;
+					break;
+				case "Средне":
+					complexity = 2;
+					break;
+				case "Легко":
+					complexity = 1;
+					break;
+				default:
+					complexity = 0;
+					break;
+			}
+
+			return _studentRepository.AppnedTestToUser(_User.Id_User, model.idUser, model.idTest, model.attempts, model.timing, complexity, model.userTestType, model.isShowHints);
+		}
+
+		public object UpdateUserTestTiming(UpdateUserTestTimingViewModel model)
+		{
+			return _testRepository.UpdateUser_Test_Timing(model.idUser, model.idTest, model.timing, model.isAttemptDown);
+		}
+
+		public object GetThemes()
+		{
+			return _testRepository.GetThemes(_User.Id_User);
+		}
+
+		public object GetThemeQuestions(int idTheme)
+		{
+			return _testRepository.GetThemeQuestions(_User.Id_User, idTheme);
+		}
+
+		public object CreateTest(CreateTestViewModel model)
+		{
+			int complexity = 0;
+			int? idCreatedTest = null;
+
+			switch (model.Complexity)
+			{
+				case "Очень сложно":
+					complexity = 5;
+					break;
+				case "Сложно":
+					complexity = 4;
+					break;
+				case "Не очень сложно":
+					complexity = 3;
+					break;
+				case "Средне":
+					complexity = 2;
+					break;
+				case "Легко":
+					complexity = 1;
+					break;
+				default:
+					complexity = 0;
+					break;
+			}
+
+			idCreatedTest = _testRepository.CreateTest(_User.Id_User, model.Name, complexity);
+
+			if (idCreatedTest.HasValue)
+			{
+				foreach (var item in model.Questions)
+				{
+					_testRepository.AppendQuestionToTest(_User.Id_User, idCreatedTest, item);
+				}
+			}
+
+			return idCreatedTest;
+		}
 	}
 }

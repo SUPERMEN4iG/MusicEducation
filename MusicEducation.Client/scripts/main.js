@@ -11,6 +11,7 @@ require(
         'musicEducationApp/directives/semantic-ui/modalDirective',
         //'MusicEducation.Coreapp/directives/semantic-ui/accordionDirective',
 		'musicEducationApp/directives/pianoDirective',
+		'musicEducationApp/directives/filereadDirective',
         'musicEducationApp/services/routeResolver',
         'musicEducationApp/services/authService',
 		'musicEducationApp/services/testService',

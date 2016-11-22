@@ -68,10 +68,40 @@ define(['app'], function (app) {
 		    return deferred.promise;
 		};
 
+		service.getAvalibleTasks = function () {
+			var deferred = $q.defer();
+
+			$http.get(serviceBase + 'GetAvalibleTasks/')
+                .then(
+					function (response) {
+						deferred.resolve(response.data);
+					},
+					function (response) {
+						deferred.reject(response.data);
+					});
+
+			return deferred.promise;
+		};
+
 		service.getTests = function (id) {
 			var deferred = $q.defer();
 
 			$http.get(serviceBase + 'GetTests/', { params: { idUser: id } })
+					.then(
+						function (response) {
+							deferred.resolve(response.data);
+						},
+						function (response) {
+							deferred.reject(response.data);
+						});
+
+			return deferred.promise;
+		};
+
+		service.getTasks = function (id) {
+			var deferred = $q.defer();
+
+			$http.get(serviceBase + 'GetTasks/', { params: { idUser: id } })
 					.then(
 						function (response) {
 							deferred.resolve(response.data);
@@ -96,6 +126,53 @@ define(['app'], function (app) {
                         	deferred.reject(response.data);
                         });
 
+			return deferred.promise;
+		};
+
+		service.getThemes = function (id) {
+			var deferred = $q.defer();
+
+			$http.get(serviceBase + 'GetThemes/')
+					.then(
+						function (response) {
+							deferred.resolve(response.data);
+						},
+						function (response) {
+							deferred.reject(response.data);
+						});
+
+			return deferred.promise;
+		};
+
+		service.getThemeQuestions = function (idTheme) {
+			var deferred = $q.defer();
+
+			$http.get(serviceBase + 'GetThemeQuestions/', { params: { idTheme: idTheme } })
+                    .then(
+				        function (response) {
+				        	deferred.resolve(response.data);
+				        	//list.push(response.data);
+				        },
+                        function (response) {
+                        	deferred.reject(response.data);
+                        });
+
+			return deferred.promise;
+		};
+
+		service.createTest = function (test) {
+			var deferred = $q.defer();
+			$http({
+				method: 'POST',
+				url: serviceBase + 'CreateTest/',
+				data: test
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
 			return deferred.promise;
 		};
 
@@ -194,6 +271,99 @@ define(['app'], function (app) {
 		service.clear = function () {
 			list.splice(0, list.length);
 			listReportBlank.splice(0, listReportBlank.length);
+		};
+
+		service.appendTestToGroup = function (idGroup, idTest, attempts, timing, complexity) {
+
+			var obj = { idGroup: idGroup, idTest: idTest, attempts: attempts, timing: timing, complexity: complexity };
+			var deferred = $q.defer();
+			$http({
+				method: 'POST',
+				url: serviceBase + 'AppendTestToGroup/',
+				data: obj
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+			return deferred.promise;
+		};
+
+		service.appendTestToUser = function (idUser, idTest, attempts, timing, complexity) {
+
+			var obj = { idUser: idUser, idTest: idTest, attempts: attempts, timing: timing, complexity: complexity };
+			var deferred = $q.defer();
+			$http({
+				method: 'POST',
+				url: serviceBase + 'AppendTestToUser/',
+				data: obj
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+			return deferred.promise;
+		};
+
+		service.appendTaskToGroup = function (idGroup, idTest, attempts, timing, complexity, user_TestType, isShowHints) {
+
+			var obj = { idGroup: idGroup, idTest: idTest, attempts: attempts, timing: timing, complexity: complexity, userTestType: user_TestType, isShowHints: isShowHints };
+			var deferred = $q.defer();
+			console.log(obj);
+			$http({
+				method: 'POST',
+				url: serviceBase + 'AppendTaskToGroup/',
+				data: obj
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+			return deferred.promise;
+		};
+
+		service.appendTaskToUser = function (idUser, idTest, attempts, timing, complexity, user_TestType, isShowHints) {
+
+			var obj = { idUser: idUser, idTest: idTest, attempts: attempts, timing: timing, complexity: complexity, userTestType: user_TestType, isShowHints: isShowHints };
+			var deferred = $q.defer();
+			console.log(obj);
+			$http({
+				method: 'POST',
+				url: serviceBase + 'AppendTaskToUser/',
+				data: obj
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+			return deferred.promise;
+		};
+
+		service.updateUserTestTiming = function (idUser, idTest, timing, isAttemptDown) {
+			var deferred = $q.defer();
+
+			var obj = { idUser: idUser, idTest: idTest, timing: timing, isAttemptDown: isAttemptDown };
+
+			$http({
+				method: 'POST',
+				url: serviceBase + 'UpdateUserTestTiming/',
+				data: obj
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+			return deferred.promise;
 		};
 
 		service.getConsumptionReport = function (branchId) {

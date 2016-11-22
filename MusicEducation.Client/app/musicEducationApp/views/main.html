@@ -10,7 +10,10 @@
 				</div>
 				<div class="ui fluid vertical menu">
 					<a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
+					<a href="#/profile" class="item"><i class="user icon"></i> <span>Профиль</span></a>
+					<a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
 					<a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
+					<a href="#/task" class="item"><i class="book icon"></i> <span>Задания</span></a>
 					<a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
                     <a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>

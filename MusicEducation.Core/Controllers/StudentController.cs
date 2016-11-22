@@ -46,7 +46,7 @@ namespace MusicEducation.Core.API
 
 		public object AppnedTestToUser(AppnedTestToUserViewModel data)
 		{
-			return _studentRepository.AppnedTestToUser(_User.Id_User, data.idUser, data.idTest, data.countAttempts);
+			return _studentRepository.AppnedTestToUser(_User.Id_User, data.idUser, data.idTest, data.countAttempts, null, null, null, null);
 		}
 
 		public object AppnedTestToUserWithContent(AppnedTestToUserWithContentViewModel data)

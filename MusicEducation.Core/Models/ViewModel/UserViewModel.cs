@@ -16,5 +16,6 @@ namespace MusicEducation.Core.Models.ViewModel
 		public DateTime? DateCreate { get; set; }
 		public int Id_Role { get; set; }
 		public string RoleName { get; set; }
+		public string Photo { get; set; }
 	}
 }

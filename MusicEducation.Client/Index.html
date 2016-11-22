@@ -167,9 +167,9 @@
 		<a href="javascript:void(0)" class="icon active item" id="hideToggle"><h3><i class="chevron left icon"></i></h3></a>
 		<a href="javascript:void(0)" class="icon active item" id="showToggle"><h3><i class="chevron right icon"></i></h3></a>
 		<a href="dashboard.html" data-toggle="slide" class="item"><h3>{{ globals.app.title + ' ' + globals.app.subtitle }} </h3></a>
-        <button type="button" ng-click="vm.sendToUser('teacher', 'HELLO TEACHER')">SEND TO TEACHER</button>
-        <button type="button" ng-click="vm.sendToUser('student', 'HELLO STUDENT')">SEND TO STUDENT</button>
-        <button type="button" ng-click="vm.sendToUser('admin', 'HELLO ADMIN')">SEND TO ADMIN</button>
+        <button type="button" ng-click="vm.sendToUser('teacher', 'HELLO TEACHER')">SEND NOTIFICATION TO TEACHER</button>
+        <button type="button" ng-click="vm.sendToUser('student', 'HELLO STUDENT')">SEND NOTIFICATION TO STUDENT</button>
+        <button type="button" ng-click="vm.sendToUser('admin', 'HELLO ADMIN')">SEND NOTIFICATION TO ADMIN</button>
 		<div class="menu right">
 			<a class="icon item pointer" data-toggle="popup" data-content="#mail" data-position="bottom right"><i class="mail icon"></i></a>
 			<div id="mail" class="ui fluid popup" style="min-width:400px;padding-top:30px;">
@@ -220,7 +220,8 @@
 				<div class="ui divider"></div>
 				<a href="" class="ui right floated tiny button">Все уведомления</a>
 			</div>
-			<a class="icon item pointer" data-toggle="popup" data-content="#user" data-position="bottom right"><img src="content/img/piano-min.png" class="ui avatar image" alt=""></a>
+			<a class="icon item pointer" data-toggle="popup" data-content="#user" data-position="bottom right">
+			<img src="{{ (vm.currentUser.Photo !== undefined && vm.currentUser.Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + vm.currentUser.Photo : 'content/img/piano-min.png' }}" class="ui avatar image" alt=""></a>
 			<div id="user" class="ui popup">
 				<div class="ui secondary vertical menu">
 					<div class="header item">Меню пользователя</div>

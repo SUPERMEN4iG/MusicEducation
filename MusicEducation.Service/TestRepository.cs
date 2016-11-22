@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MusicEducation.Service
 {
-	public class TestRepository : BaseRepository, ITestRepository
+	public class TestRepository : BaseRepository
 	{
 		public IList<GetTestsResult> GetTests(int? idUser)
 		{
@@ -31,6 +31,9 @@ namespace MusicEducation.Service
 			test.IsShowHints = Convert.ToBoolean(listTest.FirstOrDefault().IsShowHints);
 			test.CountAttempts = listTest.FirstOrDefault().CountAttempts;
 			test.Id_User_TestType = listTest.FirstOrDefault().Id_User_TestType;
+			test.Timing = listTest.FirstOrDefault().Timing;
+			test.TimingLeft = listTest.FirstOrDefault().TimingLeft;
+			test.Complexity = listTest.FirstOrDefault().Complexity;
 			test.Questions = new List<TestViewModel.QuestionModel>();
 
 			foreach (var item in listTest.GroupBy(g => g.Question_Id))
@@ -64,6 +67,12 @@ namespace MusicEducation.Service
             var result = _DBContext.GetAvalibleTests(idUser).ToList();
             return result;
         }
+
+		public List<GetAvalibleTasksResult> GetAvalibleTasks(int? idUser)
+		{
+			var result = _DBContext.GetAvalibleTasks(idUser).ToList();
+			return result;
+		}
 
 		public List<GetTestsForStudentResult> GetTestsForStudent(int? idUser)
 		{
@@ -128,6 +137,38 @@ namespace MusicEducation.Service
 			var result = _DBContext.UpdateUser_Test_Custom(idUser, idTest, test_name, test_complexity, test_id_TestType);
 
 			return result;
+		}
+
+		public int AppendTestToGroup(int? idUser, int? idGroup, int? idTest, int? attempts, int? timing, int? complexity, int? idUserTestType, int? isShowHints)
+		{
+			var result = _DBContext.AppendTestToGroup(idUser, idGroup, idTest, attempts, timing, complexity, idUserTestType, isShowHints);
+
+			return result;
+		}
+
+		public int UpdateUser_Test_Timing(int? idUser, int? idTest, int? timing, bool? isAttemptDown)
+		{
+			return _DBContext.UpdateUser_Test_Timing(idUser, idTest, timing, isAttemptDown);
+		}
+
+		public List<GetThemesResult> GetThemes(int? idUser)
+		{
+			return _DBContext.GetThemes(idUser).ToList();
+		}
+
+		public List<GetThemeQuestionsResult> GetThemeQuestions(int? idUser, int? idTheme)
+		{
+			return _DBContext.GetThemeQuestions(idUser, idTheme).ToList();
+		}
+
+		public int? CreateTest(int? idUser, string test_name, int? test_complexity)
+		{
+			return _DBContext.CreateTest(idUser, test_name, test_complexity).FirstOrDefault().Column1;
+		}
+
+		public object AppendQuestionToTest(int? idUser, int? idTest, int? idQuestion)
+		{
+			return _DBContext.AppendQuestionToTest(idUser, idTest, idQuestion);
 		}
 	}
 }
