@@ -18,6 +18,7 @@
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
+					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -27,8 +28,8 @@
 				</div>
 			</div>
 
-			<div class="sixteen wide column" id="content" ng-if="vm.id == '' && globals.currentUser.source.Id_Role === 2">
-				<h2><i class="book icon"></i> Банк вопросов</h2>
+			<div class="sixteen wide column" id="content" ng-if="vm.id == '' && globals.currentUser.source.Id_Role === 1">
+				<h2><i class="book icon"></i> Группы</h2>
 				<div class="ui divider"></div>
 
 				<!--<div class="ui right aligned grid">
@@ -49,20 +50,29 @@
 						<tr>
 							<th>Название</th>
 							<th>Дата создания</th>
-							<th>Количество вопросов</th>
 							<!--<th>Создатель</th>-->
-							<!--<th></th>-->
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="theme in vm.avalibleThemes"
-							ng-click="vm.goToTheme(theme)">
+						<tr ng-repeat="group in vm.avalibleGroups">
 							<!--<td class="collapsing">
 								<checkbox checked="false" ng-model="vm.selectedTests[test.Id]"></checkbox>
 							</td>-->
-							<td>{{theme.Name}}</td>
-							<td>{{theme.DateCreate}}</td>
-							<td>{{theme.CountQuestions}}</td>
+							<td>{{group.Name}}</td>
+							<td>{{group.DateCreate}}</td>
+							<td class="collapsing">
+								<div class="ui icon buttons">
+									<!--<button class="ui button"
+											ng-click="vm.goToTest(test)">
+										<i class="edit icon"></i>
+									</button>-->
+									<button class="ui button"
+											ng-click="vm.deleteGroup(group.Id)">
+										<i class="delete icon"></i>
+									</button>
+								</div>
+							</td>
 							<!--<td class="collapsing">
 								<div class="ui icon buttons">
 									<button class="ui button"
@@ -77,17 +87,17 @@
 							</td>-->
 						</tr>
 					</tbody>
-					<!--<tfoot class="full-width">
+					<tfoot class="full-width">
 						<tr>
 							<th></th>
 							<th colspan="4">
-								<button class="ui right floated small red labeled icon button"
-										ng-click="vm.deleteTests()">
-									<i class="delete icon"></i> Удалить
+								<button class="ui right floated small green labeled icon button"
+										ng-click="vm.isShowAddNewGroup = !vm.isShowAddNewGroup">
+									<i class="add icon"></i> Добавить
 								</button>
 							</th>
 						</tr>
-					</tfoot>-->
+					</tfoot>
 				</table>
 
 				<div class="ui divider"></div>
@@ -96,7 +106,7 @@
 				</div>
 			</div>
 
-			<div class="sixteen wide column" id="content" ng-if="vm.id != '' && globals.currentUser.source.Id_Role === 2 && vm.editableState == 0">
+			<div class="sixteen wide column" id="content" ng-if="vm.id != '' && globals.currentUser.source.Id_Role === 1 && vm.editableState == 0">
 				<h2><i class="book icon"></i> Создание теста {{ vm.currentTest.Name }}</h2>
 				<div class="ui divider"></div>
 
@@ -304,6 +314,87 @@
 		</div>
 	</div>
 </div>
+
+<modal ng-model="vm.isShowAddNewGroup">
+	<i class="close icon" ng-click="vm.closeTestResultModel()"></i>
+	<div class="header">
+		Создание группы
+	</div>
+	<div class="content">
+		<div class="description">
+			<form class="ui form" name="groupForm">
+
+				<!--<div class="field">
+					<label>Преподаватели</label>
+					<table class="ui selectable celled table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>ФИО</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="teacher in vm.avalibleTeachers">
+								<td class="collapsing">
+									<checkbox class="radio" checked="false" ng-model="vm.selectedTeachers[teacher.Id]"></checkbox>
+								</td>
+								<td>{{teacher.LastName + ' ' + teacher.FirstName[0] + '. ' + teacher.MiddleName[0]}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>-->
+
+				<div class="field"
+					 ng-class="((groupForm.$submitted || groupForm.teacher.$touched) && groupForm.teacher.$error.required !== undefined ? 'error' : '')">
+					<label>Преподаватель</label>
+					<div ng-show="groupForm.$submitted || groupForm.teacher.$touched">
+						<!--<div ng-show="testForm.test_complexity.$error.required">Необходимо выбрать сложность.</div>-->
+					</div>
+
+					<select name="teacher"
+							ng-options="obj.LastName + ' ' + obj.FirstName[0] + '. ' + obj.MiddleName[0] + ' (' + obj.Login + ')' for obj in vm.avalibleTeachers track by obj.Id"
+							ng-model="vm.selected"
+							required>
+						<option value="">Выбрать преподавателя</option>
+					</select>
+
+					<!--<dropdown name="test_complexity" open="false"
+							  ng-model="vm.currentInputTest.Complexity"
+							  title="Выберете сложности">
+						<dropdown-group value="5">Очень сложно</dropdown-group>
+						<dropdown-group value="4">Сложно</dropdown-group>
+						<dropdown-group value="3">Не очень сложно</dropdown-group>
+						<dropdown-group value="2">Средне</dropdown-group>
+						<dropdown-group value="1">Легко</dropdown-group>
+					</dropdown>-->
+				</div>
+
+				<div class="field">
+					<label>Название</label>
+					<input type="text"
+						   name="name"
+						   placeholder="Введите название группы"
+						   ng-model="vm.currentInputGroup.Name">
+				</div>
+				<div class="field">
+					<label>Описание</label>
+					<input type="text"
+						   name="content"
+						   placeholder="Введите описание"
+						   ng-model="vm.currentInputGroup.Content">
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="actions">
+		<div class="two fluid ui inverted buttons">
+			<div class="ui ok green button" ng-click="vm.insertGroup()">
+				<i class="checkmark icon"></i>
+				Создать
+			</div>
+		</div>
+	</div>
+</modal>
 
 <modal class="basic" ng-model="vm.isTestComplete" ng-if="vm.testResult.Id !== undefined">
 	<i class="close icon" ng-click="vm.closeTestResultModel()"></i>

@@ -4,9 +4,9 @@ define(['app'], function (app) {
 
 	var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'testService', 'toastr', '$window', '$scope', 'userService', 'studentService'];
 
-	var BankTestController = function ($location, $routeParams, $rootScope, $route, testService, toastr, $window, $scope, userService, studentService) {
+	var GroupController = function ($location, $routeParams, $rootScope, $route, testService, toastr, $window, $scope, userService, studentService) {
 		var vm = this,
-            path = '/bankTest/',
+            path = '/group/',
 			id = ($routeParams.id) ? $routeParams.id : '';
 
 		vm.testList = [];
@@ -35,6 +35,7 @@ define(['app'], function (app) {
 		vm.isShowGroupWindow = false;
 		vm.isShowUserWindow = false;
 		vm.isShowTestCreateWindow = false;
+		vm.isShowAddNewGroup = false;
 
 		vm.currentTask = {
 			localUserNotes: []
@@ -47,13 +48,16 @@ define(['app'], function (app) {
 
 		vm.avalibleGroups = [];
 		vm.avalibleStudents = [];
+		vm.avalibleTeachers = [];
 		vm.selectedStudents = [];
+		vm.selectedTeachers = [];
 		vm.selectedGroups = [];
 		vm.selectedTests = [];
 		vm.avalibleThemes = [];
 		vm.currentQuestions = [];
 		vm.selectedQuestions = [];
 		vm.testForm = {};
+		vm.selected = {};
 
 		vm.parsedTimeLeft = '';
 		vm.currentInputTest = {};
@@ -242,28 +246,45 @@ define(['app'], function (app) {
 			$location.path(path + 'new');
 		};
 
+		vm.insertGroup = function () {
+
+			vm.currentInputGroup.Teachers = [];
+			console.log(vm.selected);
+			//angular.forEach(vm.selectedTeachers, function (vTeacher, kTeacher) {
+			//	vm.currentInputGroup.Teachers.push(kTeacher);
+			//});
+
+			vm.currentInputGroup.Teachers.push(vm.selected.Id);
+
+			userService.insertGroup(vm.currentInputGroup).then(function (data) {
+				toastr.info('Группа создана');
+				init();
+			});
+		};
+
+		vm.deleteGroup = function (idGroup) {
+			userService.deleteGroup(idGroup).then(function (data) {
+				toastr.info('Группа удалена');
+				init();
+			});
+		};
+
 		vm.stateTest = 0;
 		vm.intervalTiming = null;
 
 		function init() {
 
-			if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
+			if ($rootScope.globals.currentUser.source.RoleName == 'Администратор') {
 				if (id == '') {
 					userService.getGroups().then(function (groups) {
 						vm.avalibleGroups = groups;
 
-						studentService.getStudents().then(function (students) {
-							vm.avalibleStudents = students;
-							testService.getThemes().then(function (data) {
-								vm.avalibleThemes = data;
-							});
+						userService.getTeachers().then(function (teachers) {
+							vm.avalibleTeachers = teachers;
 						});
 					});
 				} else {		
-					testService.getThemeQuestions(id).then(function (data) {
-						vm.currentQuestions = data;
-						console.log(data);
-					});
+
 				}
 			}
 		};
@@ -281,8 +302,8 @@ define(['app'], function (app) {
 		}
 	};
 
-	BankTestController.$inject = injectParams;
+	GroupController.$inject = injectParams;
 
-	app.register.controller('BankTestController', BankTestController);
+	app.register.controller('GroupController', GroupController);
 
 });

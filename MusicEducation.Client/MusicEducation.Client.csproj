@@ -96,6 +96,7 @@
     <Content Include="app\app.js" />
     <Content Include="app\musicEducationApp\controllers\bankTestController.js" />
     <Content Include="app\musicEducationApp\controllers\constructorController.js" />
+    <Content Include="app\musicEducationApp\controllers\groupController.js" />
     <Content Include="app\musicEducationApp\controllers\loginController.js" />
     <Content Include="app\musicEducationApp\controllers\mainController.js" />
     <Content Include="app\musicEducationApp\controllers\navbarController.js" />
@@ -117,6 +118,7 @@
     <Content Include="app\musicEducationApp\services\testService.js" />
     <Content Include="app\musicEducationApp\views\bankTest.html" />
     <Content Include="app\musicEducationApp\views\constructor.html" />
+    <Content Include="app\musicEducationApp\views\group.html" />
     <Content Include="app\musicEducationApp\views\login.html" />
     <Content Include="app\musicEducationApp\views\task.html" />
     <Content Include="app\musicEducationApp\views\profile.html" />

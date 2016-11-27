@@ -18,6 +18,7 @@
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
+					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -31,18 +32,25 @@
 				<h2><i class="book icon"></i> Банк вопросов</h2>
 				<div class="ui divider"></div>
 
-				<!--<div class="ui right aligned grid">
+				<div class="ui right aligned grid">
 					<div class="row">
-						<div class="fourteen wide column"></div>
+						<div class="twelve wide column"></div>
+						<div class="two wide column">
+							<button class="ui button blue"
+									ng-click="vm.isShowCreateTestWindow = !vm.isShowCreateTestWindow">
+								<i class="random icon"></i>
+								Генерация теста
+							</button>
+						</div>
 						<div class="two wide column">
 							<button class="ui button blue"
 									ng-click="vm.addTest()">
 								<i class="plus icon"></i>
-								Добавить
+								Создать тему
 							</button>
 						</div>
 					</div>
-				</div>-->
+				</div>
 
 				<table class="ui selectable celled table">
 					<thead>
@@ -97,114 +105,47 @@
 			</div>
 
 			<div class="sixteen wide column" id="content" ng-if="vm.id != '' && globals.currentUser.source.Id_Role === 2 && vm.editableState == 0">
-				<h2><i class="book icon"></i> Создание теста {{ vm.currentTest.Name }}</h2>
+				<h2><i class="book icon"></i> Редактирование темы {{ vm.currentTest.Name }}</h2>
 				<div class="ui divider"></div>
 
-				<form class="ui form" name="testForm">
-					<div ng-init="vm.testForm = testForm"></div>
-					<div class="field"
-						 ng-class="((testForm.$submitted || testForm.test_name.$touched) && testForm.test_name.$error.required !== undefined ? 'error' : '')">
-						<label>Название теста</label>
-						<div ng-show="testForm.$submitted || testForm.test_name.$touched">
-							<!--<div ng-show="testForm.test_name.$error.required">Необходимо ввести логин.</div>-->
-						</div>
-						<input type="text" name="test_name"
-							   placeholder="Введите название теста"
-							   ng-model="vm.currentInputTest.Name"
-							   required="">
-					</div>
-					<div class="field"
-						 ng-class="((testForm.$submitted || testForm.test_complexity.$touched) && testForm.test_complexity.$error.required !== undefined ? 'error' : '')">
-						<label>Сложность</label>
-						<div ng-show="testForm.$submitted || testForm.test_complexity.$touched">
-							<!--<div ng-show="testForm.test_complexity.$error.required">Необходимо выбрать сложность.</div>-->
-						</div>
-
-						<select name="test_complexity"
-								ng-model="vm.currentInputTest.Complexity"
-								required>
-							<option value="">Выбрать сложность</option>
-							<option value="5">Очень сложно</option>
-							<option value="4">Сложно</option>
-							<option value="3">Не очень сложно</option>
-							<option value="2">Средне</option>
-							<option value="1">Легко</option>
-						</select> 
-
-						<!--<dropdown name="test_complexity" open="false"
-								  ng-model="vm.currentInputTest.Complexity"
-								  title="Выберете сложности">
-							<dropdown-group value="5">Очень сложно</dropdown-group>
-							<dropdown-group value="4">Сложно</dropdown-group>
-							<dropdown-group value="3">Не очень сложно</dropdown-group>
-							<dropdown-group value="2">Средне</dropdown-group>
-							<dropdown-group value="1">Легко</dropdown-group>
-						</dropdown>-->
-					</div>
-
-
-					<table class="ui selectable celled table">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Название</th>
-								<th>Дата создания</th>
-								<!--<th>Создатель</th>-->
-								<!--<th></th>-->
-							</tr>
-						</thead>
-						<tbody>
-							<!--ng-click="vm.selectedQuestions[question.Id] = (vm.selectedQuestions[question.Id] !== undefined && vm.selectedQuestions[question.Id] !== null) ? !vm.selectedQuestions[question.Id] : true">-->
-							<tr ng-repeat="question in vm.currentQuestions">
-
-								<td class="collapsing">
-									<checkbox checked="false" ng-model="vm.selectedQuestions[question.Id]"></checkbox>
-								</td>
-								<td>{{question.Name}}</td>
-								<td>{{question.DateCreate}}</td>
-								<!--<td class="collapsing">
-						<div class="ui icon buttons">
-							<button class="ui button"
-									ng-click="vm.goToTest(test)">
-								<i class="edit icon"></i>
-							</button>
-							<button class="ui button"
-									ng-click="vm.deleteTest(test)">
-								<i class="delete icon"></i>
-							</button>
-						</div>
-					</td>-->
-							</tr>
-						</tbody>
-						<!--<tfoot class="full-width">
-				<tr>
-					<th></th>
-					<th colspan="4">
-						<button class="ui right floated small red labeled icon button"
-								ng-click="vm.deleteTests()">
-							<i class="delete icon"></i> Удалить
-						</button>
-					</th>
-				</tr>
-			</tfoot>-->
-					</table>
-
-					<div class="ui grid" style="margin-top:5px">
-						<div class="row">
-							<div class="left floated aligned six wide column">
-							</div>
-							<div class="right floated right aligned six wide column">
-								<button class="ui right labeled icon green button"
-										ng-click="vm.createTest()"
-										ng-disabled="vm.selectedQuestions.length == 0"
-										type="submit">
-									Создать тест
-									<i class="plus chevron icon"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</form>
+				<table class="ui selectable celled table">
+					<thead>
+						<tr>
+							<th>Название</th>
+							<!--<th>Создатель</th>-->
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--ng-click="vm.selectedQuestions[question.Id] = (vm.selectedQuestions[question.Id] !== undefined && vm.selectedQuestions[question.Id] !== null) ? !vm.selectedQuestions[question.Id] : true">-->
+						<tr ng-repeat="question in vm.currentTest.Questions track by $index">
+							<td>{{question.Name}}</td>
+							<td class="collapsing">
+								<div class="ui icon buttons">
+									<button class="ui button"
+											ng-click="vm.moveToEditableQuestion($index)">
+										<i class="edit icon"></i>
+									</button>
+									<!--<button class="ui button"
+											ng-click="vm.deleteQuestion(question)">
+										<i class="delete icon"></i>
+									</button>-->
+								</div>
+							</td>
+						</tr>
+					</tbody>
+					<!--<tfoot class="full-width">
+			<tr>
+				<th></th>
+				<th colspan="4">
+					<button class="ui right floated small red labeled icon button"
+							ng-click="vm.deleteTests()">
+						<i class="delete icon"></i> Удалить
+					</button>
+				</th>
+			</tr>
+		</tfoot>-->
+				</table>
 
 				<div class="ui divider"></div>
 				<div align="center">
@@ -213,13 +154,13 @@
 			</div>
 
 			<div class="sixteen wide column" id="content" ng-if="vm.id != '' && globals.currentUser.source.Id_Role === 2 && vm.editableState == 1">
-				<h2><i class="book icon"></i> Редактирование теста  {{ vm.currentTest.Name }}</h2>
+				<h2><i class="book icon"></i> Редактирование темы  {{ vm.currentTest.Name }}</h2>
 				<div class="ui divider"></div>
 
 				<form class="ui form">
 					<div class="field">
-						<label>Название теста</label>
-						<input type="text" name="first-name" placeholder="Введите название теста" ng-model="vm.currentTest.Name">
+						<label>Название темы</label>
+						<input type="text" name="first-name" placeholder="Введите название темы" ng-model="vm.currentTest.Name">
 					</div>
 					<div class="field">
 						<label>Вопрос</label>
@@ -304,6 +245,122 @@
 		</div>
 	</div>
 </div>
+
+<modal ng-model="vm.isShowCreateTestWindow">
+	<i class="close icon" ng-click="vm.closeTestResultModel()"></i>
+	<div class="header">
+		Генератор тестов
+	</div>
+	<div class="content">
+		<div class="description">
+			<form class="ui form" name="testForm">
+				<div ng-init="vm.testForm = testForm"></div>
+				<div class="field"
+					 ng-class="((testForm.$submitted || testForm.test_name.$touched) && testForm.test_name.$error.required !== undefined ? 'error' : '')">
+					<label>Название теста</label>
+					<div ng-show="testForm.$submitted || testForm.test_name.$touched">
+						<!--<div ng-show="testForm.test_name.$error.required">Необходимо ввести логин.</div>-->
+					</div>
+					<input type="text" name="test_name"
+						   placeholder="Введите название теста"
+						   ng-model="vm.currentInputTest.Name"
+						   required="">
+				</div>
+
+				<div class="field"
+					 ng-class="((testForm.$submitted || testForm.test_complexity.$touched) && testForm.test_complexity.$error.required !== undefined ? 'error' : '')">
+					<label>Сложность</label>
+					<div ng-show="testForm.$submitted || testForm.test_complexity.$touched">
+						<!--<div ng-show="testForm.test_complexity.$error.required">Необходимо выбрать сложность.</div>-->
+					</div>
+
+					<select name="test_complexity"
+							ng-model="vm.currentInputTest.Complexity"
+							required>
+						<option value="">Выбрать сложность</option>
+						<option value="5">Очень сложно</option>
+						<option value="4">Сложно</option>
+						<option value="3">Не очень сложно</option>
+						<option value="2">Средне</option>
+						<option value="1">Легко</option>
+					</select>
+
+					<!--<dropdown name="test_complexity" open="false"
+				  ng-model="vm.currentInputTest.Complexity"
+				  title="Выберете сложности">
+			<dropdown-group value="5">Очень сложно</dropdown-group>
+			<dropdown-group value="4">Сложно</dropdown-group>
+			<dropdown-group value="3">Не очень сложно</dropdown-group>
+			<dropdown-group value="2">Средне</dropdown-group>
+			<dropdown-group value="1">Легко</dropdown-group>
+		</dropdown>-->
+				</div>
+
+				<div class="field">
+					<label>Темы</label>
+					<select name="teacher"
+							ng-options="obj.Name for obj in vm.avalibleThemes track by obj.Id"
+							ng-model="vm.selected"
+							required
+							multiple>
+						<option value="">Выбрать темы</option>
+					</select>
+
+					<table class="ui selectable celled table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Название</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="question in vm.avalibleQuesions">
+								<td class="collapsing">
+									<checkbox checked="false" ng-model="vm.selectedQuestions[question.Id]"></checkbox>
+								</td>
+								<td>{{question.Name}}</td>
+							</tr>
+						</tbody>
+						<tfoot class="full-width">
+							<tr>
+								<th></th>
+								<th colspan="2">
+									<div class="ui action left icon input" style="width:200px">
+										<i class="random icon"></i>
+										<input type="text" placeholder="Введите количество" ng-model="vm.countQuestionsRandomize">
+										<div class="ui teal button" ng-click="vm.selectQuestionRandomize()">Выделить случайные</div>
+									</div>
+								</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!--<div class="field">
+			<label>Попытки</label>
+			<input type="text"
+				   name="countAttempts"
+				   placeholder="Введите кол-во попыток"
+				   ng-model="vm.currentInputGroup.CountAttempts">
+		</div>
+		<div class="field">
+			<label>Время выполнения</label>
+			<input type="text"
+				   name="timing"
+				   placeholder="Введите время выполнения в минутах"
+				   ng-model="vm.currentInputGroup.Timing">
+		</div>-->
+			</form>
+		</div>
+	</div>
+	<div class="actions">
+		<div class="two fluid ui inverted buttons">
+			<button type="submit" class="ui ok green button" ng-click="vm.createTest()" ng-disabled="vm.selectedQuestions.length == 0">
+				<i class="checkmark icon"></i>
+				Создать
+			</button>
+		</div>
+	</div>
+</modal>
 
 <modal class="basic" ng-model="vm.isTestComplete" ng-if="vm.testResult.Id !== undefined">
 	<i class="close icon" ng-click="vm.closeTestResultModel()"></i>

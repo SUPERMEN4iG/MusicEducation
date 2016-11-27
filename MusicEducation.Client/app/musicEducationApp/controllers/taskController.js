@@ -30,7 +30,7 @@ define(['app'], function (app) {
 		vm.state = 'login';
 
 		$rootScope.pageName = 'Main';
-		vm.controllerName = 'Тесты';
+		vm.controllerName = 'Задания';
 		vm.headerName = 'Музычкалка';
 
 		vm.isTestComplete = false;
@@ -258,6 +258,10 @@ define(['app'], function (app) {
 
 		vm.addTest = function () {
 			$location.path(path + 'new');
+		};
+
+		vm.addTask = function () {
+			$location.path('constructor');
 		};
 
 		console.log(id);

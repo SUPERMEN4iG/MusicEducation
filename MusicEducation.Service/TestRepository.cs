@@ -35,6 +35,7 @@ namespace MusicEducation.Service
 			test.TimingLeft = listTest.FirstOrDefault().TimingLeft;
 			test.Complexity = listTest.FirstOrDefault().Complexity;
 			test.Questions = new List<TestViewModel.QuestionModel>();
+			test.Id_UserCreate = listTest.FirstOrDefault().Id_UserCreate;
 
 			foreach (var item in listTest.GroupBy(g => g.Question_Id))
 			{
@@ -62,7 +63,56 @@ namespace MusicEducation.Service
 			return test;
 		}
 
-        public List<GetAvalibleTestsResult> GetAvalibleTests(int? idUser)
+		public TestViewModel GetTheme(int? idUser, int idTheme)
+		{
+			TestViewModel test = new TestViewModel();
+			var listTest = base._DBContext.GetTheme(idUser, idTheme).ToList();
+
+			if (listTest == null)
+			{
+				return null;
+			}
+
+			test.Id = listTest.FirstOrDefault().Id_Test;
+			test.Name = listTest.FirstOrDefault().Test_Name;
+			test.IsCompleted = listTest.FirstOrDefault().IsCompleted;
+			test.IsShowHints = Convert.ToBoolean(listTest.FirstOrDefault().IsShowHints);
+			test.CountAttempts = listTest.FirstOrDefault().CountAttempts;
+			test.Id_User_TestType = listTest.FirstOrDefault().Id_User_TestType;
+			test.Timing = listTest.FirstOrDefault().Timing;
+			test.TimingLeft = listTest.FirstOrDefault().TimingLeft;
+			test.Complexity = listTest.FirstOrDefault().Complexity;
+			test.Questions = new List<TestViewModel.QuestionModel>();
+			test.Id_UserCreate = listTest.FirstOrDefault().Id_UserCreate;
+
+			foreach (var item in listTest.GroupBy(g => g.Question_Id))
+			{
+				var question = item.FirstOrDefault();
+				var answers = listTest.Where(x => x.Question_Id == question.Question_Id);
+
+				test.Questions.Add(new TestViewModel.QuestionModel()
+				{
+					Id = question.Question_Id,
+					Name = question.Question_Name,
+					Content = question.Question_Content,
+					QuestionType = question.Question_QuestionType_Id,
+					Answers = answers.Select(x => {
+						return new TestViewModel.AnswerModel()
+						{
+							Id = x.Answer_Id,
+							Name = x.Answer_Name,
+							Content = x.Answer_Content,
+							isUserAnswer = false,
+							IsValid = x.IsValid
+						};
+					}).ToList()
+				});
+			}
+
+			return test;
+		}
+
+		public List<GetAvalibleTestsResult> GetAvalibleTests(int? idUser)
         {
             var result = _DBContext.GetAvalibleTests(idUser).ToList();
             return result;
@@ -139,9 +189,30 @@ namespace MusicEducation.Service
 			return result;
 		}
 
+		public int InsertTest_QuestionTheme(int? idUser, int? idTheme, string question_name, string question_content, int? question_type)
+		{
+			var result = _DBContext.InsertTest_QuestionTheme(idUser, idTheme, question_name, question_content, question_type).FirstOrDefault().Column1.Value;
+
+			return result;
+		}
+
+		public int InsertUser_Test_CustomTheme(int? idUser, string theme_name)
+		{
+			var result = _DBContext.InsertUser_Test_CustomTheme(idUser, theme_name).FirstOrDefault().Column1.Value;
+
+			return result;
+		}
+
 		public int AppendTestToGroup(int? idUser, int? idGroup, int? idTest, int? attempts, int? timing, int? complexity, int? idUserTestType, int? isShowHints)
 		{
 			var result = _DBContext.AppendTestToGroup(idUser, idGroup, idTest, attempts, timing, complexity, idUserTestType, isShowHints);
+
+			return result;
+		}
+
+		public int UpdateUser_Test_CustomTheme(int? idUser, int? idTheme, string theme_name)
+		{
+			var result = _DBContext.UpdateUser_Test_CustomTheme(idUser, idTheme, theme_name);
 
 			return result;
 		}

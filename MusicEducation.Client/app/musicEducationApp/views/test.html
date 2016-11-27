@@ -18,6 +18,7 @@
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
+					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -155,7 +156,7 @@
 					<tfoot class="full-width">
 						<tr>
 							<th></th>
-							<th colspan="4">
+							<th colspan="5">
 								<button class="ui right floated small red labeled icon button"
 									 ng-click="vm.deleteTests()">
 									<i class="delete icon"></i> Удалить
@@ -251,7 +252,8 @@
 						</div>
 						<div class="right floated right aligned six wide column">
 							<button class="ui right labeled icon green button"
-									ng-click="vm.updateEditableTest(vm.currentTest)">
+									ng-click="vm.updateEditableTest(vm.currentTest)"
+									ng-disabled="vm.currentTest.Id_UserCreate != vm.currentUserSource().Id">
 								 Сохранить
 								<i class="checkmark chevron icon"></i>
 							</button>

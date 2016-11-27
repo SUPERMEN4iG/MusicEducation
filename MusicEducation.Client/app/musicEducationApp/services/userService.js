@@ -52,18 +52,18 @@ define(['app'], function (app) {
         };
 
         service.deleteUser = function (idUser) {
-            var deferred = $q.defer();
+        	var deferred = $q.defer();
 
-            $http.get(serviceBase + 'RemoveUser/', { params: { idUser: idUser } })
+        	$http.delete(serviceBase + 'DeleteUser/', { params: { id: idUser } })
                 .then(
 					function (response) {
-					    deferred.resolve(response.data);
+						deferred.resolve(response.data);
 					},
 					function (response) {
-					    deferred.reject(response.data);
+						deferred.reject(response.data);
 					});
 
-            return deferred.promise;
+        	return deferred.promise;
         };
 
         service.insertUser = function (obj) {
@@ -80,6 +80,22 @@ define(['app'], function (app) {
 				    deferred.reject(response.data);
 				});
             return deferred.promise;
+        };
+
+        service.checkLogin = function (obj) {
+        	var deferred = $q.defer();
+        	$http({
+        		method: 'POST',
+        		url: serviceBase + 'CheckLogin/',
+        		data: obj
+        	}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+        	return deferred.promise;
         };
 
         service.getUsers = function () {
@@ -140,6 +156,37 @@ define(['app'], function (app) {
 					});
 
             return deferred.promise;
+        };
+
+        service.insertGroup = function (group) {
+        	var deferred = $q.defer();
+        	$http({
+        		method: 'POST',
+        		url: serviceBase + 'InsertGroup/',
+        		data: group
+        	}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+        	return deferred.promise;
+        };
+
+        service.deleteGroup = function (idGroup) {
+        	var deferred = $q.defer();
+
+        	$http.delete(serviceBase + 'DeleteGroup/', { params: { id: idGroup } })
+                .then(
+					function (response) {
+						deferred.resolve(response.data);
+					},
+					function (response) {
+						deferred.reject(response.data);
+					});
+
+        	return deferred.promise;
         };
 
         service.getRoles = function () {

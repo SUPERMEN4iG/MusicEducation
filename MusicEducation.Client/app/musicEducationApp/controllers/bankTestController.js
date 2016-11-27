@@ -7,11 +7,13 @@ define(['app'], function (app) {
 	var BankTestController = function ($location, $routeParams, $rootScope, $route, testService, toastr, $window, $scope, userService, studentService) {
 		var vm = this,
             path = '/bankTest/',
-			id = ($routeParams.id) ? $routeParams.id : '';
+			id = ($routeParams.id) ? $routeParams.id : '',
+            idquestion = ($routeParams.idquestion) ? $routeParams.idquestion : '';
 
 		vm.testList = [];
 		vm.avalibleTestList = [];
 		vm.id = id;
+		vm.idquestion = idquestion;
 		vm.currentTest = [];
 		vm.currentQuestion = -1;
 
@@ -35,6 +37,7 @@ define(['app'], function (app) {
 		vm.isShowGroupWindow = false;
 		vm.isShowUserWindow = false;
 		vm.isShowTestCreateWindow = false;
+		vm.isShowCreateTestWindow = false;
 
 		vm.currentTask = {
 			localUserNotes: []
@@ -53,6 +56,7 @@ define(['app'], function (app) {
 		vm.avalibleThemes = [];
 		vm.currentQuestions = [];
 		vm.selectedQuestions = [];
+		vm.avalibleQuesions = [];
 		vm.testForm = {};
 
 		vm.parsedTimeLeft = '';
@@ -62,6 +66,10 @@ define(['app'], function (app) {
 			if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
 				$location.path(path + test.Id);
 			}
+		};
+
+		vm.goToQuestion = function (question) {
+			$location.path(path + vm.id + '/' + question.Id);
 		};
 
 		vm.getClassNameValidPercent = function (percent) {
@@ -133,7 +141,10 @@ define(['app'], function (app) {
 			{
 				vm.currentInputTest.Questions = [];
 				angular.forEach(vm.selectedQuestions, function (vQuestion, kQuestion) {
-					vm.currentInputTest.Questions.push(kQuestion);
+					if (vQuestion == true)
+					{
+						vm.currentInputTest.Questions.push(kQuestion);
+					}
 				});
 
 				console.log(vm.currentInputTest.Questions);
@@ -141,6 +152,35 @@ define(['app'], function (app) {
 				testService.createTest(vm.currentInputTest).then(function (data) {
 					console.info(data);
 				});
+			}
+		};
+
+		vm.countQuestionsRandomize = null;
+
+		vm.selectQuestionRandomize = function () {
+
+			angular.forEach(vm.selectedQuestions, function (vQ, kQ) {
+				vm.selectedQuestions[kQ] = false;
+			});
+
+			//for (var i = 0; i < vm.selectedQuestions.length; i++) {
+			//	vm.selectedQuestions[i] = false;
+			//}
+
+			for (var i = 0; i < vm.countQuestionsRandomize; i++) {
+				var loop = true;
+				while (loop) {
+					var randomId = vm.avalibleQuesions[Math.floor(Math.random() * vm.avalibleQuesions.length)].Id;
+					if (!(vm.selectedQuestions.indexOf(randomId) !== -1))
+					{
+						if (vm.selectedQuestions[randomId] == false || vm.selectedQuestions[randomId] == undefined)
+						{
+							console.info(vm.selectedQuestions[randomId]);
+							vm.selectedQuestions[randomId] = true;
+							loop = false;
+						}				
+					}
+				}
 			}
 		};
 
@@ -218,8 +258,9 @@ define(['app'], function (app) {
 		};
 
 		vm.updateEditableTest = function (obj) {
-			testService.updateTest(obj).then(function (response) {
-				toastr.info('Тест сохранён!');
+			testService.updateTheme(obj).then(function (response) {
+				toastr.info('Тема сохранёна!');
+				init();
 			});
 		};
 
@@ -259,14 +300,47 @@ define(['app'], function (app) {
 							});
 						});
 					});
-				} else {		
-					testService.getThemeQuestions(id).then(function (data) {
-						vm.currentQuestions = data;
-						console.log(data);
-					});
+				} else {
+					if (id == 'new') {
+						vm.currentTest = {
+							CountAttempts: null,
+							Id: null,
+							Id_User_TestType: 1,
+							IsCompleted: null,
+							IsShowHints: true,
+							Name: 'Название',
+							Questions: []
+						};
+						vm.currentQuestionEditable = 0;
+
+						vm.currentTest.Questions[vm.currentQuestionEditable] = {
+							Answers: [],
+							Content: null,
+							Id: null,
+							Name: "Вопрос",
+							QuestionType: 1
+						};
+					} else {
+						testService.getTheme(id).then(function (data) {
+							vm.currentTest = data;
+							console.log(data);
+						});
+					}
 				}
 			}
 		};
+
+		$scope.$watch('vm.selected', function () {
+			vm.avalibleQuesions = [];
+
+			angular.forEach(vm.selected, function (value, key) {
+				testService.getTheme(value.Id).then(function (data) {
+					angular.forEach(data.Questions, function (qValue) {
+						vm.avalibleQuesions.push(qValue);
+					});
+				});
+			});
+		});
 
 		//$scope.$watch('vm.newTask.question_octaves', function () {
 		//	$rootScope.$emit('ON_PIANO_INIT', vm.newTask.question_octaves);

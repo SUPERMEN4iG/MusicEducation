@@ -18,6 +18,7 @@
                     <a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
+					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -43,6 +44,35 @@
 					</div>
 				</div>-->
 
+				<div id="filterRole" class="ui floating labeled icon dropdown button">
+					<i class="filter icon"></i>
+					<span class="text">По роли</span>
+					<div class="menu">
+						<div class="header">
+							<i class="tags icon"></i>
+							Фильтр по роли
+						</div>
+						<div class="divider"></div>
+						<div class="item" ng-click="vm.filterByRole = null">
+							<i class="delete icon"></i>
+							Без фильтра
+						</div>
+						<div class="divider"></div>
+						<div class="item" ng-click="vm.filterByRole = { Name: 'Администратор' }">
+							<i class="diamond icon"></i>
+							Администратор
+						</div>
+						<div class="item" ng-click="vm.filterByRole = { Name: 'Учитель' }">
+							<i class="travel icon"></i>
+							Учитель
+						</div>
+						<div class="item" ng-click="vm.filterByRole = { Name: 'Ученик' }">
+							<i class="student icon"></i>
+							Ученик
+						</div>
+					</div>
+				</div>
+
 				<table class="ui called padded very compactable celled table">
 					<thead>
 						<tr>
@@ -50,17 +80,19 @@
 							<th class="sorted descending">ФИО</th>
 							<th>Логин</th>
 							<th>Роль</th>
+							<th>Группа</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-                        <tr ng-repeat="user in vm.users">
+                        <tr ng-repeat="user in vm.users | filter : vm.filterByRole">
 							<td class="collapsing">
 								<checkbox checked="false" ng-model="vm.deletable[user.Id]"></checkbox>
 							</td>
                             <td>{{user.LastName}} {{user.FirstName[0]}}. {{user.MiddleName[0]}}.</td>
                             <td>{{user.Login}}</td>
                             <td>{{user.Name}}</td>
+							<td>{{user.Group_Name}}</td>
                             <td class="collapsing">
 								<div class="ui icon buttons">
 									<button class="ui button"
@@ -78,7 +110,7 @@
 					<tfoot class="full-width">
 						<tr>
 							<th></th>
-							<th colspan="4">
+							<th colspan="5">
 								<div class="ui right floated small primary labeled icon button"
 									 ng-click="vm.addUser()">
 									<i class="user icon"></i> Добавить пользователя
@@ -140,14 +172,14 @@
                         </dropdown>
                     </div>
 
-                    <div class="field" ng-if="vm.teachers.length >= 1 && vm.currentUser !== null">
+                    <!--<div class="field" ng-if="vm.teachers.length >= 1 && vm.currentUser !== null">
                         <label>Преподаватель</label>
                         <dropdown name="currentUser_Teacher" open="false"
                                   ng-model="vm.currentUser.Teacher_Login"
                                   title="Выберете преподавателя">
                             <dropdown-group value="c.Login" title="c.Login" ng-repeat="c in vm.teachers">{{c.LastName + ' ' + c.FirstName[0] + '. ' + c.MiddleName[0]}}</dropdown-group>
                         </dropdown>
-                    </div>
+                    </div>-->
 
 					<div class="field">
 						<label>Фамилия</label>
@@ -222,7 +254,7 @@
 									type="submit"
 									ng-disabled="userForm.$invalid">
                                 <i class="plus icon"></i>
-                                 {{ (vm.id == 'new' ? 'Создать' : 'Обновить')  }}
+                                 {{ (vm.id == 'new' ? 'Создать' : 'Сохранить')  }}
                             </button>
                         </div>
                     </div>

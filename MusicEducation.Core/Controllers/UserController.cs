@@ -28,6 +28,28 @@ namespace MusicEducation.Core.Controllers
 		public string Photo { get; set; }
 	}
 
+	public class InsertGroupViewModel
+	{
+		public string Name { get; set; }
+		public string Content { get; set; }
+		public int[] Teachers { get; set; }
+	}
+
+	public class UpdateGroupViewModel : InsertGroupViewModel
+	{
+		public int Id { get; set; }
+	}
+
+	public class DeleteGroupViewModel
+	{
+		public int Id { get; set; }
+	}
+
+	public class LoginViewModel
+	{
+		public string Login { get; set; }
+	}
+
 	public class UserController : BaseApiController
 	{
 		UserRepository _userRepository;
@@ -50,14 +72,23 @@ namespace MusicEducation.Core.Controllers
 			return _userRepository.GetRoles(_User.Id_User);
 		}
 
-        public object RemoveUser(int idUser)
+		[HttpDelete]
+        public object DeleteUser(int? id)
         {
-            return _userRepository.DeleteUser(_User.Id_User, idUser);
+            return _userRepository.DeleteUser(_User.Id_User, id);
         }
+
+		public object CheckLogin(InsertUserViewModel model)
+		{
+			return _userRepository.CheckLogin(_User.Id_User, model.Login);
+		}
 
 		public object InsertUser(InsertUserViewModel model)
         {
             dynamic result = new object();
+
+			var group = _userRepository.GetGroups(_User.Id_User).FirstOrDefault();
+			var userMasterGroup = _userRepository.GetGroupMaster(_User.Id_User, group.Id);
 
 			if (model.Id_User == null)
             {
@@ -70,7 +101,7 @@ namespace MusicEducation.Core.Controllers
                     model.MiddleName,
                     model.Name,
                     model.Group_Name,
-                    model.Teacher_Login,
+                    userMasterGroup.Login,
 					model.Email,
 					model.Phone
                 );
@@ -109,7 +140,7 @@ namespace MusicEducation.Core.Controllers
                         (String.IsNullOrEmpty(model.Password) ? user.Password : System.Web.Helpers.Crypto.HashPassword(model.Password)),
                         model.Name,
                         model.Group_Name,
-                        model.Teacher_Login,
+						userMasterGroup.Login,
 						model.Email,
 						model.Phone,
 						filePath
@@ -133,5 +164,28 @@ namespace MusicEducation.Core.Controllers
         {
             return _userRepository.GetUsers(_User.Id_User).Where(x => x.Id_Role == 2).ToList();
         }
+
+		public object InsertGroup(InsertGroupViewModel model)
+		{
+			int insetedGroupId = _userRepository.InsertGroup(_User.Id_User, model.Name, model.Content);
+
+			foreach (var teacherId in model.Teachers)
+			{
+				_userRepository.InsertUser_GroupMaster(_User.Id_User, teacherId, insetedGroupId);
+			}
+
+			return true;
+		}
+
+		public object UpdateGroup(UpdateGroupViewModel model)
+		{
+			return null;
+		}
+
+		[HttpDelete]
+		public object DeleteGroup(int? id)
+		{
+			return _userRepository.DeleteGroup(_User.Id_User, id);
+		}
 	}
 }

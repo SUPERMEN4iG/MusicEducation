@@ -149,6 +149,7 @@ namespace MusicEducation.Core.Controllers.Api
 				Timing = result.Timing,
 				TimingLeft = result.TimingLeft,
 				Complexity = result.Complexity,
+				Id_UserCreate = result.Id_UserCreate,
 				Questions = result.Questions.Select(x => {
 					object contentQuestion = null;
 					if (x.Content != null)
@@ -156,6 +157,41 @@ namespace MusicEducation.Core.Controllers.Api
 						contentQuestion = JsonConvert.DeserializeObject(x.Content);
 					}
 					return new {
+						Id = x.Id,
+						Name = x.Name,
+						QuestionType = x.QuestionType,
+						Answers = x.Answers,
+						Content = contentQuestion
+					};
+				})
+			};
+			return simpleObjectResult;
+		}
+
+		[ActionName("GetTheme")]
+		public object GetTheme(int idTheme)
+		{
+			var result = _testRepository.GetTheme(_User.Id_User, idTheme);
+			object simpleObjectResult = new
+			{
+				Id = result.Id,
+				Name = result.Name,
+				IsCompleted = result.IsCompleted,
+				CountAttempts = result.CountAttempts,
+				IsShowHints = result.IsShowHints,
+				Id_User_TestType = result.Id_User_TestType,
+				Timing = result.Timing,
+				TimingLeft = result.TimingLeft,
+				Complexity = result.Complexity,
+				Id_UserCreate = result.Id_UserCreate,
+				Questions = result.Questions.Select(x => {
+					object contentQuestion = null;
+					if (x.Content != null)
+					{
+						contentQuestion = JsonConvert.DeserializeObject(x.Content);
+					}
+					return new
+					{
 						Id = x.Id,
 						Name = x.Name,
 						QuestionType = x.QuestionType,
@@ -245,6 +281,96 @@ namespace MusicEducation.Core.Controllers.Api
 						if (answer.Name != currentAnswer.Name || answer.IsValid != currentAnswer.IsValid)
 						{
 							source = _testRepository.GetTest(_User.Id_User, changes.Id.Value);
+							currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+							currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
+							Debug.WriteLine("[CHANGES ANSWER] " + answer.Name);
+							_testRepository.UpdateQuestion_Answer(_User.Id_User, currentQuestion.Id, answer.Id, answer.Name, answer.Content, (answer.IsValid.GetValueOrDefault() ? 1 : 0));
+						}
+					}
+				}
+			}
+
+			return changes;
+		}
+
+		[ActionName("UpdateTheme")]
+		public object UpdateTheme(TestViewModel changes)
+		{
+			TestViewModel source = new TestViewModel();
+
+			if (changes.Id != null)
+			{
+				source = _testRepository.GetTheme(_User.Id_User, changes.Id.Value);
+			}
+
+			if (source.Id == null)
+			{
+				Debug.WriteLine("[NEW THEME] " + changes.Name);
+				changes.Id = _testRepository.InsertUser_Test_CustomTheme(_User.Id_User, changes.Name);
+				source = _testRepository.GetTheme(_User.Id_User, changes.Id.Value);
+			}
+
+			if (source.Id != null)
+			{
+				if (changes.Name != source.Name)
+				{
+					Debug.WriteLine("[UPDATE THEME] " + changes.Name);
+					_testRepository.UpdateUser_Test_CustomTheme(_User.Id_User, source.Id, changes.Name);
+					source = _testRepository.GetTheme(_User.Id_User, changes.Id.Value);
+				}
+			}
+
+			foreach (var item in changes.Questions)
+			{
+				TestViewModel.QuestionModel currentQuestion = new TestViewModel.QuestionModel();
+
+				if (source.Questions != null)
+				{
+					currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+				}
+
+				if (item.Id == null)
+				{
+					source = _testRepository.GetTheme(_User.Id_User, changes.Id.Value);
+					currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+					Debug.WriteLine("[NEW QUESTION] " + item.Name);
+					item.Id = _testRepository.InsertTest_QuestionTheme(_User.Id_User, changes.Id, item.Name, item.Content, item.QuestionType);
+				}
+				else if (currentQuestion.Id != null)
+				{
+					if (item.Name != currentQuestion.Name)
+					{
+						source = _testRepository.GetTheme(_User.Id_User, changes.Id.Value);
+						currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+						Debug.WriteLine("[CHANGES QUESTION] " + item.Name);
+						_testRepository.UpdateTest_Question(_User.Id_User, item.Id, item.Name, item.Content, item.QuestionType);
+					}
+				}
+
+				foreach (var answer in item.Answers)
+				{
+					TestViewModel.AnswerModel currentAnswer = new TestViewModel.AnswerModel();
+
+					if (currentQuestion != null && currentQuestion.Answers != null)
+					{
+						source = _testRepository.GetTheme(_User.Id_User, changes.Id.Value);
+						currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+						currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
+					}
+
+					if (answer.Id == null)
+					{
+						source = _testRepository.GetTheme(_User.Id_User, changes.Id.Value);
+						currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
+						currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
+						Debug.WriteLine("[NEW ANSWER] " + answer.Name);
+						answer.Id = _testRepository.InsertQuestion_Answer(_User.Id_User, currentQuestion.Id, answer.Name, answer.Content, (answer.IsValid.GetValueOrDefault() ? 1 : 0));
+					}
+					else if (currentAnswer.Id != null)
+					{
+						if (answer.Name != currentAnswer.Name || answer.IsValid != currentAnswer.IsValid)
+						{
+							source = _testRepository.GetTheme(_User.Id_User, changes.Id.Value);
 							currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);
 							currentAnswer = currentQuestion.Answers.FirstOrDefault(x => x.Id == answer.Id);
 							Debug.WriteLine("[CHANGES ANSWER] " + answer.Name);

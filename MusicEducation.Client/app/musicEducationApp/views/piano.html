@@ -18,6 +18,7 @@
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
+					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -53,7 +54,7 @@
 					<div class="ui segment" style="min-height: 8rem;">
 
 						<div>
-							<a class="ui green ribbon label" ng-click="vm.setTaskState(1)">Начальный вид пианино</a>
+							<!--<a class="ui green ribbon label" ng-click="vm.setTaskState(1)">Начальный вид пианино</a>-->
 
 							<div class="ui right aligned grid">
 								<div class="row">

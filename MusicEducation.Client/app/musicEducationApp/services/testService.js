@@ -129,6 +129,22 @@ define(['app'], function (app) {
 			return deferred.promise;
 		};
 
+		service.getTheme = function (id) {
+			var deferred = $q.defer();
+
+			$http.get(serviceBase + 'GetTheme/', { params: { idTheme: id } })
+                    .then(
+				        function (response) {
+				        	deferred.resolve(response.data);
+				        	//list.push(response.data);
+				        },
+                        function (response) {
+                        	deferred.reject(response.data);
+                        });
+
+			return deferred.promise;
+		};
+
 		service.getThemes = function (id) {
 			var deferred = $q.defer();
 
@@ -198,6 +214,22 @@ define(['app'], function (app) {
 				method: 'POST',
 				url: serviceBase + 'UpdateTest/',
 				data: test
+			}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+			return deferred.promise;
+		};
+
+		service.updateTheme = function (theme) {
+			var deferred = $q.defer();
+			$http({
+				method: 'POST',
+				url: serviceBase + 'UpdateTheme/',
+				data: theme
 			}).then(
 				function (response) {
 					deferred.resolve(response.data);

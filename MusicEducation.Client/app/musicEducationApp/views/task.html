@@ -18,6 +18,7 @@
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
+					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
 					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
 					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
@@ -173,7 +174,7 @@
             </div>
             
             <div class="sixteen wide column" id="content" ng-if="vm.id == '' && globals.currentUser.source.Id_Role === 2">
-                <h2><i class="book icon"></i> Тесты</h2>
+                <h2><i class="book icon"></i> Задания</h2>
                 <div class="ui divider"></div>
 				
 				<div class="ui right aligned grid">
@@ -181,7 +182,7 @@
 						<div class="fourteen wide column"></div>
 						<div class="two wide column">
 							<button class="ui button blue"
-									ng-click="vm.addTest()">
+									ng-click="vm.addTask()">
 								<i class="plus icon"></i>
 								Добавить
 							</button>

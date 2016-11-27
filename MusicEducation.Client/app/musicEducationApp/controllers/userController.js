@@ -37,7 +37,10 @@ define(['app'], function (app) {
 				});
 			});
 
-			toastr.success('Удалено объектов: ' + deletedObjects);
+			setTimeout(function () {
+				toastr.success('Удалено объектов: ' + deletedObjects);
+				init();
+			}, 1500);
 		};
 
 		vm.deleteUsers = function () {
@@ -63,21 +66,50 @@ define(['app'], function (app) {
 		vm.isUpdateUserClicked = false;
 
 		vm.updateUser = function () {
-		    console.log(vm.currentUser);
-		    userService.insertUser(vm.currentUser).then(function (data) {
-		    	console.log(data);
-		    	vm.isUpdateUserClicked = true;
 
-		        $location.path(path)
-		        setTimeout(function () {
-		            $window.location.reload();
-		        }, 1000);
-		    });
+			if (vm.id == 'new')
+			{
+				userService.checkLogin(vm.currentUser).then(function (result) {
+					if (result == true)
+					{
+						console.log(vm.currentUser);
+						vm.currentUser.Teacher_Login = null;
+						userService.insertUser(vm.currentUser).then(function (data) {
+							console.log(data);
+							vm.isUpdateUserClicked = true;
+
+							$location.path(path)
+							setTimeout(function () {
+								$window.location.reload();
+							}, 1000);
+						});
+					}
+					else {
+						toastr.error('Такой логин уже существует в системе!');
+					}
+				});
+			} else {
+				console.log(vm.currentUser);
+				vm.currentUser.Teacher_Login = null;
+				userService.insertUser(vm.currentUser).then(function (data) {
+					console.log(data);
+					vm.isUpdateUserClicked = true;
+
+					$location.path(path)
+					setTimeout(function () {
+						$window.location.reload();
+					}, 1000);
+				});
+			}
 		};
+
+		vm.filterByRole = null;
 
 		function init() {
 			userService.getRoles().then(function (roles) {
 				vm.roles = roles;
+
+				$('#filterRole').dropdown();
 			});
 
 			userService.getTeachers().then(function (teachers) {

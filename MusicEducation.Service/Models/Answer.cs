@@ -35,6 +35,7 @@ namespace MusicEducation.Service.Models
 		public int? Timing { get; set; }
 		public int? TimingLeft { get; set; }
 		public int? Complexity { get; set; }
+		public int? Id_UserCreate { get; set; }
 		public IList<QuestionModel> Questions { get; set; }
 	}
 }

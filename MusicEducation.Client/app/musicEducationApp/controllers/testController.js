@@ -356,9 +356,13 @@ define(['app'], function (app) {
 		//	$rootScope.$emit('ON_PIANO_INIT', vm.newTask.question_octaves);
 		//});
 
+		vm.currentUserSource = function () {
+			return $rootScope.globals.currentUser.source;
+		};
+
 		if ($rootScope.globals.currentUser.source === undefined) {
 		    $rootScope.$on('ON_FINISH_LOADING', function (event, data) {
-		        init();
+		    	init();
 		    });
 		} else {
 		    init();
