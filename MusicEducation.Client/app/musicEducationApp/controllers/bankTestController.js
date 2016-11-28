@@ -223,11 +223,11 @@ define(['app'], function (app) {
 		};
 
 		vm.setChoice = function (qAnswers, c) {
-			angular.forEach(qAnswers, function (c) {
-				c.IsValid = false;
-			});
-			console.log(c);
-			c.IsValid = true;
+			//angular.forEach(qAnswers, function (c) {
+			//	c.IsValid = false;
+			//});
+			//console.log(c);
+		    c.IsValid = !c.IsValid;
 		};
 
 		vm.moveToEditableQuestion = function (index) {

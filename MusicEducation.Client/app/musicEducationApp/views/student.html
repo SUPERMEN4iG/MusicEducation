@@ -36,7 +36,7 @@
                 <div class="ui cards">
                     <div class="card" ng-repeat="student in vm.studentList">
                         <div class="content">
-                            <img class="right floated mini ui image" src="/content/img/piano-min.png">
+                            <img class="right floated mini ui image" src="{{ (student.Photo !== undefined && student.Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + student.Photo : 'content/img/piano-min.png' }}">
                             <div class="header">
                                 {{ student.LastName }} {{ student.FirstName }}
                             </div>

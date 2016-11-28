@@ -38,7 +38,7 @@ define(['app'], function (app) {
 			});
 
 			setTimeout(function () {
-				toastr.success('Удалено объектов: ' + deletedObjects);
+				//toastr.success('Удалено объектов: ' + deletedObjects);
 				init();
 			}, 1500);
 		};
@@ -59,7 +59,7 @@ define(['app'], function (app) {
 					});
 				}
 			});
-			toastr.success('Удалено объектов: ' + deletedObjects);
+			//toastr.success('Удалено объектов: ' + deletedObjects);
 			vm.deletable = [];
 		};
 

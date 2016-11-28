@@ -116,7 +116,6 @@ define(['app'], function (app) {
 			pianoPlayerService.clearTimeline();
 		}
 
-
 		var lastEvent;
 		var heldKeys = {};
 
@@ -163,6 +162,12 @@ define(['app'], function (app) {
 		} else {
 			init();
 		}
+
+		$scope.$on('$locationChangeStart', function (event) {
+		    pianoPlayerService.clearTimeline();
+		    $window.removeEventListener('keydown', keyDownListener, false);
+		    $window.removeEventListener('keyup', keyUpListener, false);
+		});
 	};
 
 	PianoController.$inject = injectParams;

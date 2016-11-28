@@ -190,6 +190,12 @@ define(['app'], function (app) {
 		} else {
 			init();
 		}
+
+		$scope.$on('$locationChangeStart', function (event) {
+		    pianoPlayerService.clearTimeline();
+		    $window.removeEventListener('keydown', keyDownListener, false);
+		    $window.removeEventListener('keyup', keyUpListener, false);
+		});
 	};
 
 	ConstructorController.$inject = injectParams;

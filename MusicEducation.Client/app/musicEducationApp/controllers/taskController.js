@@ -274,6 +274,60 @@ define(['app'], function (app) {
 		var lastEvent;
 		var heldKeys = {};
 
+		var keyUpListener = function (e) {
+		    lastEvent = null;
+		    delete heldKeys[e.keyCode];
+
+		    console.log('keyup');
+
+		    vm.keyUpTime = new Date();
+		    vm.nowTime = new Date();
+		    var evtobj = window.event ? event : e;
+		    var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
+		    var timePress = ((vm.nowTime.getTime() - vm.lastTime.getTime()) / 1000);
+
+		    if (vm.isRecording)
+		        vm.currentTask.localUserNotes[vm.currentTask.localUserNotes.length] = { note: keyboradLayout[e.keyCode], duration: timePress, isMove: true };
+
+		    for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
+		        if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
+		            $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '';
+		            $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '';
+		            $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = '';
+		        }
+		    }
+		    pianoPlayerService.clearTimeline();
+		};
+
+		var keyDownListener = function (e) {
+		    console.log('keydown');
+		    if (lastEvent && lastEvent.keyCode == e.keyCode) {
+		        return;
+		    }
+		    lastEvent = e;
+		    heldKeys[e.keyCode] = true;
+
+		    if (vm.lastTime === undefined)
+		        vm.lastTime = new Date();
+
+		    vm.keyDownTime = new Date();
+		    var evtobj = window.event ? event : e;
+		    var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
+		    console.log(new Date().getTime() - vm.lastTime.getTime());
+		    vm.lastTime = new Date();
+
+		    pianoPlayerService.play(keyboradLayout[e.keyCode], 0, true);
+
+		    for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
+		        if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
+		            $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '#666cff';
+		            $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '5px';
+		            $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = 'none';
+		        }
+		    }
+		    pianoPlayerService.clearTimeline();
+		};
+
 		$scope.$watch('vm.isShowPiano', function () {
 			if (vm.isShowPiano) {
 				pianoPlayerService.initialize(function () {
@@ -281,59 +335,8 @@ define(['app'], function (app) {
 						pianoPlayerService.setVolume(100);
 						console.log('INITIALIZE');
 						console.log($window);
-						$window.addEventListener('keydown', function (e) {
-							console.log('keydown');
-							if (lastEvent && lastEvent.keyCode == e.keyCode) {
-								return;
-							}
-							lastEvent = e;
-							heldKeys[e.keyCode] = true;
-
-							if (vm.lastTime === undefined)
-								vm.lastTime = new Date();
-
-							vm.keyDownTime = new Date();
-							var evtobj = window.event ? event : e;
-							var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
-							console.log(new Date().getTime() - vm.lastTime.getTime());
-							vm.lastTime = new Date();
-
-							pianoPlayerService.play(keyboradLayout[e.keyCode], 0, true);
-
-							for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
-								if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '#666cff';
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '5px';
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = 'none';
-								}
-							}
-							pianoPlayerService.clearTimeline();
-						});
-
-						$window.addEventListener('keyup', function (e) {
-							lastEvent = null;
-							delete heldKeys[e.keyCode];
-
-							console.log('keyup');
-
-							vm.keyUpTime = new Date();
-							vm.nowTime = new Date();
-							var evtobj = window.event ? event : e;
-							var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
-							var timePress = ((vm.nowTime.getTime() - vm.lastTime.getTime()) / 1000);
-
-							if (vm.isRecording)
-								vm.currentTask.localUserNotes[vm.currentTask.localUserNotes.length] = { note: keyboradLayout[e.keyCode], duration: timePress, isMove: true };
-
-							for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
-								if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '';
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '';
-									$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = '';
-								}
-							}
-							pianoPlayerService.clearTimeline();
-						});
+						$window.addEventListener('keydown', keyDownListener);
+						$window.addEventListener('keyup', keyUpListener);
 
 						pianoPlayerService.clearTimeline();
 					}, 100);
@@ -433,6 +436,12 @@ define(['app'], function (app) {
 		} else {
 			init();
 		}
+
+		$scope.$on('$locationChangeStart', function (event) {
+		    pianoPlayerService.clearTimeline();
+		    $window.removeEventListener('keydown', keyDownListener, false);
+		    $window.removeEventListener('keyup', keyUpListener, false);
+		});
 	};
 
 	TaskController.$inject = injectParams;

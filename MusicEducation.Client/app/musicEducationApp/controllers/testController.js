@@ -119,7 +119,11 @@ define(['app'], function (app) {
 				angular.forEach(vm.selectedTests, function (vTest, kTest) {
 					counter++;
 					testService.appendTestToGroup(kGroup, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity).then(function (data) {
-						console.info("INSERTED!");
+					    if (data.Status == 1) {
+					        toastr.success("Тест отправлен!");
+					    }  else {
+					        toastr.error("Тест не отправлен!");
+					    }
 					});
 				});
 			});
@@ -131,7 +135,15 @@ define(['app'], function (app) {
 				angular.forEach(vm.selectedTests, function (vTest, kTest) {
 					counter++;
 					testService.appendTestToUser(kUser, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity).then(function (data) {
-						console.info("INSERTED!");
+					    if (data.Status == 1) {
+					        studentService.getStudent(kUser).then(function (user) {
+					            toastr.success("Тест отправлен!");
+					            $rootScope.notificationService.sendNotification($rootScope.globals.currentUser.source.Id, user.Login, "Тест", "Получен новый тест!", 1);
+					            init();
+					        });
+					    } else {
+					        toastr.error("Тест не отправлен!");
+					    }
 					});
 				});
 			});
