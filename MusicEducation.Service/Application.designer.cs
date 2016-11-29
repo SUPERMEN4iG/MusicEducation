@@ -87,7 +87,7 @@ namespace MusicEducation.Service
     #endregion
 		
 		public ApplicationDataContext() : 
-				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString1, mappingSource)
+				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -258,13 +258,6 @@ namespace MusicEducation.Service
 			{
 				return this.GetTable<User_Test>();
 			}
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AppendQuestionToTest")]
-		public int AppendQuestionToTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion);
-			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateUser_Test_Timing")]
@@ -552,6 +545,41 @@ namespace MusicEducation.Service
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser);
 			return ((ISingleResult<GetStudentsResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AppendQuestionToTest")]
+		public int AppendQuestionToTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUser_Messages")]
+		public ISingleResult<GetUser_MessagesResult> GetUser_Messages([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> type)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, type);
+			return ((ISingleResult<GetUser_MessagesResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUser_Messages_ById")]
+		public ISingleResult<GetUser_Messages_ByIdResult> GetUser_Messages_ById([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUserFrom, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> type)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idUserFrom, type);
+			return ((ISingleResult<GetUser_Messages_ByIdResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertUser_Message")]
+		public ISingleResult<InsertUser_MessageResult> InsertUser_Message([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUserFrom, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUserTo, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(256)")] string message_name, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string message_content, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> message_type)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idUserFrom, idUserTo, message_name, message_content, message_type);
+			return ((ISingleResult<InsertUser_MessageResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUserMessageById")]
+		public ISingleResult<GetUserMessageByIdResult> GetUserMessageById([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idMessage)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idMessage);
+			return ((ISingleResult<GetUserMessageByIdResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -10133,6 +10161,920 @@ namespace MusicEducation.Service
 				if ((this._Photo != value))
 				{
 					this._Photo = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetUser_MessagesResult
+	{
+		
+		private int _Id;
+		
+		private System.Nullable<int> _Id_UserFrom;
+		
+		private System.Nullable<int> _Id_UserTo;
+		
+		private string _Message_Name;
+		
+		private string _Message_Content;
+		
+		private System.Nullable<int> _Message_Type;
+		
+		private System.Nullable<int> _Id_UserCreate;
+		
+		private System.Nullable<System.DateTime> _DateCreate;
+		
+		private string _uFrom_LastName;
+		
+		private string _uFrom_FirstName;
+		
+		private string _uFrom_MiddleName;
+		
+		private string _uFrom_Photo;
+		
+		private string _uTo_LastName;
+		
+		private string _uTo_FirstName;
+		
+		private string _uTo_MiddleName;
+		
+		private string _uTo_Photo;
+		
+		public GetUser_MessagesResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserFrom", DbType="Int")]
+		public System.Nullable<int> Id_UserFrom
+		{
+			get
+			{
+				return this._Id_UserFrom;
+			}
+			set
+			{
+				if ((this._Id_UserFrom != value))
+				{
+					this._Id_UserFrom = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserTo", DbType="Int")]
+		public System.Nullable<int> Id_UserTo
+		{
+			get
+			{
+				return this._Id_UserTo;
+			}
+			set
+			{
+				if ((this._Id_UserTo != value))
+				{
+					this._Id_UserTo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Name", DbType="NVarChar(256)")]
+		public string Message_Name
+		{
+			get
+			{
+				return this._Message_Name;
+			}
+			set
+			{
+				if ((this._Message_Name != value))
+				{
+					this._Message_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Content", DbType="NVarChar(MAX)")]
+		public string Message_Content
+		{
+			get
+			{
+				return this._Message_Content;
+			}
+			set
+			{
+				if ((this._Message_Content != value))
+				{
+					this._Message_Content = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Type", DbType="Int")]
+		public System.Nullable<int> Message_Type
+		{
+			get
+			{
+				return this._Message_Type;
+			}
+			set
+			{
+				if ((this._Message_Type != value))
+				{
+					this._Message_Type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
+		public System.Nullable<int> Id_UserCreate
+		{
+			get
+			{
+				return this._Id_UserCreate;
+			}
+			set
+			{
+				if ((this._Id_UserCreate != value))
+				{
+					this._Id_UserCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreate
+		{
+			get
+			{
+				return this._DateCreate;
+			}
+			set
+			{
+				if ((this._DateCreate != value))
+				{
+					this._DateCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_LastName", DbType="NVarChar(128)")]
+		public string uFrom_LastName
+		{
+			get
+			{
+				return this._uFrom_LastName;
+			}
+			set
+			{
+				if ((this._uFrom_LastName != value))
+				{
+					this._uFrom_LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_FirstName", DbType="NVarChar(128)")]
+		public string uFrom_FirstName
+		{
+			get
+			{
+				return this._uFrom_FirstName;
+			}
+			set
+			{
+				if ((this._uFrom_FirstName != value))
+				{
+					this._uFrom_FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_MiddleName", DbType="NVarChar(128)")]
+		public string uFrom_MiddleName
+		{
+			get
+			{
+				return this._uFrom_MiddleName;
+			}
+			set
+			{
+				if ((this._uFrom_MiddleName != value))
+				{
+					this._uFrom_MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_Photo", DbType="NVarChar(1000)")]
+		public string uFrom_Photo
+		{
+			get
+			{
+				return this._uFrom_Photo;
+			}
+			set
+			{
+				if ((this._uFrom_Photo != value))
+				{
+					this._uFrom_Photo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_LastName", DbType="NVarChar(128)")]
+		public string uTo_LastName
+		{
+			get
+			{
+				return this._uTo_LastName;
+			}
+			set
+			{
+				if ((this._uTo_LastName != value))
+				{
+					this._uTo_LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_FirstName", DbType="NVarChar(128)")]
+		public string uTo_FirstName
+		{
+			get
+			{
+				return this._uTo_FirstName;
+			}
+			set
+			{
+				if ((this._uTo_FirstName != value))
+				{
+					this._uTo_FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_MiddleName", DbType="NVarChar(128)")]
+		public string uTo_MiddleName
+		{
+			get
+			{
+				return this._uTo_MiddleName;
+			}
+			set
+			{
+				if ((this._uTo_MiddleName != value))
+				{
+					this._uTo_MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_Photo", DbType="NVarChar(1000)")]
+		public string uTo_Photo
+		{
+			get
+			{
+				return this._uTo_Photo;
+			}
+			set
+			{
+				if ((this._uTo_Photo != value))
+				{
+					this._uTo_Photo = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetUser_Messages_ByIdResult
+	{
+		
+		private int _Id;
+		
+		private System.Nullable<int> _Id_UserFrom;
+		
+		private System.Nullable<int> _Id_UserTo;
+		
+		private string _Message_Name;
+		
+		private string _Message_Content;
+		
+		private System.Nullable<int> _Message_Type;
+		
+		private System.Nullable<int> _Id_UserCreate;
+		
+		private System.Nullable<System.DateTime> _DateCreate;
+		
+		private string _uFrom_LastName;
+		
+		private string _uFrom_FirstName;
+		
+		private string _uFrom_MiddleName;
+		
+		private string _uFrom_Photo;
+		
+		private string _uTo_LastName;
+		
+		private string _uTo_FirstName;
+		
+		private string _uTo_MiddleName;
+		
+		private string _uTo_Photo;
+		
+		public GetUser_Messages_ByIdResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserFrom", DbType="Int")]
+		public System.Nullable<int> Id_UserFrom
+		{
+			get
+			{
+				return this._Id_UserFrom;
+			}
+			set
+			{
+				if ((this._Id_UserFrom != value))
+				{
+					this._Id_UserFrom = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserTo", DbType="Int")]
+		public System.Nullable<int> Id_UserTo
+		{
+			get
+			{
+				return this._Id_UserTo;
+			}
+			set
+			{
+				if ((this._Id_UserTo != value))
+				{
+					this._Id_UserTo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Name", DbType="NVarChar(256)")]
+		public string Message_Name
+		{
+			get
+			{
+				return this._Message_Name;
+			}
+			set
+			{
+				if ((this._Message_Name != value))
+				{
+					this._Message_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Content", DbType="NVarChar(MAX)")]
+		public string Message_Content
+		{
+			get
+			{
+				return this._Message_Content;
+			}
+			set
+			{
+				if ((this._Message_Content != value))
+				{
+					this._Message_Content = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Type", DbType="Int")]
+		public System.Nullable<int> Message_Type
+		{
+			get
+			{
+				return this._Message_Type;
+			}
+			set
+			{
+				if ((this._Message_Type != value))
+				{
+					this._Message_Type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
+		public System.Nullable<int> Id_UserCreate
+		{
+			get
+			{
+				return this._Id_UserCreate;
+			}
+			set
+			{
+				if ((this._Id_UserCreate != value))
+				{
+					this._Id_UserCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreate
+		{
+			get
+			{
+				return this._DateCreate;
+			}
+			set
+			{
+				if ((this._DateCreate != value))
+				{
+					this._DateCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_LastName", DbType="NVarChar(128)")]
+		public string uFrom_LastName
+		{
+			get
+			{
+				return this._uFrom_LastName;
+			}
+			set
+			{
+				if ((this._uFrom_LastName != value))
+				{
+					this._uFrom_LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_FirstName", DbType="NVarChar(128)")]
+		public string uFrom_FirstName
+		{
+			get
+			{
+				return this._uFrom_FirstName;
+			}
+			set
+			{
+				if ((this._uFrom_FirstName != value))
+				{
+					this._uFrom_FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_MiddleName", DbType="NVarChar(128)")]
+		public string uFrom_MiddleName
+		{
+			get
+			{
+				return this._uFrom_MiddleName;
+			}
+			set
+			{
+				if ((this._uFrom_MiddleName != value))
+				{
+					this._uFrom_MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_Photo", DbType="NVarChar(1000)")]
+		public string uFrom_Photo
+		{
+			get
+			{
+				return this._uFrom_Photo;
+			}
+			set
+			{
+				if ((this._uFrom_Photo != value))
+				{
+					this._uFrom_Photo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_LastName", DbType="NVarChar(128)")]
+		public string uTo_LastName
+		{
+			get
+			{
+				return this._uTo_LastName;
+			}
+			set
+			{
+				if ((this._uTo_LastName != value))
+				{
+					this._uTo_LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_FirstName", DbType="NVarChar(128)")]
+		public string uTo_FirstName
+		{
+			get
+			{
+				return this._uTo_FirstName;
+			}
+			set
+			{
+				if ((this._uTo_FirstName != value))
+				{
+					this._uTo_FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_MiddleName", DbType="NVarChar(128)")]
+		public string uTo_MiddleName
+		{
+			get
+			{
+				return this._uTo_MiddleName;
+			}
+			set
+			{
+				if ((this._uTo_MiddleName != value))
+				{
+					this._uTo_MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_Photo", DbType="NVarChar(1000)")]
+		public string uTo_Photo
+		{
+			get
+			{
+				return this._uTo_Photo;
+			}
+			set
+			{
+				if ((this._uTo_Photo != value))
+				{
+					this._uTo_Photo = value;
+				}
+			}
+		}
+	}
+	
+	public partial class InsertUser_MessageResult
+	{
+		
+		private System.Nullable<int> _Column1;
+		
+		public InsertUser_MessageResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="", Storage="_Column1", DbType="Int")]
+		public System.Nullable<int> Column1
+		{
+			get
+			{
+				return this._Column1;
+			}
+			set
+			{
+				if ((this._Column1 != value))
+				{
+					this._Column1 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetUserMessageByIdResult
+	{
+		
+		private int _Id;
+		
+		private System.Nullable<int> _Id_UserFrom;
+		
+		private System.Nullable<int> _Id_UserTo;
+		
+		private string _Message_Name;
+		
+		private string _Message_Content;
+		
+		private System.Nullable<int> _Message_Type;
+		
+		private System.Nullable<int> _Id_UserCreate;
+		
+		private System.Nullable<System.DateTime> _DateCreate;
+		
+		private string _uFrom_LastName;
+		
+		private string _uFrom_FirstName;
+		
+		private string _uFrom_MiddleName;
+		
+		private string _uFrom_Photo;
+		
+		private string _uTo_LastName;
+		
+		private string _uTo_FirstName;
+		
+		private string _uTo_MiddleName;
+		
+		private string _uTo_Photo;
+		
+		public GetUserMessageByIdResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserFrom", DbType="Int")]
+		public System.Nullable<int> Id_UserFrom
+		{
+			get
+			{
+				return this._Id_UserFrom;
+			}
+			set
+			{
+				if ((this._Id_UserFrom != value))
+				{
+					this._Id_UserFrom = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserTo", DbType="Int")]
+		public System.Nullable<int> Id_UserTo
+		{
+			get
+			{
+				return this._Id_UserTo;
+			}
+			set
+			{
+				if ((this._Id_UserTo != value))
+				{
+					this._Id_UserTo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Name", DbType="NVarChar(256)")]
+		public string Message_Name
+		{
+			get
+			{
+				return this._Message_Name;
+			}
+			set
+			{
+				if ((this._Message_Name != value))
+				{
+					this._Message_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Content", DbType="NVarChar(MAX)")]
+		public string Message_Content
+		{
+			get
+			{
+				return this._Message_Content;
+			}
+			set
+			{
+				if ((this._Message_Content != value))
+				{
+					this._Message_Content = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message_Type", DbType="Int")]
+		public System.Nullable<int> Message_Type
+		{
+			get
+			{
+				return this._Message_Type;
+			}
+			set
+			{
+				if ((this._Message_Type != value))
+				{
+					this._Message_Type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
+		public System.Nullable<int> Id_UserCreate
+		{
+			get
+			{
+				return this._Id_UserCreate;
+			}
+			set
+			{
+				if ((this._Id_UserCreate != value))
+				{
+					this._Id_UserCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreate
+		{
+			get
+			{
+				return this._DateCreate;
+			}
+			set
+			{
+				if ((this._DateCreate != value))
+				{
+					this._DateCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_LastName", DbType="NVarChar(128)")]
+		public string uFrom_LastName
+		{
+			get
+			{
+				return this._uFrom_LastName;
+			}
+			set
+			{
+				if ((this._uFrom_LastName != value))
+				{
+					this._uFrom_LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_FirstName", DbType="NVarChar(128)")]
+		public string uFrom_FirstName
+		{
+			get
+			{
+				return this._uFrom_FirstName;
+			}
+			set
+			{
+				if ((this._uFrom_FirstName != value))
+				{
+					this._uFrom_FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_MiddleName", DbType="NVarChar(128)")]
+		public string uFrom_MiddleName
+		{
+			get
+			{
+				return this._uFrom_MiddleName;
+			}
+			set
+			{
+				if ((this._uFrom_MiddleName != value))
+				{
+					this._uFrom_MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uFrom_Photo", DbType="NVarChar(1000)")]
+		public string uFrom_Photo
+		{
+			get
+			{
+				return this._uFrom_Photo;
+			}
+			set
+			{
+				if ((this._uFrom_Photo != value))
+				{
+					this._uFrom_Photo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_LastName", DbType="NVarChar(128)")]
+		public string uTo_LastName
+		{
+			get
+			{
+				return this._uTo_LastName;
+			}
+			set
+			{
+				if ((this._uTo_LastName != value))
+				{
+					this._uTo_LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_FirstName", DbType="NVarChar(128)")]
+		public string uTo_FirstName
+		{
+			get
+			{
+				return this._uTo_FirstName;
+			}
+			set
+			{
+				if ((this._uTo_FirstName != value))
+				{
+					this._uTo_FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_MiddleName", DbType="NVarChar(128)")]
+		public string uTo_MiddleName
+		{
+			get
+			{
+				return this._uTo_MiddleName;
+			}
+			set
+			{
+				if ((this._uTo_MiddleName != value))
+				{
+					this._uTo_MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uTo_Photo", DbType="NVarChar(1000)")]
+		public string uTo_Photo
+		{
+			get
+			{
+				return this._uTo_Photo;
+			}
+			set
+			{
+				if ((this._uTo_Photo != value))
+				{
+					this._uTo_Photo = value;
 				}
 			}
 		}

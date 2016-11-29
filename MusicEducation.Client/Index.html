@@ -167,19 +167,19 @@
 		<a href="javascript:void(0)" class="icon active item" id="hideToggle"><h3><i class="chevron left icon"></i></h3></a>
 		<a href="javascript:void(0)" class="icon active item" id="showToggle"><h3><i class="chevron right icon"></i></h3></a>
 		<a href="dashboard.html" data-toggle="slide" class="item"><h3>{{ globals.app.title + ' ' + globals.app.subtitle }} </h3></a>
-        <<!--button type="button" ng-click="vm.sendToUser('teacher', 'HELLO TEACHER')">SEND NOTIFICATION TO TEACHER</button>
+        <!--<button type="button" ng-click="vm.sendToUser('teacher', 'HELLO TEACHER')">SEND NOTIFICATION TO TEACHER</button>
         <button type="button" ng-click="vm.sendToUser('student', 'HELLO STUDENT')">SEND NOTIFICATION TO STUDENT</button>
         <button type="button" ng-click="vm.sendToUser('admin', 'HELLO ADMIN')">SEND NOTIFICATION TO ADMIN</button>-->
 		<div class="menu right">
 			<a class="icon item pointer" data-toggle="popup" data-content="#mail" data-position="bottom right"><i class="mail icon"></i></a>
 			<div id="mail" class="ui fluid popup" style="min-width:400px;padding-top:30px;">
 				<div class="ui divided items">
-					<div class="item">
-						<img src="http://semantic-ui.com/images/avatar/large/stevie.jpg" class="ui avatar image">
+					<div class="item" ng-repeat="ms in vm.currentMessages | orderBy:'DateCreate':true | limitTo:5">
+						<img src="{{ (ms.uFrom_Photo !== undefined && ms.uFrom_Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + ms.uFrom_Photo : 'content/img/piano-min.png' }}" class="ui avatar image">
 						<div class="content">
-							<a class="header">Барабашкин Борис Барабашкович</a>
+							<a class="header">{{ ms.uFrom_LastName }} {{ ms.uFrom_FirstName }} {{ ms.uFrom_MiddleName }}</a>
 							<div class="description">
-								Тестовая запись <a>#1</a>...
+								<a>{{ ms.Message_Name }}</a> {{ ms.Message_Content }}
 							</div>
 						</div>
 					</div>

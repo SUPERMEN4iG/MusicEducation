@@ -18,6 +18,7 @@ define(['app'], function (app) {
 		vm.currentUser = {};
 		vm.currentBranch = {};
 		vm.currentNotifications = [];
+		vm.currentMessages = [];
 
 		$rootScope.notificationService = notifyService('http://localhost:59744', 'notificationHub');
 		//vm.showSelectStorageModal = false;
@@ -38,6 +39,11 @@ define(['app'], function (app) {
 		    userService.getNotifications().then(function (notifications) {
 		        console.log(notifications);
 		        vm.currentNotifications = notifications;
+		    });
+
+		    userService.getMessagesTop10().then(function (messages) {
+		    	console.log(messages);
+		    	vm.currentMessages = messages;
 		    });
 		});
 

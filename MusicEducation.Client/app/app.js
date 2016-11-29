@@ -60,6 +60,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
 				.when('/piano', route.resolve('Piano', '', 'vm'))
 				.when('/constructor', route.resolve('Constructor', '', 'vm'))
 				.when('/profile', route.resolve('Profile', '', 'vm'))
+				.when('/message/:id*?', route.resolve('Message', '', 'vm', true))
 				.when('/bankTest/:id*?/:idquestion*?', route.resolve('BankTest', '', 'vm', true))
 				.when('/group/:id*?', route.resolve('Group', '', 'vm', true))
 				.when('/test/:id*?', route.resolve('Test', '', 'vm', true))

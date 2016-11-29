@@ -102,6 +102,7 @@
     <Content Include="app\musicEducationApp\controllers\navbarController.js" />
     <Content Include="app\musicEducationApp\controllers\pianoController.js" />
     <Content Include="app\musicEducationApp\controllers\profileController.js" />
+    <Content Include="app\musicEducationApp\controllers\messageController.js" />
     <Content Include="app\musicEducationApp\controllers\studentController.js" />
     <Content Include="app\musicEducationApp\controllers\taskController.js" />
     <Content Include="app\musicEducationApp\controllers\testController.js" />
@@ -120,6 +121,7 @@
     <Content Include="app\musicEducationApp\views\constructor.html" />
     <Content Include="app\musicEducationApp\views\group.html" />
     <Content Include="app\musicEducationApp\views\login.html" />
+    <Content Include="app\musicEducationApp\views\message.html" />
     <Content Include="app\musicEducationApp\views\task.html" />
     <Content Include="app\musicEducationApp\views\profile.html" />
     <Content Include="app\musicEducationApp\views\user.html" />

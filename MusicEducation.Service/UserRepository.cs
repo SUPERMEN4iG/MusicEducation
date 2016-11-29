@@ -61,6 +61,36 @@ namespace MusicEducation.Service
 			return _DBContext.GetUser_Notifications(idUser).ToList();
 		}
 
+		public List<GetUser_MessagesResult> GetUser_MessagesAll(int? idUser)
+		{
+			return _DBContext.GetUser_Messages(idUser, 0).ToList();
+		}
+
+		public List<GetUser_MessagesResult> GetUser_MessagesTop10(int? idUser)
+		{
+			return _DBContext.GetUser_Messages(idUser, 1).ToList();
+		}
+
+		public List<GetUser_Messages_ByIdResult> GetUser_Messages_ByIdAll(int? idUser, int? idUserFrom)
+		{
+			return _DBContext.GetUser_Messages_ById(idUser, idUserFrom, 0).ToList();
+		}
+
+		public List<GetUser_Messages_ByIdResult> GetUser_Messages_ByIdAllTop10(int? idUser, int? idUserFrom)
+		{
+			return _DBContext.GetUser_Messages_ById(idUser, idUserFrom, 1).ToList();
+		}
+
+		public int InsertUser_Message(int? idUser, int? idUserFrom, int? idUserTo, string message_name, string message_content, int? message_type)
+		{
+			return _DBContext.InsertUser_Message(idUser, idUserFrom, idUserTo, message_name, message_content, message_type).FirstOrDefault().Column1.Value;
+		}
+
+		public GetUserMessageByIdResult GetUserMessageById(int? idUser, int? idMessage)
+		{
+			return _DBContext.GetUserMessageById(idUser, idMessage).FirstOrDefault();
+		}
+
 		public int InsertUser_Notification(int? idUser, int? toIdUser, string notification_name, string notification_content, int? notification_priorityLevel)
 		{
 			return _DBContext.InsertUser_Notification(idUser, toIdUser, notification_name, notification_content, notification_priorityLevel);

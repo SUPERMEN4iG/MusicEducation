@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_9FC383_musiceducation" Class="ApplicationDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=KUZMA-PC;Initial Catalog=DB_9FC383_musiceducation;Integrated Security=True" SettingsObjectName="MusicEducation.Service.Properties.Settings" SettingsPropertyName="DB_9FC383_musiceducationConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=hana\SQLEXPRESS;Initial Catalog=DB_9FC383_musiceducation;Integrated Security=True" SettingsObjectName="MusicEducation.Service.Properties.Settings" SettingsPropertyName="DB_9FC383_musiceducationConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Answer" Member="Answers">
     <Type Name="Answer">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -247,12 +247,6 @@
       <Association Name="User_User_Test" Member="User" ThisKey="Id_User" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Function Name="dbo.AppendQuestionToTest" Method="AppendQuestionToTest">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idQuestion" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.UpdateUser_Test_Timing" Method="UpdateUser_Test_Timing">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
@@ -767,6 +761,90 @@
       <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Phone" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.AppendQuestionToTest" Method="AppendQuestionToTest">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idQuestion" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetUser_Messages" Method="GetUser_Messages">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="type" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetUser_MessagesResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Id_UserFrom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_UserTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message_Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Message_Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Message_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="uFrom_LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="uTo_LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUser_Messages_ById" Method="GetUser_Messages_ById">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idUserFrom" Type="System.Int32" DbType="Int" />
+    <Parameter Name="type" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetUser_Messages_ByIdResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Id_UserFrom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_UserTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message_Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Message_Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Message_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="uFrom_LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="uTo_LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertUser_Message" Method="InsertUser_Message">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idUserFrom" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idUserTo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="message_name" Type="System.String" DbType="NVarChar(256)" />
+    <Parameter Name="message_content" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="message_type" Type="System.Int32" DbType="Int" />
+    <ElementType Name="InsertUser_MessageResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUserMessageById" Method="GetUserMessageById">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idMessage" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetUserMessageByIdResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Id_UserFrom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_UserTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message_Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Message_Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Message_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="uFrom_LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uFrom_Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="uTo_LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="uTo_Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

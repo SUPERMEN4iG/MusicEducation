@@ -50,6 +50,14 @@ namespace MusicEducation.Core.Controllers
 		public string Login { get; set; }
 	}
 
+	public class InsertUserMessageViewModel
+	{
+		public int? Id_UserTo { get; set; }
+		public string Message_Name { get; set; }
+		public string Message_Content { get; set; }
+		public int? Message_Type { get; set; }
+	}
+
 	public class UserController : BaseApiController
 	{
 		UserRepository _userRepository;
@@ -155,7 +163,37 @@ namespace MusicEducation.Core.Controllers
             return _userRepository.GetUser_Notifications(_User.Id_User);
         }
 
-        public object GetGroups()
+		public object GetMessages()
+		{
+			return _userRepository.GetUser_MessagesAll(_User.Id_User);
+		}
+
+		public object GetMessagesTop10()
+		{
+			return _userRepository.GetUser_MessagesTop10(_User.Id_User);
+		}
+
+		public object GetMessagesById(int? idUserFrom)
+		{
+			return _userRepository.GetUser_Messages_ByIdAll(_User.Id_User, idUserFrom);
+		}
+
+		public object GetMessagesByIdTop10(int? idUserFrom)
+		{
+			return _userRepository.GetUser_Messages_ByIdAllTop10(_User.Id_User, idUserFrom);
+		}
+
+		public object InsertUserMessage(InsertUserMessageViewModel model)
+		{
+			return _userRepository.InsertUser_Message(_User.Id_User, _User.Id_User, model.Id_UserTo, model.Message_Name, model.Message_Content, model.Message_Type);
+		}
+
+		public object GetMessageById(int? idMessage)
+		{
+			return _userRepository.GetUserMessageById(_User.Id_User, idMessage);
+		}
+
+		public object GetGroups()
         {
             return _userRepository.GetGroups(_User.Id_User);
         }

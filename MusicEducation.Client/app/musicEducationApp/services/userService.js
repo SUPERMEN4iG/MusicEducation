@@ -128,6 +128,97 @@ define(['app'], function (app) {
             return deferred.promise;
         };
 
+        service.getMessagesTop10 = function () {
+        	var deferred = $q.defer();
+
+        	$http.get(serviceBase + 'GetMessagesTop10/')
+                .then(
+					function (response) {
+						deferred.resolve(response.data);
+					},
+					function (response) {
+						deferred.reject(response.data);
+					});
+
+        	return deferred.promise;
+        };
+
+        service.getMessages = function () {
+        	var deferred = $q.defer();
+
+        	$http.get(serviceBase + 'GetMessages/')
+                .then(
+					function (response) {
+						deferred.resolve(response.data);
+					},
+					function (response) {
+						deferred.reject(response.data);
+					});
+
+        	return deferred.promise;
+        };
+
+        service.getMessagesById = function (idUserFrom) {
+        	var deferred = $q.defer();
+
+        	$http.get(serviceBase + 'GetMessagesById/', { params: { idUserFrom: idUserFrom } })
+                .then(
+					function (response) {
+						deferred.resolve(response.data);
+					},
+					function (response) {
+						deferred.reject(response.data);
+					});
+
+        	return deferred.promise;
+        };
+
+        service.getMessagesByIdTop10 = function (idUserFrom) {
+        	var deferred = $q.defer();
+
+        	$http.get(serviceBase + 'GetMessagesByIdTop10/', { params: { idUserFrom: idUserFrom } })
+                .then(
+					function (response) {
+						deferred.resolve(response.data);
+					},
+					function (response) {
+						deferred.reject(response.data);
+					});
+
+        	return deferred.promise;
+        };
+
+        service.getMessageById = function (idMessage) {
+        	var deferred = $q.defer();
+
+        	$http.get(serviceBase + 'GetMessageById/', { params: { idMessage: idMessage } })
+                .then(
+					function (response) {
+						deferred.resolve(response.data);
+					},
+					function (response) {
+						deferred.reject(response.data);
+					});
+
+        	return deferred.promise;
+        };
+
+        service.insertUserMessage = function (obj) {
+        	var deferred = $q.defer();
+        	$http({
+        		method: 'POST',
+        		url: serviceBase + 'InsertUserMessage/',
+        		data: obj
+        	}).then(
+				function (response) {
+					deferred.resolve(response.data);
+				},
+				function (response) {
+					deferred.reject(response.data);
+				});
+        	return deferred.promise;
+        };
+
         service.getTeachers = function () {
             var deferred = $q.defer();
 
