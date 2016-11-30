@@ -30,6 +30,7 @@ namespace MusicEducation.Core.Controllers
 
 	public class InsertGroupViewModel
 	{
+        public int? Id { get; set; }
 		public string Name { get; set; }
 		public string Content { get; set; }
 		public int[] Teachers { get; set; }
@@ -95,8 +96,13 @@ namespace MusicEducation.Core.Controllers
         {
             dynamic result = new object();
 
-			var group = _userRepository.GetGroups(_User.Id_User).FirstOrDefault();
-			var userMasterGroup = _userRepository.GetGroupMaster(_User.Id_User, group.Id);
+			var group = _userRepository.GetGroups(_User.Id_User).FirstOrDefault(x => x.Name == model.Name);
+			GetGroupMasterResult userMasterGroup = null;
+
+            if (group != null)
+            {
+                userMasterGroup = _userRepository.GetGroupMaster(_User.Id_User, group.Id);
+            }
 
 			if (model.Id_User == null)
             {
@@ -148,7 +154,7 @@ namespace MusicEducation.Core.Controllers
                         (String.IsNullOrEmpty(model.Password) ? user.Password : System.Web.Helpers.Crypto.HashPassword(model.Password)),
                         model.Name,
                         model.Group_Name,
-						userMasterGroup.Login,
+                        (userMasterGroup == null) ? null : userMasterGroup.Login,
 						model.Email,
 						model.Phone,
 						filePath
@@ -203,9 +209,23 @@ namespace MusicEducation.Core.Controllers
             return _userRepository.GetUsers(_User.Id_User).Where(x => x.Id_Role == 2).ToList();
         }
 
+        public object GetGroup(int? idGroup)
+        {
+            return _userRepository.GetGroup(_User.Id_User, idGroup);
+        }
+
 		public object InsertGroup(InsertGroupViewModel model)
 		{
-			int insetedGroupId = _userRepository.InsertGroup(_User.Id_User, model.Name, model.Content);
+            int? insetedGroupId = null;
+
+            if (model.Id == null)
+            {
+                insetedGroupId = _userRepository.InsertGroup(_User.Id_User, model.Name, model.Content);
+            }
+            else
+            {
+                insetedGroupId = _userRepository.UpdateGroup(_User.Id_User, model.Id, model.Name, model.Content);
+            }
 
 			foreach (var teacherId in model.Teachers)
 			{

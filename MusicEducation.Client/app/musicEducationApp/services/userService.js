@@ -249,6 +249,21 @@ define(['app'], function (app) {
             return deferred.promise;
         };
 
+        service.getGroup = function (idGroup) {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetGroup/', { params: { idGroup: idGroup } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
         service.insertGroup = function (group) {
         	var deferred = $q.defer();
         	$http({

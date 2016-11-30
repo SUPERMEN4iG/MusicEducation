@@ -11,6 +11,7 @@
 				<div class="ui fluid vertical menu">
 					<a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
 					<a href="#/profile" class="item"><i class="user icon"></i> <span>Профиль</span></a>
+                    <a href="#/message" class="item"><i class="mail icon"></i> <span>Сообщения</span></a>
 					<a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
 					<a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
 					<a href="#/task" class="item"><i class="book icon"></i> <span>Задания</span></a>
@@ -148,7 +149,7 @@
 									type="submit"
 									ng-disabled="userForm.$invalid">
                                 <i class="plus icon"></i>
-                                 {{ (vm.id == 'new' ? 'Создать' : 'Обновить')  }}
+                                 {{ (vm.id == 'new' ? 'Создать' : 'Сохранить')  }}
                             </button>
                         </div>
                     </div>

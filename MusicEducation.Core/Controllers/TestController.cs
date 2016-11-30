@@ -324,6 +324,11 @@ namespace MusicEducation.Core.Controllers.Api
 			{
 				TestViewModel.QuestionModel currentQuestion = new TestViewModel.QuestionModel();
 
+                if (!source.Questions.Any(x => x.Id == item.Id))
+                {
+                    Debug.WriteLine("[DELETE QUESTION]" + source.Name);
+                }
+
 				if (source.Questions != null)
 				{
 					currentQuestion = source.Questions.FirstOrDefault(x => x.Id == item.Id);

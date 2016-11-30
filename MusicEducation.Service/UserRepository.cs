@@ -101,6 +101,11 @@ namespace MusicEducation.Service
 			return _DBContext.GetGroups(idUser).ToList();
 		}
 
+        public GetGroupResult GetGroup(int? idUser, int? idGroup)
+        {
+            return _DBContext.GetGroup(idUser, idGroup).FirstOrDefault();
+        }
+
 		public GetGroupMasterResult GetGroupMaster(int? idUser, int? idGroup)
 		{
 			return _DBContext.GetGroupMaster(idUser, idGroup).FirstOrDefault();
@@ -110,6 +115,11 @@ namespace MusicEducation.Service
 		{
 			return _DBContext.InsertGroup(idUser, group_name, group_content).FirstOrDefault().Column1.Value;
 		}
+
+        public int UpdateGroup(int? idUser, int? idGroup, string group_name, string group_content)
+        {
+            return _DBContext.UpdateGroup(idUser, idGroup, group_name, group_content).FirstOrDefault().Column1.Value;
+        }
 
 		public int InsertUser_GroupMaster(int? idUser, int? idUserAppend, int? idGroup)
 		{

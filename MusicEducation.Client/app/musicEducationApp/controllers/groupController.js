@@ -32,10 +32,12 @@ define(['app'], function (app) {
 		vm.taskState = 1;
 
 		vm.currentInputGroup = {};
+		vm.currentUpdateGroup = {};
 		vm.isShowGroupWindow = false;
 		vm.isShowUserWindow = false;
 		vm.isShowTestCreateWindow = false;
 		vm.isShowAddNewGroup = false;
+		vm.isShowEditGroup = false;
 
 		vm.currentTask = {
 			localUserNotes: []
@@ -248,6 +250,7 @@ define(['app'], function (app) {
 
 		vm.insertGroup = function () {
 
+		    vm.currentInputGroup.Id = null;
 			vm.currentInputGroup.Teachers = [];
 			console.log(vm.selected);
 			//angular.forEach(vm.selectedTeachers, function (vTeacher, kTeacher) {
@@ -259,8 +262,27 @@ define(['app'], function (app) {
 			userService.insertGroup(vm.currentInputGroup).then(function (data) {
 				toastr.info('Группа создана');
 				init();
+
+				vm.isShowAddNewGroup = false;
 			});
 		};
+
+		vm.updateGroup = function () {
+		    //vm.currentUpdateGroup.Id = null;
+		    vm.currentUpdateGroup.Teachers = [];
+		    console.log(vm.selected);
+		    //angular.forEach(vm.selectedTeachers, function (vTeacher, kTeacher) {
+		    //	vm.currentInputGroup.Teachers.push(kTeacher);
+		    //});
+
+		    vm.currentUpdateGroup.Teachers.push(vm.selected.Id);
+
+		    userService.insertGroup(vm.currentUpdateGroup).then(function (data) {
+		        toastr.info('Группа обновлена');
+		        $location.path(path);
+		        vm.isShowEditGroup = false;
+		    });
+		}
 
 		vm.deleteGroup = function (idGroup) {
 			userService.deleteGroup(idGroup).then(function (data) {
@@ -269,23 +291,44 @@ define(['app'], function (app) {
 			});
 		};
 
+		vm.goToEditGroup = function (idGroup) {
+		    $location.path(path + idGroup);
+		}
+
 		vm.stateTest = 0;
 		vm.intervalTiming = null;
 
 		function init() {
 
-			if ($rootScope.globals.currentUser.source.RoleName == 'Администратор') {
-				if (id == '') {
-					userService.getGroups().then(function (groups) {
-						vm.avalibleGroups = groups;
+		    if ($rootScope.globals.currentUser.source.RoleName == 'Администратор') {
 
-						userService.getTeachers().then(function (teachers) {
-							vm.avalibleTeachers = teachers;
-						});
-					});
-				} else {		
+		        userService.getGroups().then(function (groups) {
+		            vm.avalibleGroups = groups;
 
-				}
+		            userService.getTeachers().then(function (teachers) {
+		                vm.avalibleTeachers = teachers;
+
+		                if (id == '') {
+                            // 
+				        } else {		
+
+				            userService.getGroup(vm.id).then(function (group) {
+				                vm.currentUpdateGroup.Name = group.Name;
+				                vm.currentUpdateGroup.Content = group.Content;
+				                vm.currentUpdateGroup.Id = group.Id_Group;
+
+				                angular.forEach(vm.avalibleTeachers, function (vTeacher, kTeacher) {
+				                    if (vTeacher.Id == group.Id_User)
+				                    {
+				                        vm.selected = vTeacher;
+				                    }
+				                });
+
+				                vm.isShowEditGroup = true;
+				            });
+		                }
+		            });
+		        });
 			}
 		};
 

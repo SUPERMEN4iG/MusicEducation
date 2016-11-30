@@ -57,6 +57,7 @@ define(['app'], function (app) {
 		vm.currentQuestions = [];
 		vm.selectedQuestions = [];
 		vm.avalibleQuesions = [];
+		vm.deletable = [];
 		vm.testForm = {};
 
 		vm.parsedTimeLeft = '';
@@ -277,6 +278,14 @@ define(['app'], function (app) {
 			}
 
 			qAnswers.push(answer);
+		};
+
+		vm.deleteQuestions = function () {
+		    angular.forEach(vm.deletable, function (v, k) {
+		        vm.deletable[k] = false;
+		        vm.removeEditableQuestion(k);
+		    });
+
 		};
 
 		vm.addTest = function () {

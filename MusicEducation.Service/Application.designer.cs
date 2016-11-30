@@ -87,7 +87,7 @@ namespace MusicEducation.Service
     #endregion
 		
 		public ApplicationDataContext() : 
-				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString2, mappingSource)
+				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -547,13 +547,6 @@ namespace MusicEducation.Service
 			return ((ISingleResult<GetStudentsResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AppendQuestionToTest")]
-		public int AppendQuestionToTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUser_Messages")]
 		public ISingleResult<GetUser_MessagesResult> GetUser_Messages([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> type)
 		{
@@ -580,6 +573,27 @@ namespace MusicEducation.Service
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idMessage);
 			return ((ISingleResult<GetUserMessageByIdResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AppendQuestionToTest")]
+		public int AppendQuestionToTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateGroup")]
+		public ISingleResult<UpdateGroupResult> UpdateGroup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idGroup, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string gName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Text")] string gContent)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idGroup, gName, gContent);
+			return ((ISingleResult<UpdateGroupResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetGroup")]
+		public ISingleResult<GetGroupResult> GetGroup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idGroup)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idGroup);
+			return ((ISingleResult<GetGroupResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -11075,6 +11089,220 @@ namespace MusicEducation.Service
 				if ((this._uTo_Photo != value))
 				{
 					this._uTo_Photo = value;
+				}
+			}
+		}
+	}
+	
+	public partial class UpdateGroupResult
+	{
+		
+		private System.Nullable<int> _Column1;
+		
+		public UpdateGroupResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="", Storage="_Column1", DbType="Int")]
+		public System.Nullable<int> Column1
+		{
+			get
+			{
+				return this._Column1;
+			}
+			set
+			{
+				if ((this._Column1 != value))
+				{
+					this._Column1 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetGroupResult
+	{
+		
+		private int _Id_Group;
+		
+		private string _Name;
+		
+		private string _Content;
+		
+		private System.Nullable<int> _Id_UserCreate;
+		
+		private System.Nullable<int> _Id_User;
+		
+		private string _Login;
+		
+		private string _LastName;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		private string _Photo;
+		
+		public GetGroupResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Group", DbType="Int NOT NULL")]
+		public int Id_Group
+		{
+			get
+			{
+				return this._Id_Group;
+			}
+			set
+			{
+				if ((this._Id_Group != value))
+				{
+					this._Id_Group = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string Content
+		{
+			get
+			{
+				return this._Content;
+			}
+			set
+			{
+				if ((this._Content != value))
+				{
+					this._Content = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_UserCreate", DbType="Int")]
+		public System.Nullable<int> Id_UserCreate
+		{
+			get
+			{
+				return this._Id_UserCreate;
+			}
+			set
+			{
+				if ((this._Id_UserCreate != value))
+				{
+					this._Id_UserCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_User", DbType="Int")]
+		public System.Nullable<int> Id_User
+		{
+			get
+			{
+				return this._Id_User;
+			}
+			set
+			{
+				if ((this._Id_User != value))
+				{
+					this._Id_User = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Login", DbType="NVarChar(64)")]
+		public string Login
+		{
+			get
+			{
+				return this._Login;
+			}
+			set
+			{
+				if ((this._Login != value))
+				{
+					this._Login = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this._LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this._FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this._MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="NVarChar(1000)")]
+		public string Photo
+		{
+			get
+			{
+				return this._Photo;
+			}
+			set
+			{
+				if ((this._Photo != value))
+				{
+					this._Photo = value;
 				}
 			}
 		}

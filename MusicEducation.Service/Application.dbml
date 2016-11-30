@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_9FC383_musiceducation" Class="ApplicationDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=hana\SQLEXPRESS;Initial Catalog=DB_9FC383_musiceducation;Integrated Security=True" SettingsObjectName="MusicEducation.Service.Properties.Settings" SettingsPropertyName="DB_9FC383_musiceducationConnectionString2" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=KUZMA-PC;Initial Catalog=DB_9FC383_musiceducation;Integrated Security=True" SettingsObjectName="MusicEducation.Service.Properties.Settings" SettingsPropertyName="DB_9FC383_musiceducationConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Answer" Member="Answers">
     <Type Name="Answer">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -763,12 +763,6 @@
       <Column Name="Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.AppendQuestionToTest" Method="AppendQuestionToTest">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idQuestion" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.GetUser_Messages" Method="GetUser_Messages">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="type" Type="System.Int32" DbType="Int" />
@@ -845,6 +839,37 @@
       <Column Name="uTo_FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="uTo_MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="uTo_Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.AppendQuestionToTest" Method="AppendQuestionToTest">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idQuestion" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateGroup" Method="UpdateGroup">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idGroup" Type="System.Int32" DbType="Int" />
+    <Parameter Name="gName" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="gContent" Type="System.String" DbType="Text" />
+    <ElementType Name="UpdateGroupResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetGroup" Method="GetGroup">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idGroup" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetGroupResult">
+      <Column Name="Id_Group" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id_User" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>
