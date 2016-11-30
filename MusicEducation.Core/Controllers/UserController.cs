@@ -92,6 +92,11 @@ namespace MusicEducation.Core.Controllers
 			return _userRepository.CheckLogin(_User.Id_User, model.Login);
 		}
 
+		public object GetUserByFio(string fio)
+		{
+			return _userRepository.GetUserByFio(_User.Id_User, fio);
+		}
+
 		public object InsertUser(InsertUserViewModel model)
         {
             dynamic result = new object();

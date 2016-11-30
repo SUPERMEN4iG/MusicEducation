@@ -135,5 +135,10 @@ namespace MusicEducation.Service
 		{
 			return _DBContext.CheckLogin(idUser, login).FirstOrDefault().Column1.Value;
 		}
+
+		public List<GetUserByFioResult> GetUserByFio(int? idUser, string fio)
+		{
+			return _DBContext.GetUserByFio(idUser, fio).ToList();
+		}
 	}
 }

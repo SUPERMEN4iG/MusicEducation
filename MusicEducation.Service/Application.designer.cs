@@ -87,7 +87,7 @@ namespace MusicEducation.Service
     #endregion
 		
 		public ApplicationDataContext() : 
-				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString1, mappingSource)
+				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -575,13 +575,6 @@ namespace MusicEducation.Service
 			return ((ISingleResult<GetUserMessageByIdResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AppendQuestionToTest")]
-		public int AppendQuestionToTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateGroup")]
 		public ISingleResult<UpdateGroupResult> UpdateGroup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idGroup, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string gName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Text")] string gContent)
 		{
@@ -594,6 +587,20 @@ namespace MusicEducation.Service
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idGroup);
 			return ((ISingleResult<GetGroupResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AppendQuestionToTest")]
+		public int AppendQuestionToTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUserByFio")]
+		public ISingleResult<GetUserByFioResult> GetUserByFio([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string findText)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, findText);
+			return ((ISingleResult<GetUserByFioResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -11303,6 +11310,86 @@ namespace MusicEducation.Service
 				if ((this._Photo != value))
 				{
 					this._Photo = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetUserByFioResult
+	{
+		
+		private int _Id;
+		
+		private string _LastName;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		public GetUserByFioResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this._LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this._FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this._MiddleName = value;
 				}
 			}
 		}

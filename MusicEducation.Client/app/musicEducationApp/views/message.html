@@ -50,8 +50,8 @@
 							<div class="ui dividing header" 
 								 style="margin:0; cursor:pointer" 
 								 ng-repeat="ms in vm.userLastMessages"
-								 ng-click="vm.goToConversetion(ms.Id_UserFrom)"
-								 ng-class="(ms.Id_UserFrom == vm.id) ? 'teal' : ''">
+								 ng-click="vm.goToConversetion(ms.Id_UserTo)"
+								 ng-class="(ms.Id_UserTo == vm.id) ? 'teal' : ''">
 								<!--<i class="settings icon"></i>-->
 								<img class="mini ui image" src="{{ (ms.uFrom_Photo !== undefined && ms.uFrom_Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + ms.uFrom_Photo : 'content/img/piano-min.png' }}">
 								<div class="content">
@@ -85,8 +85,22 @@
 								</div>
 							</div>
 							<form class="ui form" name="messageForm" ng-if="vm.id != ''">
-                                <div class="field">
+                                <div class="field" ng-if="vm.id == 'new'">
+									<angucomplete id="members"
+												  placeholder="Наберите фио для поиска"
+												  pause="400"
+												  selectedobject="vm.selectedUser"
+												  url="http://localhost:59744/api/User/GetUserByFio?fio="
+												  datafield=""
+												  titlefield="LastName,FirstName,MiddleName"
+												  descriptionfield="Id"
+												  imagefield="profilePic"
+												  inputclass="form-control form-control-small"
+												  findingText="Поиск" />
 
+									<div class="" ng-show="vm.selectedUser.originalObject">
+										Выбрано: <span class="bold-span">{{vm.selectedUser.originalObject}}</span>
+									</div>
                                 </div>
 
 								<div class="field" ng-class="((messageForm.$submitted || messageForm.content.$touched) && messageForm.content.$error.required !== undefined ? 'error' : '')">

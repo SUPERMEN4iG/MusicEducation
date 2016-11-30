@@ -6,12 +6,14 @@ define(['musicEducationApp/services/routeResolver'], function () {
         'ngRoute',
         'ngAnimate',
         'ngCookies',
+		'ngResource',
         'routeResolverServices',
         'ui.bootstrap',
         //'angularify.semantic.modal',
         'angularify.semantic.dropdown',
 		'angularify.semantic.checkbox',
 		'xeditable',
+		'angucomplete',
         //'chart.js',
         'toastr'
 	]);

@@ -2,9 +2,9 @@
 
 define(['app'], function (app) {
 
-	var injectParams = ['$location', '$routeParams', '$rootScope', '$route', 'studentService', 'testService', 'toastr', 'pianoPlayerService', '$scope', '$window', '$filter', 'userService'];
+	var injectParams = ['$http', '$location', '$routeParams', '$rootScope', '$route', 'studentService', 'testService', 'toastr', 'pianoPlayerService', '$scope', '$window', '$filter', 'userService'];
 
-	var MessageController = function ($location, $routeParams, $rootScope, $route, studentService, testService, toastr, pianoPlayerService, $scope, $window, $filter, userService) {
+	var MessageController = function ($http, $location, $routeParams, $rootScope, $route, studentService, testService, toastr, pianoPlayerService, $scope, $window, $filter, userService) {
         var vm = this,
             path = '/message/',
             id = ($routeParams.id) ? $routeParams.id : '';
@@ -13,6 +13,7 @@ define(['app'], function (app) {
         vm.userLastMessages = [];
         vm.userMessages = [];
         vm.textMessage = '';
+        vm.selectedUser = {};
 
         var findInDictionaryByName = function (obj, key) {
         	var found = $filter('filter')(obj, { Name: key }, true);
@@ -27,10 +28,16 @@ define(['app'], function (app) {
         	$location.path(path + 'new');
         };
 
+        vm.source2 = function (param) {
+        	return $http.get("http://localhost:59744/api/User/GetUserByFio?fio=" + param.keyword);
+        };
+
         vm.sendMessage = function () {
 
+        	var fastId = (vm.id == 'new') ? vm.selectedUser.originalObject.Id : vm.id;
+
         	var sendObject = {
-        		Id_UserTo: vm.id,
+        		Id_UserTo: fastId,
         		Message_Name: 'Без темы',
         		Message_Type: 1,
         		Message_Content: vm.textMessage
@@ -40,6 +47,10 @@ define(['app'], function (app) {
         		userService.getMessageById(insertedId).then(function (data) {
         			vm.userMessages.push(data);
         			vm.textMessage = '';
+
+        			userService.getMessages().then(function (data) {
+        				vm.userLastMessages = data;
+        			});
         		});
         	});
         };
