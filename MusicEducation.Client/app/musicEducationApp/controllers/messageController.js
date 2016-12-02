@@ -2,9 +2,9 @@
 
 define(['app'], function (app) {
 
-	var injectParams = ['$http', '$location', '$routeParams', '$rootScope', '$route', 'studentService', 'testService', 'toastr', 'pianoPlayerService', '$scope', '$window', '$filter', 'userService'];
+    var injectParams = ['$http', '$location', '$routeParams', '$rootScope', '$route', 'studentService', 'testService', 'toastr', 'pianoPlayerService', '$scope', '$window', '$filter', 'userService', 'baseApiUrl'];
 
-	var MessageController = function ($http, $location, $routeParams, $rootScope, $route, studentService, testService, toastr, pianoPlayerService, $scope, $window, $filter, userService) {
+    var MessageController = function ($http, $location, $routeParams, $rootScope, $route, studentService, testService, toastr, pianoPlayerService, $scope, $window, $filter, userService, baseApiUrl) {
         var vm = this,
             path = '/message/',
             id = ($routeParams.id) ? $routeParams.id : '';
@@ -26,10 +26,6 @@ define(['app'], function (app) {
 
         vm.createNewConversetion = function () {
         	$location.path(path + 'new');
-        };
-
-        vm.source2 = function (param) {
-        	return $http.get("http://localhost:59744/api/User/GetUserByFio?fio=" + param.keyword);
         };
 
         vm.sendMessage = function () {
@@ -55,6 +51,10 @@ define(['app'], function (app) {
         	});
         };
 
+        vm.messageSendUri = function () {
+            return baseApiUrl + '/User/GetUserByFio?fio=';
+        };
+
         function init() {
 
         	userService.getMessages().then(function (data) {
@@ -63,7 +63,9 @@ define(['app'], function (app) {
         		if (vm.id != '')
         		{
         			userService.getMessagesById(vm.id).then(function (data1) {
-        				vm.userMessages = data1;
+        			    vm.userMessages = data1;
+
+        			    console.info(baseApiUrl);
         			});
         		}
         	});

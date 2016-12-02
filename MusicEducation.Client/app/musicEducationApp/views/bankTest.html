@@ -13,8 +13,8 @@
 					<a href="#/profile" class="item"><i class="user icon"></i> <span>Профиль</span></a>
                     <a href="#/message" class="item"><i class="mail icon"></i> <span>Сообщения</span></a>
 					<a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
-					<a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
-					<a href="#/task" class="item"><i class="book icon"></i> <span>Задания</span></a>
+                    <a href="#/test" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Тесты</span></a>
+                    <a href="#/task" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Задания</span></a>
 					<a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
@@ -58,8 +58,8 @@
 						<tr>
 							<th>Название</th>
 							<th>Дата создания</th>
+                            <th>Создатель</th>
 							<th>Количество вопросов</th>
-							<!--<th>Создатель</th>-->
 							<!--<th></th>-->
 						</tr>
 					</thead>
@@ -71,6 +71,7 @@
 							</td>-->
 							<td>{{theme.Name}}</td>
 							<td>{{theme.DateCreate}}</td>
+                            <td>{{theme.LastName + ' ' + theme.FirstName[0] + '. ' + theme.MiddleName[0]}}</td>
 							<td>{{theme.CountQuestions}}</td>
 							<!--<td class="collapsing">
 								<div class="ui icon buttons">

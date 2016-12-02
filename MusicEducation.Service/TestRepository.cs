@@ -141,6 +141,20 @@ namespace MusicEducation.Service
 			return result;
 		}
 
+        public int DeleteUser_Question(int? idUser, int? idTheme, int? idQuestion)
+        {
+            var result = _DBContext.DeleteUser_Question(idUser, idTheme, idQuestion);
+
+            return result;
+        }
+
+        public int DeleteUser_Answer(int? idUser, int? idTheme, int? idQuestion, int? idAnswer)
+        {
+            var result = _DBContext.DeleteUser_Answer(idUser, idTheme, idQuestion, idAnswer);
+
+            return result;
+        }
+
 		public int UpdateUser_Test(int? idUser, int? idTest, int? validAnswers, int? validPercent)
 		{
 			var result = _DBContext.UpdateUser_Test(idUser, idTest, validAnswers, validPercent);

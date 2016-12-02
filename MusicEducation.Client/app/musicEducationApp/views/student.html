@@ -13,8 +13,8 @@
 					<a href="#/profile" class="item"><i class="user icon"></i> <span>Профиль</span></a>
                     <a href="#/message" class="item"><i class="mail icon"></i> <span>Сообщения</span></a>
 					<a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
-                    <a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
-					<a href="#/task" class="item"><i class="book icon"></i> <span>Задания</span></a>
+                    <a href="#/test" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Тесты</span></a>
+                    <a href="#/task" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Задания</span></a>
                     <a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
@@ -98,14 +98,14 @@
 							</div>
 						</div>
 						<div class="ui column">
-							<div class="ui statistic">
+							<!--<div class="ui statistic">
 								<div class="value">
 									<i class="trophy icon"></i> 0
 								</div>
 								<div class="label">
 									Достижения
 								</div>
-							</div>
+							</div>-->
 						</div>
 						<div class="ui column">
 							<div class="ui statistic">
@@ -130,14 +130,14 @@
 							</div>
 						</div>
 						<div class="ui column">
-							<div class="ui statistic">
+							<!--<div class="ui statistic">
 								<div class="value">
 									<i class="trophy icon"></i> 0
 								</div>
 								<div class="label">
 									Достижения
 								</div>
-							</div>
+							</div>-->
 						</div>
 						<div class="ui column">
 							<div class="ui statistic">
@@ -145,7 +145,7 @@
 									<i class="ticket icon"></i> {{ vm.student.AllCountCompletedTask }}
 								</div>
 								<div class="label">
-									Количество выполненных тестов
+									Количество выполненных заданий
 								</div>
 							</div>
 						</div>

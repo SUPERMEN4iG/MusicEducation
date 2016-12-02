@@ -64,9 +64,14 @@ define(['app'], function (app) {
 		vm.currentInputTest = {};
 
 		vm.goToTheme = function (test) {
-			if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
-				$location.path(path + test.Id);
-			}
+		    if (test.Id_UserCreate == $rootScope.globals.currentUser.source.Id)
+		    {
+		        if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
+		            $location.path(path + test.Id);
+		        }
+		    } else {
+		        toastr.error('Редактирование запрещено!');
+		    }
 		};
 
 		vm.goToQuestion = function (question) {
@@ -201,7 +206,7 @@ define(['app'], function (app) {
 		vm.closeTestResultModel = function () {
 			console.error('RELOAD');
 			vm.isTestComplete = false;
-			$location.path(path)
+			$location.path(path);
 			setTimeout(function () {
 				$window.location.reload();
 			}, 1000);
@@ -251,6 +256,7 @@ define(['app'], function (app) {
 		};
 
 		vm.removeEditableQuestion = function (questionIndex) {
+		    console.info(questionIndex);
 			vm.currentTest.Questions.splice(questionIndex, 1);
 		};
 
@@ -280,11 +286,38 @@ define(['app'], function (app) {
 			qAnswers.push(answer);
 		};
 
-		vm.deleteQuestions = function () {
-		    angular.forEach(vm.deletable, function (v, k) {
-		        vm.deletable[k] = false;
-		        vm.removeEditableQuestion(k);
+		Array.prototype.multiSplice = function (array) {
+		    var args = Array.apply(null, array);
+
+		    args.sort(function (x, y) {
+		        return x - y;
 		    });
+
+		    for (var i = 0; i < args.length; i++) {
+		        var index = args[i] - i;
+		        this.splice(index, 1);
+		    };
+		};
+
+		vm.deleteQuestions = function () {
+		    console.info(vm.deletable);
+
+		    var arrDebug = [];
+
+		    angular.forEach(vm.deletable, function (v, k) {
+		        if (v)
+		            arrDebug.push(k);
+		    });
+		    console.info(arrDebug);
+		    vm.currentTest.Questions.multiSplice(arrDebug);
+
+		    //angular.forEach(vm.deletable, function (v, k) {
+		    //    if (v == true)
+		    //    {
+		    //        vm.removeEditableQuestion(k);
+		    //        vm.deletable[k] = false;
+		    //    }
+		    //});
 
 		};
 
@@ -330,9 +363,16 @@ define(['app'], function (app) {
 							QuestionType: 1
 						};
 					} else {
-						testService.getTheme(id).then(function (data) {
-							vm.currentTest = data;
-							console.log(data);
+					    testService.getTheme(id).then(function (data) {
+					        if (data.Id_UserCreate == $rootScope.globals.currentUser.source.Id)
+					        {
+					            vm.currentTest = data;
+					            console.log(data);
+					        }
+					        else {
+					            toastr.error('Редактирование запрещено!');
+					            $location.path(path);
+					        }
 						});
 					}
 				}

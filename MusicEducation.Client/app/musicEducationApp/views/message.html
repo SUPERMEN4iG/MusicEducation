@@ -13,8 +13,8 @@
 					<a href="#/profile" class="item"><i class="user icon"></i> <span>Профиль</span></a>
                     <a href="#/message" class="item"><i class="mail icon"></i> <span>Сообщения</span></a>
 					<a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
-                    <a href="#/test" class="item"><i class="book icon"></i> <span>Тесты</span></a>
-					<a href="#/task" class="item"><i class="book icon"></i> <span>Задания</span></a>
+                    <a href="#/test" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Тесты</span></a>
+                    <a href="#/task" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Задания</span></a>
                     <a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
 					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
 					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
@@ -86,21 +86,22 @@
 							</div>
 							<form class="ui form" name="messageForm" ng-if="vm.id != ''">
                                 <div class="field" ng-if="vm.id == 'new'">
-									<angucomplete id="members"
-												  placeholder="Наберите фио для поиска"
-												  pause="400"
-												  selectedobject="vm.selectedUser"
-												  url="http://localhost:59744/api/User/GetUserByFio?fio="
-												  datafield=""
-												  titlefield="LastName,FirstName,MiddleName"
-												  descriptionfield="Id"
-												  imagefield="profilePic"
-												  inputclass="form-control form-control-small"
-												  findingText="Поиск" />
+                                    <angucomplete id="members"
+                                                  placeholder="Наберите фио для поиска"
+                                                  pause="400"
+                                                  selectedobject="vm.selectedUser"
+                                                  url="vm.messageSendUri()"
+                                                  datafield=""
+                                                  titlefield="LastName,FirstName,MiddleName"
+                                                  descriptionfield="Id"
+                                                  imagefield="profilePic"
+                                                  inputclass="form-control form-control-small"
+                                                  findingtext="Поиск"
+                                                  minlength="1" />
 
-									<div class="" ng-show="vm.selectedUser.originalObject">
+									<!--<div class="" ng-show="vm.selectedUser.originalObject">
 										Выбрано: <span class="bold-span">{{vm.selectedUser.originalObject}}</span>
-									</div>
+									</div>-->
                                 </div>
 
 								<div class="field" ng-class="((messageForm.$submitted || messageForm.content.$touched) && messageForm.content.$error.required !== undefined ? 'error' : '')">

@@ -320,14 +320,17 @@ namespace MusicEducation.Core.Controllers.Api
 				}
 			}
 
+            // get deleted objects
+            IEnumerable<TestViewModel.QuestionModel> deletedQuestions = source.Questions.Except(changes.Questions, new QuestionCustomComparer());
+
+            foreach (var item in deletedQuestions)
+            {
+                _testRepository.DeleteUser_Question(_User.Id_User, source.Id, item.Id);
+            }
+
 			foreach (var item in changes.Questions)
 			{
 				TestViewModel.QuestionModel currentQuestion = new TestViewModel.QuestionModel();
-
-                if (!source.Questions.Any(x => x.Id == item.Id))
-                {
-                    Debug.WriteLine("[DELETE QUESTION]" + source.Name);
-                }
 
 				if (source.Questions != null)
 				{
@@ -351,6 +354,18 @@ namespace MusicEducation.Core.Controllers.Api
 						_testRepository.UpdateTest_Question(_User.Id_User, item.Id, item.Name, item.Content, item.QuestionType);
 					}
 				}
+
+                // TODO: add answers delete
+
+                if (currentQuestion != null)
+                {
+                    IEnumerable<TestViewModel.AnswerModel> deletedAnswers = currentQuestion.Answers.Except(item.Answers, new AnswerCustomComparer());
+
+                    foreach (var deletedAnswer in deletedAnswers)
+                    {
+                        _testRepository.DeleteUser_Answer(_User.Id_User, source.Id, item.Id, deletedAnswer.Id);
+                    }
+                }
 
 				foreach (var answer in item.Answers)
 				{
@@ -560,30 +575,11 @@ namespace MusicEducation.Core.Controllers.Api
 
 		public object CreateTest(CreateTestViewModel model)
 		{
-			int complexity = 0;
-			int? idCreatedTest = null;
+            if (String.IsNullOrEmpty(model.Complexity))
+                model.Complexity = "0";
 
-			switch (model.Complexity)
-			{
-				case "Очень сложно":
-					complexity = 5;
-					break;
-				case "Сложно":
-					complexity = 4;
-					break;
-				case "Не очень сложно":
-					complexity = 3;
-					break;
-				case "Средне":
-					complexity = 2;
-					break;
-				case "Легко":
-					complexity = 1;
-					break;
-				default:
-					complexity = 0;
-					break;
-			}
+			int? complexity = int.Parse(model.Complexity);
+			int? idCreatedTest = null;
 
 			idCreatedTest = _testRepository.CreateTest(_User.Id_User, model.Name, complexity);
 

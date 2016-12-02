@@ -179,6 +179,8 @@
     <Compile Include="Lib\Constants\UserRoles.cs" />
     <Compile Include="Lib\Excel\ReportStorage.cs" />
     <Compile Include="Lib\Filters\BasicAuthorizeAttribute.cs" />
+    <Compile Include="Lib\Filters\AnswerCustomComparer.cs" />
+    <Compile Include="Lib\Filters\QuestionCustomComparer.cs" />
     <Compile Include="Lib\Filters\ValidationActionFilter.cs" />
     <Compile Include="Lib\Helpers\Image.cs" />
     <Compile Include="Lib\Modules\AuthHttpModule.cs" />
