@@ -143,6 +143,9 @@ define(['app'], function (app) {
 					vm.testResult.CountUserAnswerValid = responseData.CountUserAnswerValid; // Правельных
 					vm.testResult.UserAnswerValidPercent = responseData.UserAnswerValidPercent; // Процент правельных
 					vm.isTestComplete = true;
+
+					testService.updateUserTestTiming($rootScope.globals.currentUser.source.Id, id, vm.currentTest.Timing, true).then(function (result) {
+					});
 				});
 			}
 		};
@@ -344,6 +347,10 @@ define(['app'], function (app) {
 			}
 		});
 
+		vm.parsedTimeLeft = '';
+		vm.stateTest = 0;
+		vm.intervalTiming = null;
+
 		function init() {
 
 			if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
@@ -354,6 +361,7 @@ define(['app'], function (app) {
 						studentService.getStudents().then(function (students) {
 							vm.avalibleStudents = students;
 							testService.getAvalibleTasks().then(function (data) {
+								vm.stateTest = 0;
 								vm.avalibleTestList = data;
 								console.log(vm.avalibleTestList);
 							});
@@ -379,11 +387,10 @@ define(['app'], function (app) {
 							Name: "Вопрос",
 							QuestionType: 1
 						};
-					}
-					else {
+					} else {
 						testService.getTest(id).then(function (data) {
 							vm.currentTest = data;
-							console.log(data);
+							
 						});
 					}
 				}
@@ -404,6 +411,55 @@ define(['app'], function (app) {
 						vm.currentTest = data;
 						console.log(vm.currentTest);
 						vm.nextQuestion();
+
+						vm.stateTest = 1;
+
+						vm.intervalTiming = setInterval(function () {
+							if (vm.stateTest == 1) {
+								if (vm.currentTest.TimingLeft > 0) {
+									vm.currentTest.TimingLeft--;
+
+									vm.currentTest.TimingLeft = Number(vm.currentTest.TimingLeft);
+									var h = Math.floor(vm.currentTest.TimingLeft / 3600);
+									var m = Math.floor(vm.currentTest.TimingLeft % 3600 / 60);
+									var s = Math.floor(vm.currentTest.TimingLeft % 3600 % 60);
+									vm.parsedTimeLeft = ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
+
+									$scope.$apply();
+								}
+
+								if (vm.currentTest.TimingLeft == 0) {
+									testService.updateUserTestTiming($rootScope.globals.currentUser.source.Id, id, vm.currentTest.TimingLeft, true).then(function (result) {
+										vm.stateTest = 0;
+										$location.path(path)
+										setTimeout(function () {
+											$window.location.reload();
+										}, 1000);
+									});
+								}
+							}
+						}, 1000);
+
+						$scope.$on("$locationChangeStart", function (event) {
+							if (vm.stateTest == 1 && vm.testResult.UserAnswerValidPercent === undefined) {
+								if (!confirm('Вы потеряете время и результаты аннулируются, перейти?'))
+									event.preventDefault();
+								else {
+									testService.updateUserTestTiming($rootScope.globals.currentUser.source.Id, id, vm.currentTest.TimingLeft, true).then(function (result) {
+										$location.path(path)
+										setTimeout(function () {
+											$window.location.reload();
+										}, 1000);
+									});
+								}
+							}
+							else if (vm.stateTest == 0) {
+								if (vm.intervalTiming) {
+									clearInterval(vm.intervalTiming);
+								}
+							}
+						});
+
 						if (vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2) {
 							setTimeout(function () {
 								vm.isListening = true;

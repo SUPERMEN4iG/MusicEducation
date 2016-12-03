@@ -99,6 +99,7 @@ define(['app'], function (app) {
 
 			if (vm.currentTest.Questions.length <= vm.currentQuestion)
 			{
+				console.info(vm.currentTest);
 				testService.insertTestResult(vm.currentTest).then(function (responseData) {
 					console.log(responseData);
 					vm.testResult = responseData;

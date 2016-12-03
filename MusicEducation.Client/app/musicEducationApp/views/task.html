@@ -71,8 +71,16 @@
 						</ul>
 					</div>
 				</div>
+
+				<h5>Осталось времени</h5>
+				<div class="ui progress active">
+					<div class="bar" style="transition-duration: 300ms; width: {{ (vm.currentTest.TimingLeft / vm.currentTest.Timing) * 100 }}%;"></div>
+					<div class="label">Осталось: {{ vm.parsedTimeLeft }}</div>
+				</div>
+
                 <div class="ui form" ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 1">
                     <div class="grouped fields">
+						<h4 for="fruit">{{vm.currentTest.Questions[vm.currentQuestion].Name}} </h4>
                         <label for="fruit">{{vm.currentTest.Questions[vm.currentQuestion].Name}} </label>
                         <div>
                             <div class="ui blue vertical buttons">
