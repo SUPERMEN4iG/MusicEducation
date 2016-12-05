@@ -329,11 +329,9 @@
 							ng-model="vm.currentInputTest.Complexity"
 							required>
 						<option value="">Выбрать сложность</option>
-						<option value="5">Очень сложно</option>
-						<option value="4">Сложно</option>
-						<option value="3">Не очень сложно</option>
-						<option value="2">Средне</option>
-						<option value="1">Легко</option>
+						<option value="3">Тяжёлый</option>
+						<option value="2">Средний</option>
+						<option value="1">Лёгкий</option>
 					</select>
 
 					<!--<dropdown name="test_complexity" open="false"
@@ -349,42 +347,49 @@
 
 				<div class="field">
 					<label>Темы</label>
+                    <div>
+                        Для выбора нескольких тем, зажмите CTRL
+                    </div>
 					<select name="teacher"
 							ng-options="obj.Name for obj in vm.avalibleThemes track by obj.Id"
 							ng-model="vm.selected"
+                            style="margin-bottom:5px"
 							required
 							multiple>
 						<option value="">Выбрать темы</option>
 					</select>
 
-					<table class="ui selectable celled table">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Название</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="question in vm.avalibleQuesions">
-								<td class="collapsing">
-									<checkbox checked="false" ng-model="vm.selectedQuestions[question.Id]"></checkbox>
-								</td>
-								<td>{{question.Name}}</td>
-							</tr>
-						</tbody>
-						<tfoot class="full-width">
-							<tr>
-								<th></th>
-								<th colspan="2">
-									<div class="ui action left icon input" style="width:200px">
-										<i class="random icon"></i>
-										<input type="text" placeholder="Введите количество" ng-model="vm.countQuestionsRandomize">
-										<div class="ui teal button" ng-click="vm.selectQuestionRandomize()">Выделить случайные</div>
-									</div>
-								</th>
-							</tr>
-						</tfoot>
-					</table>
+                    <div class="ui field" ng-repeat="theme in vm.avalibleThemesQuestions track by $index">
+                        <label>{{theme.Name}}</label>
+                        <table class="ui selectable celled table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Название</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="question in theme.Questions">
+                                    <td class="collapsing">
+                                        <checkbox checked="false" ng-model="vm.selectedQuestions[question.Id]"></checkbox>
+                                    </td>
+                                    <td>{{question.Name}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="full-width" ng-if="$index == vm.avalibleThemesQuestions.length - 1">
+                                <tr>
+                                    <th></th>
+                                    <th colspan="2">
+                                        <div class="ui action left icon input" style="width:200px">
+                                            <i class="random icon"></i>
+                                            <input type="text" placeholder="Введите количество" ng-model="vm.countQuestionsRandomize">
+                                            <div class="ui teal button" ng-click="vm.selectQuestionRandomize()">Выделить случайные</div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
 				</div>
 				<!--<div class="field">
 			<label>Попытки</label>

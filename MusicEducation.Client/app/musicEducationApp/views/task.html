@@ -98,6 +98,8 @@
                     </div>
                 </div>
 
+                {{vm.currentTest.Questions[0].Answers[0]}}
+
 				<div class="ui form" ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2">
 					<div class="ui segment" style="min-height: 8rem;">
 						<div ng-if="vm.taskState == 1">
@@ -401,11 +403,9 @@
 					<dropdown name="complexity" open="false"
 							  ng-model="vm.currentInputGroup.Complexity"
 							  title="Выберете сложности">
-						<dropdown-group value="5">Очень сложно</dropdown-group>
-						<dropdown-group value="4">Сложно</dropdown-group>
-						<dropdown-group value="3">Не очень сложно</dropdown-group>
-						<dropdown-group value="2">Средне</dropdown-group>
-						<dropdown-group value="1">Легко</dropdown-group>
+						<dropdown-group value="3">Тяжёлый</dropdown-group>
+						<dropdown-group value="2">Средний</dropdown-group>
+						<dropdown-group value="1">Лёгкий</dropdown-group>
 					</dropdown>
 				</div>
 				<div class="field">
@@ -481,11 +481,9 @@
 					<dropdown name="complexity" open="false"
 							  ng-model="vm.currentInputGroup.Complexity"
 							  title="Выберете сложности">
-						<dropdown-group value="5">Очень сложно</dropdown-group>
-						<dropdown-group value="4">Сложно</dropdown-group>
-						<dropdown-group value="3">Не очень сложно</dropdown-group>
-						<dropdown-group value="2">Средне</dropdown-group>
-						<dropdown-group value="1">Легко</dropdown-group>
+                        <dropdown-group value="3">Тяжёлый</dropdown-group>
+                        <dropdown-group value="2">Средний</dropdown-group>
+                        <dropdown-group value="1">Лёгкий</dropdown-group>
 					</dropdown>
 				</div>
 				<div class="field">

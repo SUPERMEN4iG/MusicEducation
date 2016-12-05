@@ -14,6 +14,7 @@ define(['app'], function (app) {
         vm.userMessages = [];
         vm.textMessage = '';
         vm.selectedUser = {};
+        vm.currentUser = {};
 
         var findInDictionaryByName = function (obj, key) {
         	var found = $filter('filter')(obj, { Name: key }, true);
@@ -74,6 +75,7 @@ define(['app'], function (app) {
         if ($rootScope.globals.currentUser.source === undefined) {
             $rootScope.$on('ON_FINISH_LOADING', function (event, data) {
                 init();
+                vm.currentUser = $rootScope.globals.currentUser.source;
             });
         } else {
             init();

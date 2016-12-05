@@ -57,6 +57,7 @@ define(['app'], function (app) {
 		vm.currentQuestions = [];
 		vm.selectedQuestions = [];
 		vm.avalibleQuesions = [];
+		vm.avalibleThemesQuestions = [];
 		vm.deletable = [];
 		vm.testForm = {};
 
@@ -380,10 +381,11 @@ define(['app'], function (app) {
 		};
 
 		$scope.$watch('vm.selected', function () {
-			vm.avalibleQuesions = [];
+		    vm.avalibleThemesQuestions = [];
 
 			angular.forEach(vm.selected, function (value, key) {
-				testService.getTheme(value.Id).then(function (data) {
+			    testService.getTheme(value.Id).then(function (data) {
+			        vm.avalibleThemesQuestions.push(data);
 					angular.forEach(data.Questions, function (qValue) {
 						vm.avalibleQuesions.push(qValue);
 					});

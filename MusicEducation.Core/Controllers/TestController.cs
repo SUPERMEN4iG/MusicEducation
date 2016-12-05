@@ -448,19 +448,13 @@ namespace MusicEducation.Core.Controllers.Api
 
 			switch (model.complexity)
 			{
-				case "Очень сложно":
-					complexity = 5;
-					break;
-				case "Сложно":
-					complexity = 4;
-					break;
-				case "Не очень сложно":
+				case "Тяжёлый":
 					complexity = 3;
 					break;
-				case "Средне":
+				case "Средний":
 					complexity = 2;
 					break;
-				case "Легко":
+				case "Лёгкий":
 					complexity = 1;
 					break;
 				default:
@@ -475,27 +469,21 @@ namespace MusicEducation.Core.Controllers.Api
 		{
 			int complexity = 0;
 
-			switch (model.complexity)
-			{
-				case "Очень сложно":
-					complexity = 5;
-					break;
-				case "Сложно":
-					complexity = 4;
-					break;
-				case "Не очень сложно":
-					complexity = 3;
-					break;
-				case "Средне":
-					complexity = 2;
-					break;
-				case "Легко":
-					complexity = 1;
-					break;
-				default:
-					complexity = 0;
-					break;
-			}
+            switch (model.complexity)
+            {
+                case "Тяжёлый":
+                    complexity = 3;
+                    break;
+                case "Средний":
+                    complexity = 2;
+                    break;
+                case "Лёгкий":
+                    complexity = 1;
+                    break;
+                default:
+                    complexity = 0;
+                    break;
+            }
 
 			return _studentRepository.AppnedTestToUser(_User.Id_User, model.idUser, model.idTest, model.attempts, model.timing, complexity, 1, 1);
 		}
@@ -504,27 +492,21 @@ namespace MusicEducation.Core.Controllers.Api
 		{
 			int complexity = 0;
 
-			switch (model.complexity)
-			{
-				case "Очень сложно":
-					complexity = 5;
-					break;
-				case "Сложно":
-					complexity = 4;
-					break;
-				case "Не очень сложно":
-					complexity = 3;
-					break;
-				case "Средне":
-					complexity = 5;
-					break;
-				case "Легко":
-					complexity = 1;
-					break;
-				default:
-					complexity = 0;
-					break;
-			}
+            switch (model.complexity)
+            {
+                case "Тяжёлый":
+                    complexity = 3;
+                    break;
+                case "Средний":
+                    complexity = 2;
+                    break;
+                case "Лёгкий":
+                    complexity = 1;
+                    break;
+                default:
+                    complexity = 0;
+                    break;
+            }
 
 			return _testRepository.AppendTestToGroup(_User.Id_User, model.idGroup, model.idTest, model.attempts, model.timing, complexity, model.userTestType, model.isShowHints);
 		}
@@ -533,27 +515,21 @@ namespace MusicEducation.Core.Controllers.Api
 		{
 			int complexity = 0;
 
-			switch (model.complexity)
-			{
-				case "Очень сложно":
-					complexity = 5;
-					break;
-				case "Сложно":
-					complexity = 4;
-					break;
-				case "Не очень сложно":
-					complexity = 3;
-					break;
-				case "Средне":
-					complexity = 2;
-					break;
-				case "Легко":
-					complexity = 1;
-					break;
-				default:
-					complexity = 0;
-					break;
-			}
+            switch (model.complexity)
+            {
+                case "Тяжёлый":
+                    complexity = 3;
+                    break;
+                case "Средний":
+                    complexity = 2;
+                    break;
+                case "Лёгкий":
+                    complexity = 1;
+                    break;
+                default:
+                    complexity = 0;
+                    break;
+            }
 
 			return _studentRepository.AppnedTestToUser(_User.Id_User, model.idUser, model.idTest, model.attempts, model.timing, complexity, model.userTestType, model.isShowHints);
 		}

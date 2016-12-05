@@ -190,18 +190,30 @@
                     </div>-->
 
 					<div class="field">
-						<label>Фамилия</label>
-						<input type="text" 
-							   name="first-name" 
-							   placeholder="Введите фамилию" 
-							   ng-model="vm.currentUser.LastName">
+						<label>Фамилия *</label>
+
+                        <div class="ui corner labeled input">
+                            <input type="text"
+                                   name="first-name"
+                                   placeholder="Введите фамилию"
+                                   ng-model="vm.currentUser.LastName">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
 					</div>
 					<div class="field">
-						<label>Имя</label>
-						<input type="text"
-							   name="first-name"
-							   placeholder="Введите имя"
-							   ng-model="vm.currentUser.FirstName">
+						<label>Имя *</label>
+
+                        <div class="ui corner labeled input">
+                            <input type="text"
+                                   name="first-name"
+                                   placeholder="Введите имя"
+                                   ng-model="vm.currentUser.FirstName">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
 					</div>
 					<div class="field">
 						<label>Отчество</label>
@@ -211,23 +223,34 @@
 							   ng-model="vm.currentUser.MiddleName">
 					</div>
 					<div class="field">
-						<label>Логин</label>
+						<label>Логин *</label>
 						<div ng-show="userForm.$submitted || userForm.login.$touched">
 							<div ng-show="userForm.login.$error.required">Необходимо ввести логин.</div>
 						</div>
-						<input type="text"
-							   name="login"
-							   placeholder="Введите логин"
-							   ng-model="vm.currentUser.Login"
-							   ng-readonly="vm.id != 'new'"
-							   required="">
+                        <div class="ui corner labeled input">
+                            <input type="text"
+                                   name="login"
+                                   placeholder="Введите логин"
+                                   ng-model="vm.currentUser.Login"
+                                   ng-readonly="vm.id != 'new'"
+                                   required="">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
 					</div>
 					<div class="field">
-						<label>Пароль</label>
-						<input type="text"
-							   name="first-name"
-							   placeholder="Введите пароль"
-							   ng-model="vm.currentUser.Password">
+						<label>Пароль *</label>
+
+                        <div class="ui corner labeled input">
+                            <input type="text"
+                                   name="first-name"
+                                   placeholder="Введите пароль"
+                                   ng-model="vm.currentUser.Password">
+                            <div class="ui corner label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
 					</div>
 					<div class="field">
 						<label>Почта</label>

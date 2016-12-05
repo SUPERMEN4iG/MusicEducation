@@ -47,24 +47,24 @@
 									<div style="width:440px;text-align:left; margin-left:5px" class="sub header removeLine">Новое сообщение</div>
 								</div>
 							</div>
-							<div class="ui dividing header" 
-								 style="margin:0; cursor:pointer" 
-								 ng-repeat="ms in vm.userLastMessages"
-								 ng-click="vm.goToConversetion(ms.Id_UserTo)"
-								 ng-class="(ms.Id_UserTo == vm.id) ? 'teal' : ''">
-								<!--<i class="settings icon"></i>-->
-								<img class="mini ui image" src="{{ (ms.uFrom_Photo !== undefined && ms.uFrom_Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + ms.uFrom_Photo : 'content/img/piano-min.png' }}">
-								<div class="content">
-									<div style="width:440px" class="removeLine">{{ms.uFrom_LastName + ' ' + ms.uFrom_FirstName[0] + '. ' + ms.uFrom_MiddleName[0]}}</div>
-									<div style="width:440px;text-align:left; margin-left:5px" class="sub header removeLine">{{ms.Message_Content}}</div>
-								</div>
-							</div>
+                            <div class="ui dividing header"
+                                 style="margin:0; cursor:pointer"
+                                 ng-repeat="ms in vm.userLastMessages"
+                                 ng-click="vm.goToConversetion(ms.Id_UserTo)"
+                                 ng-class="(ms.Id_UserTo == vm.id) ? 'teal' : ''">
+                                <!--<i class="settings icon"></i>-->
+                                <img class="mini ui image" src="{{ (ms.uTo_Photo !== undefined && ms.uTo_Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + ms.uTo_Photo : 'content/img/piano-min.png' }}">
+                                <div class="content">
+                                    <div style="width:440px" class="removeLine">{{ms.uTo_LastName + ' ' + ms.uTo_FirstName[0] + '. ' + ms.uTo_MiddleName[0]}}</div>
+                                    <div style="width:440px;text-align:left; margin-left:5px" class="sub header removeLine">{{ms.Message_Content}}</div>
+                                </div>
+                            </div>
 						</div>
 						<div class="eleven wide column">
 							<div class="ui feed">					
 								<div class="event" ng-repeat="ms in vm.userMessages">
 									<div class="label">
-										<img src="{{ (ms.uFrom_Photo !== undefined && ms.uFrom_Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + ms.uFrom_Photo : 'content/img/piano-min.png' }}">
+                                        <img src="{{ (ms.uFrom_Photo !== undefined && ms.uFrom_Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + ms.uFrom_Photo : 'content/img/piano-min.png' }}">
 									</div>
 									<div class="content">
 										<div class="summary">
