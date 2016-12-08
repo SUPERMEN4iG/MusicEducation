@@ -79,8 +79,9 @@ angular.module('angucomplete', [] )
                         }
 
                         var image = "";
+                        console.info(responseData[i][$scope.imageField]);
                         if ($scope.imageField) {
-                            image = imageUri + responseData[i][$scope.imageField];
+                        	image = imageUri + ((responseData[i][$scope.imageField] != null) ? responseData[i][$scope.imageField] : "piano-min.png");
                         }
 
                         var text = titleCode.join(' ');

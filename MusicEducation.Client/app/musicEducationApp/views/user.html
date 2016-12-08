@@ -79,10 +79,10 @@
 						<tr>
 							<th></th>
                             <th></th>
-							<th class="sorted descending">ФИО</th>
-							<th>Логин</th>
 							<th>Роль</th>
 							<th>Группа</th>
+							<th>ФИО</th>
+							<th>Логин</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -97,10 +97,10 @@
                                      src="{{ (user.Photo !== undefined && user.Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + user.Photo : 'content/img/piano-min.png' }}"
                                      alt="Alternate Text" />
                             </td>
+							<td>{{user.Name}}</td>
+							<td>{{user.Group_Name}}</td>
                             <td>{{user.LastName}} {{user.FirstName[0]}}. {{user.MiddleName[0]}}.</td>
                             <td>{{user.Login}}</td>
-                            <td>{{user.Name}}</td>
-							<td>{{user.Group_Name}}</td>
                             <td class="collapsing">
 								<div class="ui icon buttons">
 									<button class="ui button"
@@ -108,7 +108,7 @@
 										<i class="edit icon"></i>
 									</button>
 									<button class="ui button"
-											ng-click="vm.deleteUser(user.Id)">
+											ng-click="vm.deleteUser(user)">
 										<i class="delete icon"></i>
 									</button>
 								</div>
@@ -118,7 +118,7 @@
 					<tfoot class="full-width">
 						<tr>
 							<th></th>
-							<th colspan="5">
+							<th colspan="6">
 								<div class="ui right floated small primary labeled icon button"
 									 ng-click="vm.addUser()">
 									<i class="user icon"></i> Добавить пользователя
@@ -173,11 +173,18 @@
 
                     <div class="field" ng-if="vm.groups.length >= 1 && vm.currentUser !== null">
                         <label>Группа</label>
-                        <dropdown name="currentUser_Group" open="false"
+						<select name="currentUser_Group"
+								ng-model="vm.currentUser.Group_Name"
+								ng-options="group.Name as group.Name for group in vm.groups"
+								ng-required="vm.currentUser.Name == 'Ученик'"
+								>
+							<option value="">Выбрать группу</option>
+						</select> 
+                        <!--<dropdown name="currentUser_Group" open="false"
                                   ng-model="vm.currentUser.Group_Name"
                                   title="Выберете группу">
                             <dropdown-group value="c.Name" title="c.Name" ng-repeat="c in vm.groups">{{c.Name}}</dropdown-group>
-                        </dropdown>
+                        </dropdown>-->
                     </div>
 
                     <!--<div class="field" ng-if="vm.teachers.length >= 1 && vm.currentUser !== null">

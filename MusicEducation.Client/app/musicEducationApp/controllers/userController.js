@@ -24,23 +24,26 @@ define(['app'], function (app) {
 		    $location.path(path + 'new');
 		};
 
-		vm.deleteUser = function (idSelected) {
-			var deletedObjects = 0;
+		vm.deleteUser = function (user) {
+			if (confirm('Удалить пользователя ' + user.Login + '?'))
+			{
+				var deletedObjects = 0;
 
-			userService.deleteUser(idSelected).then(function (data) {
-				angular.forEach(vm.users, function (v, k) {
-					if (v.Id == idSelected) {
-						vm.users.splice(k, 1);
-						deletedObjects++;
-						//delete vm.users[k];
-					}
+				userService.deleteUser(user.Id).then(function (data) {
+					angular.forEach(vm.users, function (v, k) {
+						if (v.Id == user.Id) {
+							vm.users.splice(k, 1);
+							deletedObjects++;
+							//delete vm.users[k];
+						}
+					});
 				});
-			});
 
-			setTimeout(function () {
-				//toastr.success('Удалено объектов: ' + deletedObjects);
-				init();
-			}, 1500);
+				setTimeout(function () {
+					//toastr.success('Удалено объектов: ' + deletedObjects);
+					init();
+				}, 1500);
+			}
 		};
 
 		vm.deleteUsers = function () {
@@ -70,7 +73,7 @@ define(['app'], function (app) {
 			if (vm.id == 'new')
 			{
 				userService.checkLogin(vm.currentUser).then(function (result) {
-					if (result == true)
+					if (result.Status == 1)
 					{
 						console.log(vm.currentUser);
 						vm.currentUser.Teacher_Login = null;
@@ -85,7 +88,7 @@ define(['app'], function (app) {
 						});
 					}
 					else {
-						toastr.error('Такой логин уже существует в системе!');
+						toastr.error(result.Message);
 					}
 				});
 			} else {
@@ -133,9 +136,13 @@ define(['app'], function (app) {
 						Id_User: null,
 						Id_UserCreate: 1,
 						LastName: "",
+						Group_Name: "",
 						Login: "",
 						MiddleName:"",
-						Password:""
+						Password: "",
+						Photo: "",
+						Email: "",
+						Phone: ""
 					};
 				} else {
 					studentService.getStudent(id).then(function (data) {

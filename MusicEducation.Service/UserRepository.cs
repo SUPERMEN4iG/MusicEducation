@@ -19,6 +19,11 @@ namespace MusicEducation.Service
 			return _DBContext.InsertUser(idUser, DateTime.Now, lastName, firstName, middleName, login, password, roleName, groupName, teacherLogin, email, phone).FirstOrDefault();
 		}
 
+		public InsertUserWithoutGroupResult InsertUserWithoutGroup(int? idUser, string login, string password, string lastName, string firstName, string middleName, string roleName, string email, string phone)
+		{
+			return _DBContext.InsertUserWithoutGroup(idUser, DateTime.Now, lastName, firstName, middleName, login, password, roleName, email, phone).FirstOrDefault();
+		}
+
 		public UpdateUserResult UpdateUser(int? idUser, int? idUserCore, string lastName, string firstName, string middleName, string login, string password, string roleName, string groupName, string teacherLogin, string email, string phone, string photoPath)
 		{
 			return _DBContext.UpdateUser(idUser, DateTime.Now, idUserCore, lastName, firstName, middleName, login, password, roleName, groupName, teacherLogin, email, phone, photoPath).FirstOrDefault();

@@ -89,7 +89,13 @@ namespace MusicEducation.Core.Controllers
 
 		public object CheckLogin(InsertUserViewModel model)
 		{
-			return _userRepository.CheckLogin(_User.Id_User, model.Login);
+			if (!_userRepository.CheckLogin(_User.Id_User, model.Login))
+				return new { Status = 0, Message = "Логин существует!" };
+
+			if (Regex.IsMatch(model.Login, @"\p{IsCyrillic}"))
+				return new { Status = 0, Message = "Логин должен содержать только буквы латинского алфавита!" };
+
+			return new { Status = 1, Message = "Успех" };
 		}
 
 		public object GetUserByFio(string fio)
@@ -101,7 +107,7 @@ namespace MusicEducation.Core.Controllers
         {
             dynamic result = new object();
 
-			var group = _userRepository.GetGroups(_User.Id_User).FirstOrDefault(x => x.Name == model.Name);
+			var group = _userRepository.GetGroups(_User.Id_User).FirstOrDefault(x => x.Name == model.Group_Name);
 			GetGroupMasterResult userMasterGroup = null;
 
             if (group != null)
@@ -111,19 +117,36 @@ namespace MusicEducation.Core.Controllers
 
 			if (model.Id_User == null)
             {
-                result = _userRepository.InsertUser(
-                    _User.Id_User,
-                    model.Login,
-                    System.Web.Helpers.Crypto.HashPassword(model.Password),
-                    model.LastName,
-                    model.FirstName,
-                    model.MiddleName,
-                    model.Name,
-                    model.Group_Name,
-                    userMasterGroup.Login,
-					model.Email,
-					model.Phone
-                );
+				if (userMasterGroup != null)
+				{
+					result = _userRepository.InsertUser(
+						_User.Id_User,
+						model.Login,
+						System.Web.Helpers.Crypto.HashPassword(model.Password),
+						model.LastName,
+						model.FirstName,
+						model.MiddleName,
+						model.Name,
+						model.Group_Name,
+						userMasterGroup.Login,
+						model.Email,
+						model.Phone
+					);
+				}
+				else
+				{
+					result = _userRepository.InsertUserWithoutGroup(
+						_User.Id_User,
+						model.Login,
+						System.Web.Helpers.Crypto.HashPassword(model.Password),
+						model.LastName,
+						model.FirstName,
+						model.MiddleName,
+						model.Name,
+						model.Email,
+						model.Phone
+					);
+				}
             }
             else 
             {

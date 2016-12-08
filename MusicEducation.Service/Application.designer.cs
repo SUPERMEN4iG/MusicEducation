@@ -87,7 +87,7 @@ namespace MusicEducation.Service
     #endregion
 		
 		public ApplicationDataContext() : 
-				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString1, mappingSource)
+				base(global::MusicEducation.Service.Properties.Settings.Default.DB_9FC383_musiceducationConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -258,13 +258,6 @@ namespace MusicEducation.Service
 			{
 				return this.GetTable<User_Test>();
 			}
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AppendQuestionToTest")]
-		public int AppendQuestionToTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion);
-			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateUser_Test_Timing")]
@@ -442,13 +435,6 @@ namespace MusicEducation.Service
 			return ((ISingleResult<GetUser_NotificationsResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUserByFio")]
-		public ISingleResult<GetUserByFioResult> GetUserByFio([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string findText)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, findText);
-			return ((ISingleResult<GetUserByFioResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUserById")]
 		public ISingleResult<GetUserByIdResult> GetUserById([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> id)
 		{
@@ -615,6 +601,27 @@ namespace MusicEducation.Service
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTheme, theme_name);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AppendQuestionToTest")]
+		public int AppendQuestionToTest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idTest, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idQuestion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idTest, idQuestion);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUserByFio")]
+		public ISingleResult<GetUserByFioResult> GetUserByFio([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(MAX)")] string findText)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, findText);
+			return ((ISingleResult<GetUserByFioResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertUserWithoutGroup")]
+		public ISingleResult<InsertUserWithoutGroupResult> InsertUserWithoutGroup([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> dateCreate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string lastName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string firstName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string middleName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(64)")] string login, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(512)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(256)")] string roleName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(256)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(64)")] string phone)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, dateCreate, lastName, firstName, middleName, login, password, roleName, email, phone);
+			return ((ISingleResult<InsertUserWithoutGroupResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -9743,86 +9750,6 @@ namespace MusicEducation.Service
 		}
 	}
 	
-	public partial class GetUserByFioResult
-	{
-		
-		private int _Id;
-		
-		private string _LastName;
-		
-		private string _FirstName;
-		
-		private string _MiddleName;
-		
-		public GetUserByFioResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this._Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this._LastName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this._FirstName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
-		public string MiddleName
-		{
-			get
-			{
-				return this._MiddleName;
-			}
-			set
-			{
-				if ((this._MiddleName != value))
-				{
-					this._MiddleName = value;
-				}
-			}
-		}
-	}
-	
 	public partial class GetUserByIdResult
 	{
 		
@@ -11449,6 +11376,184 @@ namespace MusicEducation.Service
 		private string _Message;
 		
 		public UpdateUserResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateCreate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateCreate
+		{
+			get
+			{
+				return this._DateCreate;
+			}
+			set
+			{
+				if ((this._DateCreate != value))
+				{
+					this._DateCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int")]
+		public System.Nullable<int> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this._Status = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(255)")]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this._Message = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetUserByFioResult
+	{
+		
+		private int _Id;
+		
+		private string _LastName;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		private string _Photo;
+		
+		public GetUserByFioResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(128)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this._LastName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(128)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this._FirstName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MiddleName", DbType="NVarChar(128)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this._MiddleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="NVarChar(1000)")]
+		public string Photo
+		{
+			get
+			{
+				return this._Photo;
+			}
+			set
+			{
+				if ((this._Photo != value))
+				{
+					this._Photo = value;
+				}
+			}
+		}
+	}
+	
+	public partial class InsertUserWithoutGroupResult
+	{
+		
+		private int _Id;
+		
+		private System.Nullable<System.DateTime> _DateCreate;
+		
+		private System.Nullable<int> _Status;
+		
+		private string _Message;
+		
+		public InsertUserWithoutGroupResult()
 		{
 		}
 		
