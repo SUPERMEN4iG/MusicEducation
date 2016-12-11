@@ -14,6 +14,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
 		'angularify.semantic.checkbox',
 		'xeditable',
 		'angucomplete',
+        //'amChart',
         //'chart.js',
         'toastr'
 	]);

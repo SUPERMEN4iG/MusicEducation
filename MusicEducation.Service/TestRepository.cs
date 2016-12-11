@@ -155,6 +155,13 @@ namespace MusicEducation.Service
             return result;
         }
 
+        public int GetCountAppendingTest(int? idUser, int? idTest)
+        {
+            var result = _DBContext.GetCountAppendingTest(idUser, idTest).FirstOrDefault().Column1.Value;
+
+            return result;
+        }
+
 		public int UpdateUser_Test(int? idUser, int? idTest, int? validAnswers, int? validPercent)
 		{
 			var result = _DBContext.UpdateUser_Test(idUser, idTest, validAnswers, validPercent);

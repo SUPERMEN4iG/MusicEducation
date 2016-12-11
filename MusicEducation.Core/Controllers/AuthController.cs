@@ -24,11 +24,11 @@ namespace MusicEducation.Core.API
 			return new { Result = 1, Date = DateTime.Now };
 		}
 
-        //[ActionName("Register")]
-        //public InsertUserResult Register(UserRegisterViewModel data)
-        //{
-        //    return _testService.InsertUser(data.Username, System.Web.Helpers.Crypto.HashPassword(data.Password), null, null, null, null);
-        //}
+        [ActionName("Register")]
+        public RegisterUserResult Register(UserRegisterViewModel data)
+        {
+            return _testService.RegisterUser(data.Username, System.Web.Helpers.Crypto.HashPassword(data.Password));
+        }
 
 		[ActionName("Login")]
 		public InsertUserResult Login(UserLoginViewModel data)
@@ -43,8 +43,17 @@ namespace MusicEducation.Core.API
 
 				if (System.Web.Helpers.Crypto.VerifyHashedPassword(d_user.Password, data.Password))
 				{
-					result.Status = 1;
-					result.Message = "success";
+                    if (d_user.IsApproved.GetValueOrDefault())
+                    {
+                        result.Status = 1;
+                        result.Message = "success";
+                        _testService.InsertUser_Action(d_user.Id_User, d_user.Id_User, "Вход", String.Format("{0} вошёл в систему", d_user.Login), 1);
+                    }
+                    else 
+                    {
+                        result.Status = 3;
+                        result.Message = "ваш профиль ещё не подтверждён";
+                    }
 				}
 				else
 				{

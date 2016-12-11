@@ -280,6 +280,22 @@ define(['app'], function (app) {
         	return deferred.promise;
         };
 
+        service.resetPassword = function (obj) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: serviceBase + 'ResetPassword/',
+                data: obj
+            }).then(
+				function (response) {
+				    deferred.resolve(response.data);
+				},
+				function (response) {
+				    deferred.reject(response.data);
+				});
+            return deferred.promise;
+        };
+
         service.deleteGroup = function (idGroup) {
         	var deferred = $q.defer();
 
@@ -308,6 +324,52 @@ define(['app'], function (app) {
 					});
 
         	return deferred.promise;
+        };
+
+        service.getGraphVisits = function () {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetGraphVisits/')
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getGraphTest = function (id) {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetGraphTest/', { params: { id: id } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.approvedUser = function (user) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: serviceBase + 'ApprovedUser/',
+                data: user
+            }).then(
+				function (response) {
+				    deferred.resolve(response.data);
+				},
+				function (response) {
+				    deferred.reject(response.data);
+				});
+            return deferred.promise;
         };
 
         service.getStudent = function (id) {

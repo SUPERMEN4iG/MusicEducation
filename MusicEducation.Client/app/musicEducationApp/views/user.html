@@ -103,6 +103,11 @@
                             <td>{{user.Login}}</td>
                             <td class="collapsing">
 								<div class="ui icon buttons">
+                                    <button class="ui button"
+                                            ng-if="!user.IsApproved"
+                                            ng-click="vm.approvedUser(user)">
+                                        <i class="checkmark icon"></i>
+                                    </button>
 									<button class="ui button"
 											ng-click="vm.goToUser(user.Id)">
 										<i class="edit icon"></i>
@@ -249,14 +254,17 @@
 					<div class="field">
 						<label>Пароль *</label>
 
-                        <div class="ui corner labeled input">
+                        <div class="ui action labeled input">
                             <input type="text"
                                    name="first-name"
                                    placeholder="Введите пароль"
-                                   ng-model="vm.currentUser.Password">
-                            <div class="ui corner label">
-                                <i class="asterisk icon"></i>
-                            </div>
+                                   ng-model="vm.currentUser.Password"
+                                   disabled>
+                            <button class="ui teal right labeled icon button"
+                                    ng-click="vm.resetPassword(vm.currentUser)">
+                                <i class="copy icon"></i>
+                                Сбросить пароль
+                            </button>
                         </div>
 					</div>
 					<div class="field">

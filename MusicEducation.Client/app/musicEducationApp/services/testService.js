@@ -83,6 +83,21 @@ define(['app'], function (app) {
 			return deferred.promise;
 		};
 
+		service.getCountAppendingTest = function (id) {
+		    var deferred = $q.defer();
+
+		    $http.get(serviceBase + 'GetCountAppendingTest/', { params: { id: id } })
+					.then(
+						function (response) {
+						    deferred.resolve(response.data);
+						},
+						function (response) {
+						    deferred.reject(response.data);
+						});
+
+		    return deferred.promise;
+		};
+
 		service.getTests = function (id) {
 			var deferred = $q.defer();
 
@@ -254,6 +269,22 @@ define(['app'], function (app) {
 					deferred.reject(response.data);
 				});
 			return deferred.promise;
+		};
+
+		service.insertTaskResult = function (test) {
+		    var deferred = $q.defer();
+		    $http({
+		        method: 'POST',
+		        url: serviceBase + 'InsertTaskResult/',
+		        data: test
+		    }).then(
+				function (response) {
+				    deferred.resolve(response.data);
+				},
+				function (response) {
+				    deferred.reject(response.data);
+				});
+		    return deferred.promise;
 		};
 
 		// Получаем массив состояний складов

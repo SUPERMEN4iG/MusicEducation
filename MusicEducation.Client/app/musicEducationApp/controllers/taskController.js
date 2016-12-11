@@ -136,7 +136,8 @@ define(['app'], function (app) {
 			}
 
 			if (vm.currentTest.Questions.length <= vm.currentQuestion) {
-				testService.insertTestResult(vm.currentTest).then(function (responseData) {
+			    vm.currentTest.Questions[0].Content = "";
+			    testService.insertTaskResult(vm.currentTest).then(function (responseData) {
 					console.log(responseData);
 					vm.testResult = responseData;
 					vm.testResult.CountAnswerValid = responseData.CountAnswerValid; // Всего

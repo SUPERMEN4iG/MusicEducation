@@ -12,6 +12,7 @@ require(
         //'MusicEducation.Coreapp/directives/semantic-ui/accordionDirective',
 		'musicEducationApp/directives/pianoDirective',
 		'musicEducationApp/directives/filereadDirective',
+        'musicEducationApp/directives/amChartsDirective',
         'musicEducationApp/services/routeResolver',
         'musicEducationApp/services/authService',
 		'musicEducationApp/services/testService',

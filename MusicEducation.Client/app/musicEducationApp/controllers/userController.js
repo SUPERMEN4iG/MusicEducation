@@ -23,6 +23,14 @@ define(['app'], function (app) {
 		vm.addUser = function () {
 		    $location.path(path + 'new');
 		};
+        
+		vm.approvedUser = function (user) {
+		    console.info('vm.approvedUser call');
+		    userService.approvedUser(user).then(function (res) {
+		        console.info('Пользователь подтверждён!');
+		        init();
+		    });
+		};
 
 		vm.deleteUser = function (user) {
 			if (confirm('Удалить пользователя ' + user.Login + '?'))
@@ -64,6 +72,12 @@ define(['app'], function (app) {
 			});
 			//toastr.success('Удалено объектов: ' + deletedObjects);
 			vm.deletable = [];
+		};
+
+		vm.resetPassword = function (user) {
+		    userService.resetPassword(user).then(function (data) {
+		        toastr.success('Пароль сброшен!');
+		    });
 		};
 
 		vm.isUpdateUserClicked = false;

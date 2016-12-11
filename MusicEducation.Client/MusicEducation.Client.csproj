@@ -107,6 +107,7 @@
     <Content Include="app\musicEducationApp\controllers\taskController.js" />
     <Content Include="app\musicEducationApp\controllers\testController.js" />
     <Content Include="app\musicEducationApp\controllers\userController.js" />
+    <Content Include="app\musicEducationApp\directives\amChartsDirective.js" />
     <Content Include="app\musicEducationApp\directives\filereadDirective.js" />
     <Content Include="app\musicEducationApp\directives\pianoDirective.js" />
     <Content Include="app\musicEducationApp\directives\semantic-ui\modalDirective.js" />

@@ -142,6 +142,10 @@
 							<td>{{test.CountQuestions}}</td>
 							<td class="collapsing">
 								<div class="ui icon buttons">
+                                    <button class="ui button"
+                                            ng-click="vm.showStatisticTest(test.Id)">
+                                        <i class="bar chart icon"></i>
+                                    </button>
 									<button class="ui button"
 											ng-click="vm.goToTest(test)">
 										<i class="edit icon"></i>
@@ -215,7 +219,7 @@
 						<div class="content">
 							<div class="ui grid">
 								<div class="floated aligned six wide column">
-									<a href="#" editable-text="answer.Name">{{ answer.Name || 'empty' }}</a>
+									<a href="#" editable-text="answer.Name">{{ answer.Name || 'пусто' }}</a>
 								</div>
 								<div class="right floated right aligned six wide column">
 									<i class="ui checkmark big link icon" 
@@ -295,6 +299,31 @@
 			</div>
 		</div>
 	</div>
+</modal>
+
+<modal ng-model="vm.isShowStatisticTest">
+    <i class="close icon" ng-click=""></i>
+    <div class="header">
+        Статистика прохождений теста
+    </div>
+    <div class="content">
+        <div class="description">
+            <div ng-show="vm.dataGraph1.length == 0">
+                <h3>Недостаточно данных для формирования графика</h3>
+            </div>
+            <div style="height:300px;padding-right:10px">
+                <am-chart id="testGraph" options="vm.amChartOptions" chart="vm.chart"></am-chart>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <!--<div class="two fluid ui inverted buttons">
+            <div class="ui ok green button" ng-click="vm.appendTestToGroup()">
+                <i class="checkmark icon"></i>
+                Назначить
+            </div>
+        </div>-->
+    </div>
 </modal>
 
 <modal ng-model="vm.isShowGroupWindow">

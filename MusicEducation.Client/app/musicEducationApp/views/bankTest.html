@@ -60,12 +60,11 @@
 							<th>Дата создания</th>
                             <th>Создатель</th>
 							<th>Количество вопросов</th>
-							<!--<th></th>-->
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="theme in vm.avalibleThemes"
-							ng-click="vm.goToTheme(theme)">
+						<tr ng-repeat="theme in vm.avalibleThemes">
 							<!--<td class="collapsing">
 								<checkbox checked="false" ng-model="vm.selectedTests[test.Id]"></checkbox>
 							</td>-->
@@ -73,18 +72,18 @@
 							<td>{{theme.DateCreate}}</td>
                             <td>{{theme.LastName + ' ' + theme.FirstName[0] + '. ' + theme.MiddleName[0]}}</td>
 							<td>{{theme.CountQuestions}}</td>
-							<!--<td class="collapsing">
+							<td class="collapsing">
 								<div class="ui icon buttons">
-									<button class="ui button"
-											ng-click="vm.goToTest(test)">
-										<i class="edit icon"></i>
-									</button>
-									<button class="ui button"
+                                    <button class="ui button"
+                                            ng-click="vm.goToTheme(theme)">
+                                        <i class="edit icon"></i>
+                                    </button>
+									<!--<button class="ui button"
 											ng-click="vm.deleteTest(test)">
 										<i class="delete icon"></i>
-									</button>
+									</button>-->
 								</div>
-							</td>-->
+							</td>
 						</tr>
 					</tbody>
 					<!--<tfoot class="full-width">
@@ -241,7 +240,7 @@
 						<div class="content">
 							<div class="ui grid">
 								<div class="floated aligned six wide column">
-									<a href="#" editable-text="answer.Name">{{ answer.Name || 'empty' }}</a>
+									<a href="#" editable-text="answer.Name">{{ answer.Name || 'пусто' }}</a>
 								</div>
 								<div class="right floated right aligned six wide column">
 									<i class="ui checkmark big link icon"

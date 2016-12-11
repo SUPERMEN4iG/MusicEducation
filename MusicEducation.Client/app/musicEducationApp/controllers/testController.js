@@ -34,6 +34,7 @@ define(['app'], function (app) {
 		vm.currentInputGroup = {};
 		vm.isShowGroupWindow = false;
 		vm.isShowUserWindow = false;
+		vm.isShowStatisticTest = false;
 
 		vm.currentTask = {
 			localUserNotes: []
@@ -54,7 +55,18 @@ define(['app'], function (app) {
 		vm.goToTest = function (test) {
 		    if ($rootScope.globals.currentUser.source.RoleName == 'Учитель')
 		    {
-                $location.path(path + test.Id);
+		        if (test.Id_User == $rootScope.globals.currentUser.source.Id) {
+		            testService.getCountAppendingTest(test.Id).then(function (res) {
+		                if (res == 0)
+		                {
+		                    $location.path(path + test.Id);
+		                } else {
+		                    toastr.error('Редактирование запрещено! Тест уже был назначен!');
+		                }
+		            });
+		        } else {
+		            toastr.error('Редактирование запрещено! Вы не разработчик теста!');
+		        }
 		    } else {
 		    	console.log(test);
 		    	if (test.UserAnswerValidPercent == 100) {
@@ -367,7 +379,134 @@ define(['app'], function (app) {
 
 		//$scope.$watch('vm.newTask.question_octaves', function () {
 		//	$rootScope.$emit('ON_PIANO_INIT', vm.newTask.question_octaves);
-		//});
+	    //});
+
+		vm.pushNewData = function () {
+
+		    vm.dataGraph1.push({
+		        year: 'Январь',
+		        income: 70
+		    });
+
+		    vm.dataGraph1.push({
+		        year: 'Февраль',
+		        income: 65
+		    });
+
+		    vm.dataGraph1.push({
+		        year: 'Март',
+		        income: 72
+		    });
+
+		    //vm.chart.dataProvider.push({
+		    //    year: 2010,
+		    //    income: 35.2,
+		    //    expenses: 18.8
+		    //});
+		    vm.chart.validateData();
+		    console.log(vm.chart.dataProvider);
+		};
+		var day = 0;
+		var firstDate = new Date();
+		firstDate.setDate(firstDate.getDate() - 500);
+		function generateChartData() {
+		    userService.getGraphVisits().then(function (data) {
+		        angular.forEach(data, function (v) {
+		            vm.dataGraph1.push({
+		                "date": new Date(v.date),
+		                "visits": v.visits
+		            });
+		        });
+		        console.log(vm.dataGraph1);
+		        vm.chart.validateData();
+		    });
+
+		    //for (day = 0; day < 50; day++) {
+		    //    var newDate = new Date(firstDate);
+		    //    newDate.setDate(newDate.getDate() + day);
+
+		    //    var visits = Math.round(Math.random() * 40) - 0;
+
+		    //    chartData.push({
+		    //        "date": newDate,
+		    //        "visits": visits
+		    //    });
+		    //}
+
+		    //console.log(chartData);
+		}
+
+		//generateChartData();
+
+		vm.chart = {};
+		vm.dataGraph1 = [];
+
+		$scope.$watch('vm.chart', function () {
+		    console.info(vm.chart);
+		});
+
+		vm.showStatisticTest = function (id) {
+		    vm.isShowStatisticTest = true;
+
+		    vm.dataGraph1.splice(0, vm.dataGraph1.length);
+		    vm.chart.validateData();
+
+		    userService.getGraphTest(id).then(function (data) {
+		        angular.forEach(data, function (v) {
+		            vm.dataGraph1.push({
+		                "date": new Date(v.date),
+		                "visits": v.visits
+		            });
+		        });
+		        vm.chart.validateData();
+		    });
+
+		    //generateChartData();
+
+		};
+
+		vm.amChartOptions = {
+		    type: "serial",
+		    language: "ru",
+		    theme: "dark",
+		    zoomOutButton: {
+		        backgroundColor: '#000000',
+		        backgroundAlpha: 0.15
+		    },
+		    data: vm.dataGraph1,
+		    categoryField: "date",
+		    categoryAxis: {
+		        parseDates: true,
+		        minPeriod: "DD",
+		        dashLength: 1,
+		        gridAlpha: 0.15,
+		        axisColor: "#555555"
+		    },
+		    allLabels: [{
+		        color: '#FFFFFF'
+		    }],
+		    graphs: [{
+		        id: "g1",
+		        valueField: "visits",
+		        bullet: "round",
+		        bulletBorderColor: "#FFFFFF",
+		        bulletBorderThickness: 2,
+		        lineThickness: 2,
+		        lineColor: "#569edd",
+		        balloonColor: "#0352b5",
+		        negativeLineColor: "#0352b5",
+		        hideBulletsCount: 50
+		    }],
+		    chartCursor: {
+		        cursorPosition: "mouse"
+		    },
+		    chartScrollbar: {
+		        graph: "g1",
+		        scrollbarHeight: 40,
+		        color: "#FFFFFF",
+		        autoGridCount: true
+		    }
+		}
 
 		vm.currentUserSource = function () {
 			return $rootScope.globals.currentUser.source;

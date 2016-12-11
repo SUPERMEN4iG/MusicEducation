@@ -87,6 +87,11 @@ namespace MusicEducation.Core.Controllers
             return _userRepository.DeleteUser(_User.Id_User, id);
         }
 
+        public object ApprovedUser(GetUsersResult user)
+        {
+            return _userRepository.ApprovedUser(_User.Id_User, user.Id);
+        }
+
 		public object CheckLogin(InsertUserViewModel model)
 		{
 			if (!_userRepository.CheckLogin(_User.Id_User, model.Login))
@@ -102,6 +107,13 @@ namespace MusicEducation.Core.Controllers
 		{
 			return _userRepository.GetUserByFio(_User.Id_User, fio);
 		}
+
+        public object ResetPassword(InsertUserViewModel model)
+        {
+            string defaultPassword = "qwerty123";
+
+            return _userRepository.ResetPassword(_User.Id_User, model.Id_User, System.Web.Helpers.Crypto.HashPassword(defaultPassword));
+        }
 
 		public object InsertUser(InsertUserViewModel model)
         {
@@ -273,5 +285,34 @@ namespace MusicEducation.Core.Controllers
 		{
 			return _userRepository.DeleteGroup(_User.Id_User, id);
 		}
+
+        private readonly long DatetimeMinTimeTicks = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks;
+
+        public long ToJavaScriptMilliseconds(DateTime dt)
+        {
+            return (long)((dt.ToUniversalTime().Ticks - DatetimeMinTimeTicks) / 10000);
+        }
+
+        public object GetGraphVisits()
+        {
+            return _userRepository.GetGraph_Visits(_User.Id_User).Select(x => {
+                return new {
+                    date = ToJavaScriptMilliseconds(x.Date.Value),
+                    visits = x.Count
+                };
+            }).ToList();
+        }
+
+        public object GetGraphTest(int? id)
+        {
+            return _userRepository.GetGraph_TestAvgValidAnswers(_User.Id_User, id).Select(x =>
+            {
+                return new
+                {
+                    date = ToJavaScriptMilliseconds(x.Date.Value),
+                    visits = x.AvgCnt
+                };
+            }).ToList();
+        }
 	}
 }

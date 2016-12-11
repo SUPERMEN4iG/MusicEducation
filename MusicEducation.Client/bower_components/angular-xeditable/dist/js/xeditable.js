@@ -1993,7 +1993,7 @@ angular.module('xeditable').factory('editableCombodate', [function() {
       yearDescending: true,
       minuteStep: 5,
       secondStep: 1,
-      firstItem: 'empty', //'name', 'empty', 'none'
+      firstItem: 'пусто', //'name', 'empty', 'none'
       errorClass: null,
       customClass: '',
       roundTime: true, // whether to round minutes and seconds if step > 1
@@ -2119,7 +2119,7 @@ angular.module('xeditable').factory('editableCombodate', [function() {
         //take last entry (see momentjs lang files structure) 
         header = header.split(' ').reverse()[0];                
         values.push(['', header]);
-      } else if(this.options.firstItem === 'empty') {
+      } else if (this.options.firstItem === 'пусто') {
         values.push(['', '']);
       }
       return values;

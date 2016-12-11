@@ -278,7 +278,7 @@ define(['app'], function (app) {
 					Content: null,
 					ContentUserAnswer: null,
 					Id: null,
-					Name: "Ответ",
+					Name: "",
 					isUserAnswer: false,
 					IsValid: false
 				};
@@ -351,7 +351,7 @@ define(['app'], function (app) {
 							Id_User_TestType: 1,
 							IsCompleted: null,
 							IsShowHints: true,
-							Name: 'Название',
+							Name: "",
 							Questions: []
 						};
 						vm.currentQuestionEditable = 0;
@@ -360,7 +360,7 @@ define(['app'], function (app) {
 							Answers: [],
 							Content: null,
 							Id: null,
-							Name: "Вопрос",
+							Name: "",
 							QuestionType: 1
 						};
 					} else {

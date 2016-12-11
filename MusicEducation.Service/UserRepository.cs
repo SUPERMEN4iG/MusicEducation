@@ -14,6 +14,26 @@ namespace MusicEducation.Service
 			throw new NotImplementedException();
 		}
 
+        public int InsertUser_Action(int? idUser, int? idUserAction, string name, string content, int? type)
+        {
+            return _DBContext.InsertUser_Action(idUser, idUserAction, name, content, type);
+        }
+
+        public List<GetGraph_VisitsResult> GetGraph_Visits(int? idUser)
+        {
+            return _DBContext.GetGraph_Visits(idUser).ToList();
+        }
+
+        public List<GetGraph_TestAvgValidAnswersResult> GetGraph_TestAvgValidAnswers(int? idUser, int? idTest)
+        {
+            return _DBContext.GetGraph_TestAvgValidAnswers(idUser, idTest).ToList();
+        }
+
+        public RegisterUserResult RegisterUser(string login, string password)
+        {
+            return _DBContext.RegisterUser(login, password).FirstOrDefault();
+        }
+
 		public InsertUserResult InsertUser(int? idUser, string login, string password, string lastName, string firstName, string middleName, string roleName, string groupName, string teacherLogin, string email, string phone)
 		{
 			return _DBContext.InsertUser(idUser, DateTime.Now, lastName, firstName, middleName, login, password, roleName, groupName, teacherLogin, email, phone).FirstOrDefault();
@@ -38,6 +58,11 @@ namespace MusicEducation.Service
 		{
 			return _DBContext.GetUser(idUser, login).FirstOrDefault();
 		}
+
+        public int ApprovedUser(int? idUser, int? idUserTo)
+        {
+            return _DBContext.ApprovedUser(idUser, idUserTo);
+        }
 
 		public GetUserByIdResult GetUser(int? idUser, int id)
 		{
@@ -115,6 +140,11 @@ namespace MusicEducation.Service
 		{
 			return _DBContext.GetGroupMaster(idUser, idGroup).FirstOrDefault();
 		}
+
+        public int ResetPassword(int? idUser, int? idUserToSet, string password)
+        {
+            return _DBContext.ResetPassword(idUser, idUserToSet, password);
+        }
 
 		public int InsertGroup(int? idUser, string group_name, string group_content)
 		{

@@ -413,6 +413,11 @@ namespace MusicEducation.Core.Controllers.Api
 			return _testRepository.GetAvalibleTasks(_User.Id_User);
 		}
 
+        public object GetCountAppendingTest(int? id)
+        {
+            return _testRepository.GetCountAppendingTest(_User.Id_User, id);
+        }
+
 		[ActionName("InsertTestResult")]
 		public object InsertTestResult(TestViewModel model)
 		{
@@ -441,6 +446,38 @@ namespace MusicEducation.Core.Controllers.Api
 
 			return result;
 		}
+
+        [ActionName("InsertTaskResult")]
+        public object InsertTaskResult(TestViewModel model)
+        {
+            InsertUser_Question_AnswerResult result = null;
+            dynamic contentUserAnswer = null;
+
+            foreach (var question in model.Questions)
+            {
+                foreach (var answer in question.Answers)
+                {
+                    if (answer.isUserAnswer)
+                    {
+                        contentUserAnswer = answer.ContentUserAnswer;
+                        result = _testRepository.InsertTestResult(
+                            _User.Id_User,
+                            model.Id.Value,
+                            question.Id.Value,
+                            answer.Id.Value, JsonConvert.SerializeObject(answer.ContentUserAnswer));
+                    }
+                }
+            }
+
+
+            _testRepository.UpdateUser_Test(
+                _User.Id_User,
+                model.Id,
+                result.CountUserAnswerValid,
+                result.UserAnswerValidPercent);
+
+            return result;
+        }
 
 		public object AppendTestToGroup(AppendTestToGroupViewModel model)
 		{

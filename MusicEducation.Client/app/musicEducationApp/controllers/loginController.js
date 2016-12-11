@@ -51,8 +51,8 @@ define(['app'], function (app) {
 				if (response !== undefined && response.Status == 1) {
 					vm.message.status = "success";
 					vm.message.code = "Redirecting...";
-					authService.SetCredentials(vm.username, vm.password);
-					toastr.success('Выход выполнен успешно!');
+					//authService.SetCredentials(vm.username, vm.password);
+					toastr.success('Подан запрос на регистрацию!');
 				} else {
 					vm.message.status = "error";
 					vm.message.code = response.Message;
