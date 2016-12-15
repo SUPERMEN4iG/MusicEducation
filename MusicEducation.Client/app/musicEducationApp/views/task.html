@@ -53,7 +53,7 @@
 
                 <div class="ui divider"></div>
                 <div align="center">
-                    Нажмите на строку из таблицы, чтобы начать тестирование
+                    <!--Нажмите на строку из таблицы, чтобы начать тестирование-->
                 </div>
             </div>
 
@@ -103,7 +103,8 @@
 				<div class="ui form" ng-if="vm.currentTest.Questions[vm.currentQuestion].QuestionType == 2">
 					<div class="ui segment" style="min-height: 8rem;">
 						<div ng-if="vm.taskState == 1">
-							<a class="ui green ribbon label" ng-click="vm.setTaskState(2)">Прослушивание задания</a>
+							<a class="ui green ribbon label" ng-click="vm.setTaskState(2)">Прослушивание задания</a><div class="graph"></div>
+                            <div style="position: absolute;margin-top: 40px;margin-left: 75px;">Нажми, чтобы начать выполнение!</div>
 							<div class="ui right aligned grid">
 								<div class="row">
 									<div class="eleven wide column"></div>
@@ -221,10 +222,10 @@
                             <td>{{task.LastName}} {{task.FirstName[0]}}. {{task.MiddleName[0]}}.</td>
 							<td class="collapsing">
 								<div class="ui icon buttons">
-									<button class="ui button"
+									<!--<button class="ui button"
 											ng-click="vm.goToTest(task)">
 										<i class="edit icon"></i>
-									</button>
+									</button>-->
 									<button class="ui button"
 											ng-click="vm.deleteTest(test)">
 										<i class="delete icon"></i>
@@ -258,7 +259,7 @@
 
                 <div class="ui divider"></div>
                 <div align="center">
-                    Нажмите на строку из таблицы, чтобы начать тестирование
+                    <!--Нажмите на строку из таблицы, чтобы начать тестирование-->
                 </div>
             </div>
 
@@ -352,12 +353,13 @@
 <modal class="basic" ng-model="vm.isTestComplete" ng-if="vm.testResult.Id !== undefined">
 	<i class="close icon" ng-click="vm.closeTestResultModel()"></i>
 	<div class="header">
-		Поздравляем! вы прошли тест
+		Поздравляем! вы прошли задание
 	</div>
 	<div class="image content">
-		<div class="image">
-			<i class="child icon"></i>
-		</div>
+        <div class="image">
+            <i class="icon"
+               ng-class="(vm.testResult.UserAnswerValidPercent < 50) ? 'frown' : 'child'"></i>
+        </div>
 		<div class="description">
 			<p>Поздравляем!</p>
 			<p>Вы набрали {{vm.testResult.CountUserAnswerValid}} из {{vm.testResult.CountAnswerValid}} баллов</p>
@@ -436,7 +438,7 @@
 					<label>Время выполнения</label>
 					<input type="text"
 						   name="timing"
-						   placeholder="Введите время выполнения в минутах"
+						   placeholder="Введите время выполнения в секундах"
 						   ng-model="vm.currentInputGroup.Timing">
 				</div>
 			</form>
@@ -512,10 +514,10 @@
 				</div>
 				<div class="field">
 					<label>Время выполнения</label>
-					<input type="text"
-						   name="timing"
-						   placeholder="Введите время выполнения в минутах"
-						   ng-model="vm.currentInputGroup.Timing">
+                    <input type="text"
+                           name="timing"
+                           placeholder="Введите время выполнения в секундах"
+                           ng-model="vm.currentInputGroup.Timing">
 				</div>
 			</form>
 		</div>
@@ -529,5 +531,34 @@
 		</div>
 	</div>
 </modal>
+
+<style type="text/css">
+    .graph {
+        height: 50px;
+        width: 50px;
+        background: transparent;
+        border-radius: 0px 0px 0px 300px/225px;
+        border: solid 5px grey;
+        border-top: none;
+        border-right: none;
+        position: absolute;
+        margin: 0px;
+        margin-top: 5px;
+        margin-left: 20px;
+    }
+
+    .graph:before {
+        height: 25px;
+        width: 19px;
+        border: 5px solid grey;
+        border-radius: 30px 30px 0px 0px /75px 75px 0px 0px;
+        display: block;
+        content: "";
+        border-bottom: none;
+        position: relative;
+        top: -1px;
+        left: -12px;
+    }
+</style>
 
 <script type="text/javascript" src="content/js/main.js"></script>

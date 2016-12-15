@@ -341,6 +341,36 @@ define(['app'], function (app) {
             return deferred.promise;
         };
 
+        service.getGraphTeacher = function () {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetGraphTeacher/')
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getGraphStudent = function () {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetGraphStudent/')
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
         service.getGraphTest = function (id) {
             var deferred = $q.defer();
 

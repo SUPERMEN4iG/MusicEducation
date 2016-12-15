@@ -40,9 +40,8 @@ define(['app'], function (app) {
 		var day = 0;
 		var firstDate = new Date();
 		firstDate.setDate(firstDate.getDate() - 500);
-		function generateChartData() {
-		    userService.getGraphVisits().then(function (data) {
-		        
+		function generateChartDataForAdmin() {
+		    userService.getGraphVisits().then(function (data) {	        
 
 		        angular.forEach(data, function (v) {
 		            vm.dataGraph1.push({
@@ -69,7 +68,191 @@ define(['app'], function (app) {
 		    //console.log(chartData);
 		}
 
-		generateChartData();
+		function generateChartData() {
+		    var chartData = [];
+		    var firstDate = new Date();
+		    firstDate.setDate(firstDate.getDate() - 100);
+
+		    for (var i = 0; i < 100; i++) {
+		        // we create date objects here. In your data, you can have date strings
+		        // and then set format of your dates using chart.dataDateFormat property,
+		        // however when possible, use date objects, as this will speed up chart rendering.
+		        var newDate = new Date(firstDate);
+		        newDate.setDate(newDate.getDate() + i);
+
+		        var visits = Math.round(Math.sin(i * 5) * i);
+		        var hits = Math.round(Math.random() * 80) + 500 + i * 3;
+		        var views = Math.round(Math.random() * 6000) + i * 4;
+
+		        chartData.push({
+		            date: newDate,
+		            visits: visits,
+		            hits: hits,
+		            views: views
+		        });
+		    }
+		    console.log(chartData);
+		    return chartData;
+		}
+
+		function generateChartDataForTeacher() {
+
+		    vm.amChartOptions = {
+		        type: "serial",
+		        language: "ru",
+		        theme: "light",
+		        zoomOutButton: {
+		            backgroundColor: '#000000',
+		            backgroundAlpha: 0.15
+		        },
+		        legend: {
+		            "useGraphSettings": true
+		        },
+		        dateFormats: 'DD:JJ:NN:SS',
+		        data: vm.dataGraph1,
+		        categoryField: "date",
+		        categoryAxis: {
+		            "parseDates": true,
+		            "axisColor": "#DADADA",
+		            "minorGridEnabled": true
+		        },
+		        allLabels: [{
+		            color: '#FFFFFF'
+		        }],
+		        valueAxes: [{
+		            "id": "v1",
+		            "axisColor": "#FF6600",
+		            "axisThickness": 2,
+		            "axisAlpha": 1,
+		            "position": "left"
+		        }, {
+		            "id": "v2",
+		            "axisColor": "#FCD202",
+		            "axisThickness": 2,
+		            "axisAlpha": 1,
+		            "position": "right"
+		        }, {
+		            "id": "v3",
+		            "axisColor": "#B0DE09",
+		            "axisThickness": 2,
+		            "gridAlpha": 0,
+		            "offset": 50,
+		            "axisAlpha": 1,
+		            "position": "left"
+		        },
+		        {
+		            "id": "v4",
+		            "axisColor": "#09a8de",
+		            "axisThickness": 2,
+		            "gridAlpha": 0,
+		            "axisAlpha": 1,
+		            "position": "right"
+		        }],
+		        graphs: [{
+		            "valueAxis": "v1",
+		            "lineColor": "#FF6600",
+		            "bullet": "round",
+		            "bulletBorderThickness": 1,
+		            "hideBulletsCount": 30,
+		            "title": "назначенные тесты",
+		            "valueField": "allCountTest",
+		            "fillAlphas": 0
+		        }, {
+		            "valueAxis": "v2",
+		            "lineColor": "#FCD202",
+		            "bullet": "square",
+		            "bulletBorderThickness": 1,
+		            "hideBulletsCount": 30,
+		            "title": "выполненные тесты",
+		            "valueField": "allCountCompletedTest",
+		            "fillAlphas": 0
+		        }, {
+		            "valueAxis": "v3",
+		            "lineColor": "#B0DE09",
+		            "bullet": "triangleUp",
+		            "bulletBorderThickness": 1,
+		            "hideBulletsCount": 30,
+		            "title": "назначенные задания",
+		            "valueField": "allCountTask",
+		            "fillAlphas": 0
+		        }, {
+		            "valueAxis": "v4",
+		            "lineColor": "#09a8de",
+		            "bullet": "triangleUp",
+		            "bulletBorderThickness": 1,
+		            "hideBulletsCount": 30,
+		            "title": "выполненные задания",
+		            "valueField": "allCountCompletedTask",
+		            "fillAlphas": 0
+		        }],
+		        chartCursor: {
+		            cursorPosition: "mouse"
+		        },
+		        chartScrollbar: {
+		            graph: "g1",
+		            scrollbarHeight: 40,
+		            color: "#FFFFFF",
+		            autoGridCount: true
+		        }
+		    };
+
+		    userService.getGraphTeacher().then(function (data) {
+
+		        angular.forEach(data, function (v) {
+		            vm.dataGraph1.push({
+		                "date": new Date(v.date),
+		                "allCountTest": v.visits,
+		                "allCountTask": v.allCountTask,
+		                "allCountCompletedTest": v.allCountCompletedTest,
+		                "allCountCompletedTask": v.allCountCompletedTask,
+		            });
+		        });
+		        console.log(vm.dataGraph1);
+		        vm.chart.validateData();
+		    });
+
+		    //for (day = 0; day < 50; day++) {
+		    //    var newDate = new Date(firstDate);
+		    //    newDate.setDate(newDate.getDate() + day);
+
+		    //    var visits = Math.round(Math.random() * 40) - 0;
+
+		    //    chartData.push({
+		    //        "date": newDate,
+		    //        "visits": visits
+		    //    });
+		    //}
+
+		    //console.log(chartData);
+		}
+
+		function generateChartDataForStudent() {
+		    userService.getGraphStudent().then(function (data) {
+
+		        angular.forEach(data, function (v) {
+		            vm.dataGraph1.push({
+		                "date": new Date(v.date),
+		                "visits": v.visits
+		            });
+		        });
+		        console.log(vm.dataGraph1);
+		        vm.chart.validateData();
+		    });
+
+		    //for (day = 0; day < 50; day++) {
+		    //    var newDate = new Date(firstDate);
+		    //    newDate.setDate(newDate.getDate() + day);
+
+		    //    var visits = Math.round(Math.random() * 40) - 0;
+
+		    //    chartData.push({
+		    //        "date": newDate,
+		    //        "visits": visits
+		    //    });
+		    //}
+
+		    //console.log(chartData);
+		}
 
 		vm.chart = {};
 		vm.dataGraph1 = [];
@@ -107,6 +290,7 @@ define(['app'], function (app) {
 		        backgroundColor: '#000000',
 		        backgroundAlpha: 0.15
 		    },
+		    dateFormats: 'DD:JJ:NN:SS',
 		    data: vm.dataGraph1,
 		    categoryField: "date",
 		    categoryAxis: {
@@ -140,6 +324,24 @@ define(['app'], function (app) {
 		        color: "#FFFFFF",
 		        autoGridCount: true
 		    }
+		};
+
+		function init() {
+		    if ($rootScope.globals.currentUser.source.RoleName == 'Администратор') {
+		        generateChartDataForAdmin();
+		    } else if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
+		        generateChartDataForTeacher();
+		    } else if ($rootScope.globals.currentUser.source.RoleName == 'Ученик') {
+		        generateChartDataForStudent();
+		    }
+		};
+
+		if ($rootScope.globals.currentUser.source === undefined) {
+		    $rootScope.$on('ON_FINISH_LOADING', function (event, data) {
+		        init();
+		    });
+		} else {
+		    init();
 		}
 	};
 

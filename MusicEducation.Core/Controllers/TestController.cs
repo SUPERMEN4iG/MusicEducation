@@ -448,33 +448,95 @@ namespace MusicEducation.Core.Controllers.Api
 		}
 
         [ActionName("InsertTaskResult")]
-        public object InsertTaskResult(TestViewModel model)
+        public object InsertTaskResult(TaskViewModel model)
         {
             InsertUser_Question_AnswerResult result = null;
-            dynamic contentUserAnswer = null;
+            //dynamic contentUserAnswer = null;
 
-            foreach (var question in model.Questions)
+            var result1 = _testRepository.GetTest(_User.Id_User, model.Id.Value);
+            TaskViewModel simpleObjectResult = new TaskViewModel()
             {
-                foreach (var answer in question.Answers)
+                Id = result1.Id,
+                Name = result1.Name,
+                IsCompleted = result1.IsCompleted,
+                CountAttempts = result1.CountAttempts,
+                IsShowHints = result1.IsShowHints,
+                Id_User_TestType = result1.Id_User_TestType,
+                Timing = result1.Timing,
+                TimingLeft = result1.TimingLeft,
+                Complexity = result1.Complexity,
+                Id_UserCreate = result1.Id_UserCreate,
+                Questions = result1.Questions.Select(x =>
                 {
-                    if (answer.isUserAnswer)
+                    MusicEducation.Service.Models.TaskViewModel.AnswerModel.PianoResult contentQuestion = null;
+                    if (x.Content != null)
                     {
-                        contentUserAnswer = answer.ContentUserAnswer;
-                        result = _testRepository.InsertTestResult(
-                            _User.Id_User,
-                            model.Id.Value,
-                            question.Id.Value,
-                            answer.Id.Value, JsonConvert.SerializeObject(answer.ContentUserAnswer));
+                        contentQuestion = JsonConvert.DeserializeObject<MusicEducation.Service.Models.TaskViewModel.AnswerModel.PianoResult>(x.Content);
                     }
-                }
+                    return new TaskViewModel.QuestionModel()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        QuestionType = x.QuestionType,
+                        Answers = x.Answers.Select(a => {
+                            return new TaskViewModel.AnswerModel()
+                            {
+                                Id = a.Id,
+                                isUserAnswer = a.isUserAnswer,
+                                Name = a.Name,
+                                Content = a.Content,
+                                ContentUserAnswer = JsonConvert.DeserializeObject<MusicEducation.Service.Models.TaskViewModel.AnswerModel.PianoResult>(a.Content)
+                            };
+                        }).ToList(),
+                        Content = contentQuestion
+                    };
+                }).ToList()
+            };
+
+            List<string> validNoteArray = new List<string>();
+            List<string> userNoteArray = new List<string>();
+
+            foreach (var itemUser in model.Questions[0].Answers[0].ContentUserAnswer.content)
+            {
+                userNoteArray.Add(itemUser.note);
             }
 
+            foreach (var itemValid in simpleObjectResult.Questions[0].Content.content)
+            {
+                validNoteArray.Add(itemValid.note);
+            }
 
-            _testRepository.UpdateUser_Test(
-                _User.Id_User,
-                model.Id,
-                result.CountUserAnswerValid,
-                result.UserAnswerValidPercent);
+            bool isValid = false;
+            isValid = validNoteArray.SequenceEqual(userNoteArray);
+
+            result = _testRepository.InsertTestResult(
+                            _User.Id_User,
+                            model.Id.Value,
+                            simpleObjectResult.Questions[0].Id.Value,
+                            simpleObjectResult.Questions[0].Answers[0].Id.Value, JsonConvert.SerializeObject(model.Questions[0].Answers[0].ContentUserAnswer));
+
+            if (isValid)
+            {
+                result.CountUserAnswerValid = 1;
+                result.CountAnswerValid = 1;
+                result.UserAnswerValidPercent = 100;
+                _testRepository.UpdateUser_Test(
+                    _User.Id_User,
+                    model.Id,
+                    1,
+                    100);
+            }
+            else
+            {
+                result.CountAnswerValid = 1;
+                result.CountUserAnswerValid = 0;
+                result.UserAnswerValidPercent = 0;
+                _testRepository.UpdateUser_Test(
+                    _User.Id_User,
+                    model.Id,
+                    0,
+                    0);
+            }
 
             return result;
         }

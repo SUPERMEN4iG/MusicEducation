@@ -64,6 +64,7 @@ define(['app'], function (app) {
                             $q.when(o.data)
                               .then(function (data) {
                                   chart.dataProvider = data;
+                                  chart.dateFormats = options.dateFormats;
                                   // if a category field is not specified, attempt to use the first field from an object in the array
                                   chart.categoryField = o.categoryField || Object.keys(o.data[0])[0];
                                   chart.startDuration = 0.5; // default animation length, because everyone loves a little pizazz

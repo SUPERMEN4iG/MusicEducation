@@ -88,59 +88,70 @@ define(['app'], function (app) {
 			});
 		};
 
+		vm.focusTestName = false;
+		vm.blurTestName = false;
+
 		function keyDownListener(e) {
-			console.log('keydown');
-			if (lastEvent && lastEvent.keyCode == e.keyCode) {
-				return;
-			}
-			lastEvent = e;
-			heldKeys[e.keyCode] = true;
+		    if (!vm.focusTestName)
+		    {
+		        console.log('keydown');
+		        if (lastEvent && lastEvent.keyCode == e.keyCode) {
+		            return;
+		        }
+		        lastEvent = e;
+		        heldKeys[e.keyCode] = true;
 
-			console.log(e.which);
+		        console.log(e.which);
 
-			if (vm.lastTime === undefined)
-				vm.lastTime = new Date();
+		        if (vm.lastTime === undefined)
+		            vm.lastTime = new Date();
 
-			vm.keyDownTime = new Date();
-			var evtobj = window.event ? event : e;
-			var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
-			console.log(new Date().getTime() - vm.lastTime.getTime());
-			vm.lastTime = new Date();
+		        vm.keyDownTime = new Date();
+		        var evtobj = window.event ? event : e;
+		        var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
+		        console.log(new Date().getTime() - vm.lastTime.getTime());
+		        vm.lastTime = new Date();
 
-			pianoPlayerService.play(keyboradLayout[e.keyCode], 0, true);
+		        pianoPlayerService.play(keyboradLayout[e.keyCode], 0, true);
 
-			for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
-				if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
-					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '#666cff';
-					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '5px';
-					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = 'none';
-				}
-			}
-			pianoPlayerService.clearTimeline();
+		        for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
+		            if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
+		                $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '#666cff';
+		                $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '5px';
+		                $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = 'none';
+		            }
+		        }
+		        pianoPlayerService.clearTimeline();
+		    } else {
+		        console.log('keydown vm.focusTestName');
+		    }
 		};
 
 		function keyUpListener(e) {
-			lastEvent = null;
-			delete heldKeys[e.keyCode];
+		    if (!vm.focusTestName)
+		    {
+		        lastEvent = null;
+		        delete heldKeys[e.keyCode];
 
-			console.log('keyup');
+		        console.log('keyup');
 
-			vm.keyUpTime = new Date();
-			vm.nowTime = new Date();
-			var evtobj = window.event ? event : e;
-			var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
-			var timePress = ((vm.nowTime.getTime() - vm.lastTime.getTime()) / 1000);
-			if (vm.isRecording)
-				vm.newTask.question_content[vm.newTask.question_content.length] = { note: keyboradLayout[e.keyCode], duration: timePress, isMove: true };
+		        vm.keyUpTime = new Date();
+		        vm.nowTime = new Date();
+		        var evtobj = window.event ? event : e;
+		        var keyboradLayout = evtobj.shiftKey ? keyboardTest.shift : keyboardTest.general;
+		        var timePress = ((vm.nowTime.getTime() - vm.lastTime.getTime()) / 1000);
+		        if (vm.isRecording)
+		            vm.newTask.question_content[vm.newTask.question_content.length] = { note: keyboradLayout[e.keyCode], duration: timePress, isMove: true };
 
-			for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
-				if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
-					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '';
-					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '';
-					$rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = '';
-				}
-			}
-			pianoPlayerService.clearTimeline();
+		        for (var i = 0; i < $rootScope.visualKeyboards.length; i++) {
+		            if ($rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]] !== undefined) {
+		                $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.backgroundColor = '';
+		                $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.marginTop = '';
+		                $rootScope.visualKeyboards[i][keyboradLayout[e.keyCode]].style.boxShadow = '';
+		            }
+		        }
+		        pianoPlayerService.clearTimeline();
+		    }
 		}
 
 

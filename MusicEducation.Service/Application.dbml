@@ -973,4 +973,30 @@
     <Parameter Name="idUserTo" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.GetGraph_TeacherAvgPercent" Method="GetGraph_TeacherAvgPercent">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetGraph_TeacherAvgPercentResult">
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetGraph_StudentAvgTimingLeft" Method="GetGraph_StudentAvgTimingLeft">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetGraph_StudentAvgTimingLeftResult">
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetGraph_Teacher" Method="GetGraph_Teacher">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetGraph_TeacherResult">
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="AllCountTest" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AllCountTask" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AvgValidAnswers" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AvgValidPercent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AllCountCompletedTest" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AllCountCompletedTask" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

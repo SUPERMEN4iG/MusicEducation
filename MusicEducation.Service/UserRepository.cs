@@ -24,9 +24,24 @@ namespace MusicEducation.Service
             return _DBContext.GetGraph_Visits(idUser).ToList();
         }
 
+        public List<GetGraph_TeacherResult> GetGraph_Teacher(int? idUser)
+        {
+            return _DBContext.GetGraph_Teacher(idUser).ToList();
+        }
+
         public List<GetGraph_TestAvgValidAnswersResult> GetGraph_TestAvgValidAnswers(int? idUser, int? idTest)
         {
             return _DBContext.GetGraph_TestAvgValidAnswers(idUser, idTest).ToList();
+        }
+
+        public List<GetGraph_TeacherAvgPercentResult> GetGraph_TeacherAvgPercent(int? idUser)
+        {
+            return _DBContext.GetGraph_TeacherAvgPercent(idUser).ToList();
+        }
+
+        public List<GetGraph_StudentAvgTimingLeftResult> GetGraph_StudentAvgTimingLeft(int? idUser)
+        {
+            return _DBContext.GetGraph_StudentAvgTimingLeft(idUser).ToList();
         }
 
         public RegisterUserResult RegisterUser(string login, string password)

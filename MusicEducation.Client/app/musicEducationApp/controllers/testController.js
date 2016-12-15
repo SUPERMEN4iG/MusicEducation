@@ -121,6 +121,7 @@ define(['app'], function (app) {
 					vm.isTestComplete = true;
 
 					testService.updateUserTestTiming($rootScope.globals.currentUser.source.Id, id, vm.currentTest.Timing, true).then(function (result) {
+					    clearInterval(vm.intervalTiming);
 					});
 				});
 			}

@@ -672,6 +672,27 @@ namespace MusicEducation.Service
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser, idUserTo);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetGraph_TeacherAvgPercent")]
+		public ISingleResult<GetGraph_TeacherAvgPercentResult> GetGraph_TeacherAvgPercent([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser);
+			return ((ISingleResult<GetGraph_TeacherAvgPercentResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetGraph_StudentAvgTimingLeft")]
+		public ISingleResult<GetGraph_StudentAvgTimingLeftResult> GetGraph_StudentAvgTimingLeft([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser);
+			return ((ISingleResult<GetGraph_StudentAvgTimingLeftResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetGraph_Teacher")]
+		public ISingleResult<GetGraph_TeacherResult> GetGraph_Teacher([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idUser)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idUser);
+			return ((ISingleResult<GetGraph_TeacherResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Answer")]
@@ -11896,6 +11917,228 @@ namespace MusicEducation.Service
 				if ((this._IsApproved != value))
 				{
 					this._IsApproved = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetGraph_TeacherAvgPercentResult
+	{
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private System.Nullable<int> _Count;
+		
+		public GetGraph_TeacherAvgPercentResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this._Date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Count", DbType="Int")]
+		public System.Nullable<int> Count
+		{
+			get
+			{
+				return this._Count;
+			}
+			set
+			{
+				if ((this._Count != value))
+				{
+					this._Count = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetGraph_StudentAvgTimingLeftResult
+	{
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private System.Nullable<int> _Count;
+		
+		public GetGraph_StudentAvgTimingLeftResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this._Date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Count", DbType="Int")]
+		public System.Nullable<int> Count
+		{
+			get
+			{
+				return this._Count;
+			}
+			set
+			{
+				if ((this._Count != value))
+				{
+					this._Count = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetGraph_TeacherResult
+	{
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private System.Nullable<int> _AllCountTest;
+		
+		private System.Nullable<int> _AllCountTask;
+		
+		private System.Nullable<int> _AvgValidAnswers;
+		
+		private System.Nullable<int> _AvgValidPercent;
+		
+		private System.Nullable<int> _AllCountCompletedTest;
+		
+		private System.Nullable<int> _AllCountCompletedTask;
+		
+		public GetGraph_TeacherResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this._Date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllCountTest", DbType="Int")]
+		public System.Nullable<int> AllCountTest
+		{
+			get
+			{
+				return this._AllCountTest;
+			}
+			set
+			{
+				if ((this._AllCountTest != value))
+				{
+					this._AllCountTest = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllCountTask", DbType="Int")]
+		public System.Nullable<int> AllCountTask
+		{
+			get
+			{
+				return this._AllCountTask;
+			}
+			set
+			{
+				if ((this._AllCountTask != value))
+				{
+					this._AllCountTask = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AvgValidAnswers", DbType="Int")]
+		public System.Nullable<int> AvgValidAnswers
+		{
+			get
+			{
+				return this._AvgValidAnswers;
+			}
+			set
+			{
+				if ((this._AvgValidAnswers != value))
+				{
+					this._AvgValidAnswers = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AvgValidPercent", DbType="Int")]
+		public System.Nullable<int> AvgValidPercent
+		{
+			get
+			{
+				return this._AvgValidPercent;
+			}
+			set
+			{
+				if ((this._AvgValidPercent != value))
+				{
+					this._AvgValidPercent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllCountCompletedTest", DbType="Int")]
+		public System.Nullable<int> AllCountCompletedTest
+		{
+			get
+			{
+				return this._AllCountCompletedTest;
+			}
+			set
+			{
+				if ((this._AllCountCompletedTest != value))
+				{
+					this._AllCountCompletedTest = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllCountCompletedTask", DbType="Int")]
+		public System.Nullable<int> AllCountCompletedTask
+		{
+			get
+			{
+				return this._AllCountCompletedTask;
+			}
+			set
+			{
+				if ((this._AllCountCompletedTask != value))
+				{
+					this._AllCountCompletedTask = value;
 				}
 			}
 		}

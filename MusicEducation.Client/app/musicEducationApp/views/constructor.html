@@ -36,7 +36,9 @@
 					<div class="ui form">
 						<div class="field">
 							<label>Название</label>
-							<input type="text" name="name" placeholder="Введите название теста" ng-model="vm.newTask.test_name">
+                            <input type="text" name="name" placeholder="Введите название теста" ng-model="vm.newTask.test_name" ng-blur="vm.blurTestName=true;vm.focusTestName=false;" ng-focus="vm.focusTestName=true;vm.blurTestName=false;">
+                            <!--focus {{vm.focusTestName}}
+                            blur {{vm.blurTestName}}-->
 						</div>
 						<div class="field">
 							<label>Октавы</label>

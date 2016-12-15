@@ -303,6 +303,36 @@ namespace MusicEducation.Core.Controllers
             }).ToList();
         }
 
+        public object GetGraphTeacher()
+        {
+            return _userRepository.GetGraph_Teacher(_User.Id_User).Select(x =>
+            {
+                return new
+                {
+                    date = ToJavaScriptMilliseconds(x.Date.Value),
+                    allCountTest = x.AllCountTest,
+                    allCountTask = x.AllCountTask,
+                    allCountCompletedTest = x.AllCountCompletedTest,
+                    allCountCompletedTask = x.AllCountCompletedTask
+                };
+            }).ToList();
+        }
+
+        public object GetGraphStudent()
+        {
+            return _userRepository.GetGraph_StudentAvgTimingLeft(_User.Id_User).Select(x =>
+            {
+                //TimeSpan time = TimeSpan.FromSeconds(x.Count.Value);
+                //string str = time.ToString(@"hh\:mm\:ss\:fff");
+
+                return new
+                {
+                    date = ToJavaScriptMilliseconds(x.Date.Value),
+                    visits = x.Count
+                };
+            }).ToList();
+        }
+
         public object GetGraphTest(int? id)
         {
             return _userRepository.GetGraph_TestAvgValidAnswers(_User.Id_User, id).Select(x =>

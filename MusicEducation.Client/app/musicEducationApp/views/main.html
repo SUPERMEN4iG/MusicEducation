@@ -33,7 +33,7 @@
 				<div class="ui divider"></div>
 
 				<!--<h3>Пока тут нечего нету =( можно посмотреть другие вкладки</h3>-->
-				<h4>Тут будет какая-то личная статистика, полученные достижения и тд</h4>
+				<!--<h4>Тут будет какая-то личная статистика, полученные достижения и тд</h4>-->
 
                 <div class="ui one column stackable grid ui form" ng-if="globals.currentUser.source.RoleName == 'Администратор'">
                     <!--<button class="btn" ng-click="vm.pushNewData()">Добавить</button>-->
@@ -41,6 +41,32 @@
                     <div class="column">
                         <div class="ui segments" style="width:100%">
                             <div class="ui segment"><h3>Статистика посещений</h3></div>
+                            <div style="height:300px;padding-right:10px">
+                                <am-chart id="first" options="vm.amChartOptions" chart="vm.chart"></am-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui one column stackable grid ui form" ng-if="globals.currentUser.source.RoleName == 'Учитель'">
+                    <!--<button class="btn" ng-click="vm.pushNewData()">Добавить</button>-->
+
+                    <div class="column">
+                        <div class="ui segments" style="width:100%">
+                            <div class="ui segment"><h3>Статистика пребывания негров в системе</h3></div>
+                            <div style="height:300px;padding-right:10px">
+                                <am-chart id="first" options="vm.amChartOptions" chart="vm.chart"></am-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui one column stackable grid ui form" ng-if="globals.currentUser.source.RoleName == 'Ученик'">
+                    <!--<button class="btn" ng-click="vm.pushNewData()">Добавить</button>-->
+
+                    <div class="column">
+                        <div class="ui segments" style="width:100%">
+                            <div class="ui segment"><h3>Среднее затраченное время</h3></div>
                             <div style="height:300px;padding-right:10px">
                                 <am-chart id="first" options="vm.amChartOptions" chart="vm.chart"></am-chart>
                             </div>
