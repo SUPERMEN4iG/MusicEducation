@@ -146,6 +146,7 @@ define(['app'], function (app) {
 					vm.isTestComplete = true;
 
 					testService.updateUserTestTiming($rootScope.globals.currentUser.source.Id, id, vm.currentTest.Timing, true).then(function (result) {
+					    clearInterval(vm.intervalTiming);
 					});
 				});
 			}
@@ -166,7 +167,7 @@ define(['app'], function (app) {
 				angular.forEach(vm.selectedTasks, function (vTest, kTest) {
 					counter++;
 					testService.appendTaskToGroup(kGroup, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity, vm.currentInputGroup.User_TestType, vm.currentInputGroup.IsShowHints).then(function (data) {
-						console.info("INSERTED!");
+					    toastr.info('Задание отправлено группе');
 					});
 				});
 			});
@@ -182,7 +183,11 @@ define(['app'], function (app) {
 				angular.forEach(vm.selectedTasks, function (vTest, kTest) {
 					counter++;
 					testService.appendTaskToUser(kUser, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity, vm.currentInputGroup.User_TestType, vm.currentInputGroup.IsShowHints).then(function (data) {
-						console.info("INSERTED!");
+					    studentService.getStudent(kUser).then(function (user) {
+					        toastr.info('Задание отправлено пользоватлю');
+					        $rootScope.notificationService.sendNotification($rootScope.globals.currentUser.source.Id, user.Login, "Тест", "Получен новое задание!", 1);
+					        //init();
+					    });
 					});
 				});
 			});
@@ -266,6 +271,55 @@ define(['app'], function (app) {
 
 		vm.addTask = function () {
 			$location.path('constructor');
+		};
+
+		vm.deleteTask = function (test) {
+		    if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
+		        if (test.Id_User == $rootScope.globals.currentUser.source.Id) {
+		            testService.deleteTest(test.Id).then(function (responseData) {
+		                if (responseData.Status == 1) {
+		                    toastr.error('Удаление запрещено! Задание уже было назначено!');
+		                } else {
+		                    angular.forEach(vm.avalibleTestList, function (v, k) {
+		                        console.info(v.Id, test.Id);
+		                        if (v.Id == test.Id) {
+		                            vm.avalibleTestList.splice(k, 1);
+		                            toastr.success('Успешное удаление ' + test.Name);
+		                            //delete vm.users[k];
+		                        }
+		                    });
+		                }
+		            });
+		        } else {
+		            toastr.error('Вы не можете удалять задания других разработчиков');
+		        }
+		    }
+		};
+
+		vm.deleteTasks = function () {
+		    angular.forEach(vm.selectedTasks, function (value, key) {
+		        if (value) {
+		            testService.getTest(key).then(function (test) {
+		                if (test.Id_UserCreate == $rootScope.globals.currentUser.source.Id) {
+		                    testService.deleteTest(key).then(function (responseData) {
+		                        if (responseData.Status == 1) {
+		                            toastr.error('Удаление запрещено! Задание уже было назначено!');
+		                        } else {
+		                            angular.forEach(vm.avalibleTestList, function (v, k) {
+		                                if (v.Id == key) {
+		                                    vm.avalibleTestList.splice(k, 1);
+		                                    toastr.success('Успешное удаление ' + test.Name);
+		                                    //delete vm.users[k];
+		                                }
+		                            });
+		                        }
+		                    });
+		                } else {
+		                    toastr.error('Вы не можете удалять задания других разработчиков');
+		                }
+		            });
+		        }
+		    });
 		};
 
 		console.log(id);

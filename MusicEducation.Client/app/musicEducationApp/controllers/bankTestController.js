@@ -146,7 +146,8 @@ define(['app'], function (app) {
 		vm.createTest = function () {
 			if (vm.testForm.$dirty)
 			{
-				vm.currentInputTest.Questions = [];
+			    vm.currentInputTest.Questions = [];
+			    vm.currentInputTest.Complexity = '';
 				angular.forEach(vm.selectedQuestions, function (vQuestion, kQuestion) {
 					if (vQuestion == true)
 					{
@@ -157,7 +158,7 @@ define(['app'], function (app) {
 				console.log(vm.currentInputTest.Questions);
 
 				testService.createTest(vm.currentInputTest).then(function (data) {
-					console.info(data);
+				    toastr.info('Тест создан!');
 				});
 			}
 		};

@@ -361,11 +361,14 @@ namespace MusicEducation.Core.Controllers.Api
 
                 if (currentQuestion != null)
                 {
-                    IEnumerable<TestViewModel.AnswerModel> deletedAnswers = currentQuestion.Answers.Except(item.Answers, new AnswerCustomComparer());
-
-                    foreach (var deletedAnswer in deletedAnswers)
+                    if (item.Answers.Count < currentQuestion.Answers.Count)
                     {
-                        _testRepository.DeleteUser_Answer(_User.Id_User, source.Id, item.Id, deletedAnswer.Id);
+                        IEnumerable<TestViewModel.AnswerModel> deletedAnswers = currentQuestion.Answers.Except(item.Answers, new AnswerCustomComparer());
+
+                        foreach (var deletedAnswer in deletedAnswers)
+                        {
+                            _testRepository.DeleteUser_Answer(_User.Id_User, source.Id, item.Id, deletedAnswer.Id);
+                        }
                     }
                 }
 
@@ -693,5 +696,11 @@ namespace MusicEducation.Core.Controllers.Api
 
 			return idCreatedTest;
 		}
+
+        [HttpDelete]
+        public object DeleteTest(int? id)
+        {
+            return _testRepository.DeleteTest(_User.Id_User, id);
+        }
 	}
 }

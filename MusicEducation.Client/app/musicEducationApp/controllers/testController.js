@@ -65,7 +65,7 @@ define(['app'], function (app) {
 		                }
 		            });
 		        } else {
-		            toastr.error('Редактирование запрещено! Вы не разработчик теста!');
+		            toastr.error('Вы не можете удалять тесты других разработчиков');
 		        }
 		    } else {
 		    	console.log(test);
@@ -132,7 +132,7 @@ define(['app'], function (app) {
 			angular.forEach(vm.selectedGroups, function (vGroup, kGroup) {
 				angular.forEach(vm.selectedTests, function (vTest, kTest) {
 					counter++;
-					testService.appendTestToGroup(kGroup, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity).then(function (data) {
+					testService.appendTestToGroup(kGroup, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, '').then(function (data) {
 					    if (data.Status == 1) {
 					        toastr.success("Тест отправлен!");
 					    }  else {
@@ -148,7 +148,7 @@ define(['app'], function (app) {
 			angular.forEach(vm.selectedStudents, function (vUser, kUser) {
 				angular.forEach(vm.selectedTests, function (vTest, kTest) {
 					counter++;
-					testService.appendTestToUser(kUser, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity).then(function (data) {
+					testService.appendTestToUser(kUser, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, '').then(function (data) {
 					    if (data.Status == 1) {
 					        studentService.getStudent(kUser).then(function (user) {
 					            toastr.success("Тест отправлен!");
@@ -164,11 +164,53 @@ define(['app'], function (app) {
 		};
 
 		vm.deleteTest = function (test) {
-			toastr.error('Функционал не реализован...');
+		    if ($rootScope.globals.currentUser.source.RoleName == 'Учитель') {
+		        if (test.Id_User == $rootScope.globals.currentUser.source.Id) {
+		            testService.deleteTest(test.Id).then(function (responseData) {
+		                if (responseData.Status == 1) {
+		                    toastr.error('Удаление запрещено! Тест уже был назначен!');
+		                } else {
+		                    angular.forEach(vm.avalibleTestList, function (v, k) {
+		                        console.info(v.Id, test.Id);
+		                        if (v.Id == test.Id) {
+		                            vm.avalibleTestList.splice(k, 1);
+		                            toastr.success('Успешное удаление ' + test.Name);
+		                            //delete vm.users[k];
+		                        }
+		                    });
+		                }
+		            });
+		        } else {
+		            toastr.error('Вы не можете удалять тесты других разработчиков');
+		        }
+		    }
 		};
 
 		vm.deleteTests = function () {
-			toastr.error('Функционал не реализован...');
+		    angular.forEach(vm.selectedTests, function (value, key) {
+		        if (value) {
+		            testService.getTest(key).then(function (test) {
+		                if (test.Id_UserCreate == $rootScope.globals.currentUser.source.Id) {
+		                    testService.deleteTest(key).then(function (responseData) {
+		                        if (responseData.Status == 1)
+		                        {
+		                            toastr.error('Удаление запрещено! Тест уже был назначен!');
+		                        } else {
+		                            angular.forEach(vm.avalibleTestList, function (v, k) {
+		                                if (v.Id == key) {
+		                                    vm.avalibleTestList.splice(k, 1);
+		                                    toastr.success('Успешное удаление ' + test.Name);
+		                                    //delete vm.users[k];
+		                                }
+		                            });
+		                        }
+		                    });
+		                } else {
+		                    toastr.error('Вы не можете удалять тесты других разработчиков');
+		                }
+		            });
+		        }
+		    });
 		};
 
 		vm.closeTestResultModel = function () {

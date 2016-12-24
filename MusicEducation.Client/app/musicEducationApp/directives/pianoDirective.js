@@ -199,8 +199,25 @@ define(['app'], function (app) {
 					    console.info(result);
 					}
 
+					console.info(source);
+
 					if (result == 'À')
 					    result = 'Ё';
+
+					if (result == '½')
+					    result = '-';
+
+					if (result == '»')
+					    result = '=';
+
+					if (result == 'Ü')
+					    result = '|';
+
+					if (source == 8)
+					    result = '&#x2190;';
+
+					//if (result == '»')
+					//    result = '1';
 
 					return result;
 				};

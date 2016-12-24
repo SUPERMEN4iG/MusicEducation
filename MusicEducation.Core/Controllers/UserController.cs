@@ -461,7 +461,6 @@ namespace MusicEducation.Core.Controllers
 
         public object GetStatisticTeacherDetails(int? id)
         {
-
             return _userRepository.GetStatisticTeacherDetails(_User.Id_User, id);
         }
 	}

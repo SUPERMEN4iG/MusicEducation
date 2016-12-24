@@ -429,6 +429,21 @@ define(['app'], function (app) {
 			return deferred.promise;
 		};
 
+		service.deleteTest = function (idTest) {
+		    var deferred = $q.defer();
+
+		    $http.delete(serviceBase + 'DeleteTest/', { params: { id: idTest } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+		    return deferred.promise;
+		};
+
 		service.getConsumptionReport = function (branchId) {
 			window.open(serviceBase + 'GetReportBlank/?branchId=' + branchId + '&val=false', '_blank', '');
 

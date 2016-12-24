@@ -260,18 +260,6 @@
     <Parameter Name="isAttemptDown" Type="System.Boolean" DbType="Bit" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.AppendTestToGroup" Method="AppendTestToGroup">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idGroup" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
-    <Parameter Name="attempts" Type="System.Int32" DbType="Int" />
-    <Parameter Name="attemptsAll" Type="System.Int32" DbType="Int" />
-    <Parameter Name="timing" Type="System.Int32" DbType="Int" />
-    <Parameter Name="complexity" Type="System.Int32" DbType="Int" />
-    <Parameter Name="idUserTestType" Type="System.Int32" DbType="Int" />
-    <Parameter Name="isShowHints" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.ApprovedUser" Method="ApprovedUser">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="idUserTo" Type="System.Int32" DbType="Int" />
@@ -314,33 +302,6 @@
     <Parameter Name="idTheme" Type="System.Int32" DbType="Int" />
     <Parameter Name="idQuestion" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.GetAvalibleTasks" Method="GetAvalibleTasks">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetAvalibleTasksResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetAvalibleTests" Method="GetAvalibleTests">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetAvalibleTestsResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="CountQuestions" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
   </Function>
   <Function Name="dbo.GetCountAppendingTest" Method="GetCountAppendingTest">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
@@ -1079,6 +1040,60 @@
       <Column Name="AvgValidPercent" Type="System.Decimal" DbType="Decimal(38,6)" CanBeNull="true" />
       <Column Name="AllCountCompletedTest" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="AllCountCompletedTask" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteTest" Method="DeleteTest">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <ElementType Name="DeleteTestResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.AppendTestToGroup" Method="AppendTestToGroup">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idGroup" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idTest" Type="System.Int32" DbType="Int" />
+    <Parameter Name="attempts" Type="System.Int32" DbType="Int" />
+    <Parameter Name="attemptsAll" Type="System.Int32" DbType="Int" />
+    <Parameter Name="timing" Type="System.Int32" DbType="Int" />
+    <Parameter Name="complexity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idUserTestType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="isShowHints" Type="System.Int32" DbType="Int" />
+    <ElementType Name="AppendTestToGroupResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAvalibleTasks" Method="GetAvalibleTasks">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAvalibleTasksResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Complexity" Type="System.String" DbType="VarChar(17)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAvalibleTests" Method="GetAvalibleTests">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAvalibleTestsResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Complexity" Type="System.String" DbType="VarChar(17)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CountQuestions" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

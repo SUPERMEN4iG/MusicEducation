@@ -226,9 +226,9 @@ namespace MusicEducation.Service
 			return result;
 		}
 
-        public int AppendTestToGroup(int? idUser, int? idGroup, int? idTest, int? attempts, int? attemptsAll, int? timing, int? complexity, int? idUserTestType, int? isShowHints)
+        public AppendTestToGroupResult AppendTestToGroup(int? idUser, int? idGroup, int? idTest, int? attempts, int? attemptsAll, int? timing, int? complexity, int? idUserTestType, int? isShowHints)
 		{
-            var result = _DBContext.AppendTestToGroup(idUser, idGroup, idTest, attempts, attemptsAll, timing, complexity, idUserTestType, isShowHints);
+            var result = _DBContext.AppendTestToGroup(idUser, idGroup, idTest, attempts, attemptsAll, timing, complexity, idUserTestType, isShowHints).FirstOrDefault();
 
 			return result;
 		}
@@ -264,5 +264,10 @@ namespace MusicEducation.Service
 		{
 			return _DBContext.AppendQuestionToTest(idUser, idTest, idQuestion);
 		}
+
+        public DeleteTestResult DeleteTest(int? idUser, int? idTest)
+        {
+            return _DBContext.DeleteTest(idUser, idTest).FirstOrDefault();
+        }
 	}
 }

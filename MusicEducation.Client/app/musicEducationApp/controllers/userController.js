@@ -48,6 +48,7 @@ define(['app'], function (app) {
 				});
 
 				setTimeout(function () {
+				    toastr.success('Пользователь удалён!');
 					//toastr.success('Удалено объектов: ' + deletedObjects);
 					init();
 				}, 1500);
@@ -70,6 +71,11 @@ define(['app'], function (app) {
 					});
 				}
 			});
+			setTimeout(function () {
+			    toastr.success('Пользователи удалены!');
+			    //toastr.success('Удалено объектов: ' + deletedObjects);
+			    init();
+			}, 1500);
 			//toastr.success('Удалено объектов: ' + deletedObjects);
 			vm.deletable = [];
 		};
@@ -95,10 +101,11 @@ define(['app'], function (app) {
 							console.log(data);
 							vm.isUpdateUserClicked = true;
 
-							$location.path(path)
-							setTimeout(function () {
-								$window.location.reload();
-							}, 1000);
+							toastr.success('Пользователь создан!');
+							$location.path(path);
+							//setTimeout(function () {
+							//	$window.location.reload();
+							//}, 1000);
 						});
 					}
 					else {
@@ -111,11 +118,11 @@ define(['app'], function (app) {
 				userService.insertUser(vm.currentUser).then(function (data) {
 					console.log(data);
 					vm.isUpdateUserClicked = true;
-
+					toastr.success('Пользователь сохранён!');
 					$location.path(path)
-					setTimeout(function () {
-						$window.location.reload();
-					}, 1000);
+					//setTimeout(function () {
+					//	$window.location.reload();
+					//}, 1000);
 				});
 			}
 		};

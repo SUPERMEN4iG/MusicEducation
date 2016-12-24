@@ -8,25 +8,25 @@
 					<div class="ui white header">{{globals.currentUser.source.LastName}} {{globals.currentUser.source.FirstName[0]}}. {{globals.currentUser.source.MiddleName[0]}}</div>
 					<div class="ui divider"></div>
 				</div>
-				<div class="ui fluid vertical menu">
-					<a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
-					<a href="#/profile" class="item"><i class="user icon"></i> <span>Профиль</span></a>
+                <div class="ui fluid vertical menu" style="overflow-y:auto !important">
+                    <a href="#/main" class="item"><i class="dashboard icon"></i> <span>Главная</span></a>
+                    <a href="#/profile" class="item"><i class="user icon"></i> <span>Профиль</span></a>
                     <a href="#/message" class="item"><i class="mail icon"></i> <span>Сообщения</span></a>
-					<a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
+                    <a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
                     <a href="#/test" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Тесты</span></a>
                     <a href="#/task" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Задания</span></a>
-					<a href="#/piano" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="table icon"></i> <span>Пианино</span></a>
-					<a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
-					<!--<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>-->
-					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
-					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
-					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
-					<a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
-					<a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
-					<a href="index.html" class="item"><i class="sign in icon"></i> <span>Login</span></a>
-					<a href="dashboard.html" class="item"><i class="file icon"></i> <span>Sample</span></a>
-					<a href="dashboard.html" class="item"><i class="file icon"></i> <span>Sample</span></a>-->
-				</div>
+                    <a href="#/piano" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="table icon"></i> <span>Пианино</span></a>
+                    <a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
+                    <!--<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>-->
+                    <a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
+                    <a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
+                    <!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
+        <a href="card.html" class="item"><i class="block layout icon"></i> <span>Card</span></a>
+        <a href="progress.html" class="item"><i class="tasks icon"></i> <span>Progress Bar</span></a>
+        <a href="index.html" class="item"><i class="sign in icon"></i> <span>Login</span></a>
+        <a href="dashboard.html" class="item"><i class="file icon"></i> <span>Sample</span></a>
+        <a href="dashboard.html" class="item"><i class="file icon"></i> <span>Sample</span></a>-->
+                </div>
 			</div>
 
 			<div class="sixteen wide column" id="content" ng-if="globals.currentUser.source.Id_Role === 1">

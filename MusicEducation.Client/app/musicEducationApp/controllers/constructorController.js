@@ -73,7 +73,7 @@ define(['app'], function (app) {
 
 		vm.insertTestWithContent = function () {
 			testService.insertTestWithContent(vm.newTask).then(function () {
-				vm.hideModalPiano();
+				//vm.hideModalPiano();
 				toastr.success('Успешное добавление задания');
 
 				vm.newTask = {

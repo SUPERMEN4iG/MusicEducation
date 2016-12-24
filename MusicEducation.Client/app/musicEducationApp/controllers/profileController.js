@@ -32,10 +32,11 @@ define(['app'], function (app) {
 				console.log(data);
 				vm.isUpdateUserClicked = true;
 
-				$location.path(path)
-				setTimeout(function () {
-					$window.location.reload();
-				}, 1000);
+				$location.path(path);
+				toastr.success('Профиль обновлён!');
+				//setTimeout(function () {
+				//	$window.location.reload();
+				//}, 1000);
 			});
 		};
 
