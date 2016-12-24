@@ -144,6 +144,7 @@ namespace MusicEducation.Core.Controllers.Api
 				Name = result.Name,
 				IsCompleted = result.IsCompleted,
 				CountAttempts = result.CountAttempts,
+                CountAttemptsAll = result.CountAttemptsAll,
 				IsShowHints = result.IsShowHints,
 				Id_User_TestType = result.Id_User_TestType,
 				Timing = result.Timing,
@@ -178,6 +179,7 @@ namespace MusicEducation.Core.Controllers.Api
 				Name = result.Name,
 				IsCompleted = result.IsCompleted,
 				CountAttempts = result.CountAttempts,
+                CountAttemptsAll = result.CountAttemptsAll,
 				IsShowHints = result.IsShowHints,
 				Id_User_TestType = result.Id_User_TestType,
 				Timing = result.Timing,
@@ -423,26 +425,46 @@ namespace MusicEducation.Core.Controllers.Api
 		{
 			InsertUser_Question_AnswerResult result = null;
 
-			foreach (var question in model.Questions)
-			{
-				foreach (var answer in question.Answers)
-				{
-					if (answer.isUserAnswer)
-					{
-						result = _testRepository.InsertTestResult(
-							_User.Id_User,
-							model.Id.Value,
-							question.Id.Value,
-							answer.Id.Value, JsonConvert.SerializeObject(answer.ContentUserAnswer));
-					}
-				}
-			}
+            if (model.CountAttempts >= 1)
+            {
+                foreach (var question in model.Questions)
+                {
+                    foreach (var answer in question.Answers)
+                    {
+                        if (answer.isUserAnswer)
+                        {
+                            result = _testRepository.InsertTestResult(
+                                _User.Id_User,
+                                model.Id.Value,
+                                question.Id.Value,
+                                answer.Id.Value, JsonConvert.SerializeObject(answer.ContentUserAnswer));
+                        }
+                    }
+                }
 
-			_testRepository.UpdateUser_Test(
-				_User.Id_User,
-				model.Id,
-				result.CountUserAnswerValid,
-				result.UserAnswerValidPercent);
+                int defAttempt = model.CountAttemptsAll.Value - model.CountAttempts.Value;
+                decimal coefficient = 1;
+                decimal userAnswerValidPercent = 0;
+
+                for (int i = 0; i < defAttempt; i++)
+                {
+                    if (i >= 4)
+                        break;
+
+                    coefficient = Decimal.Subtract(coefficient, (decimal)0.1);
+                }
+
+                userAnswerValidPercent = coefficient * result.UserAnswerValidPercent;
+
+                _testRepository.UpdateUser_Test(
+                    _User.Id_User,
+                    model.Id,
+                    result.CountUserAnswerValid,
+                    userAnswerValidPercent,
+                    model.CountAttempts - 1);
+
+                result.UserAnswerValidPercent = userAnswerValidPercent;
+            }
 
 			return result;
 		}
@@ -460,6 +482,7 @@ namespace MusicEducation.Core.Controllers.Api
                 Name = result1.Name,
                 IsCompleted = result1.IsCompleted,
                 CountAttempts = result1.CountAttempts,
+                CountAttemptsAll = result1.CountAttemptsAll,
                 IsShowHints = result1.IsShowHints,
                 Id_User_TestType = result1.Id_User_TestType,
                 Timing = result1.Timing,
@@ -524,7 +547,8 @@ namespace MusicEducation.Core.Controllers.Api
                     _User.Id_User,
                     model.Id,
                     1,
-                    100);
+                    (decimal)100,
+                    model.CountAttempts - 1);
             }
             else
             {
@@ -535,7 +559,8 @@ namespace MusicEducation.Core.Controllers.Api
                     _User.Id_User,
                     model.Id,
                     0,
-                    0);
+                    (decimal)0,
+                    model.CountAttempts - 1);
             }
 
             return result;
@@ -561,7 +586,7 @@ namespace MusicEducation.Core.Controllers.Api
 					break;
 			}
 
-			return _testRepository.AppendTestToGroup(_User.Id_User, model.idGroup, model.idTest, model.attempts, model.timing, complexity, 1, 1);
+			return _testRepository.AppendTestToGroup(_User.Id_User, model.idGroup, model.idTest, model.attempts, model.attempts, model.timing, complexity, 1, 1);
 		}
 
 		public object AppendTestToUser(AppendTaskToUserViewModel model)
@@ -584,7 +609,7 @@ namespace MusicEducation.Core.Controllers.Api
                     break;
             }
 
-			return _studentRepository.AppnedTestToUser(_User.Id_User, model.idUser, model.idTest, model.attempts, model.timing, complexity, 1, 1);
+			return _studentRepository.AppnedTestToUser(_User.Id_User, model.idUser, model.idTest, model.attempts, model.attempts, model.timing, complexity, 1, 1);
 		}
 
 		public object AppendTaskToGroup(AppendTaskToGroupViewModel model)
@@ -607,7 +632,7 @@ namespace MusicEducation.Core.Controllers.Api
                     break;
             }
 
-			return _testRepository.AppendTestToGroup(_User.Id_User, model.idGroup, model.idTest, model.attempts, model.timing, complexity, model.userTestType, model.isShowHints);
+			return _testRepository.AppendTestToGroup(_User.Id_User, model.idGroup, model.idTest, model.attempts, model.attempts, model.timing, complexity, model.userTestType, model.isShowHints);
 		}
 
 		public object AppendTaskToUser(AppendTaskToUserViewModel model)
@@ -630,7 +655,7 @@ namespace MusicEducation.Core.Controllers.Api
                     break;
             }
 
-			return _studentRepository.AppnedTestToUser(_User.Id_User, model.idUser, model.idTest, model.attempts, model.timing, complexity, model.userTestType, model.isShowHints);
+			return _studentRepository.AppnedTestToUser(_User.Id_User, model.idUser, model.idTest, model.attempts, model.attempts, model.timing, complexity, model.userTestType, model.isShowHints);
 		}
 
 		public object UpdateUserTestTiming(UpdateUserTestTimingViewModel model)

@@ -157,12 +157,17 @@ define(['app'], function (app) {
 
 		var lastEvent;
 		var heldKeys = {};
+		vm.volumeLevel = 35;
+
+		$scope.$watch('vm.volumeLevel', function () {
+		    pianoPlayerService.setVolume(vm.volumeLevel);
+		});
 
 		$scope.$watch('vm.isShowModalPiano', function () {
 			if (vm.isShowModalPiano) {
 				pianoPlayerService.initialize(function () {
 					setTimeout(function () {
-						pianoPlayerService.setVolume(100);
+					    pianoPlayerService.setVolume(vm.volumeLevel);
 						console.log('INITIALIZE');
 						console.log($window);
 

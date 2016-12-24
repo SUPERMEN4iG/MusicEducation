@@ -168,6 +168,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Hubs\ConnectionMapping.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Lib\Constants\UserRoles.cs" />
+    <Compile Include="Lib\Excel\ReportExcel.cs" />
     <Compile Include="Lib\Excel\ReportStorage.cs" />
     <Compile Include="Lib\Filters\BasicAuthorizeAttribute.cs" />
     <Compile Include="Lib\Filters\AnswerCustomComparer.cs" />

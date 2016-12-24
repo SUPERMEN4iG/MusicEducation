@@ -249,6 +249,10 @@ define(['app'], function (app) {
                                       chart.defs = o.defs;
                                   }
 
+                                  if (o.synchronizeGrid) {
+                                      chart.synchronizeGrid = o.synchronizeGrid;
+                                  }
+
                                   if (o.listeners) {
                                       for (var i = 0; i < o.listeners.length; i++) {
                                           chart.addListener(o.listeners[i].event, o.listeners[i].method);

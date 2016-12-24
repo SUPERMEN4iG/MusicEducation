@@ -24,9 +24,14 @@ namespace MusicEducation.Service
             return _DBContext.GetGraph_Visits(idUser).ToList();
         }
 
-        public List<GetGraph_TeacherResult> GetGraph_Teacher(int? idUser)
+        public List<GetGraph_TeacherResult> GetGraph_Teacher(int? idUser, DateTime? dateFrom, DateTime? dateTo)
         {
-            return _DBContext.GetGraph_Teacher(idUser).ToList();
+            return _DBContext.GetGraph_Teacher(idUser, dateFrom, dateTo).ToList();
+        }
+
+        public List<GetGraph_StudentResult> GetGraph_Student(int? idUser, DateTime? dateFrom, DateTime? dateTo)
+        {
+            return _DBContext.GetGraph_Student(idUser, dateFrom, dateTo).ToList();
         }
 
         public List<GetGraph_TestAvgValidAnswersResult> GetGraph_TestAvgValidAnswers(int? idUser, int? idTest)
@@ -42,6 +47,21 @@ namespace MusicEducation.Service
         public List<GetGraph_StudentAvgTimingLeftResult> GetGraph_StudentAvgTimingLeft(int? idUser)
         {
             return _DBContext.GetGraph_StudentAvgTimingLeft(idUser).ToList();
+        }
+
+        public List<GetStatistics_Teacher_AvgPercentByTestTypeResult> GetStatistics_Teacher_AvgPercentByTestType(int? idUser, int? idTestType, DateTime? dateFrom, DateTime? dateTo)
+        {
+            return _DBContext.GetStatistics_Teacher_AvgPercentByTestType(idUser, idTestType, dateFrom, dateTo).ToList();
+        }
+
+        public List<GetStatistics_Student_AvgPercentByTestTypeResult> GetStatistics_Student_AvgPercentByTestType(int? idUser, int? idTestType, DateTime? dateFrom, DateTime? dateTo)
+        {
+            return _DBContext.GetStatistics_Student_AvgPercentByTestType(idUser, idTestType, dateFrom, dateTo).ToList();
+        }
+
+        public List<GetStatistics_Teacher_AvgPercentByTestType_DetailsByTestResult> GetStatisticTeacherDetails(int? idUser, int? idTest)
+        {
+            return _DBContext.GetStatistics_Teacher_AvgPercentByTestType_DetailsByTest(idUser, idTest).ToList();
         }
 
         public RegisterUserResult RegisterUser(string login, string password)
@@ -190,5 +210,10 @@ namespace MusicEducation.Service
 		{
 			return _DBContext.GetUserByFio(idUser, fio).ToList();
 		}
+
+        public List<GetStatisticsForExportResult> GetStatisticsForExport(int? idUser, DateTime? dateFrom, DateTime? dateTo)
+        {
+            return _DBContext.GetStatisticsForExport(idUser, dateFrom, dateTo).ToList();
+        }
 	}
 }

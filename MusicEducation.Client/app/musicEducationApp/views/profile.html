@@ -15,9 +15,9 @@
 					<a href="#/bankTest" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Банк вопросов</span></a>
                     <a href="#/test" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Тесты</span></a>
                     <a href="#/task" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Задания</span></a>
-					<a href="#/piano" class="item"><i class="table icon"></i> <span>Пианино</span></a>
+                    <a href="#/piano" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="table icon"></i> <span>Пианино</span></a>
                     <a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
-					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
+					<!--<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>-->
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
 					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
@@ -157,7 +157,7 @@
 
 				<div class="ui divider"></div>
 				<div align="center">
-					---
+					<!------->
 				</div>
 			</div>
 		</div>

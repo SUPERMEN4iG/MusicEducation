@@ -16,7 +16,7 @@ namespace MusicEducation.Service
             return result;
         }
 
-		public InsertUser_TestResult AppnedTestToUser(int? idMainUser, int? idUser, int? idTest, int? countAttempts, int? timing, int? complexity, int? idUserTestType, int? isShowHints)
+        public InsertUser_TestResult AppnedTestToUser(int? idMainUser, int? idUser, int? idTest, int? countAttempts, int? countAttemptsAll, int? timing, int? complexity, int? idUserTestType, int? isShowHints)
 		{
             if (!countAttempts.HasValue)
                 countAttempts = 1;
@@ -27,14 +27,14 @@ namespace MusicEducation.Service
 			if (!isShowHints.HasValue)
 				isShowHints = 1;
 
-			var result = _DBContext.InsertUser_Test(idMainUser, idUser, idTest, idUserTestType, countAttempts, (isShowHints == 1 ? true : false), timing, complexity).FirstOrDefault();
+            var result = _DBContext.InsertUser_Test(idMainUser, idUser, idTest, idUserTestType, countAttempts, countAttemptsAll, (isShowHints == 1 ? true : false), timing, complexity).FirstOrDefault();
 
 			return result;
 		}
 
-		public InsertUser_TestResult AppnedTestToUserWithContent(int? idMainUser, int? idUser, int? idTest, int? idUserTestType, int? countAttempts, bool? isShowHints)
+        public InsertUser_TestResult AppnedTestToUserWithContent(int? idMainUser, int? idUser, int? idTest, int? idUserTestType, int? countAttempts, int? countAttemptsAll, bool? isShowHints)
 		{
-			var result = _DBContext.InsertUser_Test(idMainUser, idUser, idTest, idUserTestType, countAttempts, isShowHints, null, null).FirstOrDefault();
+            var result = _DBContext.InsertUser_Test(idMainUser, idUser, idTest, idUserTestType, countAttempts, countAttemptsAll, isShowHints, null, null).FirstOrDefault();
 
 			return result;
 		}

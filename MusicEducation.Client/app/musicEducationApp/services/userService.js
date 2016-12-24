@@ -341,10 +341,10 @@ define(['app'], function (app) {
             return deferred.promise;
         };
 
-        service.getGraphTeacher = function () {
+        service.getGraphTeacher = function (datefrom, dateto) {
             var deferred = $q.defer();
 
-            $http.get(serviceBase + 'GetGraphTeacher/')
+            $http.get(serviceBase + 'GetGraphTeacher/', { params: { datefrom: datefrom, dateto: dateto } })
                 .then(
 					function (response) {
 					    deferred.resolve(response.data);
@@ -356,10 +356,10 @@ define(['app'], function (app) {
             return deferred.promise;
         };
 
-        service.getGraphStudent = function () {
+        service.getGraphStudent = function (datefrom, dateto) {
             var deferred = $q.defer();
 
-            $http.get(serviceBase + 'GetGraphStudent/')
+            $http.get(serviceBase + 'GetGraphStudent/', { params: { datefrom: datefrom, dateto: dateto } })
                 .then(
 					function (response) {
 					    deferred.resolve(response.data);
@@ -375,6 +375,81 @@ define(['app'], function (app) {
             var deferred = $q.defer();
 
             $http.get(serviceBase + 'GetGraphTest/', { params: { id: id } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getStatisticTeacherTests = function (datefrom, dateto) {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetStatisticTeacherTests/', { params: { datefrom: datefrom, dateto: dateto } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getStatisticStudentTests = function (datefrom, dateto) {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetStatisticStudentTests/', { params: { datefrom: datefrom, dateto: dateto } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getStatisticTeacherDetails = function (id) {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetStatisticTeacherDetails/', { params: { id: id } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getStatisticTeacherTasks = function (datefrom, dateto) {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetStatisticTeacherTasks/', { params: { datefrom: datefrom, dateto: dateto } })
+                .then(
+					function (response) {
+					    deferred.resolve(response.data);
+					},
+					function (response) {
+					    deferred.reject(response.data);
+					});
+
+            return deferred.promise;
+        };
+
+        service.getStatisticStudentTasks = function (datefrom, dateto) {
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'GetStatisticStudentTasks/', { params: { datefrom: datefrom, dateto: dateto } })
                 .then(
 					function (response) {
 					    deferred.resolve(response.data);

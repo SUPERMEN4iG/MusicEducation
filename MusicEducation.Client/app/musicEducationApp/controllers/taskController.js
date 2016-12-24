@@ -332,11 +332,17 @@ define(['app'], function (app) {
 		    pianoPlayerService.clearTimeline();
 		};
 
+		vm.volumeLevel = 35;
+
+		$scope.$watch('vm.volumeLevel', function () {
+		    pianoPlayerService.setVolume(vm.volumeLevel);
+		});
+
 		$scope.$watch('vm.isShowPiano', function () {
 			if (vm.isShowPiano) {
 				pianoPlayerService.initialize(function () {
 					setTimeout(function () {
-						pianoPlayerService.setVolume(100);
+					    pianoPlayerService.setVolume(vm.volumeLevel);
 						console.log('INITIALIZE');
 						console.log($window);
 						$window.addEventListener('keydown', keyDownListener);

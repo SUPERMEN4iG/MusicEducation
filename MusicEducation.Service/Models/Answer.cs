@@ -30,6 +30,7 @@ namespace MusicEducation.Service.Models
 		public string Name { get; set; }
 		public bool? IsCompleted { get; set; }
 		public int? CountAttempts { get; set; }
+        public int? CountAttemptsAll { get; set; }
 		public bool? IsShowHints { get; set; }
 		public int? Id_User_TestType { get; set; }
 		public int? Timing { get; set; }
@@ -75,6 +76,7 @@ namespace MusicEducation.Service.Models
         public string Name { get; set; }
         public bool? IsCompleted { get; set; }
         public int? CountAttempts { get; set; }
+        public int? CountAttemptsAll { get; set; }
         public bool? IsShowHints { get; set; }
         public int? Id_User_TestType { get; set; }
         public int? Timing { get; set; }

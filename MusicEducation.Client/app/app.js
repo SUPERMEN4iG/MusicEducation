@@ -5,6 +5,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
 	var app = angular.module('musicEducationApp', [
         'ngRoute',
         'ngAnimate',
+        'ngSanitize',
         'ngCookies',
 		'ngResource',
         'routeResolverServices',
@@ -78,11 +79,11 @@ define(['musicEducationApp/services/routeResolver'], function () {
             //    //.when('/storage', route.resolve('Storage', '', 'vm'))
             //    //.when('/main', route.resolve('Main', '', 'vm'))
             //    //.when('/sales/:salesType*?/:advancedParam*?', route.resolve('Sales', '', 'vm', true))
-				
+
 
         	//$routeProvider
-        	//    //route.resolve() now accepts the convention to use (name of controller & view) as well as the 
-        	//    //path where the controller or view lives in the controllers or views folder if it's in a sub folder. 
+        	//    //route.resolve() now accepts the convention to use (name of controller & view) as well as the
+        	//    //path where the controller or view lives in the controllers or views folder if it's in a sub folder.
         	//    //For example, the controllers for customers live in controllers/customers and the views are in views/customers.
         	//    //The controllers for orders live in controllers/orders and the views are in views/orders
         	//    //The second parameter allows for putting related controllers/views into subfolders to better organize large projects
@@ -100,7 +101,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
 	//app.run(['$rootScope', '$location', 'authService',
 	//    function ($rootScope, $location, authService) {
 
-	//        //Client-side security. Server-side framework MUST add it's 
+	//        //Client-side security. Server-side framework MUST add it's
 	//        //own security as well since client-based security is easily hacked
 	//        $rootScope.$on("$routeChangeStart", function (event, next, current) {
 	//            if (next && next.$$route && next.$$route.secure) {
@@ -142,7 +143,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
         		}
         	});
 
-        	
+
         	console.log(editableThemes['default']);
         	editableThemes['default'].submitTpl = '<button type="submit" class="circular ui mini icon green button" style="position: absolute;margin-left: 3px;"><i class="icon checkmark"></i></button>';
         	editableThemes['default'].cancelTpl = '<button type="button" class="circular ui mini icon red button" style="position: absolute;margin-left: 32px;" ng-click="$form.$cancel()"><i class="icon remove"></i></button>';
@@ -151,7 +152,7 @@ define(['musicEducationApp/services/routeResolver'], function () {
         	//delete $httpProvider.defaults.headers.common['X-Requested-With'];
         	//$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
 
-        	//Client-side security. Server-side framework MUST add it's 
+        	//Client-side security. Server-side framework MUST add it's
         	//own security as well since client-based security is easily hacke
 
         }]);

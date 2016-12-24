@@ -30,6 +30,7 @@ namespace MusicEducation.Service
 			test.IsCompleted = listTest.FirstOrDefault().IsCompleted;
 			test.IsShowHints = Convert.ToBoolean(listTest.FirstOrDefault().IsShowHints);
 			test.CountAttempts = listTest.FirstOrDefault().CountAttempts;
+            test.CountAttemptsAll = listTest.FirstOrDefault().CountAttemptsAll;
 			test.Id_User_TestType = listTest.FirstOrDefault().Id_User_TestType;
 			test.Timing = listTest.FirstOrDefault().Timing;
 			test.TimingLeft = listTest.FirstOrDefault().TimingLeft;
@@ -78,6 +79,7 @@ namespace MusicEducation.Service
 			test.IsCompleted = listTest.FirstOrDefault().IsCompleted;
 			test.IsShowHints = Convert.ToBoolean(listTest.FirstOrDefault().IsShowHints);
 			test.CountAttempts = listTest.FirstOrDefault().CountAttempts;
+            test.CountAttemptsAll = listTest.FirstOrDefault().CountAttemptsAll;
 			test.Id_User_TestType = listTest.FirstOrDefault().Id_User_TestType;
 			test.Timing = listTest.FirstOrDefault().Timing;
 			test.TimingLeft = listTest.FirstOrDefault().TimingLeft;
@@ -162,9 +164,9 @@ namespace MusicEducation.Service
             return result;
         }
 
-		public int UpdateUser_Test(int? idUser, int? idTest, int? validAnswers, int? validPercent)
+        public int UpdateUser_Test(int? idUser, int? idTest, int? validAnswers, decimal? validPercent, int? countAttempts)
 		{
-			var result = _DBContext.UpdateUser_Test(idUser, idTest, validAnswers, validPercent);
+            var result = _DBContext.UpdateUser_Test(idUser, idTest, validAnswers, validPercent, countAttempts);
 			return result;
 		}
 
@@ -224,9 +226,9 @@ namespace MusicEducation.Service
 			return result;
 		}
 
-		public int AppendTestToGroup(int? idUser, int? idGroup, int? idTest, int? attempts, int? timing, int? complexity, int? idUserTestType, int? isShowHints)
+        public int AppendTestToGroup(int? idUser, int? idGroup, int? idTest, int? attempts, int? attemptsAll, int? timing, int? complexity, int? idUserTestType, int? isShowHints)
 		{
-			var result = _DBContext.AppendTestToGroup(idUser, idGroup, idTest, attempts, timing, complexity, idUserTestType, isShowHints);
+            var result = _DBContext.AppendTestToGroup(idUser, idGroup, idTest, attempts, attemptsAll, timing, complexity, idUserTestType, isShowHints);
 
 			return result;
 		}

@@ -17,7 +17,7 @@
                     <a href="#/task" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="book icon"></i> <span>Задания</span></a>
                     <a href="#/piano" ng-if="globals.currentUser.source.RoleName != 'Администратор'" class="item"><i class="table icon"></i> <span>Пианино</span></a>
                     <a href="#/student" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="student icon"></i> <span>Ученики</span></a>
-					<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>
+					<!--<a href="#/constructor" ng-if="globals.currentUser.source.RoleName == 'Учитель'" class="item"><i class="dashboard icon"></i> <span>Конструктор заданий</span></a>-->
 					<a href="#/user" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="dashboard icon"></i> <span>Пользователи</span></a>
 					<a href="#/group" ng-if="globals.currentUser.source.RoleName == 'Администратор'" class="item"><i class="group icon"></i> <span>Группы</span></a>
 					<!--<a href="chart.html" class="item"><i class="bar chart icon"></i> <span>Chart</span></a>
@@ -49,14 +49,150 @@
                 </div>
 
                 <div class="ui one column stackable grid ui form" ng-if="globals.currentUser.source.RoleName == 'Учитель'">
-                    <!--<button class="btn" ng-click="vm.pushNewData()">Добавить</button>-->
+
+                    <div class="column">
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>От даты</label>
+                                    <div class="ui calendar" id="rangestart">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" name="reservation"
+                                                   id="from"
+                                                   ng-model="vm.dateFrom" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>До даты</label>
+                                    <div class="ui calendar" id="rangeend">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" name="reservation"
+                                                   id="to"
+                                                   ng-model="vm.dateTo" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#from').daterangepicker({
+                                singleDatePicker: true,
+                                format: 'DD.MM.YYYY',
+                                locale: {
+                                    applyLabel: 'Отправить',
+                                    cancelLabel: 'Очистить',
+                                    fromLabel: 'От',
+                                    toLabel: 'До',
+                                    customRangeLabel: 'Custom',
+                                    daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пя', 'Су'],
+                                    monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                                    firstDay: 1
+                                }
+                            }, function (start, end, label) {
+                                console.log(start._d);
+                            });
+
+                            $('#to').daterangepicker({
+                                singleDatePicker: true,
+                                format: 'DD.MM.YYYY',
+                                locale: {
+                                    applyLabel: 'Отправить',
+                                    cancelLabel: 'Очистить',
+                                    fromLabel: 'От',
+                                    toLabel: 'До',
+                                    customRangeLabel: 'Custom',
+                                    daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пя', 'Су'],
+                                    monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                                    firstDay: 1
+                                }
+                            }, function (start, end, label) {
+                                console.log(start._d);
+                            });
+                        });
+                    </script>
+                    
+                    <div class="row">
+                        <div class="fourteen wide column"></div>
+                        <div class="two wide column">
+                            <button class="ui button" ng-click="vm.refreshStatisticTeacher()" style="float:right;">
+                                <i class="refresh icon"></i>
+                                Обновить
+                            </button>
+                        </div>
+                    </div>       
 
                     <div class="column">
                         <div class="ui segments" style="width:100%">
-                            <div class="ui segment"><h3>Статистика пребывания негров в системе</h3></div>
+                            <div class="ui segment"><h3>График успеваемости группы</h3></div>
                             <div style="height:300px;padding-right:10px">
                                 <am-chart id="first" options="vm.amChartOptions" chart="vm.chart"></am-chart>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui segments">
+                            <div class="ui segment"><h3>Статистика успеваемости группы по тестам</h3></div>
+                            <div style="margin:10px;">
+                                <table class="ui fixed selectable celled table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Название</th>
+                                            <th>Средний процент</th>
+                                            <th>Сложность</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="obj in vm.testStatistics"
+                                            ng-click="vm.getStatisticTeacherDetails(obj)">
+                                            <td colspan="2">{{ obj.Name }}</td>
+                                            <td>{{ obj.MinimalPercent }}</td>
+                                            <td>{{ obj.Complexity }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui segments">
+                            <div class="ui segment"><h3>Статистика успеваемости группы по заданиям</h3></div>
+                            <div style="margin:10px;">
+                                <table class="ui fixed selectable celled table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Название</th>
+                                            <th>Средний процент</th>
+                                            <th>Сложность</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="obj in vm.taskStatistics"
+                                            ng-click="vm.getStatisticTeacherDetails(obj)">
+                                            <td colspan="2">{{ obj.Name }}</td>
+                                            <td>{{ obj.MinimalPercent }}</td>
+                                            <td>{{ obj.Complexity }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="fourteen wide column"></div>
+                        <div class="two wide column">
+                            <button class="ui button" ng-click="vm.generateExcelStatistic()" style="float:right;">
+                                <i class="save icon"></i>
+                                Экспорт
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -65,11 +201,146 @@
                     <!--<button class="btn" ng-click="vm.pushNewData()">Добавить</button>-->
 
                     <div class="column">
+                        <div class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>От даты</label>
+                                    <div class="ui calendar" id="rangestart">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" name="reservation"
+                                                   id="from"
+                                                   ng-model="vm.dateFrom" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>До даты</label>
+                                    <div class="ui calendar" id="rangeend">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" name="reservation"
+                                                   id="to"
+                                                   ng-model="vm.dateTo" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#from').daterangepicker({
+                                singleDatePicker: true,
+                                format: 'DD.MM.YYYY',
+                                locale: {
+                                    applyLabel: 'Отправить',
+                                    cancelLabel: 'Очистить',
+                                    fromLabel: 'От',
+                                    toLabel: 'До',
+                                    customRangeLabel: 'Custom',
+                                    daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пя', 'Су'],
+                                    monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                                    firstDay: 1
+                                }
+                            }, function (start, end, label) {
+                                console.log(start._d);
+                            });
+
+                            $('#to').daterangepicker({
+                                singleDatePicker: true,
+                                format: 'DD.MM.YYYY',
+                                locale: {
+                                    applyLabel: 'Отправить',
+                                    cancelLabel: 'Очистить',
+                                    fromLabel: 'От',
+                                    toLabel: 'До',
+                                    customRangeLabel: 'Custom',
+                                    daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пя', 'Су'],
+                                    monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                                    firstDay: 1
+                                }
+                            }, function (start, end, label) {
+                                console.log(start._d);
+                            });
+                        });
+                    </script>
+
+                    <div class="row">
+                        <div class="fourteen wide column"></div>
+                        <div class="two wide column">
+                            <button class="ui button" ng-click="vm.refreshStatisticStudent()" style="float:right;">
+                                <i class="refresh icon"></i>
+                                Обновить
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="column">
                         <div class="ui segments" style="width:100%">
-                            <div class="ui segment"><h3>Среднее затраченное время</h3></div>
+                            <div class="ui segment"><h3>График успеваемости</h3></div>
                             <div style="height:300px;padding-right:10px">
                                 <am-chart id="first" options="vm.amChartOptions" chart="vm.chart"></am-chart>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui segments">
+                            <div class="ui segment"><h3>Статистика успеваемости по тестам</h3></div>
+                            <div style="margin:10px;">
+                                <table class="ui fixed selectable celled table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Название</th>
+                                            <th>Средний процент</th>
+                                            <th>Сложность</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="obj in vm.testStatistics">
+                                            <td colspan="2">{{ obj.Name }}</td>
+                                            <td>{{ obj.MinimalPercent }}</td>
+                                            <td>{{ obj.Complexity }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui segments">
+                            <div class="ui segment"><h3>Статистика успеваемости по заданиям</h3></div>
+                            <div style="margin:10px;">
+                                <table class="ui fixed selectable celled table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Название</th>
+                                            <th>Средний процент</th>
+                                            <th>Сложность</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="obj in vm.taskStatistics">
+                                            <td colspan="2">{{ obj.Name }}</td>
+                                            <td>{{ obj.MinimalPercent }}</td>
+                                            <td>{{ obj.Complexity }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="fourteen wide column"></div>
+                        <div class="two wide column">
+                            <button class="ui button" ng-click="vm.generateExcelStatistic()" style="float:right;">
+                                <i class="save icon"></i>
+                                Экспорт
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -77,11 +348,67 @@
 				<div class="ui divider"></div>
 
 				<div align="center">
-					Тестовая версия
+					<!--Тестовая версия-->
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
+<modal ng-model="vm.isShowTestDetailsWindow">
+    <i class="close icon" ng-click="vm.closeTestResultModel()"></i>
+    <div class="header">
+        {{vm.currentTest[0].Name}}
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="ui cards">
+                <div class="card" ng-repeat="student in vm.currentTest">
+                    <div class="content">
+                        <img class="right floated mini ui image" src="{{ (student.Photo !== undefined && student.Photo !== null) ? 'http://localhost:59744/Uploads/Images/' + student.Photo : 'content/img/piano-min.png' }}">
+                        <div class="header">
+                            {{ student.LastName }} {{ student.FirstName }}
+                        </div>
+                        <div class="meta">
+                            {{ student.Login }}
+                        </div>
+                        <div class="description">
+                            <i class="time icon"></i>Затраченное время - {{ student.Timing - student.TimingLeft }}<br />
+                            <i class="trophy icon"></i>Баллы - {{ student.ValidPercent }}
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui one buttons">
+                            <div class="ui blue button" ng-click="vm.goToStudent(student.Id_User)">Профиль</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="actions">
+        <div class="two fluid ui inverted buttons">
+            <button type="submit" class="ui ok green button" ng-click="vm.createTest()" ng-disabled="vm.selectedQuestions.length == 0">
+                <i class="checkmark icon"></i>
+                Ок
+            </button>
+        </div>
+    </div>-->
+</modal>
 <script type="text/javascript" src="content/js/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#example1').calendar();
+
+        $('#rangestart').calendar({
+            type: 'date',
+            endCalendar: $('#rangeend')
+        });
+        $('#rangeend').calendar({
+            type: 'date',
+            startCalendar: $('#rangestart')
+        });
+    });
+
+</script>

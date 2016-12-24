@@ -20,6 +20,7 @@ require(
         'musicEducationApp/services/studentService',
 		'musicEducationApp/services/userService',
         'musicEducationApp/services/notifyService',
+        'musicEducationApp/services/reportService',
         //'MusicEducation.Coreapp/services/usersService',
         //'MusicEducation.Coreapp/services/tobaccoService',
         //'MusicEducation.Coreapp/services/salesService',

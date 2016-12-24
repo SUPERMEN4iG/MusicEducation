@@ -46,12 +46,12 @@ namespace MusicEducation.Core.API
 
 		public object AppnedTestToUser(AppnedTestToUserViewModel data)
 		{
-			return _studentRepository.AppnedTestToUser(_User.Id_User, data.idUser, data.idTest, data.countAttempts, null, null, null, null);
+			return _studentRepository.AppnedTestToUser(_User.Id_User, data.idUser, data.idTest, data.countAttempts, data.countAttempts, null, null, null, null);
 		}
 
 		public object AppnedTestToUserWithContent(AppnedTestToUserWithContentViewModel data)
 		{
-			return _studentRepository.AppnedTestToUserWithContent(_User.Id_User, data.idUser, data.idTest, data.idUserTestType, data.countAttempts, data.isShowHints);
+			return _studentRepository.AppnedTestToUserWithContent(_User.Id_User, data.idUser, data.idTest, data.idUserTestType, data.countAttempts, data.countAttempts, data.isShowHints);
 		}
 	}
 }

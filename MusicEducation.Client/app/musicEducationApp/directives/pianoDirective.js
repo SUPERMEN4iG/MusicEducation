@@ -123,56 +123,61 @@ define(['app'], function (app) {
 				};
 
 				$scope.keys = {
-					shift: {
-						49: 'C3#',
-						50: 'D3#',
-						51: 'F3#',
-						52: 'G3#',
-						53: 'A4#',
-						54: 'C4#',
-						55: 'D4#',
-						56: 'F4#',
-						57: 'G4#',
-						48: 'A5#',
-					},
+				    shift: {
+				        49: 'C3#',
+				        50: 'D3#',
+				        51: 'F3#',
+				        52: 'G3#',
+				        53: 'A4#',
+				        54: 'C4#',
+				        55: 'D4#',
+				        56: 'F4#',
+				        57: 'G4#',
+				        48: 'A5#',
+				    },
 
-					general: {
+				    general: {
 
-						49: 'C1#',
-						50: 'D1#',
-						51: 'F1#',
-						52: 'G1#',
-						53: 'A2#',
-						54: 'C2#',
-						55: 'D2#',
-						56: 'F2#',
-						57: 'G2#',
-						48: 'A2#',
+				        192: 'A2#',
+				        49: 'B2#',
+				        50: 'D2#',
+				        51: 'E2#',
+				        52: 'F2#',
+				        53: 'A3#',
+				        54: 'B3#',
+				        55: 'D3#',
+				        56: 'E3#',
+				        57: 'F3#',
+				        48: 'A4#',
+				        189: 'B4#',
+				        187: 'D4#',
+				        220: 'E4#',
+				        8: 'F4#',
 
-						81: 'A2',
-						87: 'B2',
-						69: 'C2',
-						82: 'D2',
-						84: 'E2',
-						89: 'F2',
-						85: 'G2',
+				        81: 'A2',
+				        87: 'B2',
+				        69: 'C2',
+				        82: 'D2',
+				        84: 'E2',
+				        89: 'F2',
+				        85: 'G2',
 
-						65: 'A3',
-						83: 'B3',
-						68: 'C3',
-						70: 'D3',
-						71: 'E3',
-						72: 'F3',
-						74: 'G3',
+				        65: 'A3',
+				        83: 'B3',
+				        68: 'C3',
+				        70: 'D3',
+				        71: 'E3',
+				        72: 'F3',
+				        74: 'G3',
 
-						90: 'A4',
-						88: 'B4',
-						67: 'C4',
-						86: 'D4',
-						66: 'E4',
-						78: 'F4',
-						77: 'G4',
-					}
+				        90: 'A4',
+				        88: 'B4',
+				        67: 'C4',
+				        86: 'D4',
+				        66: 'E4',
+				        78: 'F4',
+				        77: 'G4',
+				    }
 				};
 
 				$scope.getKeyByValud = function (o, v) {
@@ -190,8 +195,12 @@ define(['app'], function (app) {
 					console.error(typeof result);
 					if ((!result || result == undefined || result == "" || result.length == 0 || source == undefined))
 					{
-						result = String.fromCharCode($scope.getKeyByValud($scope.keys.shift, k))
+					    result = String.fromCharCode($scope.getKeyByValud($scope.keys.shift, k));
+					    console.info(result);
 					}
+
+					if (result == 'À')
+					    result = 'Ё';
 
 					return result;
 				};

@@ -105,7 +105,17 @@ namespace MusicEducation.Core.Controllers
 
 		public object GetUserByFio(string fio)
 		{
-			return _userRepository.GetUserByFio(_User.Id_User, fio);
+            //string filters = string.Format(
+            //        @"lastName:{0}#firstName:{1}#middleName:{2}#fio:{3}#seria:{4}#number:{5}#dateBirth:{6}#"
+            //        , string.Empty
+            //        , string.Empty
+            //        , string.Empty
+            //        , fio
+            //        , string.Empty
+            //        , string.Empty
+            //        , string.Empty
+            //    );
+            return _userRepository.GetUserByFio(_User.Id_User, fio);
 		}
 
         public object ResetPassword(InsertUserViewModel model)
@@ -303,9 +313,23 @@ namespace MusicEducation.Core.Controllers
             }).ToList();
         }
 
-        public object GetGraphTeacher()
+        public object GetGraphTeacher(string datefrom, string dateto)
         {
-            return _userRepository.GetGraph_Teacher(_User.Id_User).Select(x =>
+            DateTime dateFromParsed;
+            DateTime dateToParsed;
+
+            if (string.IsNullOrEmpty(datefrom) || string.IsNullOrEmpty(dateto))
+            {
+                dateFromParsed = DateTime.Now.AddYears(-1);
+                dateToParsed = DateTime.Now;
+            }
+            else
+            {
+                dateFromParsed = DateTime.Parse(datefrom);
+                dateToParsed = DateTime.Parse(dateto);
+            }
+
+            return _userRepository.GetGraph_Teacher(_User.Id_User, dateFromParsed, dateToParsed).Select(x =>
             {
                 return new
                 {
@@ -318,17 +342,31 @@ namespace MusicEducation.Core.Controllers
             }).ToList();
         }
 
-        public object GetGraphStudent()
+        public object GetGraphStudent(string datefrom, string dateto)
         {
-            return _userRepository.GetGraph_StudentAvgTimingLeft(_User.Id_User).Select(x =>
-            {
-                //TimeSpan time = TimeSpan.FromSeconds(x.Count.Value);
-                //string str = time.ToString(@"hh\:mm\:ss\:fff");
+            DateTime dateFromParsed;
+            DateTime dateToParsed;
 
+            if (string.IsNullOrEmpty(datefrom) || string.IsNullOrEmpty(dateto))
+            {
+                dateFromParsed = DateTime.Now.AddYears(-1);
+                dateToParsed = DateTime.Now;
+            }
+            else
+            {
+                dateFromParsed = DateTime.Parse(datefrom);
+                dateToParsed = DateTime.Parse(dateto);
+            }
+
+            return _userRepository.GetGraph_Student(_User.Id_User, dateFromParsed, dateToParsed).Select(x =>
+            {
                 return new
                 {
                     date = ToJavaScriptMilliseconds(x.Date.Value),
-                    visits = x.Count
+                    allCountTest = x.AllCountTest,
+                    allCountTask = x.AllCountTask,
+                    allCountCompletedTest = x.AllCountCompletedTest,
+                    allCountCompletedTask = x.AllCountCompletedTask
                 };
             }).ToList();
         }
@@ -343,6 +381,88 @@ namespace MusicEducation.Core.Controllers
                     visits = x.AvgCnt
                 };
             }).ToList();
+        }
+
+        public object GetStatisticTeacherTests(string datefrom, string dateto)
+        {
+            DateTime dateFromParsed;
+            DateTime dateToParsed;
+
+            if (string.IsNullOrEmpty(datefrom) || string.IsNullOrEmpty(dateto))
+            {
+                dateFromParsed = DateTime.Now.AddYears(-1);
+                dateToParsed = DateTime.Now;
+            }
+            else
+            {
+                dateFromParsed = DateTime.Parse(datefrom);
+                dateToParsed = DateTime.Parse(dateto);
+            }
+
+            return _userRepository.GetStatistics_Teacher_AvgPercentByTestType(_User.Id_User, 1, dateFromParsed, dateToParsed);
+        }
+
+        public object GetStatisticStudentTests(string datefrom, string dateto)
+        {
+            DateTime dateFromParsed;
+            DateTime dateToParsed;
+
+            if (string.IsNullOrEmpty(datefrom) || string.IsNullOrEmpty(dateto))
+            {
+                dateFromParsed = DateTime.Now.AddYears(-1);
+                dateToParsed = DateTime.Now;
+            }
+            else
+            {
+                dateFromParsed = DateTime.Parse(datefrom);
+                dateToParsed = DateTime.Parse(dateto);
+            }
+
+            return _userRepository.GetStatistics_Student_AvgPercentByTestType(_User.Id_User, 1, dateFromParsed, dateToParsed);
+        }
+
+        public object GetStatisticTeacherTasks(string datefrom, string dateto)
+        {
+            DateTime dateFromParsed;
+            DateTime dateToParsed;
+
+            if (string.IsNullOrEmpty(datefrom) || string.IsNullOrEmpty(dateto))
+            {
+                dateFromParsed = DateTime.Now.AddYears(-1);
+                dateToParsed = DateTime.Now;
+            }
+            else
+            {
+                dateFromParsed = DateTime.Parse(datefrom);
+                dateToParsed = DateTime.Parse(dateto);
+            }
+
+            return _userRepository.GetStatistics_Teacher_AvgPercentByTestType(_User.Id_User, 2, dateFromParsed, dateToParsed);
+        }
+
+        public object GetStatisticStudentTasks(string datefrom, string dateto)
+        {
+            DateTime dateFromParsed;
+            DateTime dateToParsed;
+
+            if (string.IsNullOrEmpty(datefrom) || string.IsNullOrEmpty(dateto))
+            {
+                dateFromParsed = DateTime.Now.AddYears(-1);
+                dateToParsed = DateTime.Now;
+            }
+            else
+            {
+                dateFromParsed = DateTime.Parse(datefrom);
+                dateToParsed = DateTime.Parse(dateto);
+            }
+
+            return _userRepository.GetStatistics_Student_AvgPercentByTestType(_User.Id_User, 2, dateFromParsed, dateToParsed);
+        }
+
+        public object GetStatisticTeacherDetails(int? id)
+        {
+
+            return _userRepository.GetStatisticTeacherDetails(_User.Id_User, id);
         }
 	}
 }
