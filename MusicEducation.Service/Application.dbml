@@ -369,16 +369,6 @@
       <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GetGroups" Method="GetGroups">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetGroupsResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.GetRoles" Method="GetRoles">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetRolesResult">
@@ -445,26 +435,6 @@
       <Column Name="allCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CountAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CountQuestions" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetTestsForStudent" Method="GetTestsForStudent">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetTestsForStudentResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TestType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TestType_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="CountAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
-      <Column Name="CountUserAnswerValid" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
-      <Column Name="UserAnswerValidPercent" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
-      <Column Name="allCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CountAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetTheme" Method="GetTheme">
@@ -978,18 +948,6 @@
       <Column Name="Photo" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.GetStatisticsForExport" Method="GetStatisticsForExport">
-    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
-    <Parameter Name="dateFrom" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="dateTo" Type="System.DateTime" DbType="Date" />
-    <ElementType Name="GetStatisticsForExportResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Test_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Group_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="SumValidPercent" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
-      <Column Name="SumCountAttempts" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.GetGraph_Teacher" Method="GetGraph_Teacher">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <Parameter Name="dateFrom" Type="System.DateTime" DbType="Date" />
@@ -1069,6 +1027,16 @@
       <Column Name="Message" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.GetGroups" Method="GetGroups">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetGroupsResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Id_UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.String" DbType="VarChar(257)" CanBeNull="true" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.GetAvalibleTasks" Method="GetAvalibleTasks">
     <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetAvalibleTasksResult">
@@ -1080,6 +1048,7 @@
       <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.String" DbType="VarChar(257)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetAvalibleTests" Method="GetAvalibleTests">
@@ -1093,7 +1062,42 @@
       <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.String" DbType="VarChar(257)" CanBeNull="true" />
       <Column Name="CountQuestions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetTestsForStudent" Method="GetTestsForStudent">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetTestsForStudentResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Complexity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestType_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TestType_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Id_User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CountAnswerValid" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="CountUserAnswerValid" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="UserAnswerValidPercent" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="allCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.String" DbType="VarChar(257)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetStatisticsForExport" Method="GetStatisticsForExport">
+    <Parameter Name="idUser" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dateFrom" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="dateTo" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="GetStatisticsForExportResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Test_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Group_Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SumValidPercent" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SumCountAttempts" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AvgValidPercent" Type="System.Decimal" DbType="Decimal(38,6) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>

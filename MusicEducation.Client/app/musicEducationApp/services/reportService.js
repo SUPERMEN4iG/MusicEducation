@@ -8,9 +8,9 @@ define(['app'], function (app) {
     	var service = {},
             serviceBase = baseApiUrl + 'report/';
 
-    	service.getReportPerformance = function (datefrom, dateto) {
+    	service.getReportPerformance = function (iduser, datefrom, dateto) {
 
-    	    window.open(serviceBase + 'GetReportPerformance/?datefrom=' + datefrom + '&dateto=' + dateto, '_blank', '');
+    	    window.open(serviceBase + 'GetReportPerformance/?iduser=' + iduser + '&datefrom=' + datefrom + '&dateto=' + dateto, '_blank', '');
 
         };
 

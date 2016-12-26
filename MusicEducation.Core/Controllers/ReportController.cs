@@ -22,7 +22,7 @@ using MusicEducation.Core.Lib.Constants;
 
 namespace MusicEducation.Core.Controllers
 {
-    [BasicAuthorize(UserRoles.ADMIN, UserRoles.TEACHER, UserRoles.STUDENT)]
+    //[BasicAuthorize(UserRoles.ADMIN, UserRoles.TEACHER, UserRoles.STUDENT)]
     public class ReportController : BaseApiController
     {
         UserRepository _userRepository;
@@ -31,16 +31,16 @@ namespace MusicEducation.Core.Controllers
         //private readonly string _GeneratedDirectorySource = "Content\\GeneratedDocuments\\";
         private readonly string _GeneratedDirectoryFile = AppDomain.CurrentDomain.BaseDirectory + "Content\\GeneratedDocuments\\";
 
-        private readonly GetUserResult _User;
+        private GetUserByIdResult _User;
 
         public ReportController()
         {
             _userRepository = new UserRepository();
-            _User = _userRepository.GetUser(null, User.Identity.Name);
+            //_User = _userRepository.GetUser(null, User.Identity.Name);
         }
 
         [ActionName("GetReportPerformance")]
-        public HttpResponseMessage Get(string datefrom, string dateto)
+        public HttpResponseMessage Get(int? iduser, string datefrom, string dateto)
         {
             //string destinationFile = Path.Combine(_GeneratedDirectoryFile, string.Format("GeneratedDocument_{0}_{1}.docx", DateTime.Today.Date.ToString("dd.MM.yyyy"), Guid.NewGuid()));
             //string sourceFile = Path.Combine(_TemplateFile, "ReportTemplate.docx");
@@ -75,6 +75,8 @@ namespace MusicEducation.Core.Controllers
             //    //Console.WriteLine(“\nPress Enter to continue…”);
             //    //Console.ReadLine();
             //}
+
+            _User = _userRepository.GetUser(iduser.Value, iduser.Value);
 
             List<List<GetStatisticsForExportResult>> data = _userRepository.GetStatisticsForExport(4, DateTime.Parse(datefrom), DateTime.Parse(dateto))
                 .ToList()

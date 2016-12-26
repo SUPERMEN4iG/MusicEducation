@@ -61,6 +61,7 @@ namespace MusicEducation.Core.Lib.Excel
                 Cell cell313 = new Cell() { CellReference = "D" + countedNumber.ToString(), StyleIndex = (UInt32Value)14U };
                 Cell cell314 = new Cell() { CellReference = "E" + countedNumber.ToString(), StyleIndex = (UInt32Value)14U };
                 Cell cell315 = new Cell() { CellReference = "F" + countedNumber.ToString(), StyleIndex = (UInt32Value)15U };
+                Cell cell316 = new Cell() { CellReference = "G" + countedNumber.ToString(), StyleIndex = (UInt32Value)15U };
 
                 row5.Append(cell291);
                 row5.Append(cell311);
@@ -68,9 +69,10 @@ namespace MusicEducation.Core.Lib.Excel
                 row5.Append(cell313);
                 row5.Append(cell314);
                 row5.Append(cell315);
+                row5.Append(cell316);
 
                 sheetData.Append(row5);
-                mergeCells.Append(new MergeCell() { Reference = string.Format("A{0}:F{0}", countedNumber.ToString()) });
+                mergeCells.Append(new MergeCell() { Reference = string.Format("A{0}:G{0}", countedNumber.ToString()) });
 
                 counterCategory++;
 
@@ -101,16 +103,21 @@ namespace MusicEducation.Core.Lib.Excel
 
                     Cell cell36 = new Cell() { CellReference = "F" + countedNumber2.ToString(), StyleIndex = (UInt32Value)15U };
 
+                    Cell cell37 = new Cell() { CellReference = "G" + countedNumber2.ToString(), StyleIndex = (UInt32Value)15U, DataType = CellValues.String };
+                    cell37.CellValue = new CellValue(itemStyle.Value.AvgValidPercent.ToString());
+
                     row.Append(cell31);
                     row.Append(cell32);
                     row.Append(cell33);
                     row.Append(cell34);
                     row.Append(cell35);
                     row.Append(cell36);
+                    row.Append(cell37);
 
                     mergeCells.Append(new MergeCell() { Reference = string.Format("A{0}:B{0}", countedNumber2.ToString()) });
                     mergeCells.Append(new MergeCell() { Reference = string.Format("C{0}:D{0}", countedNumber2.ToString()) });
                     mergeCells.Append(new MergeCell() { Reference = string.Format("E{0}:F{0}", countedNumber2.ToString()) });
+                    mergeCells.Append(new MergeCell() { Reference = string.Format("G{0}:G{0}", countedNumber2.ToString()) });
 
                     counterStyle++;
                 }
@@ -1330,7 +1337,7 @@ namespace MusicEducation.Core.Lib.Excel
 
             SheetData sheetData1 = new SheetData();
 
-            Row row1 = new Row() { RowIndex = (UInt32Value)1U, Spans = new ListValue<StringValue>() { InnerText = "1:6" }, DyDescent = 0.25D };
+            Row row1 = new Row() { RowIndex = (UInt32Value)1U, Spans = new ListValue<StringValue>() { InnerText = "1:7" }, DyDescent = 0.25D };
 
             Cell cell1 = new Cell() { CellReference = "A1", StyleIndex = (UInt32Value)5U, DataType = CellValues.SharedString };
             CellValue cellValue1 = new CellValue();
@@ -1342,7 +1349,7 @@ namespace MusicEducation.Core.Lib.Excel
             Cell cell4 = new Cell() { CellReference = "D1", StyleIndex = (UInt32Value)5U };
             Cell cell5 = new Cell() { CellReference = "E1", StyleIndex = (UInt32Value)5U };
             Cell cell6 = new Cell() { CellReference = "F1", StyleIndex = (UInt32Value)5U };
-            Cell cell7 = new Cell() { CellReference = "G1", StyleIndex = (UInt32Value)1U };
+            Cell cell7 = new Cell() { CellReference = "G1", StyleIndex = (UInt32Value)5U };
 
             row1.Append(cell1);
             row1.Append(cell2);
@@ -1352,24 +1359,24 @@ namespace MusicEducation.Core.Lib.Excel
             row1.Append(cell6);
             row1.Append(cell7);
 
-            Row row2 = new Row() { RowIndex = (UInt32Value)2U, Spans = new ListValue<StringValue>() { InnerText = "1:6" }, DyDescent = 0.25D };
+            Row row2 = new Row() { RowIndex = (UInt32Value)2U, Spans = new ListValue<StringValue>() { InnerText = "1:7" }, DyDescent = 0.25D };
 
-            Cell cell8 = new Cell() { CellReference = "A2", StyleIndex = (UInt32Value)7U, DataType = CellValues.SharedString };
+            Cell cell8 = new Cell() { CellReference = "A2", StyleIndex = (UInt32Value)6U, DataType = CellValues.SharedString };
             CellValue cellValue2 = new CellValue();
             cellValue2.Text = "0";
 
             cell8.Append(cellValue2);
-            Cell cell9 = new Cell() { CellReference = "B2", StyleIndex = (UInt32Value)8U };
+            Cell cell9 = new Cell() { CellReference = "B2", StyleIndex = (UInt32Value)4U };
 
-            Cell cell10 = new Cell() { CellReference = "C2", StyleIndex = (UInt32Value)6U, DataType = CellValues.SharedString };
+            Cell cell10 = new Cell() { CellReference = "C2", StyleIndex = (UInt32Value)9U, DataType = CellValues.SharedString };
             CellValue cellValue3 = new CellValue();
             cellValue3.Text = "2";
 
             cell10.Append(cellValue3);
-            Cell cell11 = new Cell() { CellReference = "D2", StyleIndex = (UInt32Value)6U };
-            Cell cell12 = new Cell() { CellReference = "E2", StyleIndex = (UInt32Value)6U };
-            Cell cell13 = new Cell() { CellReference = "F2", StyleIndex = (UInt32Value)6U };
-            Cell cell14 = new Cell() { CellReference = "G2", StyleIndex = (UInt32Value)2U };
+            Cell cell11 = new Cell() { CellReference = "D2", StyleIndex = (UInt32Value)9U };
+            Cell cell12 = new Cell() { CellReference = "E2", StyleIndex = (UInt32Value)9U };
+            Cell cell13 = new Cell() { CellReference = "F2", StyleIndex = (UInt32Value)9U };
+            Cell cell14 = new Cell() { CellReference = "G2", StyleIndex = (UInt32Value)9U };
 
             row2.Append(cell8);
             row2.Append(cell9);
@@ -1379,24 +1386,24 @@ namespace MusicEducation.Core.Lib.Excel
             row2.Append(cell13);
             row2.Append(cell14);
 
-            Row row3 = new Row() { RowIndex = (UInt32Value)3U, Spans = new ListValue<StringValue>() { InnerText = "1:6" }, DyDescent = 0.25D };
+            Row row3 = new Row() { RowIndex = (UInt32Value)3U, Spans = new ListValue<StringValue>() { InnerText = "1:7" }, DyDescent = 0.25D };
 
-            Cell cell15 = new Cell() { CellReference = "A3", StyleIndex = (UInt32Value)9U, DataType = CellValues.SharedString };
+            Cell cell15 = new Cell() { CellReference = "A3", StyleIndex = (UInt32Value)7U, DataType = CellValues.SharedString };
             CellValue cellValue4 = new CellValue();
             cellValue4.Text = "1";
 
             cell15.Append(cellValue4);
-            Cell cell16 = new Cell() { CellReference = "B3", StyleIndex = (UInt32Value)10U };
+            Cell cell16 = new Cell() { CellReference = "B3", StyleIndex = (UInt32Value)8U };
 
-            Cell cell17 = new Cell() { CellReference = "C3", StyleIndex = (UInt32Value)11U, DataType = CellValues.SharedString };
+            Cell cell17 = new Cell() { CellReference = "C3", StyleIndex = (UInt32Value)9U, DataType = CellValues.SharedString };
             CellValue cellValue5 = new CellValue();
             cellValue5.Text = "3";
 
             cell17.Append(cellValue5);
-            Cell cell18 = new Cell() { CellReference = "D3", StyleIndex = (UInt32Value)11U };
-            Cell cell19 = new Cell() { CellReference = "E3", StyleIndex = (UInt32Value)11U };
-            Cell cell20 = new Cell() { CellReference = "F3", StyleIndex = (UInt32Value)11U };
-            Cell cell21 = new Cell() { CellReference = "G3", StyleIndex = (UInt32Value)2U };
+            Cell cell18 = new Cell() { CellReference = "D3", StyleIndex = (UInt32Value)9U };
+            Cell cell19 = new Cell() { CellReference = "E3", StyleIndex = (UInt32Value)9U };
+            Cell cell20 = new Cell() { CellReference = "F3", StyleIndex = (UInt32Value)9U };
+            Cell cell21 = new Cell() { CellReference = "G3", StyleIndex = (UInt32Value)9U };
 
             row3.Append(cell15);
             row3.Append(cell16);
@@ -1406,29 +1413,34 @@ namespace MusicEducation.Core.Lib.Excel
             row3.Append(cell20);
             row3.Append(cell21);
 
-            Row row4 = new Row() { RowIndex = (UInt32Value)4U, Spans = new ListValue<StringValue>() { InnerText = "1:6" }, DyDescent = 0.25D };
+            Row row4 = new Row() { RowIndex = (UInt32Value)4U, Spans = new ListValue<StringValue>() { InnerText = "1:7" }, DyDescent = 0.25D };
 
-            Cell cell22 = new Cell() { CellReference = "A4", StyleIndex = (UInt32Value)12U, DataType = CellValues.SharedString };
+            Cell cell22 = new Cell() { CellReference = "A4", StyleIndex = (UInt32Value)10U, DataType = CellValues.SharedString };
             CellValue cellValue6 = new CellValue();
             cellValue6.Text = "5";
 
             cell22.Append(cellValue6);
-            Cell cell23 = new Cell() { CellReference = "B4", StyleIndex = (UInt32Value)13U };
+            Cell cell23 = new Cell() { CellReference = "B4", StyleIndex = (UInt32Value)1U };
 
-            Cell cell24 = new Cell() { CellReference = "C4", StyleIndex = (UInt32Value)12U, DataType = CellValues.SharedString };
+            Cell cell24 = new Cell() { CellReference = "C4", StyleIndex = (UInt32Value)11U, DataType = CellValues.SharedString };
             CellValue cellValue7 = new CellValue();
             cellValue7.Text = "6";
 
             cell24.Append(cellValue7);
-            Cell cell25 = new Cell() { CellReference = "D4", StyleIndex = (UInt32Value)13U };
+            Cell cell25 = new Cell() { CellReference = "D4", StyleIndex = (UInt32Value)12U };
 
-            Cell cell26 = new Cell() { CellReference = "E4", StyleIndex = (UInt32Value)12U, DataType = CellValues.SharedString };
+            Cell cell26 = new Cell() { CellReference = "E4", StyleIndex = (UInt32Value)11U, DataType = CellValues.SharedString };
             CellValue cellValue8 = new CellValue();
             cellValue8.Text = "7";
 
             cell26.Append(cellValue8);
-            Cell cell27 = new Cell() { CellReference = "F4", StyleIndex = (UInt32Value)13U };
-            Cell cell28 = new Cell() { CellReference = "G4", StyleIndex = (UInt32Value)4U };
+            Cell cell27 = new Cell() { CellReference = "F4", StyleIndex = (UInt32Value)12U };
+
+            Cell cell28 = new Cell() { CellReference = "G4", StyleIndex = (UInt32Value)9U, DataType = CellValues.SharedString };
+            CellValue cellValue9 = new CellValue();
+            cellValue9.Text = "8";
+
+            cell28.Append(cellValue9);
 
             row4.Append(cell22);
             row4.Append(cell23);
@@ -1490,11 +1502,11 @@ namespace MusicEducation.Core.Lib.Excel
             //MergeCell mergeCell2 = new MergeCell() { Reference = "C6:D6" };
             //MergeCell mergeCell3 = new MergeCell() { Reference = "E6:F6" };
             //MergeCell mergeCell4 = new MergeCell() { Reference = "A5:F5" };
-            MergeCell mergeCell5 = new MergeCell() { Reference = "A1:F1" };
-            MergeCell mergeCell6 = new MergeCell() { Reference = "C2:F2" };
+            MergeCell mergeCell5 = new MergeCell() { Reference = "A1:G1" };
+            MergeCell mergeCell6 = new MergeCell() { Reference = "C2:G2" };
             MergeCell mergeCell7 = new MergeCell() { Reference = "A2:B2" };
             MergeCell mergeCell8 = new MergeCell() { Reference = "A3:B3" };
-            MergeCell mergeCell9 = new MergeCell() { Reference = "C3:F3" };
+            MergeCell mergeCell9 = new MergeCell() { Reference = "C3:G3" };
             MergeCell mergeCell10 = new MergeCell() { Reference = "A4:B4" };
             MergeCell mergeCell11 = new MergeCell() { Reference = "C4:D4" };
             MergeCell mergeCell12 = new MergeCell() { Reference = "E4:F4" };
@@ -1549,7 +1561,7 @@ namespace MusicEducation.Core.Lib.Excel
 
             SharedStringItem sharedStringItem2 = new SharedStringItem();
             Text text2 = new Text();
-            text2.Text = "ФИО";
+            text2.Text = "ФИО преподавателя";
 
             sharedStringItem2.Append(text2);
 
@@ -1589,6 +1601,12 @@ namespace MusicEducation.Core.Lib.Excel
 
             sharedStringItem8.Append(text8);
 
+            SharedStringItem sharedStringItem9 = new SharedStringItem();
+            Text text9 = new Text();
+            text9.Text = "Средний балл";
+
+            sharedStringItem9.Append(text9);
+
             sharedStringTable1.Append(sharedStringItem1);
             sharedStringTable1.Append(sharedStringItem2);
             sharedStringTable1.Append(sharedStringItem3);
@@ -1597,6 +1615,7 @@ namespace MusicEducation.Core.Lib.Excel
             sharedStringTable1.Append(sharedStringItem6);
             sharedStringTable1.Append(sharedStringItem7);
             sharedStringTable1.Append(sharedStringItem8);
+            sharedStringTable1.Append(sharedStringItem9);
 
             sharedStringTablePart1.SharedStringTable = sharedStringTable1;
         }

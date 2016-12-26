@@ -19,6 +19,10 @@ define(['app'], function (app) {
 			{ Id: 0, Name: 'Не показывать' }
 		];
 
+		vm.pianoSettings = {
+		    isShowHints: true
+		};
+
 		vm.testList = [];
 		vm.avalibleTestList = [];
 		vm.id = id;
@@ -81,9 +85,17 @@ define(['app'], function (app) {
 			vm.taskState = state;
 			$rootScope.$emit('ON_PIANO_INIT', {
 				octaves: vm.currentTest.Questions[vm.currentQuestion].Content.octaves,
-				isshowhint: vm.currentTest.IsShowHints
+				isshowhint: vm.pianoSettings.isShowHints
 			});
 		};
+
+		$scope.$watch('vm.pianoSettings.isShowHints', function () {
+		    console.log('ON_PIANO_INIT');
+		    $rootScope.$emit('ON_PIANO_INIT', {
+		        octaves: vm.currentTest.Questions[vm.currentQuestion].Content.octaves,
+		        isshowhint: vm.pianoSettings.isShowHints
+		    });
+		});
 
 		vm.setRecording = function (rec) {
 			if (rec) {
@@ -158,15 +170,16 @@ define(['app'], function (app) {
 		};
 
 		vm.appendTaskToGroup = function () {
-			var counter = 0;
+		    var counter = 0;
 
+			vm.currentInputGroup.User_TestType = 'Обучающиее задание';
 			vm.currentInputGroup.User_TestType = findInDictionaryByName(vm.testTypeDictionary, vm.currentInputGroup.User_TestType).Id;
 			vm.currentInputGroup.IsShowHints = findInDictionaryByName(vm.isShowHintsDictionary, vm.currentInputGroup.IsShowHints).Id;
 
 			angular.forEach(vm.selectedGroups, function (vGroup, kGroup) {
 				angular.forEach(vm.selectedTasks, function (vTest, kTest) {
 					counter++;
-					testService.appendTaskToGroup(kGroup, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity, vm.currentInputGroup.User_TestType, vm.currentInputGroup.IsShowHints).then(function (data) {
+					testService.appendTaskToGroup(kGroup, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, '', vm.currentInputGroup.User_TestType, vm.currentInputGroup.IsShowHints).then(function (data) {
 					    toastr.info('Задание отправлено группе');
 					});
 				});
@@ -174,15 +187,17 @@ define(['app'], function (app) {
 		};
 
 		vm.appendTaskToUser = function () {
-			var counter = 0;
+		    var counter = 0;
 
+			vm.currentInputGroup.User_TestType = 'Обучающиее задание';
 			vm.currentInputGroup.User_TestType = findInDictionaryByName(vm.testTypeDictionary, vm.currentInputGroup.User_TestType).Id;
 			vm.currentInputGroup.IsShowHints = findInDictionaryByName(vm.isShowHintsDictionary, vm.currentInputGroup.IsShowHints).Id;
 
 			angular.forEach(vm.selectedStudents, function (vUser, kUser) {
 				angular.forEach(vm.selectedTasks, function (vTest, kTest) {
 					counter++;
-					testService.appendTaskToUser(kUser, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, vm.currentInputGroup.Complexity, vm.currentInputGroup.User_TestType, vm.currentInputGroup.IsShowHints).then(function (data) {
+
+					testService.appendTaskToUser(kUser, kTest, vm.currentInputGroup.CountAttempts, vm.currentInputGroup.Timing, '', vm.currentInputGroup.User_TestType, vm.currentInputGroup.IsShowHints).then(function (data) {
 					    studentService.getStudent(kUser).then(function (user) {
 					        toastr.info('Задание отправлено пользоватлю');
 					        $rootScope.notificationService.sendNotification($rootScope.globals.currentUser.source.Id, user.Login, "Тест", "Получен новое задание!", 1);
@@ -526,7 +541,7 @@ define(['app'], function (app) {
 								vm.isListening = true;
 								$rootScope.$emit('ON_PIANO_INIT', {
 									octaves: vm.currentTest.Questions[vm.currentQuestion].Content.octaves,
-									isshowhint: vm.currentTest.IsShowHints
+									isshowhint: vm.pianoSettings.isShowHints
 								});
 								vm.taskState = 1;
 							}, 100);

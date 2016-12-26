@@ -323,11 +323,14 @@ namespace MusicEducation.Core.Controllers.Api
 			}
 
             // get deleted objects
-            IEnumerable<TestViewModel.QuestionModel> deletedQuestions = source.Questions.Except(changes.Questions, new QuestionCustomComparer());
-
-            foreach (var item in deletedQuestions)
+            if (changes.Questions.Count < source.Questions.Count)
             {
-                _testRepository.DeleteUser_Question(_User.Id_User, source.Id, item.Id);
+                IEnumerable<TestViewModel.QuestionModel> deletedQuestions = source.Questions.Except(changes.Questions, new QuestionCustomComparer());
+
+                foreach (var item in deletedQuestions)
+                {
+                    _testRepository.DeleteUser_Question(_User.Id_User, source.Id, item.Id);
+                }
             }
 
 			foreach (var item in changes.Questions)

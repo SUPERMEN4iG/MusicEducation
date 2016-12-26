@@ -36,15 +36,17 @@
                     <thead>
                         <tr>
                             <th>Название</th>
-                            <th>Сложность</th>
-                            <th>Создатель</th>
+                            <th>Дата назначения</th>
+                            <!--<th>Сложность</th>-->
+                            <th>Разработчик</th>
                             <th>Процент правильных ответов</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="test in vm.testList" ng-click="vm.goToTest(test)" ng-class="vm.getClassNameValidPercent(test.UserAnswerValidPercent)">
                             <td>{{test.Name}}</td>
-                            <td>{{test.Complexity}}</td>
+                            <td>{{test.DateCreate}}</td>
+                            <!--<td>{{test.Complexity}}</td>-->
                             <td>{{test.LastName}} {{test.FirstName[0]}}. {{test.MiddleName[0]}}.</td>
                             <td>{{test.UserAnswerValidPercent}}</td>
                         </tr>
@@ -105,13 +107,13 @@
                             <div style="position: absolute;margin-top: 40px;margin-left: 75px;">Нажми, чтобы начать выполнение!</div>-->
 							<div class="ui right aligned grid">
 								<div class="row">
-                                    <div class="three wide column">
+                                    <div class="four wide column">
                                         <button style="float:left" class="ui button green" ng-click="vm.setTaskState(2)">
                                             <i class="configure icon"></i>
-                                            В режим выполнения
+                                            Перейти в режим выполнения
                                         </button>
                                     </div>
-									<div class="five wide column"></div>
+									<div class="four wide column"></div>
                                     <div class="eight wide column">
                                         <button class="ui button green" ng-click="vm.playNotes(vm.currentTest.Questions[vm.currentQuestion].Content.content)">
                                             <i class="play icon"></i>
@@ -134,13 +136,13 @@
 							<!--<a class="ui green ribbon label" ng-click="vm.setTaskState(1)">Выполнение задания</a>-->
 							<div class="ui right aligned grid">
 								<div class="row">
-                                    <div class="three wide column">
+                                    <div class="four wide column">
                                         <button style="float:left" class="ui button green" ng-click="vm.setTaskState(1)">
                                             <i class="play icon"></i>
-                                            В режим прослушивания
+                                            Перейти в режим прослушивания
                                         </button>
                                     </div>
-                                    <div class="five wide column"></div>
+                                    <div class="four wide column"></div>
                                     <div class="eight wide column">
                                         <button class="ui button green"
                                                 ng-click="vm.playNotes(vm.currentTask.localUserNotes)"
@@ -176,6 +178,8 @@
                                 <div class="five wide column">
                                     <label>Уровень громкости - {{vm.volumeLevel}}</label><br />
                                     <input type="range" ng-model="vm.volumeLevel"><br />
+                                    <input class="ui toggle checkbox" type="checkbox" ng-model="vm.pianoSettings.isShowHints">
+                                    <label>Показать обозначения</label>
                                 </div>
                             </div>
                         </div>
@@ -226,8 +230,9 @@
                         <tr>
 							<th></th>
                             <th>Название</th>
-                            <th>Сложность</th>
-                            <th>Создатель</th>
+                            <th>Дата создания</th>
+                            <!--<th>Сложность</th>-->
+                            <th>Разработчик</th>
 							<th></th>
                         </tr>
                     </thead>
@@ -237,7 +242,8 @@
 								<checkbox checked="false" ng-model="vm.selectedTasks[task.Id]"></checkbox>
 							</td>
                             <td>{{task.Name}}</td>
-                            <td>{{task.Complexity}}</td>
+                            <td>{{task.DateCreate}}</td>
+                            <!--<td>{{task.Complexity}}</td>-->
                             <td>{{task.LastName}} {{task.FirstName[0]}}. {{task.MiddleName[0]}}.</td>
 							<td class="collapsing">
 								<div class="ui icon buttons">
@@ -256,7 +262,7 @@
 					<tfoot class="full-width">
 						<tr>
 							<th></th>
-							<th colspan="4">
+							<th colspan="5">
                                 <button class="ui right floated small red labeled icon button"
                                         ng-click="vm.deleteTasks()">
                                     <i class="delete icon"></i> Удалить
@@ -419,7 +425,7 @@
 				</tbody>
 			</table>
 			<form class="ui form" name="groupForm">
-				<div class="field">
+				<!--<div class="field">
 					<label>Сложность</label>
 					<dropdown name="complexity" open="false"
 							  ng-model="vm.currentInputGroup.Complexity"
@@ -428,15 +434,15 @@
 						<dropdown-group value="2">Средний</dropdown-group>
 						<dropdown-group value="1">Лёгкий</dropdown-group>
 					</dropdown>
-				</div>
-				<div class="field">
+				</div>-->
+				<!--<div class="field">
 					<label>Тип задания</label>
 					<dropdown name="idUser_TestType" open="false"
 							  ng-model="vm.currentInputGroup.User_TestType"
 							  title="Выберете тип задания">
 						<dropdown-group value="model.Id" title="model.Name" ng-repeat="model in vm.testTypeDictionary track by model.Id">{{model.Name}}</dropdown-group>
 					</dropdown>
-				</div>
+				</div>-->
 				<div class="field">
 					<label>Подсказки</label>
 					<dropdown title="Наличие подсказок"
@@ -497,7 +503,7 @@
 				</tbody>
 			</table>
 			<form class="ui form" name="groupForm">
-				<div class="field">
+				<!--<div class="field">
 					<label>Сложность</label>
 					<dropdown name="complexity" open="false"
 							  ng-model="vm.currentInputGroup.Complexity"
@@ -514,7 +520,7 @@
 							  title="Выберете тип задания">
 						<dropdown-group value="model.Id" title="model.Name" ng-repeat="model in vm.testTypeDictionary track by model.Id">{{model.Name}}</dropdown-group>
 					</dropdown>
-				</div>
+				</div>-->
 				<div class="field">
 					<label>Подсказки</label>
 					<dropdown title="Наличие подсказок"

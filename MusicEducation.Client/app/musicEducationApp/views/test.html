@@ -36,7 +36,8 @@
                     <thead>
                         <tr>
                             <th>Название</th>
-                            <th>Сложность</th>
+                            <th>Дата назначения</th>
+                            <!--<th>Сложность</th>-->
                             <th>Разработчик</th>
                             <th>Процент правильных ответов</th>
                         </tr>
@@ -44,7 +45,8 @@
                     <tbody>
                         <tr ng-repeat="test in vm.testList" ng-click="vm.goToTest(test)" ng-class="vm.getClassNameValidPercent(test.UserAnswerValidPercent)">
                             <td>{{test.Name}}</td>
-                            <td>{{test.Complexity}}</td>
+                            <td>{{test.DateCreate}}</td>
+                            <!--<td>{{test.Complexity}}</td>-->
                             <td>{{test.LastName}} {{test.FirstName[0]}}. {{test.MiddleName[0]}}.</td>
                             <td>{{test.UserAnswerValidPercent}}</td>
                         </tr>
@@ -125,6 +127,7 @@
                         <tr>
 							<th></th>
                             <th>Название</th>
+                            <th>Дата создания</th>
                             <th>Сложность</th>
                             <th>Разработчик</th>
 							<th>Количество вопросов</th>
@@ -137,6 +140,7 @@
 								<checkbox checked="false" ng-model="vm.selectedTests[test.Id]"></checkbox>
 							</td>
                             <td>{{test.Name}}</td>
+                            <td>{{test.DateCreate}}</td>
                             <td>{{test.Complexity}}</td>
                             <td>{{test.LastName}} {{test.FirstName[0]}}. {{test.MiddleName[0]}}.</td>
 							<td>{{test.CountQuestions}}</td>
@@ -161,7 +165,7 @@
 					<tfoot class="full-width">
 						<tr>
 							<th></th>
-							<th colspan="5">
+							<th colspan="6">
 								<button class="ui right floated small red labeled icon button"
 									 ng-click="vm.deleteTests()">
 									<i class="delete icon"></i> Удалить

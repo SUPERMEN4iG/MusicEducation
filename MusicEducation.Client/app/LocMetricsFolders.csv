@@ -1,0 +1,9 @@
+Folder,Files,LOC,SLOC-P,SLOC-L,MVG,BLOC,C&SLOC,CLOC,CWORD,HCLOC,HCWORD
+Total,38,10152,8410,4250,386,1249,30,493,1777,0,0
+E:\Projects\MusicEducation\MusicEducation.Client\app,38,10152,8410,4250,386,1249,30,493,1777,0,0
+E:\Projects\MusicEducation\MusicEducation.Client\app\musicEducationApp,37,9989,8326,4208,381,1220,28,443,1519,0,0
+E:\Projects\MusicEducation\MusicEducation.Client\app\musicEducationApp\controllers,13,3721,2926,2292,186,595,14,200,622,0,0
+E:\Projects\MusicEducation\MusicEducation.Client\app\musicEducationApp\directives,4,697,531,353,70,112,4,54,316,0,0
+E:\Projects\MusicEducation\MusicEducation.Client\app\musicEducationApp\directives\semantic-ui,1,65,53,36,2,11,0,1,7,0,0
+E:\Projects\MusicEducation\MusicEducation.Client\app\musicEducationApp\services,8,1901,1390,1129,125,324,1,187,548,0,0
+E:\Projects\MusicEducation\MusicEducation.Client\app\musicEducationApp\views,12,3670,3479,434,0,189,9,2,33,0,0

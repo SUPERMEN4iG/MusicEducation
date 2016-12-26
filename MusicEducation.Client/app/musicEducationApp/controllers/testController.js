@@ -65,7 +65,7 @@ define(['app'], function (app) {
 		                }
 		            });
 		        } else {
-		            toastr.error('Вы не можете удалять тесты других разработчиков');
+		            toastr.error('Вы не можете редактировать тесты других разработчиков');
 		        }
 		    } else {
 		    	console.log(test);

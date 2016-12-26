@@ -465,7 +465,7 @@ define(['app'], function (app) {
 		vm.dateTo = '01.01.2017';
 
 		vm.generateExcelStatistic = function () {
-		    reportService.getReportPerformance(vm.dateFrom, vm.dateTo);
+		    reportService.getReportPerformance($rootScope.globals.currentUser.source.Id, vm.dateFrom, vm.dateTo);
 		};
 
 		function init() {

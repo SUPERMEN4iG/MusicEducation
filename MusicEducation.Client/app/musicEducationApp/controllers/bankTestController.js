@@ -71,7 +71,7 @@ define(['app'], function (app) {
 		            $location.path(path + test.Id);
 		        }
 		    } else {
-		        toastr.error('Редактирование запрещено!');
+		        toastr.error('Вы не можете редактировать темы других разработчиков');
 		    }
 		};
 
@@ -372,7 +372,7 @@ define(['app'], function (app) {
 					            console.log(data);
 					        }
 					        else {
-					            toastr.error('Редактирование запрещено!');
+					            toastr.error('Вы не можете редактировать темы других разработчиков');
 					            $location.path(path);
 					        }
 						});

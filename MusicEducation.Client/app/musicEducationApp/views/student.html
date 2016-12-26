@@ -200,8 +200,8 @@
 											<i class="right chevron icon"></i>
 										</div>-->
 										<div style="margin-top:5px" class="ui label green">
-											<span ng-if="test.allCount !== null">Пройден на {{test.UserAnswerValidPercent}}%</span>
-											<span ng-if="test.allCount === null">Не пройден </span>
+                                            <span ng-if="test.UserAnswerValidPercent !== null">Пройден на {{test.UserAnswerValidPercent}} балл</span>
+                                            <span ng-if="test.UserAnswerValidPercent === null">Не пройден </span>
 										</div>
 									</div>
 								</div>
@@ -231,8 +231,8 @@
 											<i class="right chevron icon"></i>
 										</div>-->
 										<div style="margin-top:5px" class="ui label green">
-											<span ng-if="test.allCount !== null || test.UserAnswerValidPercent == 100">Пройден на {{test.UserAnswerValidPercent}}%</span>
-											<span ng-if="test.allCount === null && test.UserAnswerValidPercent == 0">Не пройден </span>
+                                            <span ng-if="test.UserAnswerValidPercent !== null">Пройден на {{test.UserAnswerValidPercent}} балл</span>
+                                            <span ng-if="test.UserAnswerValidPercent === null">Не пройден </span>
 										</div>
 									</div>
 								</div>
